@@ -1,4 +1,5 @@
 ﻿using EasyMaintain.WebUI.Models;
+using EasyMaintain.WebUI.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,45 @@ namespace EasyMaintain.WebUI.Controllers
 {
     public class SparePartsController : Controller
     {
+        public SparePartsViewModel SparePartsViewModelSession 
+        {
+            get
+            { 
+                if(Session[SessionUtility.SparePartsModel] != null)
+                {
+                    return (SparePartsViewModel)Session[SessionUtility.SparePartsModel];
+                }
+                else
+                {
+                    SparePartsViewModel model = new SparePartsViewModel();
+                    SparePartsViewModelSession = model;
+                    return model;
+                }
+            }
+            set
+            {
+                Session[SessionUtility.SparePartsModel] = value;
+            }
+        }
+
         public ActionResult Index()
         {
-            return View();
+            return View(SparePartsViewModelSession);
         }
 
         //Get
         [HttpGet]
         public PartialViewResult SpareParts()
         {
-            return PartialView("_SpareParts");
+            return PartialView("_SpareParts", SparePartsViewModelSession);
         }
 
         public PartialViewResult AddSparePart(SparePartsViewModel model)
         {
             //Update logic
-            return PartialView("_SpareParts", model);
+            SparePartsViewModelSession.SpareParts.Add(new SparePart { SparePartID = 101, Name = model.Name, Description = model.Description });
+
+            return PartialView("_SpareParts", SparePartsViewModelSession);
         }
 
         //Get
@@ -73,7 +97,22 @@ namespace EasyMaintain.WebUI.Controllers
         [HttpGet]
         public PartialViewResult Suppliers()
         {
-            return PartialView("_Suppliers");
+            SupplierViewModel vm = new SupplierViewModel();
+
+            for (int i = 0; i < 5; i++)
+            {
+                vm.SuppliersList.Add(new Supplier()
+                {
+                    Name = "Supplier " + i,
+                    AdditionalData = "Additional Data",
+                    Address ="Address" +i,
+                    ContactDetails = "Contact Details",
+                    Description = "Description",
+                    EmailAddress = "Email Address"                    
+                });
+            }
+
+            return PartialView("_Suppliers", vm);
         }
     }
 }

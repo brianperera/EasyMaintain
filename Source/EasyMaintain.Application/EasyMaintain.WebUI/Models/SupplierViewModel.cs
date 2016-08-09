@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyMaintain.WebUI.Models
@@ -42,6 +43,15 @@ namespace EasyMaintain.WebUI.Models
 
         [Required]
         [Display(Name = "Additional Data")]
-        public string AdditionalData { get; set; }   
+        public string AdditionalData { get; set; }
+
+        private List<Supplier> suppliersList = new List<Supplier>();
+
+        [Display(Name = "Suppliers List")]
+        public List<Supplier> SuppliersList
+        {
+            get { return suppliersList; }
+        }
+
     }
 }
