@@ -70,3 +70,7 @@ body {
         display: none;
     }
 }
+
+.margin-right-10 {
+    margin-right:10px;
+}

@@ -21,9 +21,7 @@ namespace EasyMaintain.WebUI.Controllers
             return PartialView("_SpareParts");
         }
 
-        //Post
-        [HttpPost]
-        public PartialViewResult SpareParts(SparePartsViewModel model)
+        public PartialViewResult AddSparePart(SparePartsViewModel model)
         {
             //Update logic
             return PartialView("_SpareParts", model);

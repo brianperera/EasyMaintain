@@ -23,8 +23,8 @@ namespace EasyMaintain.WebUI
             bundles.Add(new ScriptBundle("~/bundles/dataTable").Include(
                         "~/Scripts/jquery.dataTables.min.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-            //            "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/metro.css",

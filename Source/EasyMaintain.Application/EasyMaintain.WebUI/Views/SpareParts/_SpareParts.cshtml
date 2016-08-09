@@ -2,21 +2,21 @@
 
 <h1 class="text-light">Spare Parts</h1>
 
-@using (Html.BeginForm("SpareParts", "SpareParts", new { ReturnUrl = "SpareParts" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Ajax.BeginForm("AddSparePart", new AjaxOptions { HttpMethod="POST", InsertionMode=System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "partial-view-container" }))
 {
-    @Html.AntiForgeryToken()
-    <hr />
-    @Html.ValidationSummary(true)
+    @*@Html.AntiForgeryToken()*@
+    @*<hr />*@
+    @*@Html.ValidationSummary(true)*@
 
     <div class="example">
         <div class="grid">
             <div class="row cells2">
-                <div class="cell">
+                <div class="cell-form margin-right-10">
                     <div class="input-control text full-size">
                         @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
                     </div>
                 </div>
-                <div class="cell">
+                <div class="cell-form margin-right-10">
                     <div class="input-control text full-size">
                         @Html.TextBoxFor(m => m.Description, new { placeholder = "Description" })
                     </div>
@@ -81,5 +81,21 @@
         </tr>
     </tbody>
 </table>
+
+<script>
+    $('#SparePartsPartialViewForm').on('submit', function (e) {
+
+        alert('a');
+        // prevents form from submitting standard way, causing page refresh
+        e.preventDefault();
+
+        $.post('/SpareParts', $(this).serialize(), function (results) {
+            // results will be a rendered partial with the data here,
+            // which you can use to replace the content of a div or
+            // something on your page.
+            $('#partial-view-container').html(results);
+        });
+    });
+</script>
 
 
