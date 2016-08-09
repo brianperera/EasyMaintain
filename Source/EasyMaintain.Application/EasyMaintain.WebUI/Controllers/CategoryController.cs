@@ -18,7 +18,7 @@ namespace EasyMaintain.WebUI.Controllers
         [HttpGet]
         public PartialViewResult Category()
         {
-            return PartialView("Category");
+            return PartialView("_Categories");
         }
 
         //Post
@@ -26,7 +26,7 @@ namespace EasyMaintain.WebUI.Controllers
         public PartialViewResult Category(CategoryViewModel model)
         {
             //Update logic
-            return PartialView("Category", model);
+            return PartialView("_Categories", model);
         }
     }
 }

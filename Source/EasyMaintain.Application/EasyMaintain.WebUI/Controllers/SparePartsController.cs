@@ -34,6 +34,13 @@ namespace EasyMaintain.WebUI.Controllers
             return PartialView("_Categories");
         }
 
+        //Post
+        [HttpPost]
+        public PartialViewResult AddCategory(CategoryViewModel model)
+        {
+            return PartialView("_Categories", model);
+        }
+
         //Get
         [HttpGet]
         public PartialViewResult AircraftModels()
@@ -41,11 +48,25 @@ namespace EasyMaintain.WebUI.Controllers
             return PartialView("_AircraftModels");
         }
 
+        //Post
+        [HttpPost]
+        public PartialViewResult AddAircraftModel(AircraftModelModel model)
+        {
+            return PartialView("_AircraftModels", model);
+        }
+
         //Get
         [HttpGet]
         public PartialViewResult Manufactures()
         {
             return PartialView("_Manufactures");
+        }
+
+        //Post
+        [HttpPost]
+        public PartialViewResult AddManufacturer(ManufacturerViewModel model)
+        {
+            return PartialView("_Manufactures", model);
         }
 
         //Get

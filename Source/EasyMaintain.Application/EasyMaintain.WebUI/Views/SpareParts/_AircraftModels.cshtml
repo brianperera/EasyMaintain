@@ -1,9 +1,75 @@
-﻿<h1 class="text-light">Aircraft Models</h1>
-<hr class="thin bg-grayLighter">
-<button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Create...</button>
-<button class="button success" onclick="pushMessage('success')"><span class="mif-play"></span> Start</button>
-<button class="button warning" onclick="pushMessage('warning')"><span class="mif-loop2"></span> Restart</button>
-<button class="button alert" onclick="pushMessage('alert')">Stop all machines</button>
+﻿@model EasyMaintain.WebUI.Models.AircraftModelModel
+
+<h1 class="text-light">Aircraft Models</h1>
+
+@using (Ajax.BeginForm("AddAircraftModel", new AjaxOptions { HttpMethod = "POST", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = "partial-view-container" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <table class="grid">
+        <tr>
+            <td class="cell">Aircraft Model Name &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+            </td>
+            <td><span></span></td>
+        </tr>
+
+        <tr>
+            <td class="cell">Category &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextBoxFor(m => m.Category, new { placeholder = "Category" })
+            </td>
+            <td><span></span></td>
+        </tr>
+
+        <tr>
+            <td class="cell">Manufacturer Name &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextBoxFor(m => m.Manufacturer, new { placeholder = "Manufacturer Name" })
+            </td>
+            <td><span></span></td>
+        </tr>
+
+        <tr>
+            <td class="cell">Engine Type &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextBoxFor(m => m.EngineType, new { placeholder = "Engine Type" })
+            </td>
+            <td><span></span></td>
+        </tr>
+        
+        <tr>
+            <td class="cell">Description &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextAreaFor(m => m.Description, new { placeholder = "Description", cols = "20", rows = "2", style = "margin: 0px; width: 195px; height: 102px;" })
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="cell">Image Path &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextBoxFor(m => m.ImagePath, new { placeholder = "Image Path" })
+            </td>
+            <td><span></span></td>
+        </tr>
+
+        <tr>
+            <td class="cell">Additional Data &nbsp; &nbsp; : &nbsp; &nbsp;</td>
+            <td class="row cells2">
+                @Html.TextAreaFor(m => m.AdditionalData, new { placeholder = "Additional Data", cols = "20", rows = "2", style = "margin: 0px; width: 195px; height: 102px;" })
+            </td>
+        </tr>
+    </table>
+    <hr />
+
+    <button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Create</button>
+    <button class="button warning" onclick="pushMessage('warning')"><span class="mif-loop2"></span> Update</button>
+    <button class="button alert" onclick="pushMessage('alert')"><span class="mif-cross"></span> Delete</button>
+}
+
 <hr class="thin bg-grayLighter">
 <table class="dataTable border bordered" data-role="datatable" data-auto-width="false">
     <thead>
