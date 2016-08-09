@@ -8,24 +8,25 @@
     <hr />
     @Html.ValidationSummary(true)
 
-    <table class="grid">
-        <tr>
-            <td class="cell">Category Name &nbsp; &nbsp; : &nbsp; &nbsp;</td>
-            <td class="row cells2">
-                @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
-            </td>
-            <td><span></span></td>
-        </tr>
-        <tr>
-            <td class="cell">Additional Data &nbsp; &nbsp; : &nbsp; &nbsp;</td>
-            <td class="row cells2">
-                @Html.TextAreaFor(m => m.AdditionalData, new { placeholder = "Additional Data", cols = "20", rows = "2", style = "margin: 0px; width: 195px; height: 102px;" })
-            </td>
-        </tr>
-    </table>
-
+    <div class="example">
+        <div class="flex-grid">
+            <div class="row cells2">
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>Name</label>
+                    <div class="input-control text full-size">
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                    </div>
+                </div>
+                <div class="cell-form margin-right-10 cell size4">
+                    <label class="display-block">Additional Data</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextAreaFor(m => m.AdditionalData, new { placeholder = "Additional Data" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <hr />
-
     <button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Create</button>
     <button class="button warning" onclick="pushMessage('warning')"><span class="mif-loop2"></span> Update</button>
     <button class="button alert" onclick="pushMessage('alert')"><span class="mif-cross"></span> Delete</button>
