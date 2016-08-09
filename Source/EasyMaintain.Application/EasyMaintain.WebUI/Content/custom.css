@@ -78,3 +78,7 @@ body {
 .display-block {
     display: block !important;
 }
+
+.form-page-main-container {
+    overflow-y:scroll;
+}

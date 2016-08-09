@@ -40,12 +40,6 @@
             </div>
             <div class="row cells2">
                 <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Description</label>
-                    <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.Description, new { placeholder = "Description" })
-                    </div>
-                </div>
-                <div class="cell-form margin-right-10 cell size4">
                     <label>Image</label>
                     <div class="input-control text full-size">
                         @Html.TextBoxFor(m => m.ImagePath, new { placeholder = "Image Path" })
@@ -54,9 +48,9 @@
             </div>
             <div class="row cells2">
                 <div class="cell-form margin-right-10 cell size4">
-                    <label>Image</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.ImagePath, new { placeholder = "Image Path" })
+                    <label class="display-block">Description</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextAreaFor(m => m.Description, new { placeholder = "Description" })
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">

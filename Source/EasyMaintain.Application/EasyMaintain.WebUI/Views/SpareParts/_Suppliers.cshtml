@@ -4,7 +4,10 @@
 
 @using (Ajax.BeginForm("AddSupplier", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partial-view-container" }))
 {
-
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true)
+    
     <div class="example">
         <div class="flex-grid">
             <div class="row cells2">
