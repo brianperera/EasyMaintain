@@ -159,11 +159,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EngineTypeController.cs" />
+    <Compile Include="Controllers\ManufacturerController.cs" />
+    <Compile Include="Controllers\AircraftModelController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\SparePartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EngineTypeViewModel.cs" />
+    <Compile Include="Models\AircraftModelModel.cs" />
+    <Compile Include="Models\SupplierViewModel.cs" />
+    <Compile Include="Models\ManufacturerViewModel.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\SparePartsViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -221,10 +231,15 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\SpareParts\_SpareParts.cshtml" />
-    <Content Include="Views\SpareParts\_Categories.cshtml" />
     <Content Include="Views\SpareParts\_AircraftModels.cshtml" />
     <Content Include="Views\SpareParts\_Manufactures.cshtml" />
     <Content Include="Views\SpareParts\_Suppliers.cshtml" />
+    <Content Include="Views\SpareParts\_Categories.cshtml" />
+    <Content Include="Views\Supplier\Supplier.cshtml" />
+    <Content Include="Views\Category\Category.cshtml" />
+    <Content Include="Views\Manufacturer\Manufacturer.cshtml" />
+    <Content Include="Views\EngineType\EngineType.cshtml" />
+    <Content Include="Views\AircraftModel\AircraftModel.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

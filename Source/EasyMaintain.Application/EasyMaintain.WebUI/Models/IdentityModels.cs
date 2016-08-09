@@ -13,5 +13,15 @@ namespace EasyMaintain.WebUI.Models
             : base("DefaultConnection")
         {
         }
+
+        public System.Data.Entity.DbSet<EasyMaintain.WebUI.Models.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.WebUI.Models.Supplier> Suppliers { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.WebUI.Models.Manufacturer> Manufacturers { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.WebUI.Models.EngineType> EngineTypes { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.WebUI.Models.AircraftModel> AircraftModels { get; set; }
     }
 }
