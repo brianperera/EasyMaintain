@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9ee2aa25a6524df0b84d87245683f626" Name="Diagram1">
+        <EntityTypeShape EntityType="EasyMaintainDataModel.AircraftModel" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.Category" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.EngineType" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.Inventory" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.Manufacturer" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.SparePart_AircraftModel" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.SparePart_Manufacturer" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.SparePart_Supplier" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.SparePart" Width="1.5" PointX="3" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyMaintainDataModel.Supplier" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__AircraftM__Categ__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__AircraftM__Engin__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__AircraftM__Manuf__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__SparePart__Aircr__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK_SpareParts_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__EngineTyp__Manuf__108B795B" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__Inventory__Spare__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__SparePart__Manuf__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__SparePart__Spare__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__SparePart__Spare__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__SparePart__Spare__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyMaintainDataModel.FK__SparePart__Suppl__24927208" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
