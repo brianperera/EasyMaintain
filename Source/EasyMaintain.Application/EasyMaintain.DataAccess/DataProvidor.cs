@@ -167,13 +167,13 @@ namespace EasyMaintain.DataAccess
             }
         }
 
-        public void AddCategory(string categoryName)
+        public void AddCategory(string categoryName, string additionalData)
         {
             // insert
             using (var db = new EasyMaintainEntities())
             {
                 var category = db.Set<Category>();
-                category.Add(new Category { CategoryName = categoryName });
+                category.Add(new Category { CategoryName = categoryName, AdditionalData = additionalData });
 
                 db.SaveChanges();
             }

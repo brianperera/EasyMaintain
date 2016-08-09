@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyMaintain.DataAccess;
 
 namespace EasyMaintain.Business
 {
@@ -19,13 +20,26 @@ namespace EasyMaintain.Business
 
         public Manufacturer()
         {
-            //TODO
+
         }
 
         public object GetData()
         {
-            //TODO
-            return new List<Manufacturer>();
+            List<Manufacturer> result = new List<Manufacturer>();
+            DataProvidor dp = new DataProvidor();
+
+            foreach (DataAccess.Manufacturer manufacturer in dp.GetManufacturerData())
+            {
+                Manufacturer _manufacturer = new Manufacturer();
+                _manufacturer.ManufacturerID = manufacturer.ManufacturerID;
+                _manufacturer.Name = manufacturer.ManufacturerName;
+                _manufacturer.Description = manufacturer.Description;
+                _manufacturer.AdditionalData = manufacturer.AdditionalData;
+
+                result.Add(_manufacturer);
+            }
+
+            return result;
         }
 
         public int Save(object manufacturer)
@@ -37,15 +51,17 @@ namespace EasyMaintain.Business
 
         public int Insert(object manufacturer)
         {
-            //TODO
             this.mManufacturer = manufacturer as Manufacturer;
+            DataProvidor dp = new DataProvidor();
+            dp.AddManufacturer(mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
             return -1;
         }
 
         public void DeleteOne(object manufacturer)
         {
-            //TODO
             this.mManufacturer = manufacturer as Manufacturer;
+            DataProvidor dp = new DataProvidor();
+            dp.DeleteManufacturer(mManufacturer.ManufacturerID);
         }
 
     }
