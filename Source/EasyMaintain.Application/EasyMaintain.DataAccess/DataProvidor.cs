@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace EasyMaintain.DataAccess
 {
     public class DataProvidor
     {
+        /// <summary>
+        /// Get Supplier Data
+        /// </summary>
+        /// <returns></returns>
         public List<Supplier> GetSupplierData()
         {
             List<Supplier> supplierList = new List<Supplier>();
@@ -27,6 +32,10 @@ namespace EasyMaintain.DataAccess
             return supplierList;
         }
 
+        /// <summary>
+        /// Get Spare Parts Data
+        /// </summary>
+        /// <returns></returns>
         public List<SparePart> GetSparePartsData()
         {
             List<SparePart> sparePartsList = new List<SparePart>();
@@ -46,6 +55,10 @@ namespace EasyMaintain.DataAccess
             return sparePartsList;
         }
 
+        /// <summary>
+        /// Get Manufacturer Data
+        /// </summary>
+        /// <returns></returns>
         public List<Manufacturer> GetManufacturerData()
         {
             List<Manufacturer> manufacturer = new List<Manufacturer>();
@@ -65,6 +78,10 @@ namespace EasyMaintain.DataAccess
             return manufacturer;
         }
 
+        /// <summary>
+        /// Get Aircraft Model Data
+        /// </summary>
+        /// <returns></returns>
         public List<AircraftModel> GetAircraftModelData()
         {
             List<AircraftModel> aircraftModel = new List<AircraftModel>();
@@ -84,6 +101,10 @@ namespace EasyMaintain.DataAccess
             return aircraftModel;
         }
 
+        /// <summary>
+        /// Get Category Data
+        /// </summary>
+        /// <returns></returns>
         public List<Category> GetCategoryData()
         {
             List<Category> category = new List<Category>();
@@ -103,6 +124,10 @@ namespace EasyMaintain.DataAccess
             return category;
         }
 
+        /// <summary>
+        /// Get Engine Type Data
+        /// </summary>
+        /// <returns></returns>
         public List<EngineType> GetEngineTypeData()
         {
             List<EngineType> engineType = new List<EngineType>();
@@ -122,6 +147,10 @@ namespace EasyMaintain.DataAccess
             return engineType;
         }
 
+        /// <summary>
+        /// Get Inventory Data
+        /// </summary>
+        /// <returns></returns>
         public List<Inventory> GetInventoryData()
         {
             List<Inventory> inventory = new List<Inventory>();
@@ -143,190 +172,452 @@ namespace EasyMaintain.DataAccess
 
 
         //--- Insert Data
-        public void AddSupplier(string supplierName, string emailAddress, string address, string contact,string description, string additionalData)
+
+        /// <summary>
+        /// Add Supplier
+        /// </summary>
+        /// <param name="supplierName"></param>
+        /// <param name="emailAddress"></param>
+        /// <param name="address"></param>
+        /// <param name="contact"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public int AddSupplier(string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
         {
+            int recordId = -1;
             // insert
             using (var db = new EasyMaintainEntities())
             {
-                var supplier = db.Set<Supplier>();
-                supplier.Add(new Supplier { SupplierName = supplierName, EmailAddress = emailAddress, Address =address, ContactDetails = contact, Description = description, AdditionalData = additionalData });
+                try
+                {
+                    var supplier = db.Set<Supplier>();
+                    supplier.Add(new Supplier { SupplierName = supplierName, EmailAddress = emailAddress, Address = address, ContactDetails = contact, Description = description, AdditionalData = additionalData });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    recordId = db.Set<Supplier>().LastOrDefault().SupplierID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return recordId;
         }
 
-        public void AddManufacturer(string manufacturerName, string description, string additionalData)
+        /// <summary>
+        /// Add Manufacturer
+        /// </summary>
+        /// <param name="manufacturerName"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public int AddManufacturer(string manufacturerName, string description, string additionalData)
         {
+            int recordId = -1;
+
             // insert
             using (var db = new EasyMaintainEntities())
             {
-                var manufacturer = db.Set<Manufacturer>();
-                manufacturer.Add(new Manufacturer { ManufacturerName = manufacturerName, Description = description, AdditionalData = additionalData });
+                try
+                {
+                    var manufacturer = db.Set<Manufacturer>();
+                    manufacturer.Add(new Manufacturer { ManufacturerName = manufacturerName, Description = description, AdditionalData = additionalData });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    recordId = db.Set<Manufacturer>().LastOrDefault().ManufacturerID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return recordId;
         }
 
-        public void AddCategory(string categoryName, string additionalData)
+        /// <summary>
+        /// Add Category
+        /// </summary>
+        /// <param name="categoryName"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public int AddCategory(string categoryName, string additionalData)
         {
+            int recordId = -1;
+
             // insert
             using (var db = new EasyMaintainEntities())
             {
-                var category = db.Set<Category>();
-                category.Add(new Category { CategoryName = categoryName, AdditionalData = additionalData });
+                try
+                {
+                    var category = db.Set<Category>();
+                    category.Add(new Category { CategoryName = categoryName, AdditionalData = additionalData });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    recordId = db.Set<Category>().LastOrDefault().CategoryID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return recordId;
         }
 
-        public void AddEngineType(string engineTypeName, string additionalData)
+        /// <summary>
+        /// Add Engine Type
+        /// </summary>
+        /// <param name="engineTypeName"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public int AddEngineType(string engineTypeName, string additionalData)
         {
+            int recordId = -1;
+
             // insert
             using (var db = new EasyMaintainEntities())
             {
-                var engineType = db.Set<EngineType>();
-                engineType.Add(new EngineType { EngineTypeName = engineTypeName, AdditionalData = additionalData });
+                try
+                {
+                    var engineType = db.Set<EngineType>();
+                    engineType.Add(new EngineType { EngineTypeName = engineTypeName, AdditionalData = additionalData });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    recordId = db.Set<EngineType>().LastOrDefault().EngineTypeID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return recordId;
         }
 
-        public void AddAircraftModel(string aircraftModelname, string description, string additionalData, int categoryID, int engineTypeId, int manufacturerId, string imagepath)
+        /// <summary>
+        /// Add Aircraft Model
+        /// </summary>
+        /// <param name="aircraftModelname"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <param name="categoryID"></param>
+        /// <param name="engineTypeId"></param>
+        /// <param name="manufacturerId"></param>
+        /// <param name="imagepath"></param>
+        /// <returns></returns>
+        public int AddAircraftModel(string aircraftModelname, string description, string additionalData, int categoryID, int engineTypeId, int manufacturerId, string imagepath)
         {
+            int recordId = -1;
+
             // insert
             using (var db = new EasyMaintainEntities())
             {
-                var aircraftModel = db.Set<AircraftModel>();
-                aircraftModel.Add(new AircraftModel { ModelName = aircraftModelname, CategoryID = categoryID, EngineTypeID = engineTypeId, ManufacturerID = manufacturerId, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
+                try
+                {
+                    var aircraftModel = db.Set<AircraftModel>();
+                    aircraftModel.Add(new AircraftModel { ModelName = aircraftModelname, CategoryID = categoryID, EngineTypeID = engineTypeId, ManufacturerID = manufacturerId, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    recordId = db.Set<AircraftModel>().LastOrDefault().AircraftModelID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return recordId;
         }
 
-        public void AddSparePart(string sparePartName, string description, string additionalData, int categoryID, string imagepath)
+        /// <summary>
+        /// Add Spare Part
+        /// </summary>
+        /// <param name="sparePartName"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <param name="categoryID"></param>
+        /// <param name="imagepath"></param>
+        /// <returns></returns>
+        public int AddSparePart(string sparePartName, string description, string additionalData, int categoryID, string imagepath)
         {
+
+            int recordId = -1;
+
             // insert
             using (var db = new EasyMaintainEntities())
             {
-                var sparePart = db.Set<SparePart>();
-                sparePart.Add(new SparePart { SparePartName = sparePartName, CategoryID = categoryID, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
+                try
+                {
+                    var sparePart = db.Set<SparePart>();
+                    sparePart.Add(new SparePart { SparePartName = sparePartName, CategoryID = categoryID, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
 
-                db.SaveChanges();
+                    db.SaveChanges();
+
+                    recordId = db.Set<SparePart>().LastOrDefault().SparePartID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return recordId;
         }
 
 
         //---- Update Data
-        public void UpdateSupplier(int supplierId ,string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
+
+        /// <summary>
+        /// Update Supplier
+        /// </summary>
+        /// <param name="supplierId"></param>
+        /// <param name="supplierName"></param>
+        /// <param name="emailAddress"></param>
+        /// <param name="address"></param>
+        /// <param name="contact"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public bool UpdateSupplier(int supplierId, string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
         {
+            bool result = false;
             // update
             using (var db = new EasyMaintainEntities())
             {
-                var supplier = db.Suppliers.SingleOrDefault(s => s.SupplierID == supplierId);
-
-                if(supplier != null)
+                try
                 {
-                    supplier.SupplierName = supplierName;
-                    supplier.EmailAddress = emailAddress;
-                    supplier.Address = address;
-                    supplier.ContactDetails = contact;
-                    supplier.Description = description;
-                    supplier.AdditionalData = additionalData;
+                    var supplier = db.Suppliers.SingleOrDefault(s => s.SupplierID == supplierId);
+
+                    if (supplier != null)
+                    {
+                        supplier.SupplierName = supplierName;
+                        supplier.EmailAddress = emailAddress;
+                        supplier.Address = address;
+                        supplier.ContactDetails = contact;
+                        supplier.Description = description;
+                        supplier.AdditionalData = additionalData;
+                    }
+                    db.SaveChanges();
+                    result = true;
                 }
-                db.SaveChanges();
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return result;
         }
 
-        public void UpdateManufacturer(int manufacturerId, string manufacturerName, string description, string additionalData)
+        /// <summary>
+        /// Update Manufacturer
+        /// </summary>
+        /// <param name="manufacturerId"></param>
+        /// <param name="manufacturerName"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public bool UpdateManufacturer(int manufacturerId, string manufacturerName, string description, string additionalData)
         {
+            bool result = false;
+
             // update
             using (var db = new EasyMaintainEntities())
             {
-                var manufacturer = db.Manufacturers.SingleOrDefault(s => s.ManufacturerID == manufacturerId);
-
-                if (manufacturer != null)
+                try
                 {
-                    manufacturer.ManufacturerName = manufacturerName;
-                    manufacturer.Description = description;
-                    manufacturer.AdditionalData = additionalData;
+                    var manufacturer = db.Manufacturers.SingleOrDefault(s => s.ManufacturerID == manufacturerId);
+
+                    if (manufacturer != null)
+                    {
+                        manufacturer.ManufacturerName = manufacturerName;
+                        manufacturer.Description = description;
+                        manufacturer.AdditionalData = additionalData;
+                    }
+                    db.SaveChanges();
+                    result = true;
                 }
-                db.SaveChanges();
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return result;
         }
 
-        public void UpdateCategory(int categoryId ,string categoryName)
+        /// <summary>
+        /// Update Category
+        /// </summary>
+        /// <param name="categoryId"></param>
+        /// <param name="categoryName"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public bool UpdateCategory(int categoryId, string categoryName, string additionalData)
         {
+            bool result = false;
+
             // update
             using (var db = new EasyMaintainEntities())
             {
-                var category = db.Categories.SingleOrDefault(s => s.CategoryID == categoryId);
-
-                if (category != null)
+                try
                 {
-                    category.CategoryName = categoryName;
+                    var category = db.Categories.SingleOrDefault(s => s.CategoryID == categoryId);
+
+                    if (category != null)
+                    {
+                        category.CategoryName = categoryName;
+                        category.AdditionalData = additionalData;
+                    }
+                    db.SaveChanges();
+                    result = true;
                 }
-                db.SaveChanges();
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+            return result;
         }
 
-        public void UpdateEngineType(int engineTypeId, string engineTypeName, string additionalData)
+        /// <summary>
+        /// Update Engine Type
+        /// </summary>
+        /// <param name="engineTypeId"></param>
+        /// <param name="engineTypeName"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public bool UpdateEngineType(int engineTypeId, string engineTypeName, string additionalData)
         {
+            bool result = false;
+
             // update
             using (var db = new EasyMaintainEntities())
             {
-                var engineType = db.EngineTypes.SingleOrDefault(s => s.EngineTypeID == engineTypeId);
-
-                if (engineType != null)
+                try
                 {
-                    engineType.EngineTypeName = engineTypeName;
-                    engineType.AdditionalData = additionalData;
+                    var engineType = db.EngineTypes.SingleOrDefault(s => s.EngineTypeID == engineTypeId);
+
+                    if (engineType != null)
+                    {
+                        engineType.EngineTypeName = engineTypeName;
+                        engineType.AdditionalData = additionalData;
+                    }
+                    db.SaveChanges();
+                    result = true;
                 }
-                db.SaveChanges();
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return result;
         }
 
-        public void UpdateAircraftModel(int aircraftModleId, string aircraftModelname, string description, string additionalData, int categoryID, int engineTypeId, int manufacturerId, string imagepath)
+        /// <summary>
+        /// Update Aircraft Model 
+        /// </summary>
+        /// <param name="aircraftModleId"></param>
+        /// <param name="aircraftModelname"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <param name="categoryID"></param>
+        /// <param name="engineTypeId"></param>
+        /// <param name="manufacturerId"></param>
+        /// <param name="imagepath"></param>
+        /// <returns></returns>
+        public bool UpdateAircraftModel(int aircraftModleId, string aircraftModelname, string description, string additionalData, int categoryID, int engineTypeId, int manufacturerId, string imagepath)
         {
+            bool result = false;
+
             // update
             using (var db = new EasyMaintainEntities())
             {
-                var aircraftModel = db.AircraftModels.SingleOrDefault(s => s.AircraftModelID == aircraftModleId);
-
-                if (aircraftModel != null)
+                try
                 {
-                    aircraftModel.ModelName = aircraftModelname;
-                    aircraftModel.CategoryID = categoryID;
-                    aircraftModel.EngineTypeID = engineTypeId;
-                    aircraftModel.ManufacturerID = manufacturerId;
-                    aircraftModel.ImagePath = imagepath;
-                    aircraftModel.Description = description;
-                    aircraftModel.AdditionalData = additionalData;
+                    var aircraftModel = db.AircraftModels.SingleOrDefault(s => s.AircraftModelID == aircraftModleId);
+
+                    if (aircraftModel != null)
+                    {
+                        aircraftModel.ModelName = aircraftModelname;
+                        aircraftModel.CategoryID = categoryID;
+                        aircraftModel.EngineTypeID = engineTypeId;
+                        aircraftModel.ManufacturerID = manufacturerId;
+                        aircraftModel.ImagePath = imagepath;
+                        aircraftModel.Description = description;
+                        aircraftModel.AdditionalData = additionalData;
+                    }
+                    db.SaveChanges();
+                    result = true;
                 }
-                db.SaveChanges();
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+
             }
+
+            return result;
         }
 
-        public void UpdateSparePart(int sparePartId, string sparePartName, string description, string additionalData, int categoryID, string imagepath)
+        /// <summary>
+        /// Update Spare Part
+        /// </summary>
+        /// <param name="sparePartId"></param>
+        /// <param name="sparePartName"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <param name="categoryID"></param>
+        /// <param name="imagepath"></param>
+        /// <returns></returns>
+        public bool UpdateSparePart(int sparePartId, string sparePartName, string description, string additionalData, int categoryID, string imagepath)
         {
+            bool result = false;
+
             // update
             using (var db = new EasyMaintainEntities())
             {
-                var sparePart = db.SpareParts.SingleOrDefault(s => s.SparePartID == sparePartId);
-
-                if (sparePart != null)
+                try
                 {
-                    sparePart.SparePartName = sparePartName;
-                    sparePart.CategoryID = categoryID;
-                    sparePart.ImagePath = imagepath;
-                    sparePart.Description = description;
-                    sparePart.AdditionalData = additionalData;
+                    var sparePart = db.SpareParts.SingleOrDefault(s => s.SparePartID == sparePartId);
+
+                    if (sparePart != null)
+                    {
+                        sparePart.SparePartName = sparePartName;
+                        sparePart.CategoryID = categoryID;
+                        sparePart.ImagePath = imagepath;
+                        sparePart.Description = description;
+                        sparePart.AdditionalData = additionalData;
+                    }
+                    db.SaveChanges();
+                    result = true;
+
                 }
-                db.SaveChanges();
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
             }
+
+            return result;
         }
 
 
         //--- Delete Data
+
+        /// <summary>
+        /// Delete Supplier
+        /// </summary>
+        /// <param name="supplierId"></param>
         public void DeleteSupplier(int supplierId)
         {
             // Delete
@@ -339,6 +630,10 @@ namespace EasyMaintain.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete Manufacturer 
+        /// </summary>
+        /// <param name="manufacturerId"></param>
         public void DeleteManufacturer(int manufacturerId)
         {
             // Delete
@@ -351,6 +646,10 @@ namespace EasyMaintain.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete Category
+        /// </summary>
+        /// <param name="categoryId"></param>
         public void DeleteCategory(int categoryId)
         {
             // Delete
@@ -363,6 +662,10 @@ namespace EasyMaintain.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete Engine Type
+        /// </summary>
+        /// <param name="engineTypeId"></param>
         public void DeleteEngineType(int engineTypeId)
         {
             // Delete
@@ -375,6 +678,10 @@ namespace EasyMaintain.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete Aircraft Model 
+        /// </summary>
+        /// <param name="aircraftModleId"></param>
         public void DeleteAircraftModel(int aircraftModleId)
         {
             // Delete
@@ -387,6 +694,10 @@ namespace EasyMaintain.DataAccess
             }
         }
 
+        /// <summary>
+        /// Delete Spare Part
+        /// </summary>
+        /// <param name="sparePartId"></param>
         public void DeleteSparePart(int sparePartId)
         {
             // Delete
@@ -398,7 +709,5 @@ namespace EasyMaintain.DataAccess
                 db.SaveChanges();
             }
         }
-
-
     }
 }

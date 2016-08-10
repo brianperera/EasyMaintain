@@ -22,6 +22,10 @@ namespace EasyMaintain.Business
 
         }
 
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <returns></returns>
         public object GetData()
         {
             List<EngineType> result = new List<EngineType>();
@@ -40,6 +44,11 @@ namespace EasyMaintain.Business
             return result;
         }
 
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="engineType"></param>
+        /// <returns></returns>
         public int Save(object engineType)
         {
             //this.mEngineType = engineType as EngineType;
@@ -50,14 +59,22 @@ namespace EasyMaintain.Business
             return -1;
         }
 
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="engineType"></param>
+        /// <returns></returns>
         public int Insert(object engineType)
         {
             this.mEngineType = engineType as EngineType;
             DataProvidor dp = new DataProvidor();
-            dp.AddEngineType(mEngineType.EngineTypeName, mEngineType.AdditionalData);
-            return -1;
+            return dp.AddEngineType(mEngineType.EngineTypeName, mEngineType.AdditionalData);
         }
 
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="engineType"></param>
         public void DeleteOne(object engineType)
         {
             this.mEngineType = engineType as EngineType;
@@ -65,6 +82,18 @@ namespace EasyMaintain.Business
             DataProvidor dp = new DataProvidor();
             dp.DeleteEngineType(mEngineType.EngineTypeID);
 
+        }
+
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="engineType"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object engineType)
+        {
+            this.mEngineType = engineType as EngineType;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateEngineType(mEngineType.EngineTypeID, mEngineType.EngineTypeName, mEngineType.AdditionalData);
         }
 
     }

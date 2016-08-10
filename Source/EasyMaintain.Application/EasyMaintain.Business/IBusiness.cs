@@ -21,7 +21,7 @@ namespace EasyMaintain.Business
         void DeleteOne(object record);
 
         // Undate a record
-        //bool UpdateOne(object record);
+        bool UpdateOne(object record);
 
         //update multiple records
         //bool UpdateRecords(List<object> records);

@@ -23,6 +23,10 @@ namespace EasyMaintain.Business
 
         }
 
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <returns></returns>
         public object GetData()
         {
             List<Manufacturer> result = new List<Manufacturer>();
@@ -41,7 +45,12 @@ namespace EasyMaintain.Business
 
             return result;
         }
-
+        
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="manufacturer"></param>
+        /// <returns></returns>
         public int Save(object manufacturer)
         {
             //TODO
@@ -49,19 +58,39 @@ namespace EasyMaintain.Business
             return -1;
         }
 
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="manufacturer"></param>
+        /// <returns></returns>
         public int Insert(object manufacturer)
         {
             this.mManufacturer = manufacturer as Manufacturer;
             DataProvidor dp = new DataProvidor();
-            dp.AddManufacturer(mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
-            return -1;
+            return dp.AddManufacturer(mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
         }
 
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="manufacturer"></param>
         public void DeleteOne(object manufacturer)
         {
             this.mManufacturer = manufacturer as Manufacturer;
             DataProvidor dp = new DataProvidor();
             dp.DeleteManufacturer(mManufacturer.ManufacturerID);
+        }
+
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="manufacturer"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object manufacturer)
+        {
+            this.mManufacturer = manufacturer as Manufacturer;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateManufacturer(mManufacturer.ManufacturerID, mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
         }
 
     }

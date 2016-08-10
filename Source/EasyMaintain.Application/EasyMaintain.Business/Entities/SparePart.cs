@@ -23,7 +23,10 @@ namespace EasyMaintain.Business
         {
 
         }
-
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <returns></returns>
         public object GetData()
         {
             List<SparePart> result = new List<SparePart>();
@@ -46,6 +49,11 @@ namespace EasyMaintain.Business
             return result;
         }
 
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="sparePart"></param>
+        /// <returns></returns>
         public int Save(object sparePart)
         {
             //TODO
@@ -53,14 +61,22 @@ namespace EasyMaintain.Business
             return -1;
         }
 
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="sparePart"></param>
+        /// <returns></returns>
         public int Insert(object sparePart)
         {
             this.mSparePart = sparePart as SparePart;
             DataProvidor dp = new DataProvidor();
-            dp.AddSparePart(mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category.CategoryID, mSparePart.ImagePath);
-            return -1;
+            return dp.AddSparePart(mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category.CategoryID, mSparePart.ImagePath);
         }
 
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="sparePart"></param>
         public void DeleteOne(object sparePart)
         {
             this.mSparePart = sparePart as SparePart;
@@ -68,5 +84,16 @@ namespace EasyMaintain.Business
             dp.DeleteSparePart(mSparePart.SparePartID);
         }
 
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="sparePart"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object sparePart)
+        {
+            this.mSparePart = sparePart as SparePart;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateSparePart(mSparePart.SparePartID, mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category.CategoryID, mSparePart.ImagePath);
+        }
     }
 }

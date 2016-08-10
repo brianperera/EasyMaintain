@@ -16,12 +16,16 @@ namespace EasyMaintain.Business
         public string CategoryName { get; set; }
         public string AdditionalData { get; set; }
 
-
+        // Constructor
         public Category()
         {
 
         }
 
+        /// <summary>
+        /// Get Data
+        /// </summary>
+        /// <returns></returns>
         public object GetData()
         {
             List<Category> result = new List<Category>();
@@ -40,6 +44,11 @@ namespace EasyMaintain.Business
             return result;
         }
 
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public int Save(object category)
         {
             ////TODO
@@ -47,22 +56,40 @@ namespace EasyMaintain.Business
             return -1;
         }
 
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
         public int Insert(object category)
         {
             this.mCategory = category as Category;
-
             DataProvidor dp = new DataProvidor();
-            dp.AddCategory(mCategory.CategoryName, mCategory.AdditionalData);
-
-            return -1;
+            return dp.AddCategory(mCategory.CategoryName, mCategory.AdditionalData);
         }
 
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="category"></param>
         public void DeleteOne(object category)
         {
             this.mCategory = category as Category;
 
             DataProvidor dp = new DataProvidor();
             dp.DeleteCategory(mCategory.CategoryID);
+        }
+
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="category"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object category)
+        {
+            this.mCategory = category as Category;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateCategory(mCategory.CategoryID, mCategory.CategoryName, mCategory.AdditionalData);
         }
 
     }

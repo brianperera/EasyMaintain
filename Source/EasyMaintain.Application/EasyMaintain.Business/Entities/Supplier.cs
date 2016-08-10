@@ -25,6 +25,10 @@ namespace EasyMaintain.Business
 
         }
 
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <returns></returns>
         public object GetData()
         {
             List<Supplier> result = new List<Supplier>();
@@ -46,6 +50,11 @@ namespace EasyMaintain.Business
             return result;
         }
 
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="supplier"></param>
+        /// <returns></returns>
         public int Save(object supplier)
         {
             //TODO
@@ -53,19 +62,39 @@ namespace EasyMaintain.Business
             return -1;
         }
 
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="supplier"></param>
+        /// <returns></returns>
         public int Insert(object supplier)
         {
             this.mSupplier = supplier as Supplier;
             DataProvidor dp = new DataProvidor();
-            dp.AddSupplier(mSupplier.Name, mSupplier.EmailAddress, mSupplier.Address, mSupplier.ContactDetails, mSupplier.Description, mSupplier.AdditionalData);
-            return -1;
+            return dp.AddSupplier(mSupplier.Name, mSupplier.EmailAddress, mSupplier.Address, mSupplier.ContactDetails, mSupplier.Description, mSupplier.AdditionalData);
         }
 
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="supplier"></param>
         public void DeleteOne(object supplier)
         {
             this.mSupplier = supplier as Supplier;
             DataProvidor dp = new DataProvidor();
             dp.DeleteSupplier(mSupplier.SupplierID);
+        }
+
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="supplier"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object supplier)
+        {
+            this.mSupplier = supplier as Supplier;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateSupplier(mSupplier.SupplierID, mSupplier.Name, mSupplier.EmailAddress, mSupplier.Address, mSupplier.ContactDetails, mSupplier.Description, mSupplier.AdditionalData);
         }
 
     }
