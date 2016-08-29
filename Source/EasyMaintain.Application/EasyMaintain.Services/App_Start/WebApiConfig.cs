@@ -14,11 +14,20 @@ namespace EasyMaintain.Services
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
+
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            name: "SparePart",
+            routeTemplate: "api/spareparts/{id}",
+            defaults: new { controller = "spareparts", id = RouteParameter.Optional }
+
+
+                );
+
         }
     }
 }
