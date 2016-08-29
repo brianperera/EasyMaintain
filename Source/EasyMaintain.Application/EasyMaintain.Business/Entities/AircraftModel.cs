@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EasyMaintain.DataAccess;
+using EasyMaintain.Business;
 
 namespace EasyMaintain.Business
 {
