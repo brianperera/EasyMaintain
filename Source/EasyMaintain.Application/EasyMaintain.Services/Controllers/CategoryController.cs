@@ -14,47 +14,46 @@ using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.Services.Controllers
 {
-    public class SparePartsController : ApiController
+    public class CategoryController : ApiController
     {
         private EasyMaintainServicesContext db = new EasyMaintainServicesContext();
 
-        // GET api/Spareparts
+        // GET api/Category
         [HttpGet]
-        public IQueryable<SparePart> GetSpareParts()
+        public IQueryable<Category> GetCategories()
         {
-
-            return db.SpareParts;
+            return db.Categories;
         }
 
-        // GET api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // GET api/Category/5
+        [ResponseType(typeof(Category))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSparePart(int id)
+        public async Task<IHttpActionResult> GetCategory(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return Ok(sparepart);
+            return Ok(category);
         }
 
-        // PUT api/Spareparts/5
+        // PUT api/Category/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSparePart(int id, SparePart sparepart)
+        public async Task<IHttpActionResult> PutCategory(int id, Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sparepart.SparePartID)
+            if (id != category.CategoryID)
             {
                 return BadRequest();
             }
 
-            db.Entry(sparepart).State = EntityState.Modified;
+            db.Entry(category).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace EasyMaintain.Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SparePartExists(id))
+                if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace EasyMaintain.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Spareparts
-        [ResponseType(typeof(SparePart))]
+        // POST api/Category
+        [ResponseType(typeof(Category))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSparePart(SparePart sparepart)
+        public async Task<IHttpActionResult> PostCategory(Category category)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.SpareParts.Add(sparepart);
+            db.Categories.Add(category);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = sparepart.SparePartID }, sparepart);
+            return CreatedAtRoute("DefaultApi", new { id = category.CategoryID }, category);
         }
 
-        // DELETE api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // DELETE api/Category/5
+        [ResponseType(typeof(Category))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSparePart(int id)
+        public async Task<IHttpActionResult> DeleteCategory(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            Category category = await db.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            db.SpareParts.Remove(sparepart);
+            db.Categories.Remove(category);
             await db.SaveChangesAsync();
 
-            return Ok(sparepart);
+            return Ok(category);
         }
 
         protected override void Dispose(bool disposing)
@@ -117,9 +116,9 @@ namespace EasyMaintain.Services.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SparePartExists(int id)
+        private bool CategoryExists(int id)
         {
-            return db.SpareParts.Count(e => e.SparePartID == id) > 0;
+            return db.Categories.Count(e => e.CategoryID == id) > 0;
         }
     }
 }

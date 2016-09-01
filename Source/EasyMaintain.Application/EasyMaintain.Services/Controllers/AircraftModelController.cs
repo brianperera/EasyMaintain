@@ -14,47 +14,46 @@ using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.Services.Controllers
 {
-    public class SparePartsController : ApiController
+    public class AircraftModelController : ApiController
     {
         private EasyMaintainServicesContext db = new EasyMaintainServicesContext();
 
-        // GET api/Spareparts
+        // GET api/AircraftModel
         [HttpGet]
-        public IQueryable<SparePart> GetSpareParts()
+        public IQueryable<AircraftModel> GetAircraftModels()
         {
-
-            return db.SpareParts;
+            return db.AircraftModels;
         }
 
-        // GET api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // GET api/AircraftModel/5
+        [ResponseType(typeof(AircraftModel))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSparePart(int id)
+        public async Task<IHttpActionResult> GetAircraftModel(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            AircraftModel aircraftmodel = await db.AircraftModels.FindAsync(id);
+            if (aircraftmodel == null)
             {
                 return NotFound();
             }
 
-            return Ok(sparepart);
+            return Ok(aircraftmodel);
         }
 
-        // PUT api/Spareparts/5
+        // PUT api/AircraftModel/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSparePart(int id, SparePart sparepart)
+        public async Task<IHttpActionResult> PutAircraftModel(int id, AircraftModel aircraftmodel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sparepart.SparePartID)
+            if (id != aircraftmodel.AircraftModelID)
             {
                 return BadRequest();
             }
 
-            db.Entry(sparepart).State = EntityState.Modified;
+            db.Entry(aircraftmodel).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace EasyMaintain.Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SparePartExists(id))
+                if (!AircraftModelExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace EasyMaintain.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Spareparts
-        [ResponseType(typeof(SparePart))]
+        // POST api/AircraftModel
+        [ResponseType(typeof(AircraftModel))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSparePart(SparePart sparepart)
+        public async Task<IHttpActionResult> PostAircraftModel(AircraftModel aircraftmodel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.SpareParts.Add(sparepart);
+            db.AircraftModels.Add(aircraftmodel);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = sparepart.SparePartID }, sparepart);
+            return CreatedAtRoute("DefaultApi", new { id = aircraftmodel.AircraftModelID }, aircraftmodel);
         }
 
-        // DELETE api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // DELETE api/AircraftModel/5
+        [ResponseType(typeof(AircraftModel))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSparePart(int id)
+        public async Task<IHttpActionResult> DeleteAircraftModel(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            AircraftModel aircraftmodel = await db.AircraftModels.FindAsync(id);
+            if (aircraftmodel == null)
             {
                 return NotFound();
             }
 
-            db.SpareParts.Remove(sparepart);
+            db.AircraftModels.Remove(aircraftmodel);
             await db.SaveChangesAsync();
 
-            return Ok(sparepart);
+            return Ok(aircraftmodel);
         }
 
         protected override void Dispose(bool disposing)
@@ -117,9 +116,9 @@ namespace EasyMaintain.Services.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SparePartExists(int id)
+        private bool AircraftModelExists(int id)
         {
-            return db.SpareParts.Count(e => e.SparePartID == id) > 0;
+            return db.AircraftModels.Count(e => e.AircraftModelID == id) > 0;
         }
     }
 }

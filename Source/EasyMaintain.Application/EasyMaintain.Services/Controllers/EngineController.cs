@@ -14,47 +14,46 @@ using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.Services.Controllers
 {
-    public class SparePartsController : ApiController
+    public class EngineController : ApiController
     {
         private EasyMaintainServicesContext db = new EasyMaintainServicesContext();
 
-        // GET api/Spareparts
+        // GET api/Engine
         [HttpGet]
-        public IQueryable<SparePart> GetSpareParts()
+        public IQueryable<EngineType> GetEngineTypes()
         {
-
-            return db.SpareParts;
+            return db.EngineTypes;
         }
 
-        // GET api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // GET api/Engine/5
+        [ResponseType(typeof(EngineType))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSparePart(int id)
+        public async Task<IHttpActionResult> GetEngineType(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            EngineType enginetype = await db.EngineTypes.FindAsync(id);
+            if (enginetype == null)
             {
                 return NotFound();
             }
 
-            return Ok(sparepart);
+            return Ok(enginetype);
         }
 
-        // PUT api/Spareparts/5
+        // PUT api/Engine/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSparePart(int id, SparePart sparepart)
+        public async Task<IHttpActionResult> PutEngineType(int id, EngineType enginetype)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sparepart.SparePartID)
+            if (id != enginetype.EngineTypeID)
             {
                 return BadRequest();
             }
 
-            db.Entry(sparepart).State = EntityState.Modified;
+            db.Entry(enginetype).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace EasyMaintain.Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SparePartExists(id))
+                if (!EngineTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace EasyMaintain.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Spareparts
-        [ResponseType(typeof(SparePart))]
+        // POST api/Engine
+        [ResponseType(typeof(EngineType))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSparePart(SparePart sparepart)
+        public async Task<IHttpActionResult> PostEngineType(EngineType enginetype)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.SpareParts.Add(sparepart);
+            db.EngineTypes.Add(enginetype);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = sparepart.SparePartID }, sparepart);
+            return CreatedAtRoute("DefaultApi", new { id = enginetype.EngineTypeID }, enginetype);
         }
 
-        // DELETE api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // DELETE api/Engine/5
+        [ResponseType(typeof(EngineType))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSparePart(int id)
+        public async Task<IHttpActionResult> DeleteEngineType(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            EngineType enginetype = await db.EngineTypes.FindAsync(id);
+            if (enginetype == null)
             {
                 return NotFound();
             }
 
-            db.SpareParts.Remove(sparepart);
+            db.EngineTypes.Remove(enginetype);
             await db.SaveChangesAsync();
 
-            return Ok(sparepart);
+            return Ok(enginetype);
         }
 
         protected override void Dispose(bool disposing)
@@ -117,9 +116,9 @@ namespace EasyMaintain.Services.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SparePartExists(int id)
+        private bool EngineTypeExists(int id)
         {
-            return db.SpareParts.Count(e => e.SparePartID == id) > 0;
+            return db.EngineTypes.Count(e => e.EngineTypeID == id) > 0;
         }
     }
 }

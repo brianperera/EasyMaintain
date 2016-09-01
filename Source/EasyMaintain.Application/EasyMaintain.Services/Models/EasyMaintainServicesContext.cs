@@ -20,6 +20,15 @@ namespace EasyMaintain.Services.Models
         }
 
         public System.Data.Entity.DbSet<EasyMaintain.Business.SparePart> SpareParts { get; set; }
-    
+
+        public System.Data.Entity.DbSet<EasyMaintain.Business.Supplier> Suppliers { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.Business.Manufacturer> Manufacturers { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.Business.AircraftModel> AircraftModels { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.Business.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<EasyMaintain.Business.EngineType> EngineTypes { get; set; }
     }
 }

@@ -14,47 +14,46 @@ using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.Services.Controllers
 {
-    public class SparePartsController : ApiController
+    public class ManufacturerController : ApiController
     {
         private EasyMaintainServicesContext db = new EasyMaintainServicesContext();
 
-        // GET api/Spareparts
+        // GET api/Manufacturer
         [HttpGet]
-        public IQueryable<SparePart> GetSpareParts()
+        public IQueryable<Manufacturer> GetManufacturers()
         {
-
-            return db.SpareParts;
+            return db.Manufacturers;
         }
 
-        // GET api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // GET api/Manufacturer/5
+        [ResponseType(typeof(Manufacturer))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSparePart(int id)
+        public async Task<IHttpActionResult> GetManufacturer(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            Manufacturer manufacturer = await db.Manufacturers.FindAsync(id);
+            if (manufacturer == null)
             {
                 return NotFound();
             }
 
-            return Ok(sparepart);
+            return Ok(manufacturer);
         }
 
-        // PUT api/Spareparts/5
+        // PUT api/Manufacturer/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSparePart(int id, SparePart sparepart)
+        public async Task<IHttpActionResult> PutManufacturer(int id, Manufacturer manufacturer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sparepart.SparePartID)
+            if (id != manufacturer.ManufacturerID)
             {
                 return BadRequest();
             }
 
-            db.Entry(sparepart).State = EntityState.Modified;
+            db.Entry(manufacturer).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace EasyMaintain.Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SparePartExists(id))
+                if (!ManufacturerExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace EasyMaintain.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Spareparts
-        [ResponseType(typeof(SparePart))]
+        // POST api/Manufacturer
+        [ResponseType(typeof(Manufacturer))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSparePart(SparePart sparepart)
+        public async Task<IHttpActionResult> PostManufacturer(Manufacturer manufacturer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.SpareParts.Add(sparepart);
+            db.Manufacturers.Add(manufacturer);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = sparepart.SparePartID }, sparepart);
+            return CreatedAtRoute("DefaultApi", new { id = manufacturer.ManufacturerID }, manufacturer);
         }
 
-        // DELETE api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // DELETE api/Manufacturer/5
+        [ResponseType(typeof(Manufacturer))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSparePart(int id)
+        public async Task<IHttpActionResult> DeleteManufacturer(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            Manufacturer manufacturer = await db.Manufacturers.FindAsync(id);
+            if (manufacturer == null)
             {
                 return NotFound();
             }
 
-            db.SpareParts.Remove(sparepart);
+            db.Manufacturers.Remove(manufacturer);
             await db.SaveChangesAsync();
 
-            return Ok(sparepart);
+            return Ok(manufacturer);
         }
 
         protected override void Dispose(bool disposing)
@@ -117,9 +116,9 @@ namespace EasyMaintain.Services.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SparePartExists(int id)
+        private bool ManufacturerExists(int id)
         {
-            return db.SpareParts.Count(e => e.SparePartID == id) > 0;
+            return db.Manufacturers.Count(e => e.ManufacturerID == id) > 0;
         }
     }
 }

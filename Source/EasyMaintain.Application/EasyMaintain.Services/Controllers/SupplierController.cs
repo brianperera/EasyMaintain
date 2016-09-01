@@ -14,47 +14,46 @@ using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.Services.Controllers
 {
-    public class SparePartsController : ApiController
+    public class SupplierController : ApiController
     {
         private EasyMaintainServicesContext db = new EasyMaintainServicesContext();
 
-        // GET api/Spareparts
+        // GET api/Supplier
         [HttpGet]
-        public IQueryable<SparePart> GetSpareParts()
+        public IQueryable<Supplier> GetSuppliers()
         {
-
-            return db.SpareParts;
+            return db.Suppliers;
         }
 
-        // GET api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // GET api/Supplier/5
+        [ResponseType(typeof(Supplier))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSparePart(int id)
+        public async Task<IHttpActionResult> GetSupplier(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            Supplier supplier = await db.Suppliers.FindAsync(id);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            return Ok(sparepart);
+            return Ok(supplier);
         }
 
-        // PUT api/Spareparts/5
+        // PUT api/Supplier/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSparePart(int id, SparePart sparepart)
+        public async Task<IHttpActionResult> PutSupplier(int id, Supplier supplier)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != sparepart.SparePartID)
+            if (id != supplier.SupplierID)
             {
                 return BadRequest();
             }
 
-            db.Entry(sparepart).State = EntityState.Modified;
+            db.Entry(supplier).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +61,7 @@ namespace EasyMaintain.Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!SparePartExists(id))
+                if (!SupplierExists(id))
                 {
                     return NotFound();
                 }
@@ -75,37 +74,37 @@ namespace EasyMaintain.Services.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Spareparts
-        [ResponseType(typeof(SparePart))]
+        // POST api/Supplier
+        [ResponseType(typeof(Supplier))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSparePart(SparePart sparepart)
+        public async Task<IHttpActionResult> PostSupplier(Supplier supplier)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.SpareParts.Add(sparepart);
+            db.Suppliers.Add(supplier);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = sparepart.SparePartID }, sparepart);
+            return CreatedAtRoute("DefaultApi", new { id = supplier.SupplierID }, supplier);
         }
 
-        // DELETE api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
+        // DELETE api/Supplier/5
+        [ResponseType(typeof(Supplier))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSparePart(int id)
+        public async Task<IHttpActionResult> DeleteSupplier(int id)
         {
-            SparePart sparepart = await db.SpareParts.FindAsync(id);
-            if (sparepart == null)
+            Supplier supplier = await db.Suppliers.FindAsync(id);
+            if (supplier == null)
             {
                 return NotFound();
             }
 
-            db.SpareParts.Remove(sparepart);
+            db.Suppliers.Remove(supplier);
             await db.SaveChangesAsync();
 
-            return Ok(sparepart);
+            return Ok(supplier);
         }
 
         protected override void Dispose(bool disposing)
@@ -117,9 +116,9 @@ namespace EasyMaintain.Services.Controllers
             base.Dispose(disposing);
         }
 
-        private bool SparePartExists(int id)
+        private bool SupplierExists(int id)
         {
-            return db.SpareParts.Count(e => e.SparePartID == id) > 0;
+            return db.Suppliers.Count(e => e.SupplierID == id) > 0;
         }
     }
 }
