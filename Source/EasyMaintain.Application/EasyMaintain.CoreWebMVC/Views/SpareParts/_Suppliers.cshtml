@@ -1,0 +1,98 @@
+﻿@model EasyMaintain.CoreWebMVC.Models.SupplierViewModel
+
+<h1 class="text-light">Suppliers</h1>
+
+@using (Ajax.BeginForm("AddSupplier", new AjaxOptions() { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "partial-view-container" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true)
+    
+    <div class="example">
+        <div class="flex-grid">
+            <div class="row cells2">
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>Name</label>
+                    <div class="input-control text full-size">
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                    </div>
+                </div>
+                <div class="cell-form margin-right-10 cell size4">
+                    <label class="display-block">Description</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextBoxFor(m => m.EmailAddress)
+                    </div>
+                </div>
+            </div>
+            <div class="row cells2">
+                <div class="cell-form margin-right-10 cell size4">
+                    <label class="display-block">Description</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextBoxFor(m => m.Address)
+                    </div>
+                </div>
+                <div class="cell-form margin-right-10 cell size4">
+                    <label class="display-block">Description</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextBoxFor(m => m.ContactDetails)
+                    </div>
+                </div>
+            </div>
+            <div class="row cells2">
+                <div class="cell-form margin-right-10 cell size4">
+                    <label class="display-block">Description</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextAreaFor(m => m.Description, new { placeholder = "Description" })
+                    </div>
+                </div>
+                <div class="cell-form margin-right-10 cell size4">
+                    <label class="display-block">Additional Data</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextAreaFor(m => m.AdditionalData, new { placeholder = "Additional Data" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Create</button>
+    <button class="button warning" onclick="pushMessage('warning')"><span class="mif-loop2"></span> Update</button>
+    <button class="button alert" onclick="pushMessage('alert')"><span class="mif-cross"></span> Delete</button>
+}
+
+<hr class="thin bg-grayLighter">
+<table class="dataTable border bordered" data-role="datatable" data-auto-width="false">
+    <thead>
+        <tr>
+            <td style="width: 20px"></td>
+            <td class="sortable-column" style="width: 100px">Name</td>
+            <td class="sortable-column">EmailAddress</td>
+            <td class="sortable-column">Address</td>
+            <td class="sortable-column">ContactDetails</td>
+            <td class="sortable-column">Description</td>
+            <td class="sortable-column">Additional Data</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var supplier in Model.SuppliersList)
+            {
+                <tr>
+                    <td>
+                        <label class="input-control checkbox small-check no-margin">
+                            <input type="checkbox">
+                            <span class="check"></span>
+                        </label>
+                    </td>
+                    <td>@supplier.Name</td>
+                    <td>@supplier.EmailAddress</td>
+                    <td>@supplier.Address</td>
+                    <td>@supplier.ContactDetails</td>
+                    <td>@supplier.Description</td>
+                    <td>@supplier.AdditionalData</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

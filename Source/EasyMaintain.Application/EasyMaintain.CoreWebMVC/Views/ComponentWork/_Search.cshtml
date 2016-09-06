@@ -1,0 +1,41 @@
+﻿@model EasyMaintain.WebUI.Models.ComponentWorkModel
+
+<h1 class="text-light">Work Orders</h1>
+
+
+<div class="input-control text" data-role="input">
+    
+    <input type="text">
+    <button class="button primary"><span class="mif-search"></span></button>
+</div>
+
+<table class="dataTable border bordered" data-auto-width="false">
+    <thead>
+        <tr>
+            <td class="sortable-column sort-asc" style="width: 100px">WorkID</td>
+            <td class="sortable-column">Component</td>
+            <td class="sortable-column">Created Date</td>
+            <td class="sortable-column">Delivery Date</td>
+            <td class="sortable-column"style="width: 100px">Update</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workOrder in Model.ComponentWorkOrders)
+        {
+            <tr>
+                <td>@workOrder.WorkID</td>
+                <td>@workOrder.Component</td>
+                <td>@workOrder.CreatedDate</td>
+                <td>@workOrder.DeliveryDate</td>
+                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.WorkID)"><span class="mif-pencil"></span></button></td>
+            </tr>
+        }
+     </tbody>
+</table>
+
+<script>
+    function LoadWorkOrder(viewName)
+    {
+       $('#partial-view-container').load('EditWorkOrder');
+    }
+</script>
