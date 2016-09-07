@@ -96,5 +96,12 @@ namespace EasyMaintain.Business
             return dp.UpdateEngineType(mEngineType.EngineTypeID, mEngineType.EngineTypeName, mEngineType.AdditionalData);
         }
 
+        public EngineType Find(object key)
+        {
+            List<EngineType> result = new List<EngineType>();
+            return result
+                .Where(e => e.EngineTypeID.Equals(EngineTypeID))
+                .SingleOrDefault();
+        }
     }
 }

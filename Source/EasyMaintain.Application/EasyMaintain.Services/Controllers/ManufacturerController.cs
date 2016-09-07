@@ -20,7 +20,7 @@ namespace EasyMaintain.Services.Controllers
 
         // GET api/Manufacturer
         [HttpGet]
-        public IQueryable<Manufacturer> GetManufacturers()
+        public IQueryable<Manufacturer> Manufacturers()
         {
             return db.Manufacturers;
         }
@@ -28,7 +28,7 @@ namespace EasyMaintain.Services.Controllers
         // GET api/Manufacturer/5
         [ResponseType(typeof(Manufacturer))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetManufacturer(int id)
+        public async Task<IHttpActionResult> Manufacturer(int id)
         {
             Manufacturer manufacturer = await db.Manufacturers.FindAsync(id);
             if (manufacturer == null)
@@ -41,7 +41,7 @@ namespace EasyMaintain.Services.Controllers
 
         // PUT api/Manufacturer/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutManufacturer(int id, Manufacturer manufacturer)
+        public async Task<IHttpActionResult> Manufacturer(int id, Manufacturer manufacturer)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace EasyMaintain.Services.Controllers
         // POST api/Manufacturer
         [ResponseType(typeof(Manufacturer))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostManufacturer(Manufacturer manufacturer)
+        public async Task<IHttpActionResult> Manufacturer(Manufacturer manufacturer)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace EasyMaintain.Services.Controllers
         // DELETE api/Manufacturer/5
         [ResponseType(typeof(Manufacturer))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteManufacturer(int id)
+        public async Task<IHttpActionResult> ManufacturerDelete(int id)
         {
             Manufacturer manufacturer = await db.Manufacturers.FindAsync(id);
             if (manufacturer == null)

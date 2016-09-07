@@ -29,9 +29,11 @@ namespace EasyMaintain.Business
         /// Get data
         /// </summary>
         /// <returns></returns>
+        /// 
+        List<Supplier> result = new List<Supplier>();
         public object GetData()
         {
-            List<Supplier> result = new List<Supplier>();
+            //List<Supplier> result = new List<Supplier>();
             DataProvidor dp = new DataProvidor();
 
             foreach (DataAccess.Supplier supplier in dp.GetSupplierData())
@@ -85,6 +87,14 @@ namespace EasyMaintain.Business
             dp.DeleteSupplier(mSupplier.SupplierID);
         }
 
+        //finding the supplier ID
+        public Supplier Find(object SupplierID)
+        {
+            return result
+                .Where(e => e.SupplierID.Equals(SupplierID))
+                .SingleOrDefault();
+        }
+
         /// <summary>
         /// Update one record
         /// </summary>
@@ -97,5 +107,9 @@ namespace EasyMaintain.Business
             return dp.UpdateSupplier(mSupplier.SupplierID, mSupplier.Name, mSupplier.EmailAddress, mSupplier.Address, mSupplier.ContactDetails, mSupplier.Description, mSupplier.AdditionalData);
         }
 
+        //public Supplier Find(object key)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

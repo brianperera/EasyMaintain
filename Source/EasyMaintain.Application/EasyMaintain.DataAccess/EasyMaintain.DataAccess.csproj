@@ -36,6 +36,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -47,6 +51,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WebActivator, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivator.1.5.1\lib\net40\WebActivator.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AircraftModel.cs">
@@ -71,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EasyMaintainDataModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EasyMaintainDBContext.cs" />
     <Compile Include="EngineType.cs">
       <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
     </Compile>
@@ -80,6 +89,12 @@
     <Compile Include="Manufacturer.cs">
       <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AircraftModel.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\EngineType.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="Models\SparePart.cs" />
+    <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SparePart.cs">
       <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
@@ -118,9 +133,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Start\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

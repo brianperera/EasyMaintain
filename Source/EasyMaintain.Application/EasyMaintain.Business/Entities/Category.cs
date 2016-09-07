@@ -92,5 +92,12 @@ namespace EasyMaintain.Business
             return dp.UpdateCategory(mCategory.CategoryID, mCategory.CategoryName, mCategory.AdditionalData);
         }
 
+        public Category Find(object key)
+        {
+            List<Category> result = new List<Category>();
+            return result
+                .Where(e => e.CategoryID.Equals(CategoryID))
+                .SingleOrDefault();
+        }
     }
 }

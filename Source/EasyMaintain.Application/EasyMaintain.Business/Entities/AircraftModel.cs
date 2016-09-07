@@ -102,5 +102,19 @@ namespace EasyMaintain.Business
             DataProvidor dp = new DataProvidor();
             return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.Manufacturer.Name, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category.CategoryID, mAircraftModel.EngineType.EngineTypeID, mAircraftModel.Manufacturer.ManufacturerID, mAircraftModel.ImagePath);
         }
+
+        public AircraftModel Find(object key)
+        {
+            List<AircraftModel> result = new List<AircraftModel>();
+            return result
+                .Where(e => e.AircraftModelID.Equals(AircraftModelID))
+                .SingleOrDefault();
+        }
+
+
+        //Supplier IBusiness.Find(object key)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -15,14 +15,15 @@ namespace EasyMaintain.Business
         int Save(object record);
 
         // Insert new record
-        int Insert( object record);
+        int Insert(object record);
 
         //Delete a record
         void DeleteOne(object record);
 
         // Undate a record
         bool UpdateOne(object record);
-
+        //find the suppier using an id
+    // object Find(object key);
         //update multiple records
         //bool UpdateRecords(List<object> records);
 

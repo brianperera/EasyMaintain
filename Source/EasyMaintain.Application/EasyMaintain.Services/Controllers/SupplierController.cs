@@ -16,76 +16,72 @@ namespace EasyMaintain.Services.Controllers
 {
     public class SupplierController : ApiController
     {
-        private EasyMaintainServicesContext db = new EasyMaintainServicesContext();
+        
+        private Supplier supplier;
+        public IBusiness SupplierRepo { get; set; }
+        public SupplierController(IBusiness _repo)
+        {
+            SupplierRepo = _repo;
+        }
 
+        
         // GET api/Supplier
         [HttpGet]
-        public IQueryable<Supplier> GetSuppliers()
+        public List<Supplier> Suppliers()
         {
-            return db.Suppliers;
+            return (List<Supplier>)this.supplier.GetData();
         }
 
         // GET api/Supplier/5
         [ResponseType(typeof(Supplier))]
+
         [HttpGet]
-        public async Task<IHttpActionResult> GetSupplier(int id)
+        public async Task<IHttpActionResult> Suppliers(Supplier SupplierID)
         {
-            Supplier supplier = await db.Suppliers.FindAsync(id);
-            if (supplier == null)
+
+            //var item = SupplierRepo.Find(SupplierID);
+            var item = supplier.Find(SupplierID);
+
+            if (item == null)
             {
                 return NotFound();
             }
 
-            return Ok(supplier);
+            return Ok(item);
         }
 
         // PUT api/Supplier/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSupplier(int id, Supplier supplier)
+        public async Task<IHttpActionResult> Supplier(Supplier SupplierID, Supplier supplier) //TODO: use the supplier object ID
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != supplier.SupplierID)
+            //validation
+           
+            if (SupplierID == null || SupplierID.Equals(0))
             {
                 return BadRequest();
             }
 
-            db.Entry(supplier).State = EntityState.Modified;
 
-            try
+            else
+                if (!ModelState.IsValid)
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SupplierExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ModelState);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST api/Supplier
         [ResponseType(typeof(Supplier))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSupplier(Supplier supplier)
+        public async Task<IHttpActionResult> Supplier(Supplier supplier)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Suppliers.Add(supplier);
-            await db.SaveChangesAsync();
+
+            SupplierRepo.Insert(supplier);
 
             return CreatedAtRoute("DefaultApi", new { id = supplier.SupplierID }, supplier);
         }
@@ -93,32 +89,17 @@ namespace EasyMaintain.Services.Controllers
         // DELETE api/Supplier/5
         [ResponseType(typeof(Supplier))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSupplier(int id)
+        public async Task<IHttpActionResult> SupplierDelete(Supplier SupplierID)
         {
-            Supplier supplier = await db.Suppliers.FindAsync(id);
+
             if (supplier == null)
             {
                 return NotFound();
             }
 
-            db.Suppliers.Remove(supplier);
-            await db.SaveChangesAsync();
+            SupplierRepo.DeleteOne(supplier);
 
             return Ok(supplier);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool SupplierExists(int id)
-        {
-            return db.Suppliers.Count(e => e.SupplierID == id) > 0;
         }
     }
 }

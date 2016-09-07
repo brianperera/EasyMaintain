@@ -9,11 +9,16 @@ namespace EasyMaintain.DataAccess
 {
     public class DataProvidor
     {
-        /// <summary>
-        /// Get Supplier Data
-        /// </summary>
-        /// <returns></returns>
-        public List<Supplier> GetSupplierData()
+    
+
+
+
+/// <summary>
+/// Get Supplier Data
+/// </summary>
+/// <returns></returns>
+///           
+public List<Supplier> GetSupplierData()
         {
             List<Supplier> supplierList = new List<Supplier>();
 

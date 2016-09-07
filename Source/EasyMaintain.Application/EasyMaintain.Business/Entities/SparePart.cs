@@ -84,6 +84,13 @@ namespace EasyMaintain.Business
             DataProvidor dp = new DataProvidor();
             dp.DeleteSparePart(mSparePart.SparePartID);
         }
+        public SparePart Find(object key)
+        {
+            List<SparePart> result = new List<SparePart>();
+            return result
+                .Where(e => e.SparePartID.Equals(SparePartID))
+                .SingleOrDefault();
+        }
 
         /// <summary>
         /// Update one record

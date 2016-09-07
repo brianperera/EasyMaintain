@@ -20,7 +20,7 @@ namespace EasyMaintain.Services.Controllers
 
         // GET api/Spareparts
         [HttpGet]
-        public IQueryable<SparePart> GetSpareParts()
+        public IQueryable<SparePart> SpareParts()
         {
 
             return db.SpareParts;
@@ -29,7 +29,7 @@ namespace EasyMaintain.Services.Controllers
         // GET api/Spareparts/5
         [ResponseType(typeof(SparePart))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSparePart(int id)
+        public async Task<IHttpActionResult> SparePart(int id)
         {
             SparePart sparepart = await db.SpareParts.FindAsync(id);
             if (sparepart == null)
@@ -42,7 +42,7 @@ namespace EasyMaintain.Services.Controllers
 
         // PUT api/Spareparts/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutSparePart(int id, SparePart sparepart)
+        public async Task<IHttpActionResult> SparePart(int id, SparePart sparepart)
         {
             if (!ModelState.IsValid)
             {
@@ -78,7 +78,7 @@ namespace EasyMaintain.Services.Controllers
         // POST api/Spareparts
         [ResponseType(typeof(SparePart))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostSparePart(SparePart sparepart)
+        public async Task<IHttpActionResult> SparePart(SparePart sparepart)
         {
             if (!ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace EasyMaintain.Services.Controllers
         // DELETE api/Spareparts/5
         [ResponseType(typeof(SparePart))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteSparePart(int id)
+        public async Task<IHttpActionResult> SparePartDelete(int id)
         {
             SparePart sparepart = await db.SpareParts.FindAsync(id);
             if (sparepart == null)

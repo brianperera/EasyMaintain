@@ -93,5 +93,13 @@ namespace EasyMaintain.Business
             return dp.UpdateManufacturer(mManufacturer.ManufacturerID, mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
         }
 
+        public Manufacturer Find(object key)
+        {
+            List<Manufacturer> result = new List<Manufacturer>();
+            return result
+                .Where(e => e.ManufacturerID.Equals(ManufacturerID))
+                .SingleOrDefault();
+        }
+
     }
 }

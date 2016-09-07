@@ -20,7 +20,7 @@ namespace EasyMaintain.Services.Controllers
 
         // GET api/Engine
         [HttpGet]
-        public IQueryable<EngineType> GetEngineTypes()
+        public IQueryable<EngineType> EngineTypes()
         {
             return db.EngineTypes;
         }
@@ -28,7 +28,7 @@ namespace EasyMaintain.Services.Controllers
         // GET api/Engine/5
         [ResponseType(typeof(EngineType))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetEngineType(int id)
+        public async Task<IHttpActionResult> EngineTypes(int id)
         {
             EngineType enginetype = await db.EngineTypes.FindAsync(id);
             if (enginetype == null)
@@ -41,7 +41,7 @@ namespace EasyMaintain.Services.Controllers
 
         // PUT api/Engine/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutEngineType(int id, EngineType enginetype)
+        public async Task<IHttpActionResult> EngineType(int id, EngineType enginetype)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace EasyMaintain.Services.Controllers
         // POST api/Engine
         [ResponseType(typeof(EngineType))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostEngineType(EngineType enginetype)
+        public async Task<IHttpActionResult> EngineType(EngineType enginetype)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace EasyMaintain.Services.Controllers
         // DELETE api/Engine/5
         [ResponseType(typeof(EngineType))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteEngineType(int id)
+        public async Task<IHttpActionResult> EngineTypeDelete(int id)
         {
             EngineType enginetype = await db.EngineTypes.FindAsync(id);
             if (enginetype == null)

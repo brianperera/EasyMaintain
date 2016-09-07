@@ -20,7 +20,7 @@ namespace EasyMaintain.Services.Controllers
 
         // GET api/Category
         [HttpGet]
-        public IQueryable<Category> GetCategories()
+        public IQueryable<Category> Categories()
         {
             return db.Categories;
         }
@@ -28,7 +28,7 @@ namespace EasyMaintain.Services.Controllers
         // GET api/Category/5
         [ResponseType(typeof(Category))]
         [HttpGet]
-        public async Task<IHttpActionResult> GetCategory(int id)
+        public async Task<IHttpActionResult> Category(int id)
         {
             Category category = await db.Categories.FindAsync(id);
             if (category == null)
@@ -41,7 +41,7 @@ namespace EasyMaintain.Services.Controllers
 
         // PUT api/Category/5
         [HttpPut]
-        public async Task<IHttpActionResult> PutCategory(int id, Category category)
+        public async Task<IHttpActionResult> Category(int id, Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace EasyMaintain.Services.Controllers
         // POST api/Category
         [ResponseType(typeof(Category))]
         [HttpPost]
-        public async Task<IHttpActionResult> PostCategory(Category category)
+        public async Task<IHttpActionResult> Category(Category category)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace EasyMaintain.Services.Controllers
         // DELETE api/Category/5
         [ResponseType(typeof(Category))]
         [HttpDelete]
-        public async Task<IHttpActionResult> DeleteCategory(int id)
+        public async Task<IHttpActionResult> CategoryDelete(int id)
         {
             Category category = await db.Categories.FindAsync(id);
             if (category == null)
