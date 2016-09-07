@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Maintenance";
+    ViewBag.Title = "Inventory";
 }
 
 <div class="flex-grid no-responsive-future" style="height: 100%;">
@@ -9,13 +9,25 @@
                 <li class="active">
                     <a href="#" onclick="LoadPartialView('Search')">
                         <span class="mif-search icon"></span>
-                        <span class="title">Search</span>
+                        <span class="title">Search Items</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" onclick="LoadPartialView('NewMaintenanceOrder')">
+                    <a href="#" onclick="LoadPartialView('ManageRequests')">
+                        <span class="mif-layers icon"></span>
+                        <span class="title">Manage Requests</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="LoadPartialView('NewOrder')">
                         <span class="mif-plus icon"></span>
-                        <span class="title">Create</span>
+                        <span class="title">Create Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="LoadPartialView('NewRestockOrder')">
+                        <span class="mif-cabinet icon"></span>
+                        <span class="title">Restock Order</span>
                     </a>
                 </li>
             </ul>
@@ -26,6 +38,7 @@
         </div>
     </div>
 </div>
+
 <script>
     function LoadPartialView(viewName)
     {

@@ -17,10 +17,14 @@ $(function () {
 })
 
 var $loading = $('#loadingDiv').hide();
+
 $(document)
   .ajaxStart(function () {
-      $loading.show();
+      $loading.delay(100).fadeIn();
   })
   .ajaxStop(function () {
-      $loading.hide();
+
+      setTimeout(function () {          
+          $loading.delay(100).fadeOut();
+      }, 500);
   });

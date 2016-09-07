@@ -1,5 +1,5 @@
 ﻿using EasyMaintain.WebUI.Models;
-using EasyMaintain.WebUI.Utility;
+using EasyMaintain.CoreWebMVC.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -69,19 +69,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             componentWorkModel.ComponentWorkOrders[0].Component = model.ComponentName;
             componentWorkModel.ComponentWorkOrders[0].Location = model.WorkshopLocation;
             componentWorkModel.ComponentWorkOrders[0].Description = model.Description;
-
-            /* ComponentWorkModelSession.ComponentWorkOrders.Add(
-                 new ComponentWork
-                 {
-                     WorkID = (ComponentWorkModelSession.ComponentWorkOrders.Count) + 1,
-                     Component = model.ComponentName,
-                     CreatedDate = model.CreatedDate,
-                     Description = model.Description,
-                     Location = model.WorkshopLocation,
-                     SerialNumber = model.SerialNumber,
-                     FlightNumber = model.FlightNumber
-                 });*/
-
             return PartialView("_Search", componentWorkModel);
         }
 

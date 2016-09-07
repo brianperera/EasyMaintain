@@ -2,11 +2,26 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EasyMaintain.CoreWebMVC.Utility;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
+    [Table("MaintenanceChecks")]
+    public class Check
+    {
+        [Key]
+        public string Description { get; set; }
+        public bool status { get; set; }
+    }
+
+    public class Crew
+    {
+        [Key]
+        public string Name { get; set; }
+        public string Designation { get; set; }
+    }
 
     [Table("MaintenanceDetails")]
     public class Maintenance
@@ -19,6 +34,9 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string StartDate { get; set; }
         public string CompletionDate { get; set; }
         public string Location { get; set; }
+        public List<Check> CheckItems { get; set; }
+        public List<Crew> CrewMembers { get; set; }
+
 
     }
     public class MaintenanceViewModel
@@ -47,11 +65,19 @@ namespace EasyMaintain.CoreWebMVC.Models
         [Display(Name = "Completion Date")]
         public string CompletionDate { get; set; }
 
-        public static int CurrentID { get; set; }
+        [Required]
+        [Display(Name = "Completion Date")]
+        public int WorkID { get; set; }
 
         public List<string> Workshops { get; set; }
 
+        public List<Check> CheckItems { get; set; }
+
+        public List<Crew> CrewMembers { get; set; }
+
         public List<Maintenance> MaintenanceOrders { get; set; }
+
+        public string ActiveTab { get; set; }
 
         public MaintenanceViewModel()
         {
@@ -64,6 +90,8 @@ namespace EasyMaintain.CoreWebMVC.Models
                     Location = "Detroit"
                 }
             };
+            SessionUtility.CurrentMaintenanceID = 1;
+
             Workshops = new List<string>();
             Workshops.Add("Folrida");
             Workshops.Add("California");
@@ -72,8 +100,14 @@ namespace EasyMaintain.CoreWebMVC.Models
 
             DateTime dateTime = DateTime.UtcNow.Date;
             StartDate = dateTime.ToString("dd/MM/yyyy");
+
+            CheckItems = new List<Check>();
+            CheckItems.Add(new Check() {Description ="Check Left Rudder" });
+
+            CrewMembers = new List<Crew>();
+            CrewMembers.Add(new Crew() { Name = "John",Designation = "Technician"});
         }
 
-        
+
     }
 }

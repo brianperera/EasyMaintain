@@ -4,7 +4,7 @@
 
 
 
-<div class="tabcontrol2" data-role="tabcontrol" data-on-tab-click="tab_click" data-on-tab-change="tab_change">
+<div class="tabcontrol2" data-role="tabcontrol" data-open-target="@Model.ActiveTab" data-on-tab-click="tab_click" data-on-tab-change="tab_change">
     <ul class="tabs">
         <li ><a href="#frame_1">Maintanance Record</a></li>
         <li ><a href="#frame_2">Check list</a></li>
@@ -23,6 +23,7 @@
                             <label>Flight Model</label>
                             <div class="input-control text full-size">
                                 @Html.TextBoxFor(m => m.FlightModel, new { @class = "FlightModel", placeholder = "Flight Model" })
+                               
                             </div>
                         </div>
 
@@ -42,15 +43,15 @@
                         </div>
                         <div class="cell-form margin-right-10 cell size4">
                             <label class="display-block">Start Date</label>
-                            <div class="input-control text" id="datepicker">
-                                <input type="text">
+                            <div class="input-control text" data-role="datepicker" >
+                                <input type="text" id="startDate" value="@Model.StartDate">
                                 <button class="button"><span class="mif-calendar"></span></button>
                             </div>
                         </div>
                         <div class="cell-form margin-right-10 cell size4">
                             <label class="display-block">End Date</label>
-                            <div class="input-control text" id="datepicker">
-                                <input type="text">
+                            <div class="input-control text" data-role="datepicker" >
+                                <input type="text" id="endDate" value="@Model.CompletionDate">
                                 <button class="button"><span class="mif-calendar"></span></button>
                             </div>
                         </div>
@@ -65,121 +66,213 @@
                     </div>
                 </div>
             </div>      
-            <!--<a href="#frame_2" class="button primary">Next</a>
-            <button class="button primary" onclick="tab_click(frame_2)"><span class="mif-next"></span> Next</button>-->
             <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
         </div>       
         <div class="frame" id="frame_2" name="CheckList">
-                    @Html.AntiForgeryToken()
-                    <hr />
-                    @Html.ValidationSummary(true)
+            <div class="example">
+                <div class="flex-grid">
+                    <div class="row cells2">
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label>Add Check Item</label>
+                            <div class="input-control text full-size">
+                                <input type="text" id="checkDescription" placeholder="Description" />
+                                <button class="button primary" onclick="addCheck()"><span class="mif-plus"></span> Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="example">
-                        <div class="flex-grid">
-                            <div class="row cells2">
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label class="display-block">Delivery Method</label>
-                                    <div class="input-control select full-size">
-                                        @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "DeliveryMethod" })
-                                    </div>
-                                </div>
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Delivery Date</label>
-                                    <div class="input-control text full-size">
-                                        <div class="input-control text" id="datepicker">
-                                            <input type="text">
-                                            <button class="button"><span class="mif-calendar"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Address</label>
-                                    <div class="input-control text full-size">
+                        <div>
+                            <table class="dataTable border bordered" data-auto-width="false">
+                                <thead>
+                                    <tr>
+                                        <td class="sortable-column">Description</td>
+                                        <td class="sortable-column" style="width: 100px">Remove</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var workOrder in Model.CheckItems)
+                                    {
+                                        <tr>
+                                            <td>@workOrder.Description</td>
+                                            <td class="align-center"><button class="toolbar-button" onclick="DeleteCheck( this )"  data-assigned-id="@workOrder.Description"><span class="mif-cross"></span></button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+        <div id="frame_3" class="frame" name="Crew">
+
+                        <h4 class="text-light">Add Crew</h4>
+                        <div class="example">
+                            <div class="flex-grid">
+                                <div class="row cells2">
+                                    <div class="cell-form margin-right-10 cell size4">
+                                        <label>Member Name</label>
                                         <div class="input-control text full-size">
-                                            @Html.TextBoxFor(m => m.FlightModel, new { @class = "LineOne", placeholder = "Line 1" })
+                                            <input type="text" id="memberName" placeholder="Name" />
                                         </div>
+                                        <label>Designation</label>
                                         <div class="input-control text full-size">
-                                            @Html.TextBoxFor(m => m.FlightModel, new { @class = "LineTwo", placeholder = "Line 2" })
+                                            <input type="text" id="designation" placeholder="Designation" />
                                         </div>
-                                        <div class="input-control text full-size">
-                                            @Html.TextBoxFor(m => m.FlightModel, new { @class = "City", placeholder = "City" })
-                                        </div>
-                                        <div class="input-control text full-size">
-                                            @Html.TextBoxFor(m => m.FlightModel, new { @class = "State", placeholder = "State" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row cells2">
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Person InCharge</label>
-                                    <div class="input-control text full-size">
-                                        @Html.TextBoxFor(m => m.FlightModel, new { @class = "PersonInCharge", placeholder = "Person InCharge" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row cells2">
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label class="display-block">Additional Notes</label>
-                                    <div class="input-control textarea full-size">
-                                        @Html.TextAreaFor(m => m.Description, new { @class = "ShippingNotes", placeholder = "Additional Notes" })
+                                        <button class="button primary" onclick="addMember()"><span class="mif-plus"></span> Add</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div>
+                            <table class="dataTable border bordered" data-auto-width="false">
+                                <thead>
+                                    <tr>
+                                        <td class="sortable-column">Member Name</td>
+                                        <td class="sortable-column">Designation</td>
+                                        <td class="sortable-column" style="width: 100px">Remove</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var workOrder in Model.CrewMembers)
+                                    {
+                                        <tr>
+                                            <td>@workOrder.Name</td>
+                                            <td>@workOrder.Designation</td>
+                                            <td class="align-center"><button class="toolbar-button"  onclick="DeleteMember(this)"  data-assigned-id="@workOrder.Name"><span class="mif-cross"></span></button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
-        </div>
-        <div id="frame_3" class="frame" name="Crew">Working on it</div>
     </div>
-</div>
+ </div>
 
 
 
 
 
-<script>
+            <script>
 
-    function tab_click(tab){
-        console.log(tab);
-        return true;
-    }
-    function tab_change(tab){
-        console.log(tab);
-    }
+                function tab_click(tab) {
+                    console.log(tab);
+                    return true;
+                }
+                function tab_change(tab) {
+                    console.log(tab);
+                }
 
-    function nextTab(tab) {
-        tab_click(tab);
-        tab_change(tab);
-    }
+                function nextTab(tab) {
+                    tab_click(tab);
+                    tab_change(tab);
+                }
 
-    function newWorkOrder() {
+                function DeleteCheck(test) {
+                    saveTempData();
 
-        var ai = 1;
+                    $.ajax({
+                        url: '/maintenance/DeleteCheckItem',
+                        type: 'GET',
+                        data: { CheckDiscription: $(test).data('assigned-id') },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
 
-        $.ajax({
-            url: '/maintenance/CreateMaintenanceOrder',
-            type: 'GET',
-            data: {
-                ComponentName: $(".ComponentName").val(),
-                CreatedDate: $(".CreatedDate").val(),
-                Description: $(".Description").val(),
-                WorkshopLocation: $(".WorkshopLoc").val(),
-                SerialNumber: $(".SerialNumber").val(),
-                FlightNumber: $(".FlightNumber").val()
-            },
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                debugger;
-                $('#partial-view-container').html(data);
-            },
-        });
-    }
+                }
 
-    $(function () {
-        $("#datepicker").datepicker();
-    });
+                function addCheck() {
+                    saveTempData();
 
-</script>
+                    $.ajax({
+                        url: '/maintenance/AddCheckItem',
+                        type: 'GET',
+                        data: { CheckDiscription: $("#checkDescription").val()},
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+
+                }
+
+                function DeleteMember(test) {
+                    saveTempData();
+
+                    $.ajax({
+                        url: '/maintenance/DeleteCrewMember',
+                        type: 'GET',
+                        data: { MemberName: $(test).data('assigned-id') },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+
+                }
+
+                function addMember() {
+                    saveTempData();
+
+                    $.ajax({
+                        url: '/maintenance/AddCrewMember',
+                        type: 'GET',
+                        data: {
+                            Name: $("#memberName").val(),
+                            Designation: $("#designation").val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+
+                }
+
+                function newWorkOrder() {
+
+                    $.ajax({
+                        url: '/maintenance/CreateMaintenanceOrder',
+                        type: 'GET',
+                        data: {
+                            CompletionDate: $("#endDate").val(),
+                            StartDate: $("#startDate").val(),
+                            Description: $(".Description").val(),
+                            Location: $(".WorkshopLocation").val(),
+                            FlightModel: $(".FlightModel").val(),
+                            FlightNumber: $(".FlightNumber").val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+                }
+
+                function saveTempData() {
+                    $.ajax({
+                        url: '/maintenance/SaveTempData',
+                        type: 'GET',
+                        data: {
+                            CompletionDate: $("#endDate").val(),
+                            StartDate: $("#startDate").val(),
+                            Description: $(".Description").val(),
+                            Location: $(".WorkshopLocation").val(),
+                            FlightModel: $(".FlightModel").val(),
+                            FlightNumber: $(".FlightNumber").val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                    });
+                }
+
+
+            </script>
 
 
