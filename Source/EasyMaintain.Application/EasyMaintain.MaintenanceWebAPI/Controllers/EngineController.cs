@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -38,7 +35,7 @@ namespace EasyMaintain.Services.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> EngineTypes(EngineType EngineTypeID)
         {
-            var item = EngineRepo.Find(EngineTypeID);
+            var item = enginetype.Find(EngineTypeID);
 
             if (item == null)
             {
