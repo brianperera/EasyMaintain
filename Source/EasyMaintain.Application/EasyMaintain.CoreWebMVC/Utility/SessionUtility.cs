@@ -15,6 +15,8 @@ namespace EasyMaintain.CoreWebMVC.Utility
         public static string Frame_4 = "#frame_4";
         public static string Frame_5 = "#frame_5";
         public static MaintenanceViewModel utilityMaintenanceViewModel = new MaintenanceViewModel();
+        public static InventoryViewModel utilityInventoryViewModel = new InventoryViewModel();
+
         public static int CurrentMaintenanceID { get; set; }
     }
 }

@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using EasyMaintain.Business;
-using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.InventoryWebAPI.Controllers
 {
@@ -82,7 +81,7 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
         // DELETE api/Spareparts/5
         [ResponseType(typeof(SparePart))]
         [HttpDelete]
-        public async Task<IHttpActionResult> SparePartDelete(Spareparts sparepart)
+        public async Task<IHttpActionResult> SparePartDelete(SparePart sparepart)
         {
 
             if (sparepart == null)

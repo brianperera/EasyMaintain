@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using EasyMaintain.Business;
-using EasyMaintain.Services.Models;
 
 namespace EasyMaintain.InventoryWebAPI.Controllers
 {

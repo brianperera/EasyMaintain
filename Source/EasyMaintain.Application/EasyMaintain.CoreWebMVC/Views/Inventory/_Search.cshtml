@@ -1,4 +1,4 @@
-﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
+﻿@model EasyMaintain.CoreWebMVC.Models.InventoryViewModel
 
 <h1 class="text-light">Inventory</h1>
 
@@ -19,13 +19,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var workOrder in Model.MaintenanceOrders)
+        @foreach (var workOrder in Model.InventoryOrders)
         {
             <tr>
-                <td>@workOrder.WorkID</td>
-                <td>@workOrder.FlightModel</td>
-                <td>@workOrder.StartDate</td>
-                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.WorkID)"><span class="mif-pencil"></span></button></td>
+                <td>@workOrder.InvoiceNumber</td>
+                <td>@workOrder.CustomerName</td>
+                <td>@workOrder.Deliverydetails.DeliveryDate</td>
+                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.InvoiceNumber)"><span class="mif-pencil"></span></button></td>
             </tr>
         }
      </tbody>

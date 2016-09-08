@@ -13,12 +13,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     public class InventoryController : Controller
     {
         // GET: /<controller>/
-        MaintenanceViewModel session = SessionUtility.utilityMaintenanceViewModel;
+        InventoryViewModel session = SessionUtility.utilityInventoryViewModel;
         // GET: /<controller>/
         public ActionResult Index()
         {
             //var maintenanceViewModel = new MaintenanceViewModel();
-            session = SessionUtility.utilityMaintenanceViewModel;
+            session = SessionUtility.utilityInventoryViewModel;
             return View(session);
         }
 
@@ -34,12 +34,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult NewOrder()
         {
-            return PartialView("_NewOrder", new ComponentWorkController());
+            return PartialView("_NewOrder", session);
         }
 
         public PartialViewResult NewRestockOrder()
         {
-            return PartialView("_NewRestockOrder", new ComponentWorkController());
+            return PartialView("_NewRestockOrder", session);
         }
 
     }

@@ -1,30 +1,28 @@
-﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
+﻿@model EasyMaintain.CoreWebMVC.Models.InventoryViewModel
 
 <h1 class="text-light">Manage Requests</h1>
 
 <table class="dataTable border bordered" data-auto-width="false">
     <thead>
         <tr>
-            <td class="sortable-column sort-asc" style="width: 200px">Invoice No</td>
-            <td class="sortable-column">Client Name</td>
+            <td class="sortable-column sort-asc" style="width: 100px">InvoiceNo</td>
+            <td class="sortable-column">Customer Name</td>
             <td class="sortable-column">Delivery Date</td>
-            <td class="sortable-column"style="width: 100px">View</td>
+            <td class="sortable-column" style="width: 100px">View</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var workOrder in Model.MaintenanceOrders)
+        @foreach (var workOrder in Model.InventoryOrders)
         {
             <tr>
-                <td>@workOrder.WorkID</td>
-                <td>@workOrder.FlightModel</td>
-                <td>@workOrder.StartDate</td>
-                <td>@workOrder.CompletionDate</td>
-                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.WorkID)"><span class="mif-pencil"></span></button></td>
+                <td>@workOrder.InvoiceNumber</td>
+                <td>@workOrder.CustomerName</td>
+                <td>@workOrder.Deliverydetails.DeliveryDate</td>
+                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.InvoiceNumber)"><span class="mif-pencil"></span></button></td>
             </tr>
         }
-     </tbody>
+    </tbody>
 </table>
-
 
 <script>
     function LoadWorkOrder(viewName)
