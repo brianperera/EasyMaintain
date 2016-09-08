@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DataAccess.Models
 {
-    class SparePart
+    public class SparePart
     {
-       
+        internal int CategoryID;
 
         public int SparePartID { get; set; }
         public Category Category { get; set; }

@@ -54,7 +54,6 @@
     <Compile Include="Entities\Crew.cs" />
     <Compile Include="Entities\EngineType.cs" />
     <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Maintenance.cs" />
     <Compile Include="Entities\MaintenanceChecks.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
     <Compile Include="Entities\Supplier.cs" />

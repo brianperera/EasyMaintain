@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DataAccess.Models
 {
-    class Supplier
+    public class Supplier
     {
-        
+       public  string SupplierName;
 
         public int SupplierID { get; set; }
         public string Name { get; set; }
@@ -17,6 +17,5 @@ namespace EasyMaintain.DataAccess.Models
         public string ContactDetails { get; set; }
         public string EmailAddress { get; set; }
         public string AdditionalData { get; set; }
-
     }
 }

@@ -32,7 +32,7 @@ namespace EasyMaintain.Business
             List<Manufacturer> result = new List<Manufacturer>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Manufacturer manufacturer in dp.GetManufacturerData())
+            foreach (DataAccess.Models.Manufacturer manufacturer in dp.GetManufacturerData())
             {
                 Manufacturer _manufacturer = new Manufacturer();
                 _manufacturer.ManufacturerID = manufacturer.ManufacturerID;
@@ -101,5 +101,9 @@ namespace EasyMaintain.Business
                 .SingleOrDefault();
         }
 
+        public static implicit operator Manufacturer(Manufacturer v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

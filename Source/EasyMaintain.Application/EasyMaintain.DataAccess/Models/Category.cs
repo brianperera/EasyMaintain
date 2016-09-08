@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DataAccess.Models
 {
-    class Category
+    public class Category
     {
 
        

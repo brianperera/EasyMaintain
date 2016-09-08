@@ -36,7 +36,7 @@ namespace EasyMaintain.Business
             //List<Supplier> result = new List<Supplier>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Supplier supplier in dp.GetSupplierData())
+            foreach (DataAccess.Models.Supplier supplier in dp.GetSupplierData())
             {
                 Supplier _supplier = new Supplier();
                 _supplier.SupplierID = supplier.SupplierID;

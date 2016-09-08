@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyMaintain.DataAccess.Models;
 
 namespace EasyMaintain.DataAccess
 {
@@ -22,6 +23,6 @@ namespace EasyMaintain.DataAccess
        public DbSet<Manufacturer> Manufactureres { get; set; }
       public  DbSet<SparePart> SpareParts { get; set; }
        public DbSet<Supplier> Suppliers { get; set; }
-
+      
     }
 }

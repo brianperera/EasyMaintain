@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DataAccess.Models
 {
-    class Manufacturer
+    public class Manufacturer
     {
         
 
@@ -14,6 +14,6 @@ namespace EasyMaintain.DataAccess.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string AdditionalData { get; set; }
-
+        public string ManufacturerName { get; internal set; }
     }
 }

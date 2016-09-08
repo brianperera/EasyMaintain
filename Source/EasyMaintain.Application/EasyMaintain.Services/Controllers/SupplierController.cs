@@ -50,25 +50,26 @@ namespace EasyMaintain.Services.Controllers
             return Ok(item);
         }
 
+        // TODOO
         // PUT api/Supplier/5
         [HttpPut]
-        public async Task<IHttpActionResult> Supplier(Supplier SupplierID, Supplier supplier) //TODO: use the supplier object ID
-        {
-            //validation
+        //public async Task<IHttpActionResult> Supplier(Supplier SupplierID, Supplier supplier) //TODO: use the supplier object ID
+        //{
+        //    //validation
            
-            if (SupplierID == null || SupplierID.Equals(0))
-            {
-                return BadRequest();
-            }
+        //    if (SupplierID == null || SupplierID.Equals(0))
+        //    {
+        //        return BadRequest();
+        //    }
 
 
-            else
-                if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    else
+        //        if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-        }
+        //}
 
         // POST api/Supplier
         [ResponseType(typeof(Supplier))]

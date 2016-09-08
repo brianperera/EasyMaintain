@@ -57,80 +57,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AircraftModel.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Category.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DataProvidor.cs" />
-    <Compile Include="EasyMaintainDataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EasyMaintainDataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EasyMaintainDataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EasyMaintainDataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EasyMaintainDataModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="EasyMaintainDBContext.cs" />
-    <Compile Include="EngineType.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
+    <Compile Include="Migrations\201609080550121_supplierNameAdded.cs" />
+    <Compile Include="Migrations\201609080550121_supplierNameAdded.Designer.cs">
+      <DependentUpon>201609080550121_supplierNameAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inventory.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Manufacturer.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Crew.cs" />
     <Compile Include="Models\EngineType.cs" />
+    <Compile Include="Models\MaintenanceChecks.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\SparePart.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SparePart.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SparePart_AircraftModel.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SparePart_Manufacturer.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SparePart_Supplier.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Supplier.cs">
-      <DependentUpon>EasyMaintainDataModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="EasyMaintainDataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EasyMaintainDataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="EasyMaintainDataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EasyMaintainDataModel.edmx</DependentUpon>
-      <LastGenOutput>EasyMaintainDataModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="EasyMaintainDataModel.edmx.diagram">
-      <DependentUpon>EasyMaintainDataModel.edmx</DependentUpon>
-    </None>
-    <None Include="EasyMaintainDataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EasyMaintainDataModel.edmx</DependentUpon>
-      <LastGenOutput>EasyMaintainDataModel.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609080550121_supplierNameAdded.resx">
+      <DependentUpon>201609080550121_supplierNameAdded.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

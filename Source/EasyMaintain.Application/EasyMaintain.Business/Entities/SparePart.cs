@@ -33,7 +33,7 @@ namespace EasyMaintain.Business
             List<SparePart> result = new List<SparePart>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.SparePart sparePart in dp.GetSparePartsData())
+            foreach (DataAccess.Models.SparePart sparePart in dp.GetSparePartsData())
             {
                 SparePart _sparePart = new SparePart();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EasyMaintain.DataAccess;
+using EasyMaintain.Business.Entities;
 
 namespace EasyMaintain.Business
 {
@@ -12,10 +13,15 @@ namespace EasyMaintain.Business
 
         EngineType mEngineType;
 
-        public int EngineTypeID { get; set; }
-        public string EngineTypeName { get; set; }
-        public int ManufacturerID { get; set; }
-        public string AdditionalData { get; set; }
+        public int WorkID { get; set; }
+        public string FlightModel { get; set; }
+        public string FlightNumber { get; set; }
+        public string  Description { get; set; }
+        public string StartDate { get; set; }
+        public string CompletionDate { get; set; }
+        public string Location { get; set; }
+        public List<MaintenanceChecks> CheckItems { get; set; }
+        public List<Crew> CrewMembers { get; set; }
 
         public EngineType()
         {
@@ -31,12 +37,13 @@ namespace EasyMaintain.Business
             List<EngineType> result = new List<EngineType>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.EngineType engineType in dp.GetEngineTypeData())
+            foreach (DataAccess.Models.EngineType engineType in dp.GetEngineTypeData())
             {
                 EngineType _engineType = new EngineType();
-                _engineType.EngineTypeID = engineType.EngineTypeID;
-                _engineType.EngineTypeName = engineType.EngineTypeName;
-                _engineType.AdditionalData = engineType.AdditionalData;
+                _engineType.WorkID = engineType.WorkID;
+                _engineType.FlightModel = engineType.FlightModel;
+                _engineType.FlightNumber = engineType.FlightNumber;
+                _engineType. Description = engineType. Description;
 
                 result.Add(_engineType);
             }
@@ -54,7 +61,7 @@ namespace EasyMaintain.Business
             //this.mEngineType = engineType as EngineType;
 
             //DataProvidor dp = new DataProvidor();
-            //dp.AddEngineType(mEngineType.EngineTypeName, mEngineType.AdditionalData);
+            //dp.AddEngineType(mEngineType.FlightModel, mEngineType. Description);
 
             return -1;
         }
@@ -68,7 +75,7 @@ namespace EasyMaintain.Business
         {
             this.mEngineType = engineType as EngineType;
             DataProvidor dp = new DataProvidor();
-            return dp.AddEngineType(mEngineType.EngineTypeName, mEngineType.AdditionalData);
+            return dp.AddEngineType(mEngineType.FlightModel, mEngineType. Description);
         }
 
         /// <summary>
@@ -80,7 +87,7 @@ namespace EasyMaintain.Business
             this.mEngineType = engineType as EngineType;
 
             DataProvidor dp = new DataProvidor();
-            dp.DeleteEngineType(mEngineType.EngineTypeID);
+            dp.DeleteEngineType(mEngineType.WorkID);
 
         }
 
@@ -93,14 +100,14 @@ namespace EasyMaintain.Business
         {
             this.mEngineType = engineType as EngineType;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateEngineType(mEngineType.EngineTypeID, mEngineType.EngineTypeName, mEngineType.AdditionalData);
+            return dp.UpdateEngineType(mEngineType.WorkID, mEngineType.FlightModel, mEngineType. Description);
         }
 
         public EngineType Find(object key)
         {
             List<EngineType> result = new List<EngineType>();
             return result
-                .Where(e => e.EngineTypeID.Equals(EngineTypeID))
+                .Where(e => e.WorkID.Equals(WorkID))
                 .SingleOrDefault();
         }
     }

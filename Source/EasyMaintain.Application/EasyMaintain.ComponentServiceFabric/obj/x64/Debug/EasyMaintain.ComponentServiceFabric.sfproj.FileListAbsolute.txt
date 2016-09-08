@@ -1,0 +1,1 @@
+C:\Users\josriskandarajah\Documents\AirCraft Maintenance\Code\trunk\Source\EasyMaintain.Application\EasyMaintain.ComponentServiceFabric\obj\x64\Debug\EasyMaintain.ComponentServiceFabric.sfprojResolveAssemblyReference.cache

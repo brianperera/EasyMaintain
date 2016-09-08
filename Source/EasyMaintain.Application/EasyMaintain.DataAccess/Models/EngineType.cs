@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DataAccess.Models
 {
-    class EngineType
+    public class EngineType
     {
 
         
 
-        public int EngineTypeID { get; set; }
-        public string EngineTypeName { get; set; }
-        public int ManufacturerID { get; set; }
-        public string AdditionalData { get; set; }
+        public int WorkID { get; set; }
+        public string FlightModel { get; set; }
+        public string FlightNumber { get; set; }
+        public string Description { get; set; }
 
-
+        public string StartDate { get; set; }
+        public string CompletionDate { get; set; }
+        public string Location { get; set; }
+        public List<MaintenanceChecks> CheckItems { get; set; }
+        public List<Crew> CrewMembers { get; set; }
 
     }
 }

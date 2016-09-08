@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.Business.Entities
 {
-    class MaintenanceChecks : IBusiness
+   public class MaintenanceChecks : IBusiness
     {
         public void DeleteOne(object record)
         {

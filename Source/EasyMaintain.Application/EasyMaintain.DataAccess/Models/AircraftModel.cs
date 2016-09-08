@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DataAccess.Models
 {
-    class AircraftModel
+    public class AircraftModel
     {
-        
+        public int CategoryID;
+        public int EngineTypeID;
+        public string FlightNumber;
 
         public int AircraftModelID { get; set; }
         public Category Category { get; set; }

@@ -1,0 +1,331 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EasyMaintainDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AircraftModel">
+    <Key>
+      <PropertyRef Name="AircraftModelID" />
+    </Key>
+    <Property Name="AircraftModelID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="ModelName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ManufacturerID" Type="Int32" />
+    <Property Name="EngineTypeID" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="Self.FK__AircraftM__Categ__2F10007B" FromRole="AircraftModels" ToRole="Categories" />
+    <NavigationProperty Name="EngineType" Relationship="Self.FK__AircraftM__Engin__30F848ED" FromRole="AircraftModels" ToRole="EngineTypes" />
+    <NavigationProperty Name="Manufacturer" Relationship="Self.FK__AircraftM__Manuf__300424B4" FromRole="AircraftModels" ToRole="Manufacturers" />
+    <NavigationProperty Name="SparePart_AircraftModel" Relationship="Self.FK__SparePart__Aircr__36B12243" FromRole="AircraftModels" ToRole="SparePart_AircraftModel" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AircraftModels" Relationship="Self.FK__AircraftM__Categ__2F10007B" FromRole="Categories" ToRole="AircraftModels" />
+    <NavigationProperty Name="SpareParts" Relationship="Self.FK_SpareParts_Categories" FromRole="Categories" ToRole="SpareParts" />
+  </EntityType>
+  <EntityType Name="EngineType">
+    <Key>
+      <PropertyRef Name="EngineTypeID" />
+    </Key>
+    <Property Name="EngineTypeID" Type="Int32" Nullable="false" />
+    <Property Name="EngineTypeName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ManufacturerID" Type="Int32" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AircraftModels" Relationship="Self.FK__AircraftM__Engin__30F848ED" FromRole="EngineTypes" ToRole="AircraftModels" />
+    <NavigationProperty Name="Manufacturer" Relationship="Self.FK__EngineTyp__Manuf__108B795B" FromRole="EngineTypes" ToRole="Manufacturers" />
+  </EntityType>
+  <EntityType Name="Inventory">
+    <Key>
+      <PropertyRef Name="InventoryID" />
+    </Key>
+    <Property Name="InventoryID" Type="Int32" Nullable="false" />
+    <Property Name="SparePartID" Type="Int32" />
+    <Property Name="UnitToMeasure" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ItemsInStock" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="LastPurchasedDate" Type="DateTime" Precision="3" />
+    <Property Name="RefillTriggerQty" Type="Int32" />
+    <Property Name="StoreLocation" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SparePart" Relationship="Self.FK__Inventory__Spare__1920BF5C" FromRole="Inventory" ToRole="SpareParts" />
+  </EntityType>
+  <EntityType Name="Manufacturer">
+    <Key>
+      <PropertyRef Name="ManufacturerID" />
+    </Key>
+    <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+    <Property Name="ManufacturerName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AircraftModels" Relationship="Self.FK__AircraftM__Manuf__300424B4" FromRole="Manufacturers" ToRole="AircraftModels" />
+    <NavigationProperty Name="EngineTypes" Relationship="Self.FK__EngineTyp__Manuf__108B795B" FromRole="Manufacturers" ToRole="EngineTypes" />
+    <NavigationProperty Name="SparePart_Manufacturer" Relationship="Self.FK__SparePart__Manuf__2A4B4B5E" FromRole="Manufacturers" ToRole="SparePart_Manufacturer" />
+  </EntityType>
+  <EntityType Name="SparePart_AircraftModel">
+    <Key>
+      <PropertyRef Name="SparePart_AircraftModelID" />
+    </Key>
+    <Property Name="SparePart_AircraftModelID" Type="Int32" Nullable="false" />
+    <Property Name="SparePartID" Type="Int32" />
+    <Property Name="AircraftModelID" Type="Int32" />
+    <NavigationProperty Name="AircraftModel" Relationship="Self.FK__SparePart__Aircr__36B12243" FromRole="SparePart_AircraftModel" ToRole="AircraftModels" />
+    <NavigationProperty Name="SparePart" Relationship="Self.FK__SparePart__Spare__35BCFE0A" FromRole="SparePart_AircraftModel" ToRole="SpareParts" />
+  </EntityType>
+  <EntityType Name="SparePart_Manufacturer">
+    <Key>
+      <PropertyRef Name="SparePart_ManufacturerID" />
+    </Key>
+    <Property Name="SparePart_ManufacturerID" Type="Int32" Nullable="false" />
+    <Property Name="SparePartID" Type="Int32" />
+    <Property Name="ManufacturerID" Type="Int32" />
+    <NavigationProperty Name="Manufacturer" Relationship="Self.FK__SparePart__Manuf__2A4B4B5E" FromRole="SparePart_Manufacturer" ToRole="Manufacturers" />
+    <NavigationProperty Name="SparePart" Relationship="Self.FK__SparePart__Spare__29572725" FromRole="SparePart_Manufacturer" ToRole="SpareParts" />
+  </EntityType>
+  <EntityType Name="SparePart_Supplier">
+    <Key>
+      <PropertyRef Name="SparePart_SupplierID" />
+    </Key>
+    <Property Name="SparePart_SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="SparePartID" Type="Int32" />
+    <Property Name="SupplierID" Type="Int32" />
+    <NavigationProperty Name="SparePart" Relationship="Self.FK__SparePart__Spare__239E4DCF" FromRole="SparePart_Supplier" ToRole="SpareParts" />
+    <NavigationProperty Name="Supplier" Relationship="Self.FK__SparePart__Suppl__24927208" FromRole="SparePart_Supplier" ToRole="Suppliers" />
+  </EntityType>
+  <EntityType Name="SparePart">
+    <Key>
+      <PropertyRef Name="SparePartID" />
+    </Key>
+    <Property Name="SparePartID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryID" Type="Int32" />
+    <Property Name="SparePartName" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_SpareParts_Categories" FromRole="SpareParts" ToRole="Categories" />
+    <NavigationProperty Name="Inventories" Relationship="Self.FK__Inventory__Spare__1920BF5C" FromRole="SpareParts" ToRole="Inventory" />
+    <NavigationProperty Name="SparePart_AircraftModel" Relationship="Self.FK__SparePart__Spare__35BCFE0A" FromRole="SpareParts" ToRole="SparePart_AircraftModel" />
+    <NavigationProperty Name="SparePart_Manufacturer" Relationship="Self.FK__SparePart__Spare__29572725" FromRole="SpareParts" ToRole="SparePart_Manufacturer" />
+    <NavigationProperty Name="SparePart_Supplier" Relationship="Self.FK__SparePart__Spare__239E4DCF" FromRole="SpareParts" ToRole="SparePart_Supplier" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="ContactDetails" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="EmailAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="AdditionalData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SparePart_Supplier" Relationship="Self.FK__SparePart__Suppl__24927208" FromRole="Suppliers" ToRole="SparePart_Supplier" />
+  </EntityType>
+  <Association Name="FK__AircraftM__Categ__2F10007B">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="AircraftModels" Type="Self.AircraftModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="AircraftModels">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AircraftM__Engin__30F848ED">
+    <End Role="EngineTypes" Type="Self.EngineType" Multiplicity="0..1" />
+    <End Role="AircraftModels" Type="Self.AircraftModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EngineTypes">
+        <PropertyRef Name="EngineTypeID" />
+      </Principal>
+      <Dependent Role="AircraftModels">
+        <PropertyRef Name="EngineTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__AircraftM__Manuf__300424B4">
+    <End Role="Manufacturers" Type="Self.Manufacturer" Multiplicity="0..1" />
+    <End Role="AircraftModels" Type="Self.AircraftModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturers">
+        <PropertyRef Name="ManufacturerID" />
+      </Principal>
+      <Dependent Role="AircraftModels">
+        <PropertyRef Name="ManufacturerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SparePart__Aircr__36B12243">
+    <End Role="AircraftModels" Type="Self.AircraftModel" Multiplicity="0..1" />
+    <End Role="SparePart_AircraftModel" Type="Self.SparePart_AircraftModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AircraftModels">
+        <PropertyRef Name="AircraftModelID" />
+      </Principal>
+      <Dependent Role="SparePart_AircraftModel">
+        <PropertyRef Name="AircraftModelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SpareParts_Categories">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="SpareParts" Type="Self.SparePart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="SpareParts">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EngineTyp__Manuf__108B795B">
+    <End Role="Manufacturers" Type="Self.Manufacturer" Multiplicity="0..1" />
+    <End Role="EngineTypes" Type="Self.EngineType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturers">
+        <PropertyRef Name="ManufacturerID" />
+      </Principal>
+      <Dependent Role="EngineTypes">
+        <PropertyRef Name="ManufacturerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Inventory__Spare__1920BF5C">
+    <End Role="SpareParts" Type="Self.SparePart" Multiplicity="0..1" />
+    <End Role="Inventory" Type="Self.Inventory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpareParts">
+        <PropertyRef Name="SparePartID" />
+      </Principal>
+      <Dependent Role="Inventory">
+        <PropertyRef Name="SparePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SparePart__Manuf__2A4B4B5E">
+    <End Role="Manufacturers" Type="Self.Manufacturer" Multiplicity="0..1" />
+    <End Role="SparePart_Manufacturer" Type="Self.SparePart_Manufacturer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturers">
+        <PropertyRef Name="ManufacturerID" />
+      </Principal>
+      <Dependent Role="SparePart_Manufacturer">
+        <PropertyRef Name="ManufacturerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SparePart__Spare__35BCFE0A">
+    <End Role="SpareParts" Type="Self.SparePart" Multiplicity="0..1" />
+    <End Role="SparePart_AircraftModel" Type="Self.SparePart_AircraftModel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpareParts">
+        <PropertyRef Name="SparePartID" />
+      </Principal>
+      <Dependent Role="SparePart_AircraftModel">
+        <PropertyRef Name="SparePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SparePart__Spare__29572725">
+    <End Role="SpareParts" Type="Self.SparePart" Multiplicity="0..1" />
+    <End Role="SparePart_Manufacturer" Type="Self.SparePart_Manufacturer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpareParts">
+        <PropertyRef Name="SparePartID" />
+      </Principal>
+      <Dependent Role="SparePart_Manufacturer">
+        <PropertyRef Name="SparePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SparePart__Spare__239E4DCF">
+    <End Role="SpareParts" Type="Self.SparePart" Multiplicity="0..1" />
+    <End Role="SparePart_Supplier" Type="Self.SparePart_Supplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SpareParts">
+        <PropertyRef Name="SparePartID" />
+      </Principal>
+      <Dependent Role="SparePart_Supplier">
+        <PropertyRef Name="SparePartID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SparePart__Suppl__24927208">
+    <End Role="Suppliers" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="SparePart_Supplier" Type="Self.SparePart_Supplier" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="SparePart_Supplier">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EasyMaintainEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AircraftModels" EntityType="Self.AircraftModel" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="EngineTypes" EntityType="Self.EngineType" />
+    <EntitySet Name="Inventories" EntityType="Self.Inventory" />
+    <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
+    <EntitySet Name="SparePart_AircraftModel" EntityType="Self.SparePart_AircraftModel" />
+    <EntitySet Name="SparePart_Manufacturer" EntityType="Self.SparePart_Manufacturer" />
+    <EntitySet Name="SparePart_Supplier" EntityType="Self.SparePart_Supplier" />
+    <EntitySet Name="SpareParts" EntityType="Self.SparePart" />
+    <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <AssociationSet Name="FK__AircraftM__Categ__2F10007B" Association="Self.FK__AircraftM__Categ__2F10007B">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="AircraftModels" EntitySet="AircraftModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AircraftM__Engin__30F848ED" Association="Self.FK__AircraftM__Engin__30F848ED">
+      <End Role="EngineTypes" EntitySet="EngineTypes" />
+      <End Role="AircraftModels" EntitySet="AircraftModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK__AircraftM__Manuf__300424B4" Association="Self.FK__AircraftM__Manuf__300424B4">
+      <End Role="Manufacturers" EntitySet="Manufacturers" />
+      <End Role="AircraftModels" EntitySet="AircraftModels" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SparePart__Aircr__36B12243" Association="Self.FK__SparePart__Aircr__36B12243">
+      <End Role="AircraftModels" EntitySet="AircraftModels" />
+      <End Role="SparePart_AircraftModel" EntitySet="SparePart_AircraftModel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SpareParts_Categories" Association="Self.FK_SpareParts_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="SpareParts" EntitySet="SpareParts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EngineTyp__Manuf__108B795B" Association="Self.FK__EngineTyp__Manuf__108B795B">
+      <End Role="Manufacturers" EntitySet="Manufacturers" />
+      <End Role="EngineTypes" EntitySet="EngineTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Inventory__Spare__1920BF5C" Association="Self.FK__Inventory__Spare__1920BF5C">
+      <End Role="SpareParts" EntitySet="SpareParts" />
+      <End Role="Inventory" EntitySet="Inventories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SparePart__Manuf__2A4B4B5E" Association="Self.FK__SparePart__Manuf__2A4B4B5E">
+      <End Role="Manufacturers" EntitySet="Manufacturers" />
+      <End Role="SparePart_Manufacturer" EntitySet="SparePart_Manufacturer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SparePart__Spare__35BCFE0A" Association="Self.FK__SparePart__Spare__35BCFE0A">
+      <End Role="SpareParts" EntitySet="SpareParts" />
+      <End Role="SparePart_AircraftModel" EntitySet="SparePart_AircraftModel" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SparePart__Spare__29572725" Association="Self.FK__SparePart__Spare__29572725">
+      <End Role="SpareParts" EntitySet="SpareParts" />
+      <End Role="SparePart_Manufacturer" EntitySet="SparePart_Manufacturer" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SparePart__Spare__239E4DCF" Association="Self.FK__SparePart__Spare__239E4DCF">
+      <End Role="SpareParts" EntitySet="SpareParts" />
+      <End Role="SparePart_Supplier" EntitySet="SparePart_Supplier" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SparePart__Suppl__24927208" Association="Self.FK__SparePart__Suppl__24927208">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="SparePart_Supplier" EntitySet="SparePart_Supplier" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
