@@ -1,6 +1,6 @@
 ﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
 
-<h1 class="text-light">Create Maintenance Order</h1>
+<h1 class="text-light">Edit Maintenance Order</h1>
 
 
 
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
+            <button class="button primary" onclick="saveWorkOrder()"><span class="mif-plus"></span> Edit</button>
         </div>
         <div class="frame" id="frame_2" name="CheckList">
             <div class="example">
@@ -148,143 +148,135 @@
         </div>
     </div>
 </div>
-    <script>
-        function tab_click(tab) {
-            console.log(tab);
-            return true;
-        }
-        function tab_change(tab) {
-            console.log(tab);
-        }
 
-        function nextTab(tab) {
-            tab_click(tab);
-            tab_change(tab);
-        }
 
-        function DeleteCheck(test) {
-            saveTempData();
 
-            $.ajax({
-                url: '/maintenance/DeleteCheckItem',
-                type: 'GET',
-                data: { CheckDiscription: $(test).data('assigned-id') },
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
 
-        }
 
-        function addCheck() {
-            saveTempData();
+<script>
 
-            $.ajax({
-                url: '/maintenance/AddCheckItem',
-                type: 'GET',
-                data: { CheckDiscription: $("#checkDescription").val() },
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
+                function tab_click(tab) {
+                    console.log(tab);
+                    return true;
+                }
+                function tab_change(tab) {
+                    console.log(tab);
+                }
 
-        }
+                function nextTab(tab) {
+                    tab_click(tab);
+                    tab_change(tab);
+                }
 
-        function DeleteMember(test) {
-            saveTempData();
+                function DeleteCheck(test) {
+                    saveTempData();
 
-            $.ajax({
-                url: '/maintenance/DeleteCrewMember',
-                type: 'GET',
-                data: { MemberName: $(test).data('assigned-id') },
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
-
-        }
-
-        function addMember() {
-            saveTempData();
-
-            $.ajax({
-                url: '/maintenance/AddCrewMember',
-                type: 'GET',
-                data: {
-                    Name: $("#memberName").val(),
-                    Designation: $("#designation").val()
-                },
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
-
-        }
-
-        function newWorkOrder() {
-
-            $.ajax({
-                url: '/maintenance/CreateMaintenanceOrder',
-                type: 'GET',
-                data: {
-                    CompletionDate: $("#endDate").val(),
-                    StartDate: $("#startDate").val(),
-                    Description: $(".Description").val(),
-                    Location: $(".WorkshopLocation").val(),
-                    FlightModel: $(".FlightModel").val(),
-                    FlightNumber: $(".FlightNumber").val()
-                },
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-
-                    $.Notify({
-                        caption: 'Maintenance',
-                        content: 'Order successfully added.',
-                        type: 'success'
+                    $.ajax({
+                        url: '/maintenance/DeleteCheckItem',
+                        type: 'GET',
+                        data: { CheckDiscription: $(test).data('assigned-id') },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
                     });
 
-                    SelectSideNavigationItem(1);
-                    $('#partial-view-container').html(data);
-                },
-            });
-        }
+                }
 
-        function saveTempData() {
-            $.ajax({
-                url: '/maintenance/SaveTempData',
-                type: 'GET',
-                data: {
-                    CompletionDate: $("#endDate").val(),
-                    StartDate: $("#startDate").val(),
-                    Description: $(".Description").val(),
-                    Location: $(".WorkshopLocation").val(),
-                    FlightModel: $(".FlightModel").val(),
-                    FlightNumber: $(".FlightNumber").val()
-                },
-                contentType: 'application/json; charset=utf-8',
-            });
-        }
+                function addCheck() {
+                    saveTempData();
 
-        function SelectSideNavigationItem(navItemIndex) {
+                    $.ajax({
+                        url: '/maintenance/AddCheckItem',
+                        type: 'GET',
+                        data: { CheckDiscription: $("#checkDescription").val()},
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
 
-            debugger;
-            //Unselect all the items
-            $('.sidebar').children().removeClass('active');
+                }
 
-            if (navItemIndex == 1) {
-                $('.sidebar li:nth-child(1)').addClass('active');
-            }
-            else if (navItemIndex == 2) {
-                $('.sidebar li:nth-child(2)').addClass('active');
-            }
-        }
+                function DeleteMember(test) {
+                    saveTempData();
 
-    </script>
+                    $.ajax({
+                        url: '/maintenance/DeleteCrewMember',
+                        type: 'GET',
+                        data: { MemberName: $(test).data('assigned-id') },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+
+                }
+
+                function addMember() {
+                    saveTempData();
+
+                    $.ajax({
+                        url: '/maintenance/AddCrewMember',
+                        type: 'GET',
+                        data: {
+                            Name: $("#memberName").val(),
+                            Designation: $("#designation").val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+
+                }
+
+                function saveWorkOrder() {
+
+                    $.ajax({
+                        url: '/maintenance/SaveMaintenanceOrder',
+                        type: 'GET',
+                        data: {
+                            CompletionDate: $("#endDate").val(),
+                            StartDate: $("#startDate").val(),
+                            Description: $(".Description").val(),
+                            Location: $(".WorkshopLocation").val(),
+                            FlightModel: $(".FlightModel").val(),
+                            FlightNumber: $(".FlightNumber").val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            $.Notify({
+                                caption: 'Maintenance',
+                                content: 'Order successfully Edited.',
+                                type: 'success'
+                            });
+
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+                }
+
+                function saveTempData() {
+                    $.ajax({
+                        url: '/maintenance/SaveTempData',
+                        type: 'GET',
+                        data: {
+                            CompletionDate: $("#endDate").val(),
+                            StartDate: $("#startDate").val(),
+                            Description: $(".Description").val(),
+                            Location: $(".WorkshopLocation").val(),
+                            FlightModel: $(".FlightModel").val(),
+                            FlightNumber: $(".FlightNumber").val()
+                        },
+                        contentType: 'application/json; charset=utf-8',
+                    });
+                }
+
+
+</script>

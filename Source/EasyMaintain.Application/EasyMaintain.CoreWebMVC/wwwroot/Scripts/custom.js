@@ -28,3 +28,8 @@ $(document)
           $loading.delay(100).fadeOut();
       }, 500);
   });
+
+$(document).ready(function () {
+
+
+});

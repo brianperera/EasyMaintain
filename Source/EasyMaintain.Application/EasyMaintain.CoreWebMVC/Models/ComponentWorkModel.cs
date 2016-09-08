@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace EasyMaintain.WebUI.Models
+namespace EasyMaintain.CoreWebMVC.Models
 {
     [Table("ComponentWork")]
     public class ComponentWork
@@ -16,7 +16,9 @@ namespace EasyMaintain.WebUI.Models
         public string SerialNumber { get; set; }
         public string FlightNumber { get; set; }
         public string Description { get; set; }
-        public string DeliveryDate { get; set; }
+        public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
+        public DeliveryDetails Deliverydetails { get; set; }
+
         public string CreatedDate { get; set; }
         public string Location { get; set; }
     }
@@ -47,20 +49,27 @@ namespace EasyMaintain.WebUI.Models
         [Display(Name = "Created Date")]
         public string CreatedDate { get; set; }
 
+        public int WorkID { get; set; }
+
         public static int CurrentID { get; set; }
 
         public List<string> Workshops { get; set; }
+
+        public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
+        public DeliveryDetails Deliverydetails { get; set; }
 
 
         public List<ComponentWork> ComponentWorkOrders { get; set; }
 
         public ComponentWorkModel() {
+            Deliverydetailsmodel = new DeliveryDetailsModel();
+            Deliverydetails = new DeliveryDetails();
             ComponentWorkOrders = new List<ComponentWork> {
                 new ComponentWork
                 {
                     WorkID = 1,
                     Component = "Trubine",
-                    DeliveryDate = "21/09/2016",
+                    Deliverydetails = new DeliveryDetails() {DeliveryDate = "21/06/2016" },
                     Location = "Detroit",
                     SerialNumber = "101020"
                 }

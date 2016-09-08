@@ -1,4 +1,4 @@
-﻿using EasyMaintain.WebUI.Models;
+﻿using EasyMaintain.CoreWebMVC.Models;
 using EasyMaintain.CoreWebMVC.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,88 +11,71 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     public class ComponentWorkController : Controller
     {
         
- /*       
-        public ComponentWorkModel ComponentWorkModelSession
-        {
-            get
-            {
-                if (Session[SessionUtility.ComponentWorkModel] != null)
-                {
-                    return (ComponentWorkModel)Session[SessionUtility.ComponentWorkModel];
-                }
-                else
-                {
-                    ComponentWorkModel model = new ComponentWorkModel();
-                    ComponentWorkModelSession = model;
-                    return model;
-                }
-            }
-            set
-            {
-                Session[SessionUtility.ComponentWorkModel] = value;
-            }
-        }
+        ComponentWorkModel session = SessionUtility.utilityComponentWorkModel;
 
-        */
-
-
-        // GET: ComponentWork
         public ActionResult Index()
         {
-            var componentWorkModel = new ComponentWorkModel();
-            return View(componentWorkModel);
+            session = SessionUtility.utilityComponentWorkModel;
+            return View(session);
         }
 
         [HttpGet]
         public PartialViewResult CreateWorkOrder(ComponentWorkModel model)
         {
-            var componentWorkModel = new ComponentWorkModel();
-            componentWorkModel.ComponentWorkOrders.Add(
+            /*session.ComponentWorkOrders.Add(
                 new ComponentWork {
-                    WorkID = (componentWorkModel.ComponentWorkOrders.Count) + 1,
+                    WorkID = (session.ComponentWorkOrders.Count) + 1,
                     Component = model.ComponentName,
                     CreatedDate = model.CreatedDate,
                     Description = model.Description,
                     Location = model.WorkshopLocation,
                     SerialNumber = model.SerialNumber,
                     FlightNumber = model.FlightNumber
-                });
+                });*/
 
-            return PartialView("_Search", componentWorkModel);
+            return PartialView("_Search", session);
         }
 
         [HttpPost]
         public PartialViewResult SaveEditWorkOrder(ComponentWorkModel model)
         {
-            var componentWorkModel = new ComponentWorkModel();
-
-            componentWorkModel.ComponentWorkOrders[0].Component = model.ComponentName;
-            componentWorkModel.ComponentWorkOrders[0].Location = model.WorkshopLocation;
-            componentWorkModel.ComponentWorkOrders[0].Description = model.Description;
-            return PartialView("_Search", componentWorkModel);
+            session.ComponentWorkOrders[0].Component = model.ComponentName;
+            session.ComponentWorkOrders[0].Location = model.WorkshopLocation;
+            session.ComponentWorkOrders[0].Description = model.Description;
+            return PartialView("_Search", session);
         }
 
         public PartialViewResult NewWorkOrder()
         {
-            var componentWorkModel = new ComponentWorkModel();
-            return PartialView("_NewWorkOrder", componentWorkModel);
+            return PartialView("_NewWorkOrder", session);
         }
 
         public PartialViewResult Search()
         {
-            var componentWorkModel = new ComponentWorkModel();
-            return PartialView("_Search", componentWorkModel);
+            return PartialView("_Search", session);
         }
 
-       /* public PartialViewResult EditWorkOrder(int WorkID)
-        {
-            return PartialView("_EditWorkOrder", ComponentWorkModelSession);
-        }*/
+         public PartialViewResult EditWorkOrder(string WorkID)
+         {
+
+             ComponentWork item = session.ComponentWorkOrders.Single(r => r.WorkID == Int32.Parse(WorkID));
+
+             session.WorkID = item.WorkID;
+             session.Description = item.Description;
+             session.FlightNumber = item.FlightNumber;
+             session.WorkshopLocation = item.Location;
+             session.CreatedDate = item.CreatedDate;
+             session.SerialNumber = item.SerialNumber;
+             session.ComponentName = item.Component;
+             session.Deliverydetails = item.Deliverydetails;
+
+            return PartialView("_EditWorkOrder", session);
+
+         }
 
         public PartialViewResult EditWorkOrder(ComponentWorkModel model)
         {
-            var componentWorkModel = new ComponentWorkModel();
-            return PartialView("_EditWorkOrder", componentWorkModel);
+            return PartialView("_EditWorkOrder", session);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model EasyMaintain.WebUI.Models.ComponentWorkModel
+﻿@model EasyMaintain.CoreWebMVC.Models.ComponentWorkModel
 
 <h1 class="text-light">Work Orders</h1>
 
@@ -26,7 +26,7 @@
                 <td>@workOrder.WorkID</td>
                 <td>@workOrder.Component</td>
                 <td>@workOrder.CreatedDate</td>
-                <td>@workOrder.DeliveryDate</td>
+                <td>@workOrder.Deliverydetails.DeliveryDate</td>
                 <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.WorkID)"><span class="mif-pencil"></span></button></td>
             </tr>
         }
@@ -36,6 +36,19 @@
 <script>
     function LoadWorkOrder(viewName)
     {
-       $('#partial-view-container').load('EditWorkOrder');
+        $.ajax({
+            url: '/componentwork/EditWorkOrder',
+            type: 'GET',
+            data: {
+                WorkID: viewName
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                $('#partial-view-container').html(data);
+            },
+        });
     }
+
+
 </script>

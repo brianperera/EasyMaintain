@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
+@{
     ViewBag.Title = "Maintenance";
 }
 
@@ -26,10 +27,14 @@
         </div>
     </div>
 </div>
-<script>
-    function LoadPartialView(viewName)
-    {
-        $('#partial-view-container').load(viewName);
-    }
-</script>
+
+@section scripts
+{
+    <script>
+        function LoadPartialView(viewName)
+        {
+            $('#partial-view-container').load(viewName);
+        }
+    </script>
+}
 
