@@ -134,10 +134,6 @@
       <Project>{1594a944-e0be-49cf-824c-054abc0584a3}</Project>
       <Name>EasyMaintain.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EasyMaintain.Services\EasyMaintain.Services.csproj">
-      <Project>{f1f11803-c2d7-4c76-a854-77ea10efdc5b}</Project>
-      <Name>EasyMaintain.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
