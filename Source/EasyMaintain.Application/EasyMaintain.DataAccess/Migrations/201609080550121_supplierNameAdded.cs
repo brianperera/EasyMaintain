@@ -7,27 +7,7 @@ namespace EasyMaintain.DataAccess.Migrations
     {
         public override void Up()
         {
-            CreateTable(
-                "dbo.AircraftModels",
-                c => new
-                    {
-                        AircraftModelID = c.Int(nullable: false, identity: true),
-                        ModelName = c.String(),
-                        Description = c.String(),
-                        ImagePath = c.String(),
-                        AdditionalData = c.String(),
-                        Category_CategoryID = c.Int(),
-                        EngineType_EngineTypeID = c.Int(),
-                        Manufacturer_ManufacturerID = c.Int(),
-                    })
-                .PrimaryKey(t => t.AircraftModelID)
-                .ForeignKey("dbo.Categories", t => t.Category_CategoryID)
-                .ForeignKey("dbo.EngineTypes", t => t.EngineType_EngineTypeID)
-                .ForeignKey("dbo.Manufacturers", t => t.Manufacturer_ManufacturerID)
-                .Index(t => t.Category_CategoryID)
-                .Index(t => t.EngineType_EngineTypeID)
-                .Index(t => t.Manufacturer_ManufacturerID);
-            
+           
             CreateTable(
                 "dbo.Categories",
                 c => new
@@ -89,7 +69,28 @@ namespace EasyMaintain.DataAccess.Migrations
                         AdditionalData = c.String(),
                     })
                 .PrimaryKey(t => t.SupplierID);
-            
+
+            CreateTable(
+                "dbo.AircraftModels",
+                c => new
+                {
+                    AircraftModelID = c.Int(nullable: false, identity: true),
+                    ModelName = c.String(),
+                    Description = c.String(),
+                    ImagePath = c.String(),
+                    AdditionalData = c.String(),
+                    Category_CategoryID = c.Int(),
+                    EngineType_EngineTypeID = c.Int(),
+                    Manufacturer_ManufacturerID = c.Int(),
+                })
+                .PrimaryKey(t => t.AircraftModelID)
+                .ForeignKey("dbo.Categories", t => t.Category_CategoryID)
+                .ForeignKey("dbo.EngineTypes", t => t.EngineType_EngineTypeID)
+                .ForeignKey("dbo.Manufacturers", t => t.Manufacturer_ManufacturerID)
+                .Index(t => t.Category_CategoryID)
+                .Index(t => t.EngineType_EngineTypeID)
+                .Index(t => t.Manufacturer_ManufacturerID);
+
         }
         
         public override void Down()

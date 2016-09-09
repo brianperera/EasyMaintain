@@ -44,7 +44,7 @@ namespace EasyMaintain.Business
                 _aircraftMod.EngineType = new EngineType() { WorkID = (int)aircraftModel.EngineType.WorkID, FlightModel = aircraftModel.EngineType.FlightModel, FlightNumber = (string)aircraftModel.FlightNumber, Description = aircraftModel.Description };
                 _aircraftMod.Description = aircraftModel.Description;
                 _aircraftMod.ModelName = aircraftModel.ModelName;
-                _aircraftMod.Manufacturer = new Manufacturer() { ManufacturerID = (int)aircraftModel.FlightNumber, Name = aircraftModel.ModelName, Description = aircraftModel.Description, AdditionalData = aircraftModel.AdditionalData };
+                _aircraftMod.Manufacturer = new Manufacturer() { ManufacturerID = (string)aircraftModel.FlightNumber, Name = aircraftModel.ModelName, Description = aircraftModel.Description, AdditionalData = aircraftModel.AdditionalData };
                 _aircraftMod.ImagePath = aircraftModel.ImagePath;
                 _aircraftMod.AdditionalData = aircraftModel.AdditionalData;
 
@@ -100,7 +100,7 @@ namespace EasyMaintain.Business
         {
             this.mAircraftModel = aircraftModel as AircraftModel;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.Manufacturer.Name, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category.CategoryID, mAircraftModel.EngineType.WorkID, mAircraftModel.Manufacturer.ManufacturerID, mAircraftModel.ImagePath);
+            return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.Manufacturer.Name, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category.CategoryID, mAircraftModel.EngineType.WorkID, Int32.Parse (mAircraftModel.Manufacturer.ManufacturerID), mAircraftModel.ImagePath);
         }
 
         public AircraftModel Find(object key)

@@ -12,7 +12,7 @@ namespace EasyMaintain.Business
     {
 
         EngineType mEngineType;
-
+     
         public int WorkID { get; set; }
         public string FlightModel { get; set; }
         public string FlightNumber { get; set; }
@@ -75,7 +75,7 @@ namespace EasyMaintain.Business
         {
             this.mEngineType = engineType as EngineType;
             DataProvidor dp = new DataProvidor();
-            return dp.AddEngineType(mEngineType.FlightModel, mEngineType. Description);
+            return dp.AddEngineType(Int32.Parse (mEngineType.FlightModel), mEngineType. Description);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace EasyMaintain.Business
             this.mEngineType = engineType as EngineType;
 
             DataProvidor dp = new DataProvidor();
-            dp.DeleteEngineType(mEngineType.WorkID);
+            dp.DeleteEngineType(mEngineType.WorkID.ToString());
 
         }
 
@@ -100,7 +100,7 @@ namespace EasyMaintain.Business
         {
             this.mEngineType = engineType as EngineType;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateEngineType(mEngineType.WorkID, mEngineType.FlightModel, mEngineType. Description);
+            return dp.UpdateEngineType(mEngineType.WorkID.ToString(), mEngineType.FlightModel, mEngineType. Description);
         }
 
         public EngineType Find(object key)

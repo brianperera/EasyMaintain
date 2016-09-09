@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyMaintain.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,21 +7,47 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.Business.Entities
 {
-   public class MaintenanceChecks : IBusiness
+    public class MaintenanceChecks : IBusiness
     {
-        public void DeleteOne(object record)
+        MaintenanceChecks mMaintenanceChecks;
+        public string Description { get; set; }
+        public bool status { get; set; }
+
+        public MaintenanceChecks()
         {
-            throw new NotImplementedException();
+
+
+        }
+
+        public void DeleteOne(object maintenanceCheck)
+        {
+            this.mMaintenanceChecks = maintenanceCheck as MaintenanceChecks;
+            DataProvidor dp = new DataProvidor();
+            dp.DeleteCrew(mMaintenanceChecks.Description);
         }
 
         public object GetData()
         {
-            throw new NotImplementedException();
+            List<MaintenanceChecks> result = new List<MaintenanceChecks>();
+            DataProvidor dp = new DataProvidor();
+
+            foreach (DataAccess.Models.MaintenanceChecks maintenanceCheck in dp.GetMaintenanceCheckData())
+            {
+                MaintenanceChecks _maintenanceCheck = new MaintenanceChecks();
+                _maintenanceCheck.Description = maintenanceCheck.Description;
+                _maintenanceCheck.status = maintenanceCheck.status;
+
+                result.Add(_maintenanceCheck);
+            }
+
+            return result;
         }
 
-        public int Insert(object record)
+        public int Insert(object maintenanceCheck)
         {
-            throw new NotImplementedException();
+            this.mMaintenanceChecks = maintenanceCheck as MaintenanceChecks;
+            DataProvidor dp = new DataProvidor();
+            return dp.AddMaintenanceChecks(mMaintenanceChecks.Description, (mMaintenanceChecks.status));
         }
 
         public int Save(object record)
@@ -28,9 +55,11 @@ namespace EasyMaintain.Business.Entities
             throw new NotImplementedException();
         }
 
-        public bool UpdateOne(object record)
+        public bool UpdateOne(object maintenanceCheck)
         {
-            throw new NotImplementedException();
+            this.mMaintenanceChecks = maintenanceCheck as MaintenanceChecks;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateMaintenanceChecks(mMaintenanceChecks.Description, mMaintenanceChecks.status);
         }
     }
 }

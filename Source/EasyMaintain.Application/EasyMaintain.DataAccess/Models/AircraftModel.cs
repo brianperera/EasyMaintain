@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EasyMaintain.DataAccess.Models
 {
@@ -12,6 +13,7 @@ namespace EasyMaintain.DataAccess.Models
         public int EngineTypeID;
         public string FlightNumber;
 
+        [Key]
         public int AircraftModelID { get; set; }
         public Category Category { get; set; }
         public string ModelName { get; set; }

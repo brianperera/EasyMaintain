@@ -23,7 +23,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string Designation { get; set; }
     }
 
-    [Table("MaintenanceDetails")]
+    [Table("EngineType")]
     public class Maintenance
     {
         [Key]

@@ -46,7 +46,7 @@ namespace EasyMaintain.Services.Controllers
 
         // PUT api/Engine/5
         [HttpPut]
-        public async Task<IHttpActionResult> EngineType(EngineType EngineTypeID, EngineType enginetype)
+        public async Task<IHttpActionResult> MaintenanceAdd(EngineType EngineTypeID, EngineType enginetype)
         {
 
             if (EngineTypeID == null || EngineTypeID.Equals(0))
@@ -66,7 +66,7 @@ namespace EasyMaintain.Services.Controllers
         // POST api/Engine
         [ResponseType(typeof(EngineType))]
         [HttpPost]
-        public async Task<IHttpActionResult>  EngineType(EngineType enginetype)
+        public async Task<IHttpActionResult>  EngineTypeUpdate(EngineType enginetype)
         {
             if (!ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace EasyMaintain.Services.Controllers
 
             EngineRepo.UpdateOne(enginetype);
 
-            return CreatedAtRoute("DefaultApi", new { id = enginetype.EngineTypeID }, enginetype);
+            return CreatedAtRoute("DefaultApi", new { id = enginetype.WorkID }, enginetype);
         }
 
         // DELETE api/Engine/5

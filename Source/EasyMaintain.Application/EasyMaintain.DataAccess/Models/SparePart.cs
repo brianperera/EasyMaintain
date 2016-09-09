@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EasyMaintain.DataAccess.Models
 {
     public class SparePart
     {
+        [Key]
         internal int CategoryID;
 
         public int SparePartID { get; set; }

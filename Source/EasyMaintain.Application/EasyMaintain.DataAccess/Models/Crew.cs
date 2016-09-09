@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EasyMaintain.DataAccess.Models
 {
    public class Crew
     {
+        [Key]
+        public string Name { get; set; }
+        public string Designation { get;internal set; }
+
     }
 }

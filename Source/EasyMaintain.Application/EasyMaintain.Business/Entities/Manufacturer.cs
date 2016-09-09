@@ -12,7 +12,7 @@ namespace EasyMaintain.Business
 
         Manufacturer mManufacturer;
 
-        public int ManufacturerID { get; set; }
+        public string ManufacturerID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string AdditionalData { get; set; }
@@ -78,7 +78,7 @@ namespace EasyMaintain.Business
         {
             this.mManufacturer = manufacturer as Manufacturer;
             DataProvidor dp = new DataProvidor();
-            dp.DeleteManufacturer(mManufacturer.ManufacturerID);
+            dp.DeleteManufacturer(Int32.Parse(mManufacturer.ManufacturerID));
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace EasyMaintain.Business
         {
             this.mManufacturer = manufacturer as Manufacturer;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateManufacturer(mManufacturer.ManufacturerID, mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
+            return dp.UpdateManufacturer(Int32.Parse(mManufacturer.ManufacturerID), mManufacturer.Name, mManufacturer.Description, mManufacturer.AdditionalData);
         }
 
         public Manufacturer Find(object key)
@@ -101,9 +101,6 @@ namespace EasyMaintain.Business
                 .SingleOrDefault();
         }
 
-        public static implicit operator Manufacturer(Manufacturer v)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

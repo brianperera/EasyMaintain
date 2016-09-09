@@ -23,7 +23,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public ActionResult Index()
         {
             //var maintenanceViewModel = new MaintenanceViewModel();
-            maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;            
+            maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
             return View(maintenanceViewModel);
         }
 
@@ -54,7 +54,18 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         }
 
         public PartialViewResult CreateMaintenanceOrder(Maintenance Model)
-        { 
+        {
+            var uri = "api/Engine/MaintenanceAdd";
+            List<Maintenance> maintenanceItems;
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+            }
+            maintenanceViewModel.MaintenanceOrders = maintenanceItems;
+
+
             Model.CheckItems = maintenanceViewModel.CheckItems;
             Model.CrewMembers = maintenanceViewModel.CrewMembers;
             Model.WorkID = ++SessionUtility.CurrentMaintenanceID;
@@ -64,6 +75,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult SaveMaintenanceOrder(Maintenance Model)
         {
+
             Model.CheckItems = maintenanceViewModel.CheckItems;
             Model.CrewMembers = maintenanceViewModel.CrewMembers;
             Model.WorkID = maintenanceViewModel.WorkID;
@@ -76,16 +88,14 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             var uri = "api/Engine/EngineTypes";
             List<Maintenance> maintenanceItems;
+
             using (HttpClient httpClient = new HttpClient())
             {
                 Task<String> response = httpClient.GetStringAsync(uri);
                 maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
-
-                //return JsonConvert.DeserializeObject<EngineType>(
-                //   webClient.DownloadString(uri)
-                //    );
             }
             maintenanceViewModel.MaintenanceOrders = maintenanceItems;
+
 
             //var maintenanceViewModel = new MaintenanceViewModel();
             return PartialView("_Search", maintenanceViewModel);
@@ -93,7 +103,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult AddCheckItem(string CheckDiscription)
         {
-            maintenanceViewModel.CheckItems.Add(new Check(){Description = CheckDiscription });
+            maintenanceViewModel.CheckItems.Add(new Check() { Description = CheckDiscription });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
             return PartialView("_NewMaintenanceOrder", maintenanceViewModel);
         }
@@ -121,9 +131,19 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return PartialView("_NewMaintenanceOrder", maintenanceViewModel);
         }
 
-        public PartialViewResult EditMaintenanceOrder(string WorkID) {
+        public PartialViewResult EditMaintenanceOrder(string WorkID)
+        {
 
-            
+            var uri = "api/Engine/EngineTypeUpdate";
+            List<Maintenance> maintenanceItems;
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+            }
+            maintenanceViewModel.MaintenanceOrders = maintenanceItems;
+
 
             Maintenance item = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == Int32.Parse(WorkID));
 

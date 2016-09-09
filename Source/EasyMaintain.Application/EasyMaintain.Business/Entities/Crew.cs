@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyMaintain.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +9,48 @@ namespace EasyMaintain.Business.Entities
 {
    public class Crew : IBusiness
     {
-        public void DeleteOne(object record)
+        Crew mCrew;
+        public string Name { get; set; }
+        public string Designation { get; set; }
+
+        public Crew()
         {
-            throw new NotImplementedException();
+
+
+        }
+        public void DeleteOne(object crew)
+        {
+
+            this.mCrew = crew as Crew;
+            DataProvidor dp = new DataProvidor();
+            dp.DeleteCrew(mCrew.Name);
+
+
         }
 
         public object GetData()
         {
-            throw new NotImplementedException();
+            List<Crew> result = new List<Crew>();
+            DataProvidor dp = new DataProvidor();
+
+            foreach (DataAccess.Models.Crew crew in dp.GetCrewData())
+            {
+                Crew _crew = new Crew();
+                _crew.Name = crew.Name;
+                _crew.Designation = crew.Designation;
+
+
+                result.Add(_crew);
+            }
+
+            return result;
         }
 
-        public int Insert(object record)
+        public int Insert(object crew)
         {
-            throw new NotImplementedException();
+            this.mCrew = crew as Crew;
+            DataProvidor dp = new DataProvidor();
+            return dp.AddCrew(mCrew.Name, mCrew.Designation);
         }
 
         public int Save(object record)
@@ -28,9 +58,11 @@ namespace EasyMaintain.Business.Entities
             throw new NotImplementedException();
         }
 
-        public bool UpdateOne(object record)
+        public bool UpdateOne(object crew)
         {
-            throw new NotImplementedException();
+            this.mCrew = crew as Crew;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateCrew(mCrew.Name, mCrew.Designation);
         }
     }
 }
