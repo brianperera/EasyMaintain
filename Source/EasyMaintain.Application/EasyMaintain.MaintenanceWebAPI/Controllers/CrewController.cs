@@ -9,7 +9,8 @@ using System.Web.Http.Description;
 using EasyMaintain.Business;
 using EasyMaintain.Business.Entities;
 
-namespace EasyMaintain.Services.Controllers
+
+namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class CrewController : ApiController
     {

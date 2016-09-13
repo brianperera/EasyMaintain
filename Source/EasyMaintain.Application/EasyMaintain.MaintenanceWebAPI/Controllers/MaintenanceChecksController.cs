@@ -9,7 +9,8 @@ using System.Web.Http.Description;
 using EasyMaintain.Business;
 using EasyMaintain.Business.Entities;
 
-namespace EasyMaintain.Services.Controllers
+
+namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class MaintenanceChecksController : ApiController
     {
@@ -78,7 +79,7 @@ namespace EasyMaintain.Services.Controllers
             return CreatedAtRoute("DefaultApi", new { id = checks.MaintenanceCheckID }, checks);
         }
 
-        // DELETE api/Engine/5
+        // DELETE api/MaintenanceDelete/5
         [ResponseType(typeof(MaintenanceChecks))]
         [HttpDelete]
         public async Task<IHttpActionResult> MaintenanceDelete(MaintenanceChecks checks)
