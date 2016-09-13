@@ -37,12 +37,12 @@
 <script>
     function LoadWorkOrder(viewName)
     {
+        var Model = { WorkID : viewName  }
+
         $.ajax({
             url: '/maintenance/EditMaintenanceOrder',
-            type: 'GET',
-            data: {
-                WorkID: viewName
-            },
+            type: 'POST',
+            data: JSON.stringify(Model),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 debugger;

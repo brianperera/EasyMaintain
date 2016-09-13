@@ -164,11 +164,12 @@
 
         function DeleteCheck(test) {
             saveTempData();
+            var CurrentCoponent = { Description: $(test).data('assigned-id') }
 
             $.ajax({
                 url: '/maintenance/DeleteCheckItem',
-                type: 'GET',
-                data: { CheckDiscription: $(test).data('assigned-id') },
+                type: 'DELETE',
+                data: JSON.stringify(CurrentCoponent),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
@@ -181,10 +182,12 @@
         function addCheck() {
             saveTempData();
 
+            var CheckDiscription = { Description: $("#checkDescription").val() }
+
             $.ajax({
                 url: '/maintenance/AddCheckItem',
-                type: 'GET',
-                data: { CheckDiscription: $("#checkDescription").val() },
+                type: 'POST',
+                data: JSON.stringify(CheckDiscription),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
@@ -196,11 +199,12 @@
 
         function DeleteMember(test) {
             saveTempData();
+            var CurrentCoponent = { Name: $(test).data('assigned-id') }
 
             $.ajax({
                 url: '/maintenance/DeleteCrewMember',
-                type: 'GET',
-                data: { MemberName: $(test).data('assigned-id') },
+                type: 'DELETE',
+                data: JSON.stringify(CurrentCoponent),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
@@ -213,13 +217,15 @@
         function addMember() {
             saveTempData();
 
+            var CurrentCoponent ={
+                Name: $("#memberName").val(),
+                Designation: $("#designation").val()
+            }
+
             $.ajax({
                 url: '/maintenance/AddCrewMember',
-                type: 'GET',
-                data: {
-                    Name: $("#memberName").val(),
-                    Designation: $("#designation").val()
-                },
+                type: 'POST',
+                data: JSON.stringify(CurrentCoponent),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
@@ -231,17 +237,19 @@
 
         function newWorkOrder() {
 
+            var CurrentCoponent = {
+                CompletionDate: $("#endDate").val(),
+                StartDate: $("#startDate").val(),
+                Description: $(".Description").val(),
+                Location: $(".WorkshopLocation").val(),
+                FlightModel: $(".FlightModel").val(),
+                FlightNumber: $(".FlightNumber").val()
+            }
+
             $.ajax({
                 url: '/maintenance/CreateMaintenanceOrder',
-                type: 'GET',
-                data: {
-                    CompletionDate: $("#endDate").val(),
-                    StartDate: $("#startDate").val(),
-                    Description: $(".Description").val(),
-                    Location: $(".WorkshopLocation").val(),
-                    FlightModel: $(".FlightModel").val(),
-                    FlightNumber: $(".FlightNumber").val()
-                },
+                type: 'POST',
+                data:JSON.stringify ( CurrentCoponent ) ,
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
 
@@ -258,17 +266,20 @@
         }
 
         function saveTempData() {
+
+            var Model = {
+                CompletionDate: $("#endDate").val(),
+                StartDate: $("#startDate").val(),
+                Description: $(".Description").val(),
+                Location: $(".WorkshopLocation").val(),
+                FlightModel: $(".FlightModel").val(),
+                FlightNumber: $(".FlightNumber").val()
+            }
+
             $.ajax({
                 url: '/maintenance/SaveTempData',
-                type: 'GET',
-                data: {
-                    CompletionDate: $("#endDate").val(),
-                    StartDate: $("#startDate").val(),
-                    Description: $(".Description").val(),
-                    Location: $(".WorkshopLocation").val(),
-                    FlightModel: $(".FlightModel").val(),
-                    FlightNumber: $(".FlightNumber").val()
-                },
+                type: 'POST',
+                data: JSON.stringify(Model),
                 contentType: 'application/json; charset=utf-8',
             });
         }

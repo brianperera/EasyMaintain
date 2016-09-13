@@ -19,29 +19,22 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return View(session);
         }
 
-        [HttpGet]
-        public PartialViewResult CreateWorkOrder(ComponentWorkModel model)
+        [HttpPost, Route("ComponentWork/CreateWorkOrder")]
+        public PartialViewResult CreateWorkOrder([FromBody] ComponentWork Model)
         {
-            /*session.ComponentWorkOrders.Add(
-                new ComponentWork {
-                    WorkID = (session.ComponentWorkOrders.Count) + 1,
-                    Component = model.ComponentName,
-                    CreatedDate = model.CreatedDate,
-                    Description = model.Description,
-                    Location = model.WorkshopLocation,
-                    SerialNumber = model.SerialNumber,
-                    FlightNumber = model.FlightNumber
-                });*/
+            Model.Deliverydetailsmodel = new DeliveryDetailsModel();
+            Model.WorkID = (session.ComponentWorkOrders.Count) + 1;
+            session.ComponentWorkOrders.Add(Model);
 
             return PartialView("_Search", session);
         }
 
-        [HttpPost]
-        public PartialViewResult SaveEditWorkOrder(ComponentWorkModel model)
+        [HttpPost, Route("ComponentWork/SaveWorkOrder")]
+        public PartialViewResult SaveWorkOrder([FromBody] ComponentWork Model)
         {
-            session.ComponentWorkOrders[0].Component = model.ComponentName;
-            session.ComponentWorkOrders[0].Location = model.WorkshopLocation;
-            session.ComponentWorkOrders[0].Description = model.Description;
+            Model.WorkID = session.WorkID;
+            int index = session.WorkID - 1;
+            session.ComponentWorkOrders[index] = Model;
             return PartialView("_Search", session);
         }
 
@@ -55,10 +48,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return PartialView("_Search", session);
         }
 
-         public PartialViewResult EditWorkOrder(string WorkID)
+        [HttpPost, Route("ComponentWork/ComponentWork/EditWorkOrder")]
+        public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
          {
 
-             ComponentWork item = session.ComponentWorkOrders.Single(r => r.WorkID == Int32.Parse(WorkID));
+             ComponentWork item = session.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);
 
              session.WorkID = item.WorkID;
              session.Description = item.Description;
@@ -67,15 +61,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
              session.CreatedDate = item.CreatedDate;
              session.SerialNumber = item.SerialNumber;
              session.ComponentName = item.Component;
-             session.Deliverydetails = item.Deliverydetails;
+             session.DeliveryDetails = item.Deliverydetails;
 
             return PartialView("_EditWorkOrder", session);
 
          }
 
-        public PartialViewResult EditWorkOrder(ComponentWorkModel model)
-        {
-            return PartialView("_EditWorkOrder", session);
-        }
     }
 }

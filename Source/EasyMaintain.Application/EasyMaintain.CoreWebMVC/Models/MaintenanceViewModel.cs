@@ -87,7 +87,10 @@ namespace EasyMaintain.CoreWebMVC.Models
                     WorkID = 1,
                     FlightModel = "Trubine",
                     StartDate = "21/09/2016",
-                    Location = "Detroit"
+                    Location = "Detroit",
+                    CheckItems = new  List<Check>(),
+                    CrewMembers = new List<Crew>()                    
+                    
                 }
             };
             SessionUtility.CurrentMaintenanceID = 1;

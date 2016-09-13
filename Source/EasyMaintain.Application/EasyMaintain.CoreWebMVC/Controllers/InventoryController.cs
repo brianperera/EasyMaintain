@@ -22,6 +22,35 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return View(session);
         }
 
+        public PartialViewResult CreateOrder(Inventory Model)
+        {
+
+            // Model.CheckItems = session.CheckItems;
+            //Model.CrewMembers = session.CrewMembers;
+            Model.InvoiceNumber = (session.InventoryOrders.Count) + 1;
+            Model.Deliverydetails = new DeliveryDetails();
+            Model.Deliverydetailsmodel = new DeliveryDetailsModel();
+            session.InventoryOrders.Add(Model);
+
+            return PartialView("_Search", session);
+
+          /*  session.InventoryOrders.Add(
+                new Inventory
+                {
+                    InvoiceNumber = (session.InventoryOrders.Count) + 1,
+                    CustomerName = model.CustomerName,
+                    CompanyName = model.CompanyName,
+                    AdditionalNotes = model.AdditionalNotes,
+                    PaymentMethod = model.PaymentMethod,
+                    PaymentNotes = model.PaymentNotes,
+                    BillingAddress = model.BillingAddress,
+                    BillingName = model.BillingName,
+                    OrderType = "normal",
+                    Deliverydetails = model.Deliverydetails
+                });
+
+            return PartialView("_Search", session);*/
+        }
         public PartialViewResult Search()
         {
             return PartialView("_Search", session);

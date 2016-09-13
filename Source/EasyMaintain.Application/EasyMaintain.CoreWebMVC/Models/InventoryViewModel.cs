@@ -14,6 +14,11 @@ namespace EasyMaintain.CoreWebMVC.Models
         public List<string> PartsList { get; set; }
         public int InvoiceNumber { get; set; }
         public string PaymentMethod { get; set; }
+        public string PaymentNotes { get; set; }
+        public string BillingAddress { get; set; }
+        public string BillingName { get; set; }
+        public bool OrderType { get; set; } //NormalOrder = false , //ReStockOrder = True 
+        public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
         public DeliveryDetails Deliverydetails { get; set; }
 
 
@@ -39,24 +44,46 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public DeliveryDetails Deliverydetails { get; set; }
 
+        public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
+
         public List<string> PartsList { get; set; }
 
         public List<string> PaymentMethods { get; set; }
 
+        public string PaymentMethod { get; set; }
+        public string PaymentNotes { get; set; }
+        public string BillingAddress { get; set; }
+        public string BillingName { get; set; }
+
         public List<Inventory> InventoryOrders { get; set; }
+        public List<Inventory> RestockOrders { get; set; }
+
 
         public InventoryViewModel()
         {
-
+            Deliverydetailsmodel = new DeliveryDetailsModel();
+            Deliverydetails = new DeliveryDetails();
             InventoryOrders = new List<Inventory> {
                 new Inventory
                 {
                     InvoiceNumber = 1,
-                    CustomerName = "Trune",
-                    CompanyName = "Cessna",
+                    CustomerName = "TruneOrders",
+                    CompanyName = "CessnaOrders",
                     PaymentMethod = "Card Payment",
                     PartsList = new List<string>() {"Rudder","Wheels","Lights"},
                     Deliverydetails = new DeliveryDetails() {DeliveryDate = "21/07/2016" } 
+                }
+            };
+
+            RestockOrders = new List<Inventory> {
+                new Inventory
+                {
+                    InvoiceNumber = 1,
+                    CustomerName = "TruneStocks",
+                    CompanyName = "CessnaStocks",
+                    PaymentMethod = "Card Payment",
+                    PartsList = new List<string>() {"Rudder","Wheels","Lights"},
+                    Deliverydetails = new DeliveryDetails() {DeliveryDate = "21/07/2016" }
                 }
             };
 

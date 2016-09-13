@@ -24,19 +24,19 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Component Name</label>
                                 <div class="input-control text full-size">
-                                    @Html.TextBoxFor(m => m.ComponentName, new { id = "txtPlace", Value = Model.ComponentWorkOrders[0].Component })
+                                    @Html.TextBoxFor(m => m.ComponentName, new { @class = "ComponentName", placeholder = "Component Name" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">
                                 <label class="display-block">Workshop</label>
                                 <div class="input-control select full-size">
-                                    @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops, Model.ComponentWorkOrders[0].Location))
+                                    @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "WorkshopLocation" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">
                                 <label class="display-block">Creation Date</label>
                                 <div class="input-control select full-size">
-                                    @Model.ComponentWorkOrders[0].CreatedDate
+                                    @Html.TextBoxFor(m => m.CreatedDate, new { @readonly = "readonly", @class = "CreatedDate" })
                                 </div>
                             </div>
                         </div>
@@ -44,13 +44,13 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Serial Number</label>
                                 <div class="input-control text full-size">
-                                    @Html.TextBoxFor(m => m.SerialNumber, new { id = "txtPlace", Value = Model.ComponentWorkOrders[0].SerialNumber })
+                                    @Html.TextBoxFor(m => m.SerialNumber, new { @class = "SerialNumber", placeholder = "Serial Number" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Flight Number</label>
                                 <div class="input-control text full-size">
-                                    @Html.TextBoxFor(m => m.FlightNumber, new { id = "txtPlace", Value = Model.ComponentWorkOrders[0].FlightNumber })
+                                    @Html.TextBoxFor(m => m.FlightNumber, new { @class = "FlightNumber", placeholder = "Flight Number" })
                                 </div>
                             </div>
                         </div>
@@ -58,14 +58,14 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label class="display-block">Description</label>
                                 <div class="input-control textarea full-size">
-                                    @Html.TextAreaFor(m => m.Description, new { id = "txtPlace", Value = Model.ComponentWorkOrders[0].Description })
+                                    @Html.TextAreaFor(m => m.Description, new { @class = "Description", placeholder = "Description" })
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>      
 
-                <button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Save</button>
+                <button class="button primary" onclick="saveWorkOrder()"><span class="mif-plus"></span> Save</button>
             </div>
             <div class="frame"  name="componantHistory" id="frame_2">
     @Html.AntiForgeryToken()
@@ -78,7 +78,7 @@
                 <div class="cell-form margin-right-10 cell size4">
                     <label class="display-block">Component S/N</label>
                     <div class="input-control select full-size">
-                        @Html.TextBoxFor(m => m.ComponentName, new { id = "componentNumber", Value = Model.ComponentWorkOrders[0].Component })
+                        
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 <div class="cell-form margin-right-10 cell size4">
                     <label>Component Name</label>
                     <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.ComponentName, new { id = "componentName", Value = Model.ComponentWorkOrders[0].Component })
+                       
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                 <div class="cell-form margin-right-10 cell size4">
                     <label class="display-block">Description</label>
                     <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.Description, new { id = "Componentdescription", Value = Model.ComponentWorkOrders[0].Description })
+                        
                     </div>
                 </div>
             </div>
@@ -113,7 +113,7 @@
                         <div class="cell-form margin-right-10 cell size4">
                             <label class="display-block">Flight Number</label>
                             <div class="input-control select full-size">
-                                @Html.TextBoxFor(m => m.ComponentName, new { id = "flightNumber", Value = Model.ComponentWorkOrders[0].Component })
+                                
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         <div class="cell-form margin-right-10 cell size4">
                             <label>Flight Model</label>
                             <div class="input-control text full-size">
-                                @Html.TextBoxFor(m => m.ComponentName, new { id = "flightModel", Value = Model.ComponentWorkOrders[0].Component })
+                                
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                         <div class="cell-form margin-right-10 cell size4">
                             <label class="display-block">Description</label>
                             <div class="input-control textarea full-size">
-                                @Html.TextAreaFor(m => m.Description, new { id = "txtPlace", Value = Model.ComponentWorkOrders[0].Description })
+                                
                             </div>
                         </div>
                     </div>
@@ -149,14 +149,14 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label class="display-block">Delivery Method</label>
                                 <div class="input-control select full-size">
-                                    @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "DeliveryMethod" })
+                                    @Html.DropDownListFor(m => m.DeliveryDetails.DeliveryMethod, new SelectList(Model.DeliveryDetailModel.DeliveryMethods), new { @class = "DeliveryMethod" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Delivery Date</label>
                                 <div class="input-control text full-size">
-                                    <div class="input-control text" id="datepicker">
-                                        <input type="text">
+                                    <div class="input-control text" data-role="datepicker">
+                                        <input type="text" id="Date" value="@Model.DeliveryDetails.DeliveryDate">
                                         <button class="button"><span class="mif-calendar"></span></button>
                                     </div>
                                 </div>
@@ -165,16 +165,16 @@
                                 <label>Address</label>
                                 <div class="input-control text full-size">
                                     <div class="input-control text full-size">
-                                        @Html.TextBoxFor(m => m.ComponentName, new { @class = "LineOne", placeholder = "Line 1" })
+                                        @Html.TextBoxFor(m => m.DeliveryDetails.AddressLine1, new { @class = "LineOne", placeholder = "Line 1" })
                                     </div>
                                     <div class="input-control text full-size">
-                                        @Html.TextBoxFor(m => m.ComponentName, new { @class = "LineTwo", placeholder = "Line 2" })
+                                        @Html.TextBoxFor(m => m.DeliveryDetails.AddressLine2, new { @class = "LineTwo", placeholder = "Line 2" })
                                     </div>
                                     <div class="input-control text full-size">
-                                        @Html.TextBoxFor(m => m.ComponentName, new { @class = "City", placeholder = "City" })
+                                        @Html.TextBoxFor(m => m.DeliveryDetails.City, new { @class = "City", placeholder = "City" })
                                     </div>
                                     <div class="input-control text full-size">
-                                        @Html.TextBoxFor(m => m.ComponentName, new { @class = "State", placeholder = "State" })
+                                        @Html.TextBoxFor(m => m.DeliveryDetails.State, new { @class = "State", placeholder = "State" })
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +183,7 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Person InCharge</label>
                                 <div class="input-control text full-size">
-                                    @Html.TextBoxFor(m => m.ComponentName, new { @class = "PersonInCharge", placeholder = "Person InCharge" })
+                                    @Html.TextBoxFor(m => m.DeliveryDetails.PersonInCharge, new { @class = "PersonInCharge", placeholder = "Person InCharge" })
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label class="display-block">Additional Notes</label>
                                 <div class="input-control textarea full-size">
-                                    @Html.TextAreaFor(m => m.Description, new { @class = "ShippingNotes", placeholder = "Additional Notes" })
+                                    @Html.TextAreaFor(m => m.DeliveryDetails.AddtionalNotes, new { @class = "ShippingNotes", placeholder = "Additional Notes" })
                                 </div>
                             </div>
                         </div>
@@ -211,6 +211,51 @@
     }
     function tab_change(tab){
         console.log(tab);
+    }
+
+    function saveWorkOrder() {
+
+        var CurrentCoponent = {
+            Component: $(".ComponentName").val(),
+            CreatedDate: $(".CreatedDate").val(),
+            Description: $(".Description").val(),
+            Location: $(".WorkshopLocation").val(),
+            SerialNumber: $(".SerialNumber").val(),
+            FlightNumber: $(".FlightNumber").val(),
+            DeliveryDetails: {
+                DeliveryDate: $("#Date").val(),
+                DeliveryMethod: $(".DeliveryMethod").val(),
+                PersonInCharge: $(".PersonInCharge").val(),
+                AddressLine1: $(".LineOne").val(),
+                AddressLine2: $(".LineTwo").val(),
+                City: $(".City").val(),
+                State: $(".State").val(),
+                AddtionalNotes: $(".ShippingNotes").val()
+            }
+        }
+        debugger;
+
+        $.ajax({
+            url: '/componentwork/SaveWorkOrder',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(CurrentCoponent),
+            success: function (data) {
+
+                $.Notify({
+                    caption: 'Component Work',
+                    content: 'WorkOrder successfully added.',
+                    type: 'success'
+                });
+
+                debugger;
+                $('.sidebar').children().removeClass('active');
+                $('.sidebar li:nth-child(1)').addClass('active');
+
+                $('#partial-view-container').html(data);
+            },
+        });
+
     }
     </script>
 

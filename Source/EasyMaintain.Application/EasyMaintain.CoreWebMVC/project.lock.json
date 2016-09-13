@@ -4735,7 +4735,8 @@
       "Microsoft.ServiceFabric.Data >= 2.1.163",
       "Microsoft.ServiceFabric.Services >= 2.1.163",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
-      "Microsoft.jQuery.Unobtrusive.Ajax >= 2.0.30506"
+      "Microsoft.jQuery.Unobtrusive.Ajax >= 2.0.30506",
+      "Newtonsoft.Json >= 9.0.1"
     ],
     ".NETFramework,Version=v4.5.2": []
   },

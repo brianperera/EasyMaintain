@@ -36,18 +36,27 @@
 <script>
     function LoadWorkOrder(viewName)
     {
+        var Model = { WorkID : viewName  }
+
         $.ajax({
-            url: '/componentwork/EditWorkOrder',
-            type: 'GET',
-            data: {
-                WorkID: viewName
-            },
+            url: 'ComponentWork/EditWorkOrder',
+            type: 'POST',
+            data: JSON.stringify(Model),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 debugger;
                 $('#partial-view-container').html(data);
             },
+            error: function(){
+                debugger;
+                $.Notify({
+                    caption: 'Component Work',
+                    content: 'WorkOrder Editing Failed .',
+                    type: 'alert'
+                });
+            }
         });
+
     }
 
 

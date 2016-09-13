@@ -70,68 +70,67 @@
                 </table>
             </div>
   
-            <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
+            <button class="button primary" onclick="newOrder()"><span class="mif-plus"></span> Create</button>
         </div>       
-    <div class="frame" id="frame_2">
-                    <hr />
+        <div class="frame" id="frame_2">
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary(true)
 
-                    <div class="example">
-                        <div class="flex-grid">
-                            <div class="row cells2">
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label class="display-block">Delivery Method</label>
-                                    <div class="input-control select full-size">
-                                       
-                                    </div>
-                                </div>
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Delivery Date</label>
-                                    <div class="input-control text full-size">
-                                        <div class="input-control text" data-role="datepicker">
-                                            <input type="text" id="endDate">
-                                            <button class="button"><span class="mif-calendar"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Address</label>
-                                    <div class="input-control text full-size">
-                                        <div class="input-control text full-size">
-                                           
-                                        </div>
-                                        <div class="input-control text full-size">
-                                          
-                                        </div>
-                                        <div class="input-control text full-size">
-                                            
-                                        </div>
-                                        <div class="input-control text full-size">
-                                         
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row cells2">
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Person InCharge</label>
-                                    <div class="input-control text full-size">
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row cells2">
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label class="display-block">Additional Notes</label>
-                                    <div class="input-control textarea full-size">
-                                       
-                                    </div>
-                                </div>
+        <div class="example">
+            <div class="flex-grid">
+                <div class="row cells2">
+                    <div class="cell-form margin-right-10 cell size4">
+                        <label class="display-block">Delivery Method</label>
+                        <div class="input-control select full-size">
+                            @Html.DropDownListFor(m => m.Deliverydetails.DeliveryMethod, new SelectList(Model.Deliverydetailsmodel.DeliveryMethods), new { @class = "DeliveryMethod" })
+                        </div>
+                    </div>
+                    <div class="cell-form margin-right-10 cell size4">
+                        <label>Delivery Date</label>
+                        <div class="input-control text full-size">
+                            <div class="input-control text" data-role="datepicker">
+                                <input type="text" id="Date" value="@Model.Deliverydetails.DeliveryDate">
+                                <button class="button"><span class="mif-calendar"></span></button>
                             </div>
                         </div>
                     </div>
-                
-                <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
-            
+                    <div class="cell-form margin-right-10 cell size4">
+                        <label>Address</label>
+                        <div class="input-control text full-size">
+                            <div class="input-control text full-size">
+                                @Html.TextBoxFor(m => m.Deliverydetails.AddressLine1, new { @class = "LineOne", placeholder = "Line 1" })
+                            </div>
+                            <div class="input-control text full-size">
+                                @Html.TextBoxFor(m => m.Deliverydetails.AddressLine2, new { @class = "LineTwo", placeholder = "Line 2" })
+                            </div>
+                            <div class="input-control text full-size">
+                                @Html.TextBoxFor(m => m.Deliverydetails.City, new { @class = "City", placeholder = "City" })
+                            </div>
+                            <div class="input-control text full-size">
+                                @Html.TextBoxFor(m => m.Deliverydetails.State, new { @class = "State", placeholder = "State" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row cells2">
+                    <div class="cell-form margin-right-10 cell size4">
+                        <label>Person InCharge</label>
+                        <div class="input-control text full-size">
+                            @Html.TextBoxFor(m => m.Deliverydetails.PersonInCharge, new { @class = "PersonInCharge", placeholder = "Person InCharge" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row cells2">
+                    <div class="cell-form margin-right-10 cell size4">
+                        <label class="display-block">Additional Notes</label>
+                        <div class="input-control textarea full-size">
+                            @Html.TextAreaFor(m => m.Deliverydetails.AddtionalNotes, new { @class = "ShippingNotes", placeholder = "Additional Notes" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
         <div class="frame" id="frame_3">
                     <hr />
@@ -139,35 +138,15 @@
                         <div class="flex-grid">
                             <div class="row cells2">
                                 <div class="cell-form margin-right-10 cell size4">
-                                    <label class="display-block">Delivery Method</label>
+                                    <label class="display-block">Payment Method</label>
                                     <div class="input-control select full-size">
-
+                                        @Html.DropDownListFor(m => m.PaymentMethod, new SelectList(Model.PaymentMethods), new { @class = "PaymentMethod" })
                                     </div>
                                 </div>
                                 <div class="cell-form margin-right-10 cell size4">
-                                    <label>Delivery Date</label>
+                                    <label>Billing Address</label>
                                     <div class="input-control text full-size">
-                                        <div class="input-control text" data-role="datepicker">
-                                            <input type="text" id="endDate">
-                                            <button class="button"><span class="mif-calendar"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="cell-form margin-right-10 cell size4">
-                                    <label>Address</label>
-                                    <div class="input-control text full-size">
-                                        <div class="input-control text full-size">
-
-                                        </div>
-                                        <div class="input-control text full-size">
-
-                                        </div>
-                                        <div class="input-control text full-size">
-
-                                        </div>
-                                        <div class="input-control text full-size">
-
-                                        </div>
+                                        @Html.TextAreaFor(m => m.BillingAddress, new { @class = "BillingAddress", placeholder = "Billing Address" })
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +154,7 @@
                                 <div class="cell-form margin-right-10 cell size4">
                                     <label>Person InCharge</label>
                                     <div class="input-control text full-size">
-
+                                        @Html.TextBoxFor(m => m.BillingName, new { @class = "BillingName", placeholder = "Person InCharge" })
                                     </div>
                                 </div>
                             </div>
@@ -183,13 +162,12 @@
                                 <div class="cell-form margin-right-10 cell size4">
                                     <label class="display-block">Additional Notes</label>
                                     <div class="input-control textarea full-size">
-
+                                        @Html.TextAreaFor(m => m.PaymentNotes, new { @class = "PaymentNotes", placeholder = "Additional Notes" })
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
         </div>
     </div>
 </div>
@@ -213,7 +191,51 @@
         tab_change(tab);
     }
 
+    function newOrder() {
 
+        var CurrentCoponent = {
+            CustomerName: $(".CustomerName").val(),
+            CompanyName: $(".CompanyName").val(),
+            AdditionalNotes: $(".AdditionalNotes").val(),
+            PaymentMethod: $(".PaymentMethod").val(),
+            PaymentNotes: $(".PaymentNotes").val(),
+            BillingAddress: $(".BillingAddress").val(),
+            BillingName: $(".BillingName").val(),
+            Deliverydetails: {
+                DeliveryDate: $("#Date").val(),
+                DeliveryMethod: $(".DeliveryMethod").val(),
+                PersonInCharge: $(".PersonInCharge").val(),
+                AddressLine1: $(".LineOne").val(),
+                AddressLine2: $(".LineTwo").val(),
+                City: $(".City").val(),
+                State: $(".State").val(),
+                AddtionalNotes: $(".ShippingNotes").val()
+            }
+        };
+
+        var test = $.param(ai, true);
+
+        $.ajax({
+            url: '/inventory/CreateOrder',
+            type: 'POST',
+            data: JSON.stringify(CurrentCoponent),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                $.Notify({
+                    caption: 'Inventory',
+                    content: 'Order successfully Created.',
+                    type: 'success'
+                });
+
+                debugger;
+                $('.sidebar').children().removeClass('active');
+                $('.sidebar li:nth-child(2)').addClass('active');
+
+                $('#partial-view-container').html(data);
+            },
+        });
+    }
 
 </script>
 
