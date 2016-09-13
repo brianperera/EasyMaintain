@@ -10,6 +10,7 @@ namespace EasyMaintain.Business.Entities
     public class MaintenanceChecks : IBusiness
     {
         MaintenanceChecks mMaintenanceChecks;
+        public string MaintenanceCheckID { get; set; }
         public string Description { get; set; }
         public bool status { get; set; }
 
@@ -60,6 +61,14 @@ namespace EasyMaintain.Business.Entities
             this.mMaintenanceChecks = maintenanceCheck as MaintenanceChecks;
             DataProvidor dp = new DataProvidor();
             return dp.UpdateMaintenanceChecks(mMaintenanceChecks.Description, mMaintenanceChecks.status);
+        }
+
+        public MaintenanceChecks Find(object key)
+        {
+            List<MaintenanceChecks> result = new List<MaintenanceChecks>();
+            return result
+                .Where(e => e.MaintenanceCheckID.Equals(MaintenanceCheckID))
+                .SingleOrDefault();
         }
     }
 }

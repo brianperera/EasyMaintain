@@ -61,11 +61,6 @@
   <ItemGroup>
     <Compile Include="DataProvidor.cs" />
     <Compile Include="EasyMaintainDBContext.cs" />
-    <Compile Include="Migrations\201609080550121_supplierNameAdded.cs" />
-    <Compile Include="Migrations\201609080550121_supplierNameAdded.Designer.cs">
-      <DependentUpon>201609080550121_supplierNameAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Crew.cs" />
@@ -85,11 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609080550121_supplierNameAdded.resx">
-      <DependentUpon>201609080550121_supplierNameAdded.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

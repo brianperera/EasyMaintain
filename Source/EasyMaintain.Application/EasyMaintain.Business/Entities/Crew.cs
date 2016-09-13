@@ -64,5 +64,16 @@ namespace EasyMaintain.Business.Entities
             DataProvidor dp = new DataProvidor();
             return dp.UpdateCrew(mCrew.Name, mCrew.Designation);
         }
+
+
+        public Crew Find(object key)
+        {
+            List<Crew> result = new List<Crew>();
+            return result
+                .Where(e => e.Name.Equals(Name))
+                .SingleOrDefault();
+        }
+
+
     }
 }
