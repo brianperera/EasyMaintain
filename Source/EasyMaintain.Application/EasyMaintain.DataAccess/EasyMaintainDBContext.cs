@@ -8,15 +8,17 @@ using EasyMaintain.DataAccess.Models;
 
 namespace EasyMaintain.DataAccess
 {
-    class EasyMaintainDBContext : DbContext
+   public class EasyMaintainDBContext : DbContext
     {
+        static EasyMaintainDBContext()
+        {
+            Database.SetInitializer<EasyMaintainDBContext>(new CreateDatabaseIfNotExists<EasyMaintainDBContext>());
+        }
 
-        public EasyMaintainDBContext() : base()
+        public EasyMaintainDBContext() : base("Name=EasyMaintainDB")
         {
 
         }
-
-
         public DbSet<AircraftModel> AircraftModels { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<EngineType> EngineTypes { get; set; }
@@ -26,5 +28,7 @@ namespace EasyMaintain.DataAccess
         public DbSet<Crew> Crews { get; set; }
 
         public DbSet<MaintenanceChecks> MaintenanceChecks { get; set; }
+
+        public DbSet<ComponentWork> ComponentWorks { get; set; }
     }
 }

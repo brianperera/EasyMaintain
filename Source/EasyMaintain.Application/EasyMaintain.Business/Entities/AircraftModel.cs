@@ -103,7 +103,7 @@ namespace EasyMaintain.Business
             return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.Manufacturer.Name, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category.CategoryID, mAircraftModel.EngineType.WorkID, Int32.Parse (mAircraftModel.Manufacturer.ManufacturerID), mAircraftModel.ImagePath);
         }
 
-        public AircraftModel Find(object key)
+        public AircraftModel Find(object AircraftModelID)
         {
             List<AircraftModel> result = new List<AircraftModel>();
             return result

@@ -51,7 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ComponentWork.cs" />
     <Compile Include="Entities\Crew.cs" />
+    <Compile Include="Entities\DeliveryDetails.cs" />
     <Compile Include="Entities\EngineType.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\MaintenanceChecks.cs" />

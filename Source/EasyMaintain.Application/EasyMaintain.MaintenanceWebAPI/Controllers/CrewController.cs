@@ -45,7 +45,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             return Ok(item);
         }
 
-        // PUT api/Engine/5
+        // PUT api/CrewAdd/5
         [HttpPut]
         public async Task<IHttpActionResult> CrewAdd(Crew CrewName, Crew crew)
         {
@@ -79,7 +79,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = crew.Name }, crew);
         }
 
-        // DELETE api/Engine/5
+        // DELETE api/CrewDelete/5
         [ResponseType(typeof(EngineType))]
         [HttpDelete]
         public async Task<IHttpActionResult> CrewDelete(Crew crew)

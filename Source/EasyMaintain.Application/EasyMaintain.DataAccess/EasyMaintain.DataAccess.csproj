@@ -63,7 +63,9 @@
     <Compile Include="EasyMaintainDBContext.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ComponentWork.cs" />
     <Compile Include="Models\Crew.cs" />
+    <Compile Include="Models\DeliveryDetails.cs" />
     <Compile Include="Models\EngineType.cs" />
     <Compile Include="Models\MaintenanceChecks.cs" />
     <Compile Include="Models\Manufacturer.cs" />

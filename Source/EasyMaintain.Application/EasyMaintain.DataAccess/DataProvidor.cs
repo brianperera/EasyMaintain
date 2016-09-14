@@ -10,7 +10,6 @@ namespace EasyMaintain.DataAccess
 {
     public class DataProvidor
     {
-
         /// <summary>
         /// Get Supplier Data
         /// </summary>
@@ -35,14 +34,36 @@ namespace EasyMaintain.DataAccess
             return supplierList;
         }
 
+        /// <summary>
+        /// Get Component Work data
+        /// </summary>
+        /// <returns></returns>
+        ///          
+
+        public List<ComponentWork> GetComponentWorkData()
+        {
+            List<ComponentWork> ComponentWork = new List<ComponentWork>();
+
+            using (var db = new EasyMaintainDBContext())
+            {
+                var query = from b in db.ComponentWorks
+                            orderby b.Component
+                            select b;
+
+                foreach (var item in query)
+                {
+                    ComponentWork.Add(item as ComponentWork);
+                }
+            }
+
+            return ComponentWork;
+        }
 
         /// <summary>
         /// Get Maintenance check data
         /// </summary>
         /// <returns></returns>
         ///          
-
-
         public List<MaintenanceChecks> GetMaintenanceCheckData()
         {
             List<MaintenanceChecks> MaintenanceCheckList = new List<MaintenanceChecks>();
@@ -61,9 +82,6 @@ namespace EasyMaintain.DataAccess
 
             return MaintenanceCheckList;
         }
-
-
-
 
         /// <summary>
         /// Get Spare Parts Data
@@ -133,16 +151,6 @@ namespace EasyMaintain.DataAccess
 
             return crew;
         }
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Get Aircraft Model Data
@@ -305,6 +313,42 @@ namespace EasyMaintain.DataAccess
             return recordId;
         }
 
+        /// <summary>
+        /// Add Component Work
+        /// </summary>
+        /// <param name="WorkID"></param>
+        /// <param name="Component"></param>
+        /// <param name="SerialNumber"></param>
+        /// <param name="FlightNumber"></param>
+        /// <param name="Description"></param>
+        /// <param name="Deliverydetails"></param>
+        /// <param name="CreatedDate"></param>
+        /// <param name="Location"></param>
+        /// <returns></returns>
+        public int AddComponentWork(int workID, string component, string serialNumber, string flightNumber, string description,/*DeliveryDetails deliveryDetails*/ string createdDate, string location)
+        {
+            int recordId = -1;
+
+            // insert
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var componentwork = db.Set<ComponentWork>();
+                    componentwork.Add(new ComponentWork { WorkID = workID, Component = component, SerialNumber = serialNumber, FlightNumber = flightNumber, Description = description, CreatedDate = createdDate, Location = location });
+
+                    db.SaveChanges();
+
+                    recordId = (db.Set<ComponentWork>().LastOrDefault().WorkID);
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return recordId;
+        }
 
         /// <summary>
         /// Add MaintenanceChecks
@@ -592,7 +636,7 @@ namespace EasyMaintain.DataAccess
 
         /// <returns></returns>
 
-        public bool UpdateMaintenanceChecks(string description,bool status)
+        public bool UpdateMaintenanceChecks(string description, bool status)
         {
             bool result = false;
 
@@ -607,7 +651,7 @@ namespace EasyMaintain.DataAccess
                     {
                         maintenanceCheck.Description = description;
                         maintenanceCheck.status = status;
-                       
+
                     }
                     db.SaveChanges();
                     result = true;
@@ -778,6 +822,59 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
+        /// Update Component Work 
+        /// </summary>
+        /// <param name="aircraftModleId"></param>
+        /// <param name="aircraftModelname"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <param name="categoryID"></param>
+        /// <param name="engineTypeId"></param>
+        /// <param name="manufacturerId"></param>
+        /// <param name="imagepath"></param>
+        /// <returns></returns>
+        public bool UpdateComponentWork(int workID, string component, string serialNumber, string flightNumber, string description,string createdDate, string location)
+        {
+            bool result = false;
+
+            // update
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var componentWork = db.ComponentWorks.SingleOrDefault(s => s.WorkID == workID);
+
+                    if (componentWork != null)
+                    {
+                        componentWork.Component = component;
+                        componentWork.SerialNumber = serialNumber;
+                        componentWork.FlightNumber = flightNumber;
+                        componentWork.Description = description;
+                        componentWork.CreatedDate = createdDate;
+                        componentWork.Location = location;
+                        
+                    }
+                    db.SaveChanges();
+                    result = true;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return result;
+        }
+
+
+
+
+
+
+
+
+
+        /// <summary>
         /// Update Spare Part
         /// </summary>
         /// <param name="sparePartId"></param>
@@ -854,7 +951,21 @@ namespace EasyMaintain.DataAccess
             }
         }
 
-
+        /// <summary>
+        /// Delete Component Work 
+        /// </summary>
+        /// <param name="WorkID"></param>
+        public void DeleteComponentWork(int workId)
+        {
+            // Delete
+            using (var db = new EasyMaintainDBContext())
+            {
+                var component = db.ComponentWorks.SingleOrDefault(s => s.WorkID.Equals(workId));
+                db.ComponentWorks.Attach(component);
+                db.ComponentWorks.Remove(component);
+                db.SaveChanges();
+            }
+        }
         /// <summary>
         /// Delete Manufacturer 
         /// </summary>

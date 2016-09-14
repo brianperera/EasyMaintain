@@ -8,14 +8,15 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using EasyMaintain.Business;
 
-namespace EasyMaintain.Services.Controllers
+
+
+ namespace EasyMaintain.ComponentWebAPI.Controllers
 {
     public class EngineController : ApiController
     {
         private EngineType enginetype;
 
         public IBusiness EngineRepo { get; set; }
-        public EngineType engine_type;
 
         public EngineController(IBusiness _repo)
         {
@@ -33,9 +34,9 @@ namespace EasyMaintain.Services.Controllers
         // GET api/Engine/5
         [ResponseType(typeof(EngineType))]
         [HttpGet]
-        public async Task<IHttpActionResult> EngineTypes(EngineType WorkID)
+        public async Task<IHttpActionResult> EngineTypes(EngineType EngineTypeID)
         {
-            var item = engine_type.Find(WorkID);
+            var item = enginetype.Find(EngineTypeID);
 
             if (item == null)
             {
@@ -46,10 +47,10 @@ namespace EasyMaintain.Services.Controllers
 
         // PUT api/Engine/5
         [HttpPut]
-        public async Task<IHttpActionResult> EngineType(EngineType WorkID, EngineType enginetype)
+        public async Task<IHttpActionResult> MaintenanceAdd(EngineType EngineTypeID, EngineType enginetype)
         {
 
-            if (WorkID == null || WorkID.Equals(0))
+            if (EngineTypeID == null || EngineTypeID.Equals(0))
             {
                 return BadRequest();
             }
@@ -66,7 +67,7 @@ namespace EasyMaintain.Services.Controllers
         // POST api/Engine
         [ResponseType(typeof(EngineType))]
         [HttpPost]
-        public async Task<IHttpActionResult> EngineType(EngineType enginetype)
+        public async Task<IHttpActionResult>  EngineTypeUpdate(EngineType enginetype)
         {
             if (!ModelState.IsValid)
             {

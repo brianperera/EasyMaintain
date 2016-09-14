@@ -53,7 +53,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         [HttpPost, Route("/maintenance/CreateMaintenanceOrder")]
         public PartialViewResult CreateMaintenanceOrder([FromBody] Maintenance Model)
-		{
+        {
             var uri = "api/Engine/MaintenanceAdd";
 
             List<Maintenance> maintenanceItems;
@@ -132,6 +132,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 maintenanceChecks = JsonConvert.DeserializeObject<List<Check>>(response.Result);
             }
             maintenanceViewModel.CheckItems = maintenanceChecks;
+
             var itemToRemove = maintenanceViewModel.CheckItems.Single(r => r.Description == CheckDiscription.Description);
             maintenanceViewModel.CheckItems.Remove(itemToRemove);
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
@@ -141,6 +142,15 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/AddCrewMember")]
         public PartialViewResult AddCrewMember([FromBody] Crew Model)
         {
+            var uri = "api/CrewAdd/5";
+            List<Crew> maintenanceCrew;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                maintenanceCrew = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
+            }
+            maintenanceViewModel.CrewMembers = maintenanceCrew;
+
             maintenanceViewModel.CrewMembers.Add(new Crew() { Name = Model.Name, Designation = Model.Designation });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_3;
             return PartialView("_NewMaintenanceOrder", maintenanceViewModel);
@@ -149,6 +159,16 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpDelete, Route("/maintenance/DeleteCrewMember")]
         public PartialViewResult DeleteCrewMember([FromBody]Crew CrewMember)
         {
+
+            var uri = "api/CrewDelete/5";
+            List<Crew> maintenanceCrew;
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                maintenanceCrew = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
+            }
+            maintenanceViewModel.CrewMembers = maintenanceCrew;
+
             var itemToRemove = maintenanceViewModel.CrewMembers.Single(r => r.Name == CrewMember.Name);
             maintenanceViewModel.CrewMembers.Remove(itemToRemove);
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_3;
@@ -156,7 +176,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         }
 
         [HttpPost, Route("/maintenance/EditMaintenanceOrder")]
-        public PartialViewResult EditMaintenanceOrder([FromBody]Maintenance ID) {
+        public PartialViewResult EditMaintenanceOrder([FromBody]Maintenance ID)
+        {
 
             var uri = "api/Engine/EngineTypeUpdate";
             List<Maintenance> maintenanceItems;
@@ -168,20 +189,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
             }
             maintenanceViewModel.MaintenanceOrders = maintenanceItems;
-            
-            maintenanceViewModel.WorkID = item.WorkID;
-            maintenanceViewModel.CompletionDate = item.CompletionDate;
-            maintenanceViewModel.Description = item.Description;
-            maintenanceViewModel.FlightModel = item.FlightModel;
-            maintenanceViewModel.FlightNumber = item.FlightNumber;
-            maintenanceViewModel.StartDate = item.StartDate;
-            maintenanceViewModel.WorkshopLocation = item.Location;
-            maintenanceViewModel.CrewMembers = item.CrewMembers;
-            maintenanceViewModel.CheckItems = item.CheckItems;
-
-            return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
-
-           // Maintenance item = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == Int32.Parse(WorkID));
 
             maintenanceViewModel.WorkID = item.WorkID;
             maintenanceViewModel.CompletionDate = item.CompletionDate;
@@ -195,8 +202,20 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
 
+
+
+            maintenanceViewModel.WorkID = item.WorkID;
+            maintenanceViewModel.CompletionDate = item.CompletionDate;
+            maintenanceViewModel.Description = item.Description;
+            maintenanceViewModel.FlightModel = item.FlightModel;
+            maintenanceViewModel.FlightNumber = item.FlightNumber;
+            maintenanceViewModel.StartDate = item.StartDate;
+            maintenanceViewModel.WorkshopLocation = item.Location;
+            maintenanceViewModel.CrewMembers = item.CrewMembers;
+            maintenanceViewModel.CheckItems = item.CheckItems;
+
+            return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
         }
-
 
     }
 }

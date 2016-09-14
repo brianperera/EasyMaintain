@@ -1,35 +1,81 @@
-﻿using System.Collections.Generic;
+﻿using EasyMaintain.Business;
+using EasyMaintain.Business.Entities;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 
 namespace EasyMaintain.ComponentWebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values 
-        public IEnumerable<string> Get()
+        public IBusiness ComponentWorkRepo { get; set; }
+        public ComponentWork componentWork;
+
+        public ValuesController(IBusiness _repo)
         {
-            return new string[] { "value1", "value2" };
+            ComponentWorkRepo = _repo;
+        }
+        // GET api/ComponentWorkData
+        [HttpGet]
+        public IEnumerable<ComponentWork> ComponentWorkData()
+        {
+            return (IEnumerable<ComponentWork>)ComponentWorkRepo.GetData();
+
         }
 
-        // GET api/values/5 
-        public string Get(int id)
+        // GET api/ComponentWorkByID/5 
+
+        [HttpGet]
+        public IHttpActionResult ComponentWorkByID(ComponentWork workID)
         {
-            return "value";
+            var item = componentWork.Find(workID);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(item); ;
+        }
+        // POST api/ComponentWorkCreate 
+        [HttpPost]
+        public IHttpActionResult ComponentWorkCreate([FromBody]ComponentWork componentWork)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            ComponentWorkRepo.UpdateOne(componentWork);
+            return CreatedAtRoute("DefaultApi", new { id = componentWork.WorkID }, componentWork);
         }
 
-        // POST api/values 
-        public void Post([FromBody]string value)
+        // PUT api/ComponentWorkInsert/5 
+        [HttpPut]
+        public IHttpActionResult ComponentWorkInsert(ComponentWork workID, [FromBody]ComponentWork component)
         {
+
+            if (workID == null || workID.Equals(0))
+            {
+                return BadRequest();
+            }
+
+            else
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ComponentWorkRepo.Insert(component);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // PUT api/values/5 
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        // DELETE api/ComponentWorkDelete/5 
+        [HttpDelete]
 
-        // DELETE api/values/5 
-        public void Delete(int id)
+        public void ComponentWorkDelete(ComponentWork workID)
         {
+
+            ComponentWorkRepo.DeleteOne(workID);
         }
     }
 }

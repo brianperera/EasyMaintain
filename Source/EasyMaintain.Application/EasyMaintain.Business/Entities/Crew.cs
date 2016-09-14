@@ -66,7 +66,7 @@ namespace EasyMaintain.Business.Entities
         }
 
 
-        public Crew Find(object key)
+        public Crew Find(object Name)
         {
             List<Crew> result = new List<Crew>();
             return result
