@@ -1,2 +1,0 @@
-C:\Users\madufernando\Desktop\Projects\EasyMaintain-master Checkout\trunk\Source\EasyMaintain.Application\EasyMaintain.InventoryServiceFabric\obj\x64\Debug\EasyMaintain.InventoryServiceFabric.sfprojResolveAssemblyReference.cache
-C:\Users\josriskandarajah\Documents\AirCraft Maintenance\Code\trunk\Source\EasyMaintain.Application\EasyMaintain.InventoryServiceFabric\obj\x64\Debug\EasyMaintain.InventoryServiceFabric.sfprojResolveAssemblyReference.cache

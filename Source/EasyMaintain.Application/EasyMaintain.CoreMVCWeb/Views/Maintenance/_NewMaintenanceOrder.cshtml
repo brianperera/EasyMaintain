@@ -1,0 +1,301 @@
+﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
+
+<h1 class="text-light">Create Maintenance Order</h1>
+
+
+
+<div class="tabcontrol2" data-role="tabcontrol" data-open-target="@Model.ActiveTab" data-on-tab-click="tab_click" data-on-tab-change="tab_change">
+    <ul class="tabs">
+        <li><a href="#frame_1">Maintanance Record</a></li>
+        <li><a href="#frame_2">Check list</a></li>
+        <li><a href="#frame_3">Crew</a></li>
+    </ul>
+    <div class="frames">
+        <div class="frame" id="frame_1" name="NewDetails">
+            @Html.AntiForgeryToken()
+            <hr />
+            @Html.ValidationSummary(true)
+
+            <div class="example">
+                <div class="flex-grid">
+                    <div class="row cells2">
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label>Flight Model</label>
+                            <div class="input-control text full-size">
+                                @Html.TextBoxFor(m => m.FlightModel, new { @class = "FlightModel", placeholder = "Flight Model" })
+
+                            </div>
+                        </div>
+
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label class="display-block">Workshop</label>
+                            <div class="input-control select full-size">
+                                @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "WorkshopLocation" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row cells2">
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label>Flight Number</label>
+                            <div class="input-control text full-size">
+                                @Html.TextBoxFor(m => m.FlightNumber, new { @class = "FlightNumber", placeholder = "Flight Number" })
+                            </div>
+                        </div>
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label class="display-block">Start Date</label>
+                            <div class="input-control text" data-role="datepicker">
+                                <input type="text" id="startDate" value="@Model.StartDate">
+                                <button class="button"><span class="mif-calendar"></span></button>
+                            </div>
+                        </div>
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label class="display-block">End Date</label>
+                            <div class="input-control text" data-role="datepicker">
+                                <input type="text" id="endDate" value="@Model.CompletionDate">
+                                <button class="button"><span class="mif-calendar"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row cells2">
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label class="display-block">Description</label>
+                            <div class="input-control textarea full-size">
+                                @Html.TextAreaFor(m => m.Description, new { @class = "Description", placeholder = "Description" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="button primary" onclick="newWorkOrder()"><span class="mif-plus"></span> Create</button>
+        </div>
+        <div class="frame" id="frame_2" name="CheckList">
+            <div class="example">
+                <div class="flex-grid">
+                    <div class="row cells2">
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label>Add Check Item</label>
+                            <div class="input-control text full-size">
+                                <input type="text" id="checkDescription" placeholder="Description" />
+                                <button class="button primary" onclick="addCheck()"><span class="mif-plus"></span> Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <table class="dataTable border bordered" data-auto-width="false">
+                    <thead>
+                        <tr>
+                            <td class="sortable-column">Description</td>
+                            <td class="sortable-column" style="width: 100px">Remove</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var workOrder in Model.CheckItems)
+                        {
+                            <tr>
+                                <td>@workOrder.Description</td>
+                                <td class="align-center"><button class="toolbar-button" onclick="DeleteCheck( this )" data-assigned-id="@workOrder.Description"><span class="mif-cross"></span></button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="frame_3" class="frame" name="Crew">
+
+            <h4 class="text-light">Add Crew</h4>
+            <div class="example">
+                <div class="flex-grid">
+                    <div class="row cells2">
+                        <div class="cell-form margin-right-10 cell size4">
+                            <label>Member Name</label>
+                            <div class="input-control text full-size">
+                                <input type="text" id="memberName" placeholder="Name" />
+                            </div>
+                            <label>Designation</label>
+                            <div class="input-control text full-size">
+                                <input type="text" id="designation" placeholder="Designation" />
+                            </div>
+                            <button class="button primary" onclick="addMember()"><span class="mif-plus"></span> Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <table class="dataTable border bordered" data-auto-width="false">
+                    <thead>
+                        <tr>
+                            <td class="sortable-column">Member Name</td>
+                            <td class="sortable-column">Designation</td>
+                            <td class="sortable-column" style="width: 100px">Remove</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var workOrder in Model.CrewMembers)
+                        {
+                            <tr>
+                                <td>@workOrder.Name</td>
+                                <td>@workOrder.Designation</td>
+                                <td class="align-center"><button class="toolbar-button" onclick="DeleteMember(this)" data-assigned-id="@workOrder.Name"><span class="mif-cross"></span></button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        function tab_click(tab) {
+            console.log(tab);
+            return true;
+        }
+        function tab_change(tab) {
+            console.log(tab);
+        }
+
+        function nextTab(tab) {
+            tab_click(tab);
+            tab_change(tab);
+        }
+
+        function DeleteCheck(test) {
+            saveTempData();
+            var CurrentCoponent = { Description: $(test).data('assigned-id') }
+
+            $.ajax({
+                url: '/maintenance/DeleteCheckItem',
+                type: 'DELETE',
+                data: JSON.stringify(CurrentCoponent),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function addCheck() {
+            saveTempData();
+
+            var CheckDiscription = { Description: $("#checkDescription").val() }
+
+            $.ajax({
+                url: '/maintenance/AddCheckItem',
+                type: 'POST',
+                data: JSON.stringify(CheckDiscription),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function DeleteMember(test) {
+            saveTempData();
+            var CurrentCoponent = { Name: $(test).data('assigned-id') }
+
+            $.ajax({
+                url: '/maintenance/DeleteCrewMember',
+                type: 'DELETE',
+                data: JSON.stringify(CurrentCoponent),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function addMember() {
+            saveTempData();
+
+            var CurrentCoponent ={
+                Name: $("#memberName").val(),
+                Designation: $("#designation").val()
+            }
+
+            $.ajax({
+                url: '/maintenance/AddCrewMember',
+                type: 'POST',
+                data: JSON.stringify(CurrentCoponent),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function newWorkOrder() {
+
+            var CurrentCoponent = {
+                CompletionDate: $("#endDate").val(),
+                StartDate: $("#startDate").val(),
+                Description: $(".Description").val(),
+                Location: $(".WorkshopLocation").val(),
+                FlightModel: $(".FlightModel").val(),
+                FlightNumber: $(".FlightNumber").val()
+            }
+
+            $.ajax({
+                url: '/maintenance/CreateMaintenanceOrder',
+                type: 'POST',
+                data:JSON.stringify ( CurrentCoponent ) ,
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+
+                    $.Notify({
+                        caption: 'Maintenance',
+                        content: 'Order successfully added.',
+                        type: 'success'
+                    });
+
+                    SelectSideNavigationItem(1);
+                    $('#partial-view-container').html(data);
+                },
+            });
+        }
+
+        function saveTempData() {
+
+            var Model = {
+                CompletionDate: $("#endDate").val(),
+                StartDate: $("#startDate").val(),
+                Description: $(".Description").val(),
+                Location: $(".WorkshopLocation").val(),
+                FlightModel: $(".FlightModel").val(),
+                FlightNumber: $(".FlightNumber").val()
+            }
+
+            $.ajax({
+                url: '/maintenance/SaveTempData',
+                type: 'POST',
+                data: JSON.stringify(Model),
+                contentType: 'application/json; charset=utf-8',
+            });
+        }
+
+        function SelectSideNavigationItem(navItemIndex) {
+
+            debugger;
+            //Unselect all the items
+            $('.sidebar').children().removeClass('active');
+
+            if (navItemIndex == 1) {
+                $('.sidebar li:nth-child(1)').addClass('active');
+            }
+            else if (navItemIndex == 2) {
+                $('.sidebar li:nth-child(2)').addClass('active');
+            }
+        }
+
+    </script>
