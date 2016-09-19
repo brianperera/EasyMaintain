@@ -15,7 +15,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
         {
             ComponentWorkRepo = _repo;
         }
-        // GET api/ComponentWorkData
+        // GET api/Values/ComponentWorkData
         [HttpGet]
         public IEnumerable<ComponentWork> ComponentWorkData()
         {
@@ -23,7 +23,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
         }
 
-        // GET api/ComponentWorkByID/5 
+        // GET api/Values/ComponentWorkByID/5 
 
         [HttpGet]
         public IHttpActionResult ComponentWorkByID(ComponentWork workID)
@@ -36,7 +36,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
             return Ok(item); ;
         }
-        // POST api/ComponentWorkCreate 
+        // POST api/Values/ComponentWorkCreate 
         [HttpPost]
         public IHttpActionResult ComponentWorkCreate([FromBody]ComponentWork componentWork)
         {
@@ -49,7 +49,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = componentWork.WorkID }, componentWork);
         }
 
-        // PUT api/ComponentWorkInsert/5 
+        // PUT api/Values/ComponentWorkInsert/5 
         [HttpPut]
         public IHttpActionResult ComponentWorkInsert(ComponentWork workID, [FromBody]ComponentWork component)
         {

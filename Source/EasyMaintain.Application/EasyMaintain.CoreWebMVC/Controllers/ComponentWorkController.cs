@@ -1,69 +1,109 @@
 ﻿using EasyMaintain.CoreWebMVC.Models;
 using EasyMaintain.CoreWebMVC.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
+
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {
     public class ComponentWorkController : Controller
     {
         
-        ComponentWorkModel session = SessionUtility.utilityComponentWorkModel;
+        ComponentWorkModel componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
 
         public ActionResult Index()
         {
-            session = SessionUtility.utilityComponentWorkModel;
-            return View(session);
+            componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
+            return View(componentWorkViewModel);
         }
 
         [HttpPost, Route("ComponentWork/CreateWorkOrder")]
         public PartialViewResult CreateWorkOrder([FromBody] ComponentWork Model)
         {
-            Model.Deliverydetailsmodel = new DeliveryDetailsModel();
-            Model.WorkID = (session.ComponentWorkOrders.Count) + 1;
-            session.ComponentWorkOrders.Add(Model);
 
-            return PartialView("_Search", session);
+            var uri = "api/Values/ComponentWorkCreate ";
+
+            List<ComponentWork> componentWorkItems;
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+            }
+            componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+
+            Model.Deliverydetailsmodel = new DeliveryDetailsModel();
+            Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
+            componentWorkViewModel.ComponentWorkOrders.Add(Model);
+
+            return PartialView("_Search", componentWorkViewModel);
         }
 
         [HttpPost, Route("ComponentWork/SaveWorkOrder")]
+        //todo
         public PartialViewResult SaveWorkOrder([FromBody] ComponentWork Model)
         {
-            Model.WorkID = session.WorkID;
-            int index = session.WorkID - 1;
-            session.ComponentWorkOrders[index] = Model;
-            return PartialView("_Search", session);
+            Model.WorkID = componentWorkViewModel.WorkID;
+            int index = componentWorkViewModel.WorkID - 1;
+            componentWorkViewModel.ComponentWorkOrders[index] = Model;
+            return PartialView("_Search", componentWorkViewModel);
         }
 
         public PartialViewResult NewWorkOrder()
         {
-            return PartialView("_NewWorkOrder", session);
+            return PartialView("_NewWorkOrder", componentWorkViewModel);
         }
 
         public PartialViewResult Search()
         {
-            return PartialView("_Search", session);
+
+            var uri = "api/Values/ComponentWorkData ";
+
+            List<ComponentWork> componentWorkItems;
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+            }
+            componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+            return PartialView("_Search", componentWorkViewModel);
         }
 
         [HttpPost, Route("ComponentWork/ComponentWork/EditWorkOrder")]
         public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
          {
 
-             ComponentWork item = session.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);
+            var uri = "api/Values/ComponentWorkInsert ";
 
-             session.WorkID = item.WorkID;
-             session.Description = item.Description;
-             session.FlightNumber = item.FlightNumber;
-             session.WorkshopLocation = item.Location;
-             session.CreatedDate = item.CreatedDate;
-             session.SerialNumber = item.SerialNumber;
-             session.ComponentName = item.Component;
-             session.DeliveryDetails = item.Deliverydetails;
+            List<ComponentWork> componentWorkItems;
 
-            return PartialView("_EditWorkOrder", session);
+            using (HttpClient httpClient = new HttpClient())
+            {
+                Task<String> response = httpClient.GetStringAsync(uri);
+                componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+            }
+            componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+
+
+            ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);
+
+            componentWorkViewModel.WorkID = item.WorkID;
+            componentWorkViewModel.Description = item.Description;
+            componentWorkViewModel.FlightNumber = item.FlightNumber;
+            componentWorkViewModel.WorkshopLocation = item.Location;
+            componentWorkViewModel.CreatedDate = item.CreatedDate;
+            componentWorkViewModel.SerialNumber = item.SerialNumber;
+            componentWorkViewModel.ComponentName = item.Component;
+            componentWorkViewModel.DeliveryDetails = item.Deliverydetails;
+
+            return PartialView("_EditWorkOrder", componentWorkViewModel);
 
          }
 

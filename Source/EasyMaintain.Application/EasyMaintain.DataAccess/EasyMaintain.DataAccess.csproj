@@ -61,6 +61,15 @@
   <ItemGroup>
     <Compile Include="DataProvidor.cs" />
     <Compile Include="EasyMaintainDBContext.cs" />
+    <Compile Include="Migrations\201609140902318_InitialCreate.cs" />
+    <Compile Include="Migrations\201609140902318_InitialCreate.Designer.cs">
+      <DependentUpon>201609140902318_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.cs" />
+    <Compile Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.Designer.cs">
+      <DependentUpon>201609150618114_addedPropertiesToDelivaryDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ComponentWork.cs" />
@@ -82,6 +91,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609140902318_InitialCreate.resx">
+      <DependentUpon>201609140902318_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.resx">
+      <DependentUpon>201609150618114_addedPropertiesToDelivaryDetails.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

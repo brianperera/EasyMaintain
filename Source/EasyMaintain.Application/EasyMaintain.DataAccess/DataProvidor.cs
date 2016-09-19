@@ -34,6 +34,31 @@ namespace EasyMaintain.DataAccess
             return supplierList;
         }
 
+
+        /// <summary>
+        /// Get Delivery Details
+        /// </summary>
+        /// <returns></returns>
+        ///           
+        //public List<Supplier> GetSupplierData()
+        //{
+        //    List<Supplier> supplierList = new List<Supplier>();
+
+        //    using (var db = new EasyMaintainDBContext())
+        //    {
+        //        var query = from b in db.Suppliers
+        //                    orderby b.SupplierName
+        //                    select b;
+
+        //        foreach (var item in query)
+        //        {
+        //            supplierList.Add(item as Supplier);
+        //        }
+        //    }
+
+        //    return supplierList;
+        //}
+
         /// <summary>
         /// Get Component Work data
         /// </summary>
@@ -460,11 +485,11 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var maintenance = db.Set<EngineType>();
-                    maintenance.Add(new EngineType { WorkID = workID, Description = additionalData });
+                    int record = maintenance.Add(new EngineType { WorkID = workID, Description = additionalData }).WorkID;
 
                     db.SaveChanges();
 
-                    recordId = db.Set<EngineType>().LastOrDefault().WorkID;
+                    //recordId = db.Set<EngineType>().LastOrDefault().WorkID;
                 }
                 catch (SqlException ex)
                 {

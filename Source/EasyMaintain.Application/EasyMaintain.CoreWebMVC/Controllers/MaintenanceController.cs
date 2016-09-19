@@ -106,7 +106,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/AddCheckItem")]
         public PartialViewResult AddCheckItem([FromBody] Check CheckDiscription)
         {
-            var uri = "api/MaintenanceAdd/5";
+            var uri = "api/Engine/MaintenanceAdd/5";
             List<Check> maintenanceChecks;
             using (HttpClient httpClient = new HttpClient())
             {
@@ -124,7 +124,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpDelete, Route("/maintenance/DeleteCheckItem")]
         public PartialViewResult DeleteCheckItem([FromBody] Check CheckDiscription)
         {
-            var uri = "api/MaintenanceDelete/5";
+            var uri = "api/Engine/MaintenanceDelete/5";
             List<Check> maintenanceChecks;
             using (HttpClient httpClient = new HttpClient())
             {
@@ -160,7 +160,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult DeleteCrewMember([FromBody]Crew CrewMember)
         {
 
-            var uri = "api/CrewDelete/5";
+            var uri = "api/Crew/CrewDelete/5";
             List<Crew> maintenanceCrew;
             using (HttpClient httpClient = new HttpClient())
             {

@@ -9,7 +9,8 @@ namespace EasyMaintain.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
+            ContextKey = "EasyMaintain.DataAccess.EasyMaintainDBContext";
         }
 
         protected override void Seed(EasyMaintain.DataAccess.EasyMaintainDBContext context)
