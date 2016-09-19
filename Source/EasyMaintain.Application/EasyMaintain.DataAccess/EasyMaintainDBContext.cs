@@ -30,5 +30,7 @@ namespace EasyMaintain.DataAccess
         public DbSet<MaintenanceChecks> MaintenanceChecks { get; set; }
 
         public DbSet<ComponentWork> ComponentWorks { get; set; }
+
+        public DbSet<DeliveryDetails> Deliveries { get; set; }
     }
 }

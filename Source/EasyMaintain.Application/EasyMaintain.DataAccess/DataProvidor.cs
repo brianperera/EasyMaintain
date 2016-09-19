@@ -109,6 +109,30 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
+        /// Get Delivery details
+        /// </summary>
+        /// <returns></returns>
+        ///          
+        public List<DeliveryDetails> GetdeliveryDetailsData()
+        {
+            List<DeliveryDetails> DeliveryDetailsList = new List<DeliveryDetails>();
+
+            using (var db = new EasyMaintainDBContext())
+            {
+                var query = from b in db.Deliveries
+                            orderby b.DeliveryDate
+                            select b;
+
+                foreach (var item in query)
+                {
+                    DeliveryDetailsList.Add(item as DeliveryDetails);
+                }
+            }
+
+            return DeliveryDetailsList;
+        }
+
+        /// <summary>
         /// Get Spare Parts Data
         /// </summary>
         /// <returns></returns>
@@ -337,6 +361,51 @@ namespace EasyMaintain.DataAccess
 
             return recordId;
         }
+
+
+        /// <summary>
+        /// Add Manufacturer
+        /// </summary>
+        /// <param name="DeliveryDetailsId"></param>
+        /// <param name="DeliveryDate"></param>
+        /// <param name="DeliveryMethod"></param>
+        /// <param name="PersonInCharge"></param>
+        /// <param name="AddressLine1"></param>
+        /// <param name="AddressLine2"></param>
+        /// <param name="City"></param>
+        /// <param name="State"></param>
+        /// <param name="AddtionalNotes"></param>
+        /// <returns></returns>
+        public int  AddDeliveryDetails(string deliveryDetailsId, string deliveryDate, string deliveryMethod, string personInCharge, string addressLine1, string addressLine2, string city, string state, string addtionalNotes)
+        {
+            
+
+            // insert
+            using (var db = new EasyMaintainDBContext())
+            {
+                var delivery = db.Set<DeliveryDetails>();
+                try
+                {
+                    
+                    delivery.Add(new DeliveryDetails {DeliveryDetailsId= deliveryDetailsId,DeliveryDate= deliveryDate, DeliveryMethod=deliveryMethod, PersonInCharge=personInCharge, AddressLine1=addressLine1, AddressLine2=addressLine2, City=city,State=state, AddtionalNotes=addtionalNotes });
+
+                    db.SaveChanges();
+
+                  
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+
+                return 1;
+            }
+        }
+
+
+
+
+
 
         /// <summary>
         /// Add Component Work
@@ -652,6 +721,57 @@ namespace EasyMaintain.DataAccess
 
             return result;
         }
+
+        /// <summary>
+        /// Update Manufacturer
+        /// </summary>
+        /// <param name="DeliveryDetailsId"></param>
+        /// <param name="DeliveryDate"></param>
+        /// <param name="DeliveryMethod"></param>
+        /// <param name="PersonInCharge"></param>
+        /// <param name="AddressLine1"></param>
+        /// <param name="AddressLine2"></param>
+        /// <param name="City"></param>
+        /// <param name="State"></param>
+        /// <param name="AddtionalNotes"></param>
+        /// <returns></returns>
+        public bool UpdateDeliveryDetails(string deliveryDetailsId, string deliveryDate, string deliveryMethod, string personInCharge, string addressLine1, string addressLine2, string city, string state, string addtionalNotes)
+        {
+            bool result = false;
+
+            // update
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var delivery = db.Deliveries.SingleOrDefault(s => s.DeliveryDetailsId.Equals(deliveryDetailsId));
+
+                    if (delivery != null)
+                    {
+                        delivery.DeliveryDetailsId = deliveryDetailsId;
+                        delivery.DeliveryDate = deliveryDate;
+                        delivery.DeliveryMethod = deliveryMethod;
+                        delivery.PersonInCharge = personInCharge;
+                        delivery.AddressLine1 = addressLine1;
+                        delivery.AddressLine2 = addressLine2;
+                        delivery.City = city;
+                        delivery.State = state;
+                        delivery.AddtionalNotes = addtionalNotes;
+                    }
+                    db.SaveChanges();
+                    result = true;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return result;
+        }
+
+
+
 
         /// <summary>
         /// Update Maintenance Checks
@@ -995,9 +1115,6 @@ namespace EasyMaintain.DataAccess
         /// Delete Manufacturer 
         /// </summary>
         /// <param name="Name"></param>
-
-
-
         public void DeleteCrew(String name)
         {
             // Delete
@@ -1009,6 +1126,25 @@ namespace EasyMaintain.DataAccess
                 db.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// Delete delivery details
+        /// </summary>
+        /// <param name="Name"></param>
+        public void DeleteDeliveryDetails(String id)
+        {
+            // Delete
+            using (var db = new EasyMaintainDBContext())
+            {
+                var delivery = db.Deliveries.SingleOrDefault(s => s.DeliveryDetailsId.Equals(id));
+                db.Deliveries.Attach(delivery);
+                db.Deliveries.Remove(delivery);
+                db.SaveChanges();
+            }
+        }
+
+
+
 
 
         /// <summary>
