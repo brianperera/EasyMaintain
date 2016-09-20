@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyMaintain.CoreWebMVC.Models
@@ -48,6 +49,46 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         [Required]
         [Display(Name = "Additional Data")]
-        public string AdditionalData { get; set; }   
+        public string AdditionalData { get; set; }
+        public List<AircraftModel> AircrafModels { get; set; }
+
+        public int AircraftModelID { get; set; }
+
+        public AircraftModelModel()
+        {
+            AircrafModels = new List<AircraftModel>
+            {
+                new AircraftModel
+                {
+                    AircraftModelID = 1,
+                    Manufacturer = "Airbus",
+                    ModelName = "A300"
+                },
+                new AircraftModel
+                {
+                    AircraftModelID = 2,
+                    Manufacturer = "Boeing",
+                    ModelName = "717"
+                },
+                new AircraftModel
+                {
+                    AircraftModelID = 3,
+                    Manufacturer = "Bombardier",
+                    ModelName = "CRJ-100"
+                },
+                new AircraftModel
+                {
+                    AircraftModelID = 4,
+                    Manufacturer = "Antonov",
+                    ModelName = "An-140"
+                },
+                new AircraftModel
+                {
+                    AircraftModelID = 5,
+                    Manufacturer = "Airspeed",
+                    ModelName = "Ambassador"
+                }
+            };
+        }
     }
 }

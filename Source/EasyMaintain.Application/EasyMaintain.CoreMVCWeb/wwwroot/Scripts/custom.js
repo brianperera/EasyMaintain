@@ -7,6 +7,15 @@ function pushMessage(t) {
     });
 }
 
+var button;
+
+function setButtons(input) {
+    debugger;
+    button = input;
+}
+
+
+
 $(function () {
     $('.sidebar').on('click', 'li', function () {
         if (!$(this).hasClass('active')) {

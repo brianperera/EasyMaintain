@@ -1,4 +1,4 @@
-﻿@model EasyMaintain.CoreWebMVC.Models.SparePartsViewModel
+﻿@model EasyMaintain.CoreWebMVC.Models.AircraftModelModel
 
 @{
     ViewBag.Title = "Aircraft Models";
@@ -12,7 +12,7 @@
                     <a href="#" onclick="LoadPartialView('AircraftModel')">
                         <span class="mif-widgets icon"></span>
                         <span class="title">Aircrafts</span>
-                        <span class="counter">0</span>
+                        <span class="counter">@Html.Raw(Model.AircrafModels.Count)</span>
                     </a>
                 </li>
             </ul>
