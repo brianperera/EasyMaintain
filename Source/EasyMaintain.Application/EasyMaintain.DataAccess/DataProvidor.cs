@@ -251,7 +251,7 @@ namespace EasyMaintain.DataAccess
         /// Get Engine Type Data
         /// </summary>
         /// <returns></returns>
-        public List<Maintenance> GetEngineTypeData()
+        public List<Maintenance> GetMaintenanceData()
         {
             List<Maintenance> engineType = new List<Maintenance>();
 
@@ -545,7 +545,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public int AddEngineType(int workID,string flightModel,string flightNumber,string description,string startDate,string completionDate,string location)
+        public int AddMaintenance(int workID,string flightModel,string flightNumber,string description,string startDate,string completionDate,string location)
         {
             int recordId = -1;
 
@@ -893,7 +893,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public bool UpdateEngineType(string workID, string FlightModel, string additionalData)
+        public bool UpdateMaintenance(string workID, string FlightModel, string additionalData)
         {
             bool result = false;
 
@@ -1168,7 +1168,7 @@ namespace EasyMaintain.DataAccess
         /// Delete Engine Type
         /// </summary>
         /// <param name="engineTypeId"></param>
-        public void DeleteEngineType(string workID)
+        public void DeleteMaintenance(string workID)
         {
             // Delete
             using (var db = new EasyMaintainDBContext())

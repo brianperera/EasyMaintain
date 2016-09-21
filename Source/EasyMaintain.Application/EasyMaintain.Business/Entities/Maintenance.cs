@@ -37,7 +37,7 @@ namespace EasyMaintain.Business
             List<Maintenance> result = new List<Maintenance>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.Maintenance engineType in dp.GetEngineTypeData())
+            foreach (DataAccess.Models.Maintenance engineType in dp.GetMaintenanceData())
             {
                 Maintenance _engineType = new Maintenance();
                 _engineType.WorkID = engineType.WorkID;
@@ -75,7 +75,7 @@ namespace EasyMaintain.Business
         {
             this.mMaintenance = engineType as Maintenance;
             DataProvidor dp = new DataProvidor();
-            return dp.AddEngineType(mMaintenance.WorkID, mMaintenance.FlightModel, mMaintenance.FlightNumber, mMaintenance.Description, mMaintenance.StartDate, mMaintenance.CompletionDate, mMaintenance.Location);
+            return dp.AddMaintenance(mMaintenance.WorkID, mMaintenance.FlightModel, mMaintenance.FlightNumber, mMaintenance.Description, mMaintenance.StartDate, mMaintenance.CompletionDate, mMaintenance.Location);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace EasyMaintain.Business
             this.mMaintenance = engineType as Maintenance;
 
             DataProvidor dp = new DataProvidor();
-            dp.DeleteEngineType(mMaintenance.WorkID.ToString());
+            dp.DeleteMaintenance(mMaintenance.WorkID.ToString());
 
         }
 
@@ -100,7 +100,7 @@ namespace EasyMaintain.Business
         {
             this.mMaintenance = engineType as Maintenance;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateEngineType(mMaintenance.WorkID.ToString(), mMaintenance.FlightModel, mMaintenance. Description);
+            return dp.UpdateMaintenance(mMaintenance.WorkID.ToString(), mMaintenance.FlightModel, mMaintenance. Description);
         }
 
         public Maintenance Find(object WorkID)
