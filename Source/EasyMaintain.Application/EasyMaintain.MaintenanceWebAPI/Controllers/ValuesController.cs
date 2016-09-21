@@ -1,35 +1,84 @@
-﻿using System.Collections.Generic;
+﻿using EasyMaintain.Business;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 
 namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values 
-        public IEnumerable<string> Get()
+
+        private EngineType enginetype;
+
+        public IBusiness EngineRepo { get; set; }
+
+        public ValuesController(IBusiness _repo)
         {
-            return new string[] { "value1", "value2" };
+            EngineRepo = _repo;
+
+        }
+        public ValuesController()
+        {
+
+        }
+        // GET api/values 
+        [HttpGet]
+        public IEnumerable<EngineType> Maintenance()
+        {
+            return (IEnumerable<EngineType>)enginetype.GetData();
         }
 
         // GET api/values/5 
-        public string Get(int id)
-        {
-            return "value";
-        }
+        [HttpGet]
+        //public IHttpActionResult MaintenanceID([FromBody] EngineType workID)
+        //{
+        //    var item = enginetype.Find(workID);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(item);
+
+        //    //return "value";
+        //}
 
         // POST api/values 
-        public void Post([FromBody]string value)
+        [HttpPost]
+        public IHttpActionResult Maintenance([FromBody]EngineType maintenance)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            EngineRepo.UpdateOne(maintenance);
+            return CreatedAtRoute("DefaultApi", new { id = maintenance.WorkID }, maintenance);
         }
 
         // PUT api/values/5 
-        public void Put(int id, [FromBody]string value)
+        [HttpPut]
+        public IHttpActionResult Maintenance(EngineType workID, [FromBody]EngineType maintenance)
         {
+            if (workID == null || workID.Equals(0))
+            {
+                return BadRequest();
+            }
+
+            else
+           if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            enginetype.Insert(maintenance);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // DELETE api/values/5 
-        public void Delete(int id)
+        [HttpDelete]
+        public void Delete(EngineType workID)
         {
+            enginetype.DeleteOne(workID);
         }
     }
 }

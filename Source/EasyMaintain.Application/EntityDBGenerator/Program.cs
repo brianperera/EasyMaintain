@@ -13,7 +13,7 @@ namespace EntityDBGenerator
         static void Main(string[] args)
         {
             DataProvidor dp = new DataProvidor();
-            dp.AddEngineType(1, "Test");
+           // dp.AddEngineType(1, "Test");
         }
     }
 }

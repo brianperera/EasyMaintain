@@ -267,6 +267,7 @@ namespace EasyMaintain.DataAccess
                 }
             }
 
+            object var= engineType;
             return engineType;
         }
 
@@ -544,7 +545,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public int AddEngineType(int workID, string additionalData)
+        public int AddEngineType(int workID,string flightModel,string flightNumber,string description,string startDate,string completionDate,string location)
         {
             int recordId = -1;
 
@@ -554,7 +555,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var maintenance = db.Set<EngineType>();
-                    int record = maintenance.Add(new EngineType { WorkID = workID, Description = additionalData }).WorkID;
+                    int record = maintenance.Add(new EngineType { WorkID = workID, FlightModel=flightModel,FlightNumber=flightNumber, Description = description,StartDate=startDate,CompletionDate=completionDate,Location=location }).WorkID;
 
                     db.SaveChanges();
 

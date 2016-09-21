@@ -10,6 +10,7 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,8 +21,28 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         MaintenanceViewModel maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
         // GET: /<controller>/
+        [Route("api/[controller]")]
         public ActionResult Index()
         {
+            try
+            {
+                var uri = "api/values/Maintenance ";
+
+                List<Maintenance> maintenanceItems;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:172.204.144");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+                }
+                maintenanceViewModel.MaintenanceOrders =  maintenanceItems;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
             maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
             return View(maintenanceViewModel);
         }
@@ -54,17 +75,25 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/CreateMaintenanceOrder")]
         public PartialViewResult CreateMaintenanceOrder([FromBody] Maintenance Model)
         {
-            var uri = "api/Engine/MaintenanceAdd";
-
-            List<Maintenance> maintenanceItems;
-
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
-            }
-            maintenanceViewModel.MaintenanceOrders = maintenanceItems;
+                var uri = "api/values/5  ";
 
+                List<Maintenance> maintenanceItems;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:9000/");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+                }
+                maintenanceViewModel.MaintenanceOrders = maintenanceItems;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
 
             Model.CheckItems = maintenanceViewModel.CheckItems;
             Model.CrewMembers = maintenanceViewModel.CrewMembers;

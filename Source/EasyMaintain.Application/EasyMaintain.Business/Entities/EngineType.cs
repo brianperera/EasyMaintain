@@ -58,12 +58,12 @@ namespace EasyMaintain.Business
         /// <returns></returns>
         public int Save(object engineType)
         {
-            //this.mEngineType = engineType as EngineType;
+        //    this.mEngineType = engineType as EngineType;
 
-            //DataProvidor dp = new DataProvidor();
-            //dp.AddEngineType(mEngineType.FlightModel, mEngineType. Description);
+        //    DataProvidor dp = new DataProvidor();
+        //    dp.AddEngineType(mEngineType.WorkID,mEngineType.FlightModel,mEngineType.FlightNumber,mEngineType.Description,mEngineType.StartDate,mEngineType.CompletionDate,mEngineType.Location);
 
-            return -1;
+           return -1;
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace EasyMaintain.Business
         {
             this.mEngineType = engineType as EngineType;
             DataProvidor dp = new DataProvidor();
-            return dp.AddEngineType( mEngineType.WorkID, mEngineType. Description);
+            return dp.AddEngineType(mEngineType.WorkID, mEngineType.FlightModel, mEngineType.FlightNumber, mEngineType.Description, mEngineType.StartDate, mEngineType.CompletionDate, mEngineType.Location);
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(item); ;
+            return Ok(item); 
         }
         // POST api/Values/ComponentWorkCreate 
         [HttpPost]
