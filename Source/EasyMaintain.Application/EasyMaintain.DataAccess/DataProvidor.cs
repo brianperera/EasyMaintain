@@ -251,19 +251,19 @@ namespace EasyMaintain.DataAccess
         /// Get Engine Type Data
         /// </summary>
         /// <returns></returns>
-        public List<EngineType> GetEngineTypeData()
+        public List<Maintenance> GetEngineTypeData()
         {
-            List<EngineType> engineType = new List<EngineType>();
+            List<Maintenance> engineType = new List<Maintenance>();
 
             using (var db = new EasyMaintainDBContext())
             {
-                var query = from b in db.EngineTypes
+                var query = from b in db.Maintenances
                             orderby b.FlightModel
                             select b;
 
                 foreach (var item in query)
                 {
-                    engineType.Add(item as EngineType);
+                    engineType.Add(item as Maintenance);
                 }
             }
 
@@ -388,7 +388,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     
-                    delivery.Add(new DeliveryDetails {DeliveryDetailsId= deliveryDetailsId,DeliveryDate= deliveryDate, DeliveryMethod=deliveryMethod, PersonInCharge=personInCharge, AddressLine1=addressLine1, AddressLine2=addressLine2, City=city,State=state, AddtionalNotes=addtionalNotes });
+                    delivery.Add(new DeliveryDetails {DeliveryDetailsId= Int32.Parse(deliveryDetailsId),DeliveryDate= deliveryDate, DeliveryMethod=deliveryMethod, PersonInCharge=personInCharge, AddressLine1=addressLine1, AddressLine2=addressLine2, City=city,State=state, AddtionalNotes=addtionalNotes });
 
                     db.SaveChanges();
 
@@ -554,8 +554,8 @@ namespace EasyMaintain.DataAccess
             {
                 try
                 {
-                    var maintenance = db.Set<EngineType>();
-                    int record = maintenance.Add(new EngineType { WorkID = workID, FlightModel=flightModel,FlightNumber=flightNumber, Description = description,StartDate=startDate,CompletionDate=completionDate,Location=location }).WorkID;
+                    var maintenance = db.Set<Maintenance>();
+                    int record = maintenance.Add(new Maintenance { WorkID = workID, FlightModel=flightModel,FlightNumber=flightNumber, Description = description,StartDate=startDate,CompletionDate=completionDate,Location=location }).WorkID;
 
                     db.SaveChanges();
 
@@ -749,7 +749,7 @@ namespace EasyMaintain.DataAccess
 
                     if (delivery != null)
                     {
-                        delivery.DeliveryDetailsId = deliveryDetailsId;
+                        delivery.DeliveryDetailsId = Int32.Parse(deliveryDetailsId);
                         delivery.DeliveryDate = deliveryDate;
                         delivery.DeliveryMethod = deliveryMethod;
                         delivery.PersonInCharge = personInCharge;
@@ -902,7 +902,7 @@ namespace EasyMaintain.DataAccess
             {
                 try
                 {
-                    var engineType = db.EngineTypes.SingleOrDefault(s => s.WorkID.Equals(workID));
+                    var engineType = db.Maintenances.SingleOrDefault(s => s.WorkID.Equals(workID));
 
                     if (engineType != null)
                     {
@@ -1173,9 +1173,9 @@ namespace EasyMaintain.DataAccess
             // Delete
             using (var db = new EasyMaintainDBContext())
             {
-                var engineType = db.EngineTypes.SingleOrDefault(s => s.WorkID.Equals(workID));
-                db.EngineTypes.Attach(engineType);
-                db.EngineTypes.Remove(engineType);
+                var engineType = db.Maintenances.SingleOrDefault(s => s.WorkID.Equals(workID));
+                db.Maintenances.Attach(engineType);
+                db.Maintenances.Remove(engineType);
                 db.SaveChanges();
             }
         }

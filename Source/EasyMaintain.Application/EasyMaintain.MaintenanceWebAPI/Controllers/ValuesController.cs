@@ -8,7 +8,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
     public class ValuesController : ApiController
     {
 
-        private EngineType enginetype;
+        private Maintenance enginetype;
 
         public IBusiness EngineRepo { get; set; }
 
@@ -23,29 +23,29 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
         // GET api/values 
         [HttpGet]
-        public IEnumerable<EngineType> Maintenance()
+        public IEnumerable<Maintenance> Maintenance()
         {
-            return (IEnumerable<EngineType>)enginetype.GetData();
+            return (IEnumerable<Maintenance>)enginetype.GetData();
         }
 
         // GET api/values/5 
         [HttpGet]
-        //public IHttpActionResult MaintenanceID([FromBody] EngineType workID)
-        //{
-        //    var item = enginetype.Find(workID);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public IHttpActionResult MaintenanceID([FromBody] Maintenance workID)
+        {
+            var item = enginetype.Find(workID);
+            if (item == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(item);
+            return Ok(item);
 
-        //    //return "value";
-        //}
+            //return "value";
+        }
 
         // POST api/values 
         [HttpPost]
-        public IHttpActionResult Maintenance([FromBody]EngineType maintenance)
+        public IHttpActionResult Maintenance([FromBody]Maintenance maintenance)
         {
             if (!ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // PUT api/values/5 
         [HttpPut]
-        public IHttpActionResult Maintenance(EngineType workID, [FromBody]EngineType maintenance)
+        public IHttpActionResult Maintenance(Maintenance workID, [FromBody]Maintenance maintenance)
         {
             if (workID == null || workID.Equals(0))
             {
@@ -76,7 +76,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // DELETE api/values/5 
         [HttpDelete]
-        public void Delete(EngineType workID)
+        public void Delete(Maintenance workID)
         {
             enginetype.DeleteOne(workID);
         }

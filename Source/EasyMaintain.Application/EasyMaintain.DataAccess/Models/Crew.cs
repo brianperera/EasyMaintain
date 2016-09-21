@@ -10,6 +10,7 @@ namespace EasyMaintain.DataAccess.Models
    public class Crew
     {
         [Key]
+        public int CrewID { get; set; }
         public string Name { get; set; }
         public string Designation { get;internal set; }
 

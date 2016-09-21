@@ -14,7 +14,7 @@ using EasyMaintain.Business;
 {
     public class EngineController : ApiController
     {
-        private EngineType enginetype;
+        private Maintenance enginetype;
 
         public IBusiness EngineRepo { get; set; }
 
@@ -26,15 +26,15 @@ using EasyMaintain.Business;
 
         // GET api/Engine
         [HttpGet]
-        public IEnumerable<EngineType> EngineTypes()
+        public IEnumerable<Maintenance> EngineTypes()
         {
-            return (IEnumerable<EngineType>)EngineRepo.GetData();
+            return (IEnumerable<Maintenance>)EngineRepo.GetData();
         }
 
         // GET api/Engine/5
-        [ResponseType(typeof(EngineType))]
+        [ResponseType(typeof(Maintenance))]
         [HttpGet]
-        public async Task<IHttpActionResult> EngineTypes(EngineType EngineTypeID)
+        public async Task<IHttpActionResult> EngineTypes(Maintenance EngineTypeID)
         {
             var item = enginetype.Find(EngineTypeID);
 
@@ -47,7 +47,7 @@ using EasyMaintain.Business;
 
         // PUT api/Engine/5
         [HttpPut]
-        public async Task<IHttpActionResult> MaintenanceAdd(EngineType EngineTypeID, EngineType enginetype)
+        public async Task<IHttpActionResult> MaintenanceAdd(Maintenance EngineTypeID, Maintenance enginetype)
         {
 
             if (EngineTypeID == null || EngineTypeID.Equals(0))
@@ -65,9 +65,9 @@ using EasyMaintain.Business;
         }
 
         // POST api/Engine
-        [ResponseType(typeof(EngineType))]
+        [ResponseType(typeof(Maintenance))]
         [HttpPost]
-        public async Task<IHttpActionResult>  EngineTypeUpdate(EngineType enginetype)
+        public async Task<IHttpActionResult>  EngineTypeUpdate(Maintenance enginetype)
         {
             if (!ModelState.IsValid)
             {
@@ -80,9 +80,9 @@ using EasyMaintain.Business;
         }
 
         // DELETE api/Engine/5
-        [ResponseType(typeof(EngineType))]
+        [ResponseType(typeof(Maintenance))]
         [HttpDelete]
-        public async Task<IHttpActionResult> EngineTypeDelete(EngineType enginetype)
+        public async Task<IHttpActionResult> EngineTypeDelete(Maintenance enginetype)
         {
 
             if (enginetype == null)

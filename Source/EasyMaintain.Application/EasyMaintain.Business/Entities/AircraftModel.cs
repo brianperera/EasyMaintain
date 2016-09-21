@@ -16,7 +16,7 @@ namespace EasyMaintain.Business
         public Category Category { get; set; }
         public string ModelName { get; set; }
         public Manufacturer Manufacturer { get; set; }
-        public EngineType EngineType { get; set; }
+        public Maintenance EngineType { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public string AdditionalData { get; set; }
@@ -41,7 +41,7 @@ namespace EasyMaintain.Business
                 AircraftModel _aircraftMod = new AircraftModel();
                 _aircraftMod.AircraftModelID = aircraftModel.AircraftModelID;
                 _aircraftMod.Category = new Category() { CategoryID = (int)aircraftModel.CategoryID, CategoryName = aircraftModel.Category.CategoryName, AdditionalData = aircraftModel.AdditionalData };
-                _aircraftMod.EngineType = new EngineType() { WorkID = (int)aircraftModel.EngineType.WorkID, FlightModel = aircraftModel.EngineType.FlightModel, FlightNumber = (string)aircraftModel.FlightNumber, Description = aircraftModel.Description };
+                _aircraftMod.EngineType = new Maintenance() { WorkID = (int)aircraftModel.EngineType.WorkID, FlightModel = aircraftModel.EngineType.FlightModel, FlightNumber = (string)aircraftModel.FlightNumber, Description = aircraftModel.Description };
                 _aircraftMod.Description = aircraftModel.Description;
                 _aircraftMod.ModelName = aircraftModel.ModelName;
                 _aircraftMod.Manufacturer = new Manufacturer() { ManufacturerID = (string)aircraftModel.FlightNumber, Name = aircraftModel.ModelName, Description = aircraftModel.Description, AdditionalData = aircraftModel.AdditionalData };

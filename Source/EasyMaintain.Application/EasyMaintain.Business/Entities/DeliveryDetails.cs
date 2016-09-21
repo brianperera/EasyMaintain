@@ -10,7 +10,8 @@ namespace EasyMaintain.Business.Entities
    public class DeliveryDetails:IBusiness
     {
         DeliveryDetails mDeliveryDetails;
-        public string DeliveryDetailsId { get; set; }
+        
+        public int DeliveryDetailsId { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryMethod { get; set; }
         public string PersonInCharge { get; set; }
@@ -66,7 +67,7 @@ namespace EasyMaintain.Business.Entities
         {
             this.mDeliveryDetails = deliveryDetails as DeliveryDetails;
             DataProvidor dp = new DataProvidor();
-            return dp.AddDeliveryDetails(mDeliveryDetails.DeliveryDetailsId, mDeliveryDetails.DeliveryDate, mDeliveryDetails.DeliveryMethod, mDeliveryDetails.PersonInCharge, mDeliveryDetails.AddressLine1, mDeliveryDetails.AddressLine2, mDeliveryDetails.City,mDeliveryDetails.State,mDeliveryDetails.AddtionalNotes);
+            return dp.AddDeliveryDetails(mDeliveryDetails.DeliveryDetailsId.ToString(), mDeliveryDetails.DeliveryDate, mDeliveryDetails.DeliveryMethod, mDeliveryDetails.PersonInCharge, mDeliveryDetails.AddressLine1, mDeliveryDetails.AddressLine2, mDeliveryDetails.City,mDeliveryDetails.State,mDeliveryDetails.AddtionalNotes);
         }
         /// <summary>
         /// Delete one record
@@ -77,7 +78,7 @@ namespace EasyMaintain.Business.Entities
             this.mDeliveryDetails = deliveryDetails as DeliveryDetails;
 
             DataProvidor dp = new DataProvidor();
-            dp.DeleteDeliveryDetails(mDeliveryDetails.DeliveryDetailsId);
+            dp.DeleteDeliveryDetails(mDeliveryDetails.DeliveryDetailsId.ToString());
         }
         /// <summary>
         /// Update one record
@@ -88,7 +89,7 @@ namespace EasyMaintain.Business.Entities
         {
             this.mDeliveryDetails = deliveryDetails as DeliveryDetails;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateDeliveryDetails(mDeliveryDetails.DeliveryDetailsId, mDeliveryDetails.DeliveryDate, mDeliveryDetails.DeliveryMethod, mDeliveryDetails.PersonInCharge, mDeliveryDetails.AddressLine1, mDeliveryDetails.AddressLine2, mDeliveryDetails.City, mDeliveryDetails.State, mDeliveryDetails.AddtionalNotes);
+            return dp.UpdateDeliveryDetails(mDeliveryDetails.DeliveryDetailsId.ToString(), mDeliveryDetails.DeliveryDate, mDeliveryDetails.DeliveryMethod, mDeliveryDetails.PersonInCharge, mDeliveryDetails.AddressLine1, mDeliveryDetails.AddressLine2, mDeliveryDetails.City, mDeliveryDetails.State, mDeliveryDetails.AddtionalNotes);
         }
 
         public DeliveryDetails Find(object deliveryDetailsID)

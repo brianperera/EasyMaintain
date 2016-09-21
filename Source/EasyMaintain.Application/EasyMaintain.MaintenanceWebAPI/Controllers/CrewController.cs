@@ -80,7 +80,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
         // DELETE api/CrewDelete/5
-        [ResponseType(typeof(EngineType))]
+        [ResponseType(typeof(Maintenance))]
         [HttpDelete]
         public async Task<IHttpActionResult> CrewDelete(Crew crew)
         {

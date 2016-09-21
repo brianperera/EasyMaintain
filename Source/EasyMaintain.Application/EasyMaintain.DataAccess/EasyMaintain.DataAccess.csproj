@@ -69,13 +69,17 @@
     <Compile Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.Designer.cs">
       <DependentUpon>201609150618114_addedPropertiesToDelivaryDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609210747504_CrewID.cs" />
+    <Compile Include="Migrations\201609210747504_CrewID.Designer.cs">
+      <DependentUpon>201609210747504_CrewID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ComponentWork.cs" />
     <Compile Include="Models\Crew.cs" />
     <Compile Include="Models\DeliveryDetails.cs" />
-    <Compile Include="Models\EngineType.cs" />
+    <Compile Include="Models\Maintenance.cs" />
     <Compile Include="Models\MaintenanceChecks.cs" />
     <Compile Include="Models\Manufacturer.cs" />
     <Compile Include="Models\SparePart.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.resx">
       <DependentUpon>201609150618114_addedPropertiesToDelivaryDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609210747504_CrewID.resx">
+      <DependentUpon>201609210747504_CrewID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

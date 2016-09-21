@@ -10,7 +10,7 @@ namespace EasyMaintain.DataAccess.Models
    public class DeliveryDetails
     {
         [Key]
-        public string DeliveryDetailsId { get; set; }
+        public int DeliveryDetailsId { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryMethod { get; set; }
         public string PersonInCharge { get; set; }

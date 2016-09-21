@@ -18,7 +18,7 @@ namespace EasyMaintain.DataAccess.Models
         public Category Category { get; set; }
         public string ModelName { get; set; }
         public Manufacturer Manufacturer { get; set; }
-        public EngineType EngineType { get; set; }
+        public Maintenance EngineType { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public string AdditionalData { get; set; }

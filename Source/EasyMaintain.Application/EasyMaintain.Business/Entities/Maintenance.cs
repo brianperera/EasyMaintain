@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasyMaintain.Business;
 using EasyMaintain.DataAccess;
+using EasyMaintain.Business.Entities;
 
-namespace EasyMaintain.Business.Entities
+namespace EasyMaintain.Business
 {
-    class Maintenance : IBusiness
+    public class Maintenance : IBusiness
     {
-        Maintenance mMaintenance;
 
+        Maintenance mMaintenance;
+     
         public int WorkID { get; set; }
         public string FlightModel { get; set; }
         public string FlightNumber { get; set; }
-        public string Description { get; set; }
+        public string  Description { get; set; }
         public string StartDate { get; set; }
         public string CompletionDate { get; set; }
         public string Location { get; set; }
@@ -27,29 +28,87 @@ namespace EasyMaintain.Business.Entities
 
         }
 
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <returns></returns>
         public object GetData()
         {
-            throw new NotImplementedException();
+            List<Maintenance> result = new List<Maintenance>();
+            DataProvidor dp = new DataProvidor();
+
+            foreach (DataAccess.Models.Maintenance engineType in dp.GetEngineTypeData())
+            {
+                Maintenance _engineType = new Maintenance();
+                _engineType.WorkID = engineType.WorkID;
+                _engineType.FlightModel = engineType.FlightModel;
+                _engineType.FlightNumber = engineType.FlightNumber;
+                _engineType. Description = engineType. Description;
+
+                result.Add(_engineType);
+            }
+
+            return result;
         }
 
-        public int Save(object record)
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="engineType"></param>
+        /// <returns></returns>
+        public int Save(object engineType)
         {
-            throw new NotImplementedException();
+        //    this.mEngineType = engineType as EngineType;
+
+        //    DataProvidor dp = new DataProvidor();
+        //    dp.AddEngineType(mEngineType.WorkID,mEngineType.FlightModel,mEngineType.FlightNumber,mEngineType.Description,mEngineType.StartDate,mEngineType.CompletionDate,mEngineType.Location);
+
+           return -1;
         }
 
-        public int Insert(object record)
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="engineType"></param>
+        /// <returns></returns>
+        public int Insert(object engineType)
         {
-            throw new NotImplementedException();
+            this.mMaintenance = engineType as Maintenance;
+            DataProvidor dp = new DataProvidor();
+            return dp.AddEngineType(mMaintenance.WorkID, mMaintenance.FlightModel, mMaintenance.FlightNumber, mMaintenance.Description, mMaintenance.StartDate, mMaintenance.CompletionDate, mMaintenance.Location);
         }
 
-        public void DeleteOne(object record)
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="engineType"></param>
+        public void DeleteOne(object engineType)
         {
-            throw new NotImplementedException();
+            this.mMaintenance = engineType as Maintenance;
+
+            DataProvidor dp = new DataProvidor();
+            dp.DeleteEngineType(mMaintenance.WorkID.ToString());
+
         }
 
-        public bool UpdateOne(object record)
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="engineType"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object engineType)
         {
-            throw new NotImplementedException();
+            this.mMaintenance = engineType as Maintenance;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateEngineType(mMaintenance.WorkID.ToString(), mMaintenance.FlightModel, mMaintenance. Description);
         }
-    }  
+
+        public Maintenance Find(object WorkID)
+        {
+            List<Maintenance> result = new List<Maintenance>();
+            return result
+                .Where(e => e.WorkID.Equals(WorkID))
+                .SingleOrDefault();
+        }
+    }
 }

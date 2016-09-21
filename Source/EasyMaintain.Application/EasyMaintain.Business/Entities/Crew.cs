@@ -10,6 +10,7 @@ namespace EasyMaintain.Business.Entities
    public class Crew : IBusiness
     {
         Crew mCrew;
+        public int CrewID { get; set; }
         public string Name { get; set; }
         public string Designation { get; set; }
 

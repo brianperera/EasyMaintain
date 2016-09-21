@@ -17,7 +17,7 @@ namespace EasyMaintain.Business.Entities
         public string SerialNumber { get; set; }
         public string FlightNumber { get; set; }
         public string Description { get; set; }
-
+        public int DeliverydetailsId { get; set; }
         public DeliveryDetails Deliverydetails { get; set; }
 
         public string CreatedDate { get; set; }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using EasyMaintain.CoreWebMVC.Utility;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyMaintain.Business.Entities; 
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
