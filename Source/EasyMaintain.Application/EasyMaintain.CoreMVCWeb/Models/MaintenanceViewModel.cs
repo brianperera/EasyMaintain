@@ -16,12 +16,6 @@ namespace EasyMaintain.CoreWebMVC.Models
         public bool status { get; set; }
     }
 
-    public class Crew
-    {
-        [Key]
-        public string Name { get; set; }
-        public string Designation { get; set; }
-    }
 
     [Table("EngineType")]
     public class Maintenance
@@ -36,8 +30,6 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string Location { get; set; }
         public List<Check> CheckItems { get; set; }
         public List<Crew> CrewMembers { get; set; }
-
-
     }
     public class MaintenanceViewModel
     {

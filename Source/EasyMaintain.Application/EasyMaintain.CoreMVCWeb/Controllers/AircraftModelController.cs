@@ -11,6 +11,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public ActionResult Index()
         {
             AircraftModelModel = SessionUtility.utilityAircraftModelModel;
+            ClearSession();
             return View(AircraftModelModel);
         }
 
@@ -78,14 +79,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             int finalIndex = AircraftModelModel.AircrafModels.Count - 1;
             AircraftModelModel.AircrafModels.RemoveAt(finalIndex);
 
-            AircraftModelModel.AircraftModelID = 0;
-            AircraftModelModel.Name = null;
-            AircraftModelModel.Manufacturer = null;
-            AircraftModelModel.EngineType = null;
-            AircraftModelModel.Description = null;
-            AircraftModelModel.AdditionalData = null;
-            AircraftModelModel.ImagePath = null;
-            AircraftModelModel.Category = null;
+            ClearSession();
 
             return PartialView("_AircraftModel", AircraftModelModel);
 
@@ -94,14 +88,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/AircraftModel/cancel")]
         public PartialViewResult cancel()
         {
-            AircraftModelModel.AircraftModelID = 0;
-            AircraftModelModel.Name = null;
-            AircraftModelModel.Manufacturer = null;
-            AircraftModelModel.EngineType = null;
-            AircraftModelModel.Description = null;
-            AircraftModelModel.AdditionalData = null;
-            AircraftModelModel.ImagePath = null;
-            AircraftModelModel.Category = null;
+            ClearSession();
 
             return PartialView("_AircraftModel", AircraftModelModel);
 
@@ -122,6 +109,17 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return PartialView("AircraftModel", model);
         }
 
+        public void ClearSession()
+        {
+            AircraftModelModel.AircraftModelID = 0;
+            AircraftModelModel.Name = null;
+            AircraftModelModel.Manufacturer = null;
+            AircraftModelModel.EngineType = null;
+            AircraftModelModel.Description = null;
+            AircraftModelModel.AdditionalData = null;
+            AircraftModelModel.ImagePath = null;
+            AircraftModelModel.Category = null;
+        }
 
     }
 }
