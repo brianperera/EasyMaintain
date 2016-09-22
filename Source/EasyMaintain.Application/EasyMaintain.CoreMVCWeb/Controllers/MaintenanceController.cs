@@ -21,7 +21,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         MaintenanceViewModel maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
         // GET: /<controller>/
-       
+        [Route("api/[controller]")]
         public ActionResult Index()
         {
             try
@@ -32,7 +32,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    httpClient.BaseAddress = new Uri("http://localhost:");
+                    httpClient.BaseAddress = new Uri("http://localhost:172.204.144");
                     Task<String> response = httpClient.GetStringAsync(uri);
                     maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
                 }
@@ -95,8 +95,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             }
 
-            //Model.CheckItems = maintenanceViewModel.CheckItems;
-            //Model.CrewMembers = maintenanceViewModel.CrewMembers;
+            Model.CheckItems = maintenanceViewModel.CheckItems;
+            Model.CrewMembers = maintenanceViewModel.CrewMembers;
             Model.WorkID = ++SessionUtility.CurrentMaintenanceID;
             maintenanceViewModel.MaintenanceOrders.Add(Model);
             return PartialView("_Search", maintenanceViewModel);

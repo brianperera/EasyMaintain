@@ -62,7 +62,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpGet]
         public PartialViewResult AircraftModels()
         {
-            return PartialView("_AircraftModels");
+            return PartialView("_AircraftModels",new AircraftModelModel());
         }
 
         //Post

@@ -12,3 +12,4 @@
 /// <reference path="scripts/jquery.validate.unobtrusive.min.js" />
 /// <reference path="scripts/jquery-2.1.3.min.js" />
 /// <reference path="scripts/metro.js" />
+/// <reference path="scripts/select2.min.js" />

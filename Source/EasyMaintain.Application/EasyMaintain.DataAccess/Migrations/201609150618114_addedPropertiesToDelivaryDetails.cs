@@ -11,7 +11,7 @@ namespace EasyMaintain.DataAccess.Migrations
                 "dbo.DeliveryDetails",
                 c => new
                     {
-                        DeliverydetailsId = c.Int(nullable: true, identity: true),
+                        DeliverydetailsId = c.Int(nullable: false, identity: true),
                         MyProperty = c.String(),
                     })
                 .PrimaryKey(t => t.DeliverydetailsId);

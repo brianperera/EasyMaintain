@@ -18,15 +18,6 @@ namespace EasyMaintain.MaintenanceWebAPI
                 defaults: new { id = RouteParameter.Optional }
             );
 
-
-            //config.Routes.MapHttpRoute(
-            //     name: "MaintenanceID",
-            //     routeTemplate: "api/{controller}/{action}/{id}",
-            //     defaults: new { id = RouteParameter.Optional } 
-            //     );
-
-
-
             appBuilder.UseWebApi(config);
         }
     }
