@@ -59,6 +59,10 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             return PartialView("_NewWorkOrder", componentWorkViewModel);
         }
+        public PartialViewResult NewComponent()
+        {
+            return PartialView("_NewComponent", new ComponentModel());
+        }
 
         public PartialViewResult Search()
         {

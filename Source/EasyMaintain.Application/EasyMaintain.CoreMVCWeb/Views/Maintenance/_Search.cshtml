@@ -13,9 +13,10 @@
     <thead>
         <tr>
             <td class="sortable-column sort-asc" style="width: 100px">WorkID</td>
-            <td class="sortable-column">Flight No</td>
-            <td class="sortable-column">Started Date</td>
-            <td class="sortable-column">End Date</td>
+            <td class="sortable-column" style="width: 180px">Flight No</td>
+            <td class="sortable-column">Flight Model</td>
+            <td class="sortable-column" style="width: 140px">Started Date</td>
+            <td class="sortable-column" style="width: 140px">End Date</td>
             <td class="sortable-column"style="width: 100px">Update</td>
         </tr>
     </thead>
@@ -24,6 +25,7 @@
         {
             <tr>
                 <td>@workOrder.WorkID</td>
+                <td>@workOrder.FlightNumber</td>
                 <td>@workOrder.FlightModel</td>
                 <td>@workOrder.StartDate</td>
                 <td>@workOrder.CompletionDate</td>

@@ -71,6 +71,8 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public string ActiveTab { get; set; }
 
+        public AircraftModelModel AircraftModelModelObj { get; set; }
+
         public MaintenanceViewModel()
         {
             MaintenanceOrders = new List<Maintenance> {

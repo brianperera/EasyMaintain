@@ -21,32 +21,34 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         MaintenanceViewModel maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
         // GET: /<controller>/
-        [Route("api/[controller]")]
+       // [Route("api/[controller]")]
         public ActionResult Index()
         {
-            try
-            {
-                var uri = "api/values/Maintenance ";
+            //try
+            //{
+            //    var uri = "api/values/Maintenance ";
 
-                List<Maintenance> maintenanceItems;
+            //    List<Maintenance> maintenanceItems;
 
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri("http://localhost:172.204.144");
-                    Task<String> response = httpClient.GetStringAsync(uri);
-                    maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
-                }
-                maintenanceViewModel.MaintenanceOrders =  maintenanceItems;
+            //    using (HttpClient httpClient = new HttpClient())
+            //    {
+            //        httpClient.BaseAddress = new Uri("http://localhost:172.204.144");
+            //        Task<String> response = httpClient.GetStringAsync(uri);
+            //        maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+            //    }
+            //    maintenanceViewModel.MaintenanceOrders =  maintenanceItems;
 
-            }
-            catch (AggregateException e)
-            {
+            //}
+            //catch (AggregateException e)
+            //{
 
-            }
+            //}
             maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
+            UpdateMaintenanceViewModel();
             return View(maintenanceViewModel);
         }
 
+        
         public PartialViewResult NewMaintenanceOrder()
         {
             maintenanceViewModel.CrewMembers.Clear();
@@ -58,6 +60,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceViewModel.StartDate = null;
             maintenanceViewModel.WorkshopLocation = null;
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_1;
+
             return PartialView("_NewMaintenanceOrder", maintenanceViewModel);
         }
 
@@ -244,6 +247,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceViewModel.CheckItems = item.CheckItems;
 
             return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
+        }
+
+        public void UpdateMaintenanceViewModel()
+        {
+            maintenanceViewModel.AircraftModelModelObj = SessionUtility.utilityAircraftModelModel;
         }
 
     }

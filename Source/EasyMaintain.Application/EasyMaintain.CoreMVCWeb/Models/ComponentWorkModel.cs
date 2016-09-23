@@ -57,11 +57,13 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public DeliveryDetailsModel DeliveryDetailModel { get; set; }
         public DeliveryDetails DeliveryDetails { get; set; }
+        public ComponentModel Components { get; set; }
 
 
         public List<ComponentWork> ComponentWorkOrders { get; set; }
 
         public ComponentWorkModel() {
+            
             DeliveryDetailModel = new DeliveryDetailsModel();
             DeliveryDetails = new DeliveryDetails();
             ComponentWorkOrders = new List<ComponentWork> {

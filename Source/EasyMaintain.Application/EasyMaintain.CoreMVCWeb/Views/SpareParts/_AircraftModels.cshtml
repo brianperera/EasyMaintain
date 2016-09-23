@@ -40,11 +40,12 @@
                         <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select a state">
                             <select class="full-size" tabindex="-1" style="display: none;">
                                 <option></option>
-                                @foreach (var workOrder in Model.AircrafModels)
-                                {
-                                    <option>@Html.Raw(workOrder.Manufacturer +" "+ workOrder.ModelName)</option>
-                                }
-                                
+                                <option value="AK">Alaska</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="CA">California</option>
+                                <option value="NV">Nevada</option>
+                                <option value="OR">Oregon</option>
+                                <option value="WA">Washington</option>
                             </select>
                             <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" style="width: 546px;">
                                 <span class="selection">

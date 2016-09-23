@@ -1,5 +1,7 @@
 ﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
 
+<script src="~/Scripts/select2.min.js"></script>
+
 <h1 class="text-light">Create Maintenance Order</h1>
 
 
@@ -20,25 +22,51 @@
                 <div class="flex-grid">
                     <div class="row cells2">
                         <div class="cell-form margin-right-10 cell size4">
-                            <label>Flight Model</label>
-                            <div class="input-control text full-size">
-                                @Html.TextBoxFor(m => m.FlightModel, new { @class = "FlightModel", placeholder = "Flight Model" })
+                            <label>Aircraft Model</label>
+                                <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select a Aircraft">
+                                    <select id="aircraftmodel" class="full-size" tabindex="-1" style="display: none;">
+                                        <option></option>
+                                        @foreach (var workOrder in Model.AircraftModelModelObj.AircrafModels)
+                                        {
+                                            <option value="@(workOrder.Manufacturer + " " + workOrder.ModelName)">@Html.Raw(workOrder.Manufacturer + " " + workOrder.ModelName)</option>
+                                        }
 
-                            </div>
+                                    </select>
+                                    <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr">
+                                        <span class="selection">
+                                        </span>
+                                        <span class="dropdown-wrapper" aria-hidden="true">
+                                        </span>
+                                    </span>
+                                </div>
                         </div>
 
                         <div class="cell-form margin-right-10 cell size4">
                             <label class="display-block">Workshop</label>
-                            <div class="input-control select full-size">
-                                @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "WorkshopLocation" })
+                            <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select Workshop">
+                                <select id="workshop" class="full-size" tabindex="-1" style="display: none;">
+                                    <option></option>
+                                    @foreach (var workOrder in Model.Workshops)
+                                    {
+                                        <option value="@(workOrder)">@Html.Raw(workOrder)</option>
+                                    }
+
+                                </select>
+                                <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr">
+                                    <span class="selection">
+                                    </span>
+                                    <span class="dropdown-wrapper" aria-hidden="true">
+                                    </span>
+                                </span>
                             </div>
+
                         </div>
                     </div>
                     <div class="row cells2">
                         <div class="cell-form margin-right-10 cell size4">
-                            <label>Flight Number</label>
+                            <label>Aircraft Registration Number</label>
                             <div class="input-control text full-size">
-                                @Html.TextBoxFor(m => m.FlightNumber, new { @class = "FlightNumber", placeholder = "Flight Number" })
+                                @Html.TextBoxFor(m => m.FlightNumber, new { @class = "FlightNumber", placeholder = "Registration Number" })
                             </div>
                         </div>
                         <div class="cell-form margin-right-10 cell size4">
@@ -148,154 +176,154 @@
         </div>
     </div>
 </div>
-    <script>
-        function tab_click(tab) {
-            console.log(tab);
-            return true;
-        }
-        function tab_change(tab) {
-            console.log(tab);
-        }
+<script>
+    function tab_click(tab) {
+        console.log(tab);
+        return true;
+    }
+    function tab_change(tab) {
+        console.log(tab);
+    }
 
-        function nextTab(tab) {
-            tab_click(tab);
-            tab_change(tab);
-        }
+    function nextTab(tab) {
+        tab_click(tab);
+        tab_change(tab);
+    }
 
-        function DeleteCheck(test) {
-            saveTempData();
-            var CurrentCoponent = { Description: $(test).data('assigned-id') }
+    function DeleteCheck(test) {
+        saveTempData();
+        var CurrentCoponent = { Description: $(test).data('assigned-id') }
 
-            $.ajax({
-                url: '/maintenance/DeleteCheckItem',
-                type: 'DELETE',
-                data: JSON.stringify(CurrentCoponent),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
+        $.ajax({
+            url: '/maintenance/DeleteCheckItem',
+            type: 'DELETE',
+            data: JSON.stringify(CurrentCoponent),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                $('#partial-view-container').html(data);
+            },
+        });
 
-        }
+    }
 
-        function addCheck() {
-            saveTempData();
+    function addCheck() {
+        saveTempData();
 
-            var CheckDiscription = { Description: $("#checkDescription").val() }
+        var CheckDiscription = { Description: $("#checkDescription").val() }
 
-            $.ajax({
-                url: '/maintenance/AddCheckItem',
-                type: 'POST',
-                data: JSON.stringify(CheckDiscription),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
+        $.ajax({
+            url: '/maintenance/AddCheckItem',
+            type: 'POST',
+            data: JSON.stringify(CheckDiscription),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                $('#partial-view-container').html(data);
+            },
+        });
 
-        }
+    }
 
-        function DeleteMember(test) {
-            saveTempData();
-            var CurrentCoponent = { Name: $(test).data('assigned-id') }
+    function DeleteMember(test) {
+        saveTempData();
+        var CurrentCoponent = { Name: $(test).data('assigned-id') }
 
-            $.ajax({
-                url: '/maintenance/DeleteCrewMember',
-                type: 'DELETE',
-                data: JSON.stringify(CurrentCoponent),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
+        $.ajax({
+            url: '/maintenance/DeleteCrewMember',
+            type: 'DELETE',
+            data: JSON.stringify(CurrentCoponent),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                $('#partial-view-container').html(data);
+            },
+        });
 
-        }
+    }
 
-        function addMember() {
-            saveTempData();
+    function addMember() {
+        saveTempData();
 
-            var CurrentCoponent ={
-                Name: $("#memberName").val(),
-                Designation: $("#designation").val()
-            }
-
-            $.ajax({
-                url: '/maintenance/AddCrewMember',
-                type: 'POST',
-                data: JSON.stringify(CurrentCoponent),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                },
-            });
-
+        var CurrentCoponent = {
+            Name: $("#memberName").val(),
+            Designation: $("#designation").val()
         }
 
-        function newWorkOrder() {
+        $.ajax({
+            url: '/maintenance/AddCrewMember',
+            type: 'POST',
+            data: JSON.stringify(CurrentCoponent),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                $('#partial-view-container').html(data);
+            },
+        });
 
-            var CurrentCoponent = {
-                CompletionDate: $("#endDate").val(),
-                StartDate: $("#startDate").val(),
-                Description: $(".Description").val(),
-                Location: $(".WorkshopLocation").val(),
-                FlightModel: $(".FlightModel").val(),
-                FlightNumber: $(".FlightNumber").val()
-            }
+    }
 
-            $.ajax({
-                url: '/maintenance/CreateMaintenanceOrder',
-                type: 'POST',
-                data:JSON.stringify ( CurrentCoponent ) ,
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
+    function newWorkOrder() {
 
-                    $.Notify({
-                        caption: 'Maintenance',
-                        content: 'Order successfully added.',
-                        type: 'success'
-                    });
-
-                    SelectSideNavigationItem(1);
-                    $('#partial-view-container').html(data);
-                },
-            });
+        var CurrentCoponent = {
+            CompletionDate: $("#endDate").val(),
+            StartDate: $("#startDate").val(),
+            Description: $(".Description").val(),
+            Location: $("#workshop").val(),
+            FlightModel: $("#aircraftmodel").val(),
+            FlightNumber: $(".FlightNumber").val()
         }
 
-        function saveTempData() {
+        $.ajax({
+            url: '/maintenance/CreateMaintenanceOrder',
+            type: 'POST',
+            data: JSON.stringify(CurrentCoponent),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
 
-            var Model = {
-                CompletionDate: $("#endDate").val(),
-                StartDate: $("#startDate").val(),
-                Description: $(".Description").val(),
-                Location: $(".WorkshopLocation").val(),
-                FlightModel: $(".FlightModel").val(),
-                FlightNumber: $(".FlightNumber").val()
-            }
+                $.Notify({
+                    caption: 'Maintenance',
+                    content: 'Order successfully added.',
+                    type: 'success'
+                });
 
-            $.ajax({
-                url: '/maintenance/SaveTempData',
-                type: 'POST',
-                data: JSON.stringify(Model),
-                contentType: 'application/json; charset=utf-8',
-            });
+                SelectSideNavigationItem(1);
+                $('#partial-view-container').html(data);
+            },
+        });
+    }
+
+    function saveTempData() {
+
+        var Model = {
+            CompletionDate: $("#endDate").val(),
+            StartDate: $("#startDate").val(),
+            Description: $(".Description").val(),
+            Location: $("#workshop").val(),
+            FlightModel: $("#aircraftmodel").val(),
+            FlightNumber: $(".FlightNumber").val()
         }
 
-        function SelectSideNavigationItem(navItemIndex) {
+        $.ajax({
+            url: '/maintenance/SaveTempData',
+            type: 'POST',
+            data: JSON.stringify(Model),
+            contentType: 'application/json; charset=utf-8',
+        });
+    }
 
-            debugger;
-            //Unselect all the items
-            $('.sidebar').children().removeClass('active');
+    function SelectSideNavigationItem(navItemIndex) {
 
-            if (navItemIndex == 1) {
-                $('.sidebar li:nth-child(1)').addClass('active');
-            }
-            else if (navItemIndex == 2) {
-                $('.sidebar li:nth-child(2)').addClass('active');
-            }
+        debugger;
+        //Unselect all the items
+        $('.sidebar').children().removeClass('active');
+
+        if (navItemIndex == 1) {
+            $('.sidebar li:nth-child(1)').addClass('active');
         }
+        else if (navItemIndex == 2) {
+            $('.sidebar li:nth-child(2)').addClass('active');
+        }
+    }
 
-    </script>
+</script>
