@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyMaintain.Business.Entities
+namespace EasyMaintain.Business
 {
     public class MaintenanceChecks : IBusiness
     {

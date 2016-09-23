@@ -5,6 +5,8 @@ using EasyMaintain.CoreWebMVC.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EasyMaintain.CoreWebMVC.Utility;
+using EasyMaintain.DTO;
+
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,7 +27,7 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         public PartialViewResult createNewMember([FromBody]Crew Model)
         {
             int finalIndex = (CrewViewModel.CrewList.Count) - 1;
-            Model.ID = CrewViewModel.CrewList[finalIndex].ID + 1;
+            Model.CrewID = CrewViewModel.CrewList[finalIndex].CrewID + 1;
             CrewViewModel.CrewList.Add(Model);
 
             return PartialView("_CrewModel", CrewViewModel);
@@ -35,7 +37,7 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         [HttpPost, Route("/Crew/saveEditedMember")]
         public PartialViewResult saveEditedMember([FromBody]Crew Model)
         {
-            Model.ID = CrewViewModel.ID;
+            Model.CrewID = CrewViewModel.ID;
             CrewViewModel.CrewList[CrewViewModel.currentIndex] = Model;
             ClearSession();
             return PartialView("_CrewModel", CrewViewModel);
@@ -65,9 +67,9 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         public PartialViewResult EditMember([FromBody]Crew ID)
         {
 
-            Crew item = CrewViewModel.CrewList.Single(r => r.ID == ID.ID);
-            CrewViewModel.currentIndex = CrewViewModel.CrewList.FindIndex(r => r.ID == ID.ID);
-            CrewViewModel.ID = item.ID;
+            Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
+            CrewViewModel.currentIndex = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
+            CrewViewModel.ID = item.CrewID;
             CrewViewModel.Name = item.Name;
             CrewViewModel.Designation = item.Designation;
 

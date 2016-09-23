@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using EasyMaintain.DTO;
+
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -108,7 +110,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/SaveMaintenanceOrder")]
         public PartialViewResult SaveMaintenanceOrder([FromBody] Maintenance Model)
         {
-            Model.CheckItems = new List<Check>();
+            Model.CheckItems = new List<MaintenanceChecks>();
             Model.CheckItems.AddRange(maintenanceViewModel.CheckItems);
             Model.CrewMembers = new List<Crew>();
             Model.CrewMembers.AddRange(maintenanceViewModel.CrewMembers);
@@ -136,32 +138,32 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         }
 
         [HttpPost, Route("/maintenance/AddCheckItem")]
-        public PartialViewResult AddCheckItem([FromBody] Check CheckDiscription)
+        public PartialViewResult AddCheckItem([FromBody] MaintenanceChecks CheckDiscription)
         {
             var uri = "api/Engine/MaintenanceAdd/5";
-            List<Check> maintenanceChecks;
+            List<MaintenanceChecks> maintenanceChecks;
             using (HttpClient httpClient = new HttpClient())
             {
                 Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceChecks = JsonConvert.DeserializeObject<List<Check>>(response.Result);
+                maintenanceChecks = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
             }
 
             maintenanceViewModel.CheckItems = maintenanceChecks;
 
-            maintenanceViewModel.CheckItems.Add(new Check() { Description = CheckDiscription.Description });
+            maintenanceViewModel.CheckItems.Add(new MaintenanceChecks() { Description = CheckDiscription.Description });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
             return PartialView("_NewMaintenanceOrder", maintenanceViewModel);
         }
 
         [HttpDelete, Route("/maintenance/DeleteCheckItem")]
-        public PartialViewResult DeleteCheckItem([FromBody] Check CheckDiscription)
+        public PartialViewResult DeleteCheckItem([FromBody] MaintenanceChecks CheckDiscription)
         {
             var uri = "api/Engine/MaintenanceDelete/5";
-            List<Check> maintenanceChecks;
+            List<MaintenanceChecks> maintenanceChecks;
             using (HttpClient httpClient = new HttpClient())
             {
                 Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceChecks = JsonConvert.DeserializeObject<List<Check>>(response.Result);
+                maintenanceChecks = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
             }
             maintenanceViewModel.CheckItems = maintenanceChecks;
 

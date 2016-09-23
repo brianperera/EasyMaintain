@@ -23,10 +23,7 @@ namespace EasyMaintain.Business
         public List<MaintenanceChecks> CheckItems { get; set; }
         public List<Crew> CrewMembers { get; set; }
 
-        public Maintenance()
-        {
-
-        }
+        
 
         /// <summary>
         /// Get data

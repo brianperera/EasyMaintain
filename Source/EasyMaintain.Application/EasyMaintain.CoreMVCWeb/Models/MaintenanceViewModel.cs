@@ -5,32 +5,34 @@ using System.ComponentModel.DataAnnotations.Schema;
 using EasyMaintain.CoreWebMVC.Utility;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyMaintain.DTO;
+
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    [Table("MaintenanceChecks")]
-    public class Check
-    {
-        [Key]
-        public string Description { get; set; }
-        public bool status { get; set; }
-    }
+    //[Table("MaintenanceChecks")]
+    //public class Check
+    //{
+    //    [Key]
+    //    public string Description { get; set; }
+    //    public bool status { get; set; }
+    //}
 
 
-    [Table("EngineType")]
-    public class Maintenance
-    {
-        [Key]
-        public int WorkID { get; set; }
-        public string FlightModel { get; set; }
-        public string FlightNumber { get; set; }
-        public string Description { get; set; }
-        public string StartDate { get; set; }
-        public string CompletionDate { get; set; }
-        public string Location { get; set; }
-        public List<Check> CheckItems { get; set; }
-        public List<Crew> CrewMembers { get; set; }
-    }
+    //[Table("EngineType")]
+    //public class Maintenance
+    //{
+    //    [Key]
+    //    public int WorkID { get; set; }
+    //    public string FlightModel { get; set; }
+    //    public string FlightNumber { get; set; }
+    //    public string Description { get; set; }
+    //    public string StartDate { get; set; }
+    //    public string CompletionDate { get; set; }
+    //    public string Location { get; set; }
+    //    public List<Check> CheckItems { get; set; }
+    //    public List<Crew> CrewMembers { get; set; }
+    //}
     public class MaintenanceViewModel
     {
         [Required]
@@ -63,7 +65,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public List<string> Workshops { get; set; }
 
-        public List<Check> CheckItems { get; set; }
+        public List<MaintenanceChecks> CheckItems { get; set; }
 
         public List<Crew> CrewMembers { get; set; }
 
@@ -82,7 +84,7 @@ namespace EasyMaintain.CoreWebMVC.Models
                     FlightModel = "Trubine",
                     StartDate = "21/09/2016",
                     Location = "Detroit",
-                    CheckItems = new  List<Check>(),
+                    CheckItems = new  List<MaintenanceChecks>(),
                     CrewMembers = new List<Crew>()                    
                     
                 }
@@ -98,8 +100,8 @@ namespace EasyMaintain.CoreWebMVC.Models
             DateTime dateTime = DateTime.UtcNow.Date;
             StartDate = dateTime.ToString("dd/MM/yyyy");
 
-            CheckItems = new List<Check>();
-            CheckItems.Add(new Check() {Description ="Check Left Rudder" });
+            CheckItems = new List<MaintenanceChecks>();
+            CheckItems.Add(new MaintenanceChecks() {Description ="Check Left Rudder" });
 
             CrewMembers = new List<Crew>();
             CrewMembers.Add(new Crew() { Name = "John",Designation = "Technician"});
