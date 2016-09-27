@@ -144,8 +144,7 @@
                                     <option></option>
                                     @foreach (var workOrder in Model.CrewViewModelObj.CrewList)
                                     {
-                                        <option value="{'Name':@workOrder.Name,'Designation':@workOrder.Designation}">@Html.Raw(workOrder.Name + "-" + workOrder.Designation)</option>
-                                        //@Model.SelectedMemberIndex = workOrder.CrewID;
+                                        <option value="@(workOrder.CrewID)">@Html.Raw(workOrder.Name + "-" + workOrder.Designation)</option>
                                     }
 
                                 </select>
@@ -255,8 +254,8 @@
     function addMember() {
         saveTempData();
         
-        var CurrentCoponent =  $("#crewMember").data();
-
+        var CurrentCoponent = { CrewID: $("#crewMember").val() }
+        debugger;
         $.ajax({
             url: '/maintenance/AddCrewMember',
             type: 'POST',

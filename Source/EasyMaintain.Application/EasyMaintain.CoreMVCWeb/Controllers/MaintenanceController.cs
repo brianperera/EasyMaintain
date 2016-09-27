@@ -185,7 +185,10 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             //}
             //maintenanceViewModel.CrewMembers = maintenanceCrew;
 
-            maintenanceViewModel.CrewMembers.Add(new Crew() { Name = Model.Name, Designation = Model.Designation });
+            UpdateMaintenanceViewModel();
+            Crew Member = maintenanceViewModel.CrewViewModelObj.CrewList.Single(r => r.CrewID == Model.CrewID);
+
+            maintenanceViewModel.CrewMembers.Add(new Crew() { Name = Member.Name, Designation = Member.Designation });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_3;
             return PartialView("_NewMaintenanceOrder", maintenanceViewModel);
         }
