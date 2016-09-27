@@ -53,7 +53,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public static int CurrentID { get; set; }
 
-        public List<string> Workshops { get; set; }
+        public WorkshopModel Workshops { get; set; }
 
         public DeliveryDetailsModel DeliveryDetailModel { get; set; }
         public DeliveryDetails DeliveryDetails { get; set; }
@@ -66,6 +66,7 @@ namespace EasyMaintain.CoreWebMVC.Models
             
             DeliveryDetailModel = new DeliveryDetailsModel();
             DeliveryDetails = new DeliveryDetails();
+            Workshops = new WorkshopModel(); 
             ComponentWorkOrders = new List<ComponentWork> {
                 new ComponentWork
                 {
@@ -76,11 +77,6 @@ namespace EasyMaintain.CoreWebMVC.Models
                     SerialNumber = "101020"
                 }
             };
-            Workshops = new List<string>();
-            Workshops.Add("Folrida");
-            Workshops.Add("California");
-            Workshops.Add("Detroit");
-            Workshops.Add("Michigan");
 
             DateTime dateTime = DateTime.UtcNow.Date;
             CreatedDate = dateTime.ToString("dd/MM/yyyy");

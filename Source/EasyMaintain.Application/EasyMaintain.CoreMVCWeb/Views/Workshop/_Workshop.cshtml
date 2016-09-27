@@ -1,6 +1,6 @@
-﻿@model EasyMaintain.CoreWebMVC.Models.ComponentModel
+﻿@model EasyMaintain.CoreWebMVC.Models.WorkshopModel
 
-<h1 class="text-light">Component</h1>
+<h1 class="text-light">Workshops</h1>
 <div id="CreateTitle">
     <h3 class="text-light">Create New</h3>
 </div>
@@ -17,43 +17,23 @@
         <div class="flex-grid">
             <div class="row cells2">
                 <div class="cell-form margin-right-10 cell size4">
-                    <label>Model Name</label>
+                    <label>Workshop Name</label>
                     <div class="input-control text full-size">
                         @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Name" })
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
-                    <label>Category</label>
+                    <label>Location</label>
                     <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Category, new { @class = "Category", placeholder = "Category" })
+                        @Html.TextBoxFor(m => m.Location, new { @class = "Location", placeholder = "Location" })
                     </div>
                 </div>
             </div>
             <div class="row cells2">
                 <div class="cell-form margin-right-10 cell size4">
-                    <label>Manufacturer Name</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Manufacturer, new { @class = "ManufacturerName", placeholder = "Manufacturer Name" })
-                    </div>
-                </div>
-                <div class="cell-form margin-right-10 cell size4">
-                    <label>Image</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.ImagePath, new { @class = "ImagePath", placeholder = "Image Path" })
-                    </div>
-                </div>
-            </div>
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Description</label>
+                    <label class="display-block">Address</label>
                     <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.Description, new { @class = "Description", placeholder = "Description" })
-                    </div>
-                </div>
-                <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Additional Data</label>
-                    <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.AdditionalData, new { @class = "AdditionalData", placeholder = "Additional Data" })
+                        @Html.TextAreaFor(m => m.Address, new { @class = "Address", placeholder = "Address" })
                     </div>
                 </div>
             </div>
@@ -62,12 +42,12 @@
     <hr />
 
     <div id="CreateButton">
-        <button class="button primary" onclick="createNewComponent()"><span class="mif-plus"></span> Create</button>
+        <button class="button primary" onclick="createNewWorkshop()"><span class="mif-plus"></span> Create</button>
     </div>
     <div style="display: none" id="EditButtons">
-        <button class="button warning" onclick="saveEditedComponent()"><span class="mif-loop2"></span> Update</button>
-        <button class="button alert" onclick="deleteComponent()"><span class="mif-cross"></span> Delete</button>
-        <button class="button primary" onclick="cancel()"><span class="mif-plus"></span> New Aircraft</button>
+        <button class="button warning" onclick="saveEditedWorkshop()"><span class="mif-loop2"></span> Update</button>
+        <button class="button alert" onclick="deleteWorkshop()"><span class="mif-cross"></span> Delete</button>
+        <button class="button primary" onclick="cancel()"><span class="mif-plus"></span> New Workshop</button>
     </div>
 
     <hr class="thin bg-grayLighter">
@@ -81,13 +61,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var models in Model.Components)
+            @foreach (var models in Model.Workshops)
             {
                 <tr>
-                    <td>@models.ComponentID</td>
-                    <td>@models.Manufacturer</td>
-                    <td>@models.ComponentName</td>
-                    <td class="align-center"><button class="toolbar-button" onclick="LoadComponent(@models.ComponentID)"><span class="mif-pencil"></span></button></td>
+                    <td>@models.WorkshopID</td>
+                    <td>@models.Name</td>
+                    <td>@models.Location</td>
+                    <td class="align-center"><button class="toolbar-button" onclick="LoadWorkshop(@models.WorkshopID)"><span class="mif-pencil"></span></button></td>
                 </tr>
             }
         </tbody>
@@ -104,27 +84,24 @@
         }
 
 
-        function createNewComponent() {
+        function createNewWorkshop() {
             debugger;
             var CurrentCoponent = {
-                ComponentName: $(".Name").val(),
-                Category: $(".Category").val(),
-                Manufacturer: $(".ManufacturerName").val(),
-                ImagePath: $(".ImagePath").val(),
-                Description: $(".Description").val(),
-                AdditionalData: $(".AdditionalData").val(),
+                Name: $(".Name").val(),
+                Location: $(".Location").val(),
+                Address: $(".Address").val(),
             }
 
             $.ajax({
-                url: '/componentwork/SaveNewComponent',
+                url: '/Workshop/SaveNewWorkshop',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(CurrentCoponent),
                 success: function (data) {
 
                     $.Notify({
-                        caption: 'Components',
-                        content: 'Component successfully added.',
+                        caption: 'Workshops',
+                        content: 'Workshops successfully added.',
                         type: 'success'
                     });
 
@@ -138,27 +115,24 @@
 
         }
 
-        function saveEditedComponent() {
+        function saveEditedWorkshop() {
             debugger;
             var CurrentCoponent = {
-                ComponentName: $(".Name").val(),
-                Category: $(".Category").val(),
-                Manufacturer: $(".ManufacturerName").val(),
-                ImagePath: $(".ImagePath").val(),
-                Description: $(".Description").val(),
-                AdditionalData: $(".AdditionalData").val(),
+                Name: $(".Name").val(),
+                Location: $(".Location").val(),
+                Address: $(".Address").val(),
             }
 
             $.ajax({
-                url: '/componentwork/SaveEditedComponent',
+                url: '/workshop/saveEditedWorkshop',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(CurrentCoponent),
                 success: function (data) {
 
                     $.Notify({
-                        caption: 'Component',
-                        content: 'Component Successfully updated.',
+                        caption: 'Workshops',
+                        content: 'Workshop Successfully updated.',
                         type: 'success'
                     });
                     $('#partial-view-container').html(data);
@@ -169,11 +143,11 @@
 
         }
 
-        function LoadComponent(viewName) {
-            var Model = { ComponentID: viewName }
+        function LoadWorkshop(viewName) {
+            var Model = { WorkshopID: viewName }
 
             $.ajax({
-                url: '/componentwork/EditComponent',
+                url: '/workshop/LoadWorkshop',
                 type: 'POST',
                 data: JSON.stringify(Model),
                 contentType: 'application/json; charset=utf-8',
@@ -184,8 +158,8 @@
                 },
                 error: function () {
                     $.Notify({
-                        caption: 'Component',
-                        content: 'Component Editing Failed .',
+                        caption: 'Workshops',
+                        content: 'Workshop Editing Failed .',
                         type: 'alert'
                     });
                 }
@@ -196,29 +170,7 @@
         function cancel() {
 
             $.ajax({
-                url: '/componentwork/cancel',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                    chanageButtons("create");
-                },
-                error: function () {
-                    $.Notify({
-                        caption: 'Component',
-                        content: 'New Componenet Creation Failed.',
-                        type: 'alert'
-                    });
-                }
-            });
-
-        }
-
-        function deleteComponent() {
-
-            $.ajax({
-                url: '/componentwork/deleteComponent',
+                url: '/workshop/cancel',
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
@@ -230,6 +182,28 @@
                     $.Notify({
                         caption: 'Aircrafts',
                         content: 'Aircraft Editing Failed .',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function deleteWorkshop() {
+
+            $.ajax({
+                url: '/workshop/deleteWorkshop',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("create");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Workshops',
+                        content: 'Workshop Editing Failed .',
                         type: 'alert'
                     });
                 }

@@ -176,14 +176,14 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/AddCrewMember")]
         public PartialViewResult AddCrewMember([FromBody] Crew Model)
         {
-            var uri = "api/CrewAdd/5";
-            List<Crew> maintenanceCrew;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceCrew = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
-            }
-            maintenanceViewModel.CrewMembers = maintenanceCrew;
+            //var uri = "api/CrewAdd/5";
+            //List<Crew> maintenanceCrew;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    maintenanceCrew = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
+            //}
+            //maintenanceViewModel.CrewMembers = maintenanceCrew;
 
             maintenanceViewModel.CrewMembers.Add(new Crew() { Name = Model.Name, Designation = Model.Designation });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_3;
@@ -254,6 +254,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public void UpdateMaintenanceViewModel()
         {
             maintenanceViewModel.AircraftModelModelObj = SessionUtility.utilityAircraftModelModel;
+            maintenanceViewModel.Workshops = SessionUtility.utilityWorkshopModel;
+            maintenanceViewModel.CrewViewModelObj = SessionUtility.utilityCrewViewModel;
         }
 
     }

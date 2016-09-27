@@ -16,10 +16,13 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         
         ComponentWorkModel componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
+        ComponentModel componentModel = SessionUtility.utilityComponentModel;
 
         public ActionResult Index()
         {
             componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
+            ClearSession();
+            UpdateComponentWorkViewModel();
             return View(componentWorkViewModel);
         }
 
@@ -53,15 +56,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             int index = componentWorkViewModel.WorkID - 1;
             componentWorkViewModel.ComponentWorkOrders[index] = Model;
             return PartialView("_Search", componentWorkViewModel);
-        }
-
-        public PartialViewResult NewWorkOrder()
-        {
-            return PartialView("_NewWorkOrder", componentWorkViewModel);
-        }
-        public PartialViewResult NewComponent()
-        {
-            return PartialView("_NewComponent", new ComponentModel());
         }
 
         public PartialViewResult Search()
@@ -111,5 +105,107 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
          }
 
+        [HttpPost, Route("/ComponentWork/SaveNewComponent")]
+        public PartialViewResult SaveNewComponent([FromBody]Component Model)
+        {
+            int finalIndex = componentModel.Components.Count - 1;
+            Model.ComponentID = componentModel.Components[finalIndex].ComponentID + 1;
+            componentModel.Components.Add(Model);
+
+            return PartialView("_NewComponent", componentModel);
+
+        }
+
+        [HttpPost, Route("/componentwork/EditComponent")]
+        public PartialViewResult EditComponent([FromBody]Component ID)
+        {
+
+            Component item = componentModel.Components.Single(r => r.ComponentID == ID.ComponentID);
+
+            componentModel.ComponentID = item.ComponentID;
+            componentModel.Name = item.ComponentName;
+            componentModel.Manufacturer = item.Manufacturer;
+            componentModel.Description = item.Description;
+            componentModel.AdditionalData = item.AdditionalData;
+            componentModel.ImagePath = item.ImagePath;
+            componentModel.Category = item.Category;
+
+            return PartialView("_NewComponent", componentModel);
+
+        }
+
+        [HttpPost, Route("/componentwork/SaveEditedComponent")]
+        public PartialViewResult SaveEditedComponent([FromBody]Component Model)
+        {
+            Model.ComponentID = componentModel.ComponentID;
+            int index = componentModel.Components.FindIndex(r => r.ComponentID == componentModel.ComponentID); 
+            componentModel.Components[index] = Model;
+
+            componentModel.ComponentID = Model.ComponentID;
+            componentModel.Name = Model.ComponentName;
+            componentModel.Manufacturer = Model.Manufacturer;
+            componentModel.Description = Model.Description;
+            componentModel.AdditionalData = Model.AdditionalData;
+            componentModel.ImagePath = Model.ImagePath;
+            componentModel.Category = Model.Category;
+
+            return PartialView("_NewComponent", componentModel);
+
+        }
+
+        [HttpPost, Route("/componentwork/deleteComponent")]
+        public PartialViewResult deleteComponent()
+        {
+            int deletingIndex = componentModel.Components.FindIndex(r => r.ComponentID == componentModel.ComponentID);
+
+            for (int x = deletingIndex; x <= componentModel.Components.Count - 2; x++)
+            {
+                int nextIndex = x + 1;
+                componentModel.Components[x] = componentModel.Components[nextIndex];
+            }
+
+            int finalIndex = componentModel.Components.Count - 1;
+            componentModel.Components.RemoveAt(finalIndex);
+
+            ClearSession();
+
+            return PartialView("_NewComponent", componentModel );
+
+        }
+
+        [HttpPost, Route("/componentwork/cancel")]
+        public PartialViewResult cancel()
+        {
+            ClearSession();
+
+            return PartialView("_NewComponent", componentModel);
+
+        }
+
+        public PartialViewResult NewWorkOrder()
+        {
+            return PartialView("_NewWorkOrder", componentWorkViewModel);
+        }
+        public PartialViewResult NewComponent()
+        {
+            return PartialView("_NewComponent", new ComponentModel());
+        }
+
+        public void ClearSession()
+        {
+            componentModel.ComponentID = 0;
+            componentModel.Name = null;
+            componentModel.Manufacturer = null;
+            componentModel.Description = null;
+            componentModel.AdditionalData = null;
+            componentModel.ImagePath = null;
+            componentModel.Category = null;
+        }
+
+        public void UpdateComponentWorkViewModel()
+        {
+            componentWorkViewModel.Components = SessionUtility.utilityComponentModel;
+            componentWorkViewModel.Workshops = SessionUtility.utilityWorkshopModel;
+        }
     }
 }

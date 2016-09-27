@@ -56,10 +56,10 @@
             @foreach (var models in Model.CrewList)
             {
                 <tr>
-                    <td>@models.ID</td>
+                    <td>@models.CrewID</td>
                     <td>@models.Name</td>
                     <td>@models.Designation</td>
-                    <td class="align-center"><button class="toolbar-button" onclick="LoadMember(@models.ID)"><span class="mif-pencil"></span></button></td>
+                    <td class="align-center"><button class="toolbar-button" onclick="LoadMember(@models.CrewID)"><span class="mif-pencil"></span></button></td>
                 </tr>
             }
         </tbody>

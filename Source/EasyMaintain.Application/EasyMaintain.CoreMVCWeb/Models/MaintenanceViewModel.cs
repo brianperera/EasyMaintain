@@ -63,7 +63,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         [Display(Name = "Completion Date")]
         public int WorkID { get; set; }
 
-        public List<string> Workshops { get; set; }
+        public WorkshopModel Workshops { get; set; }
 
         public List<MaintenanceChecks> CheckItems { get; set; }
 
@@ -72,11 +72,15 @@ namespace EasyMaintain.CoreWebMVC.Models
         public List<Maintenance> MaintenanceOrders { get; set; }
 
         public string ActiveTab { get; set; }
+        public int SelectedMemberIndex { get; set; } = -1 ;
 
         public AircraftModelModel AircraftModelModelObj { get; set; }
 
+        public CrewViewModel CrewViewModelObj { get; set; }
+
         public MaintenanceViewModel()
         {
+            Workshops = new WorkshopModel(); 
             MaintenanceOrders = new List<Maintenance> {
                 new Maintenance
                 {
@@ -91,11 +95,7 @@ namespace EasyMaintain.CoreWebMVC.Models
             };
             SessionUtility.CurrentMaintenanceID = 1;
 
-            Workshops = new List<string>();
-            Workshops.Add("Folrida");
-            Workshops.Add("California");
-            Workshops.Add("Detroit");
-            Workshops.Add("Michigan");
+
 
             DateTime dateTime = DateTime.UtcNow.Date;
             StartDate = dateTime.ToString("dd/MM/yyyy");

@@ -1,0 +1,31 @@
+﻿@model EasyMaintain.CoreWebMVC.Models.WorkshopModel
+
+@{
+    ViewBag.Title = "Workshop";
+}
+
+<div class="flex-grid no-responsive-future" style="height: 100%;">
+    <div class="row" style="height: 100%">
+        <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
+            <ul class="sidebar">
+                <li class="active">
+                    <a href="#" onclick="LoadPartialView('Workshop')">
+                        <span class="mif-widgets icon"></span>
+                        <span class="title">Workshops</span>
+                        <span class="counter">@Html.Raw(Model.Workshops.Count)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="cell auto-size padding20 bg-white form-page-main-container" id="partial-view-container">
+            @*By default the spare parts partial view will be loaded*@
+            @Html.Partial("_Workshop", Model)
+        </div>
+    </div>
+</div>
+<script>
+    function LoadPartialView(viewName)
+    {
+        $('#partial-view-container').load(viewName);
+    }
+</script>
