@@ -146,15 +146,15 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/AddCheckItem")]
         public PartialViewResult AddCheckItem([FromBody] MaintenanceChecks CheckDiscription)
         {
-            var uri = "api/Engine/MaintenanceAdd/5";
-            List<MaintenanceChecks> maintenanceChecks;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceChecks = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
-            }
+            //var uri = "api/Engine/MaintenanceAdd/5";
+            //List<MaintenanceChecks> maintenanceChecks;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    maintenanceChecks = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
+            //}
 
-            maintenanceViewModel.CheckItems = maintenanceChecks;
+            //maintenanceViewModel.CheckItems = maintenanceChecks;
 
             maintenanceViewModel.CheckItems.Add(new MaintenanceChecks() { Description = CheckDiscription.Description });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
@@ -271,6 +271,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 Model.MaintenanceCheckID = 1;
             }
             maintenanceCheckViewModel.Checks.Add(Model);
+            maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
 
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
@@ -284,6 +285,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceCheckViewModel.currentIndex= maintenanceCheckViewModel.Checks.FindIndex(r => r.MaintenanceCheckID == ID.MaintenanceCheckID);
             maintenanceCheckViewModel.MaintenanceCheckID = item.MaintenanceCheckID;
             maintenanceCheckViewModel.Description = item.Description;
+            maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
 
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
@@ -295,6 +297,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             Model.MaintenanceCheckID = maintenanceCheckViewModel.MaintenanceCheckID;
             maintenanceCheckViewModel.Checks[maintenanceCheckViewModel.currentIndex] = Model;
             ClearSession();
+
+            maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
 
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
@@ -314,7 +318,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceCheckViewModel.Checks.RemoveAt(finalIndex);
 
             ClearSession();
-
+            maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
         }
@@ -323,7 +327,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult cancel()
         {
             ClearSession();
-
+            maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
         }
