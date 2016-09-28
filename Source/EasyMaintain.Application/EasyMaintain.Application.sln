@@ -41,6 +41,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EasyMaintain.DTO", "EasyMai
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Easymaintain.BusinessLogic", "Easymaintain.BusinessLogic\Easymaintain.BusinessLogic.xproj", "{65569319-FC7B-4EF0-8D2C-8FDB91425CBF}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EasyMaintain.DataAccess_v2", "EasyMaintain.DataAccess_v2\EasyMaintain.DataAccess_v2.xproj", "{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,14 @@ Global
 		{65569319-FC7B-4EF0-8D2C-8FDB91425CBF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65569319-FC7B-4EF0-8D2C-8FDB91425CBF}.Release|x64.ActiveCfg = Release|Any CPU
 		{65569319-FC7B-4EF0-8D2C-8FDB91425CBF}.Release|x64.Build.0 = Release|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Debug|x64.Build.0 = Debug|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Release|x64.ActiveCfg = Release|Any CPU
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,5 +175,6 @@ Global
 		{604FFB28-9863-455A-A2AF-A7F0151F286C} = {BBAE2FD7-A18C-4021-B3DD-D87E54CB5E58}
 		{A209DCB3-8550-46DE-ABAC-A0A56ABC81B9} = {C2033353-0F60-4365-B7F2-8A5DD5CF63D4}
 		{65569319-FC7B-4EF0-8D2C-8FDB91425CBF} = {C2033353-0F60-4365-B7F2-8A5DD5CF63D4}
+		{62FF0F8F-73D1-4D87-B787-F7563A5E4EB6} = {C2033353-0F60-4365-B7F2-8A5DD5CF63D4}
 	EndGlobalSection
 EndGlobal
