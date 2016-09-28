@@ -3,26 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    public class Inventory
-    {
-        public string CustomerName { get; set; }
-        public string CompanyName { get; set; }
-        public string AdditionalNotes { get; set; }
-        public List<string> PartsList { get; set; }
-        public int InvoiceNumber { get; set; }
-        public string PaymentMethod { get; set; }
-        public string PaymentNotes { get; set; }
-        public string BillingAddress { get; set; }
-        public string BillingName { get; set; }
-        public bool OrderType { get; set; } //NormalOrder = false , //ReStockOrder = True 
-        public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
-        public DeliveryDetails Deliverydetails { get; set; }
+    //public class Inventory
+    //{
+    //    public string CustomerName { get; set; }
+    //    public string CompanyName { get; set; }
+    //    public string AdditionalNotes { get; set; }
+    //    public List<string> PartsList { get; set; }
+    //    public int InvoiceNumber { get; set; }
+    //    public string PaymentMethod { get; set; }
+    //    public string PaymentNotes { get; set; }
+    //    public string BillingAddress { get; set; }
+    //    public string BillingName { get; set; }
+    //    public bool OrderType { get; set; } //NormalOrder = false , //ReStockOrder = True 
+    //    public DeliveryDetails Deliverydetails { get; set; }
+    //}
 
-
-    }
     public class InventoryViewModel
     {
         [Required]
@@ -55,6 +54,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string BillingAddress { get; set; }
         public string BillingName { get; set; }
 
+        public List<string> DeliveryMethods { get; set; }
         public List<Inventory> InventoryOrders { get; set; }
         public List<Inventory> RestockOrders { get; set; }
         public string ActiveTab { get; set; }
@@ -91,6 +91,11 @@ namespace EasyMaintain.CoreWebMVC.Models
             };
 
             PartsList = new List<string>();
+
+            DeliveryMethods = new List<string>();
+            DeliveryMethods.Add("Pick Up");
+            DeliveryMethods.Add("USPS");
+            DeliveryMethods.Add("DHL");
 
             PaymentMethods = new List<string>();
             PaymentMethods.Add("Cash On Delivery");

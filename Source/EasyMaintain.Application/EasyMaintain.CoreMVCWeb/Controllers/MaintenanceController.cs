@@ -22,8 +22,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     public class MaintenanceController : Controller
     {
         MaintenanceViewModel maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
+        MaintenanceCheckViewModel maintenanceCheckViewModel = SessionUtility.utilityMaintenanceCheckViewModel;
         // GET: /<controller>/
-       // [Route("api/[controller]")]
+        // [Route("api/[controller]")]
         public ActionResult Index()
         {
             //try
@@ -50,7 +51,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return View(maintenanceViewModel);
         }
 
-        
+        public PartialViewResult CheckItems()
+        {
+
+            return PartialView("_CheckItems", maintenanceCheckViewModel);
+        }
+
         public PartialViewResult NewMaintenanceOrder()
         {
             maintenanceViewModel.CrewMembers.Clear();
@@ -254,12 +260,87 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
         }
 
+        [HttpPost, Route("/maintenance/createNewCheck")]
+        public PartialViewResult createNewCheck([FromBody]MaintenanceChecks Model)
+        {
+            int finalIndex = (maintenanceCheckViewModel.Checks.Count) - 1;
+            try {
+                Model.MaintenanceCheckID = maintenanceCheckViewModel.Checks[finalIndex].MaintenanceCheckID + 1;
+            }
+            catch(ArgumentOutOfRangeException) {
+                Model.MaintenanceCheckID = 1;
+            }
+            maintenanceCheckViewModel.Checks.Add(Model);
+
+            return PartialView("_CheckItems", maintenanceCheckViewModel);
+
+        }
+
+        [HttpPost, Route("/maintenance/LoadCheck")]
+        public PartialViewResult LoadCheck([FromBody]MaintenanceChecks ID)
+        {
+
+            MaintenanceChecks item = maintenanceCheckViewModel.Checks.Single(r => r.MaintenanceCheckID == ID.MaintenanceCheckID);
+            maintenanceCheckViewModel.currentIndex= maintenanceCheckViewModel.Checks.FindIndex(r => r.MaintenanceCheckID == ID.MaintenanceCheckID);
+            maintenanceCheckViewModel.MaintenanceCheckID = item.MaintenanceCheckID;
+            maintenanceCheckViewModel.Description = item.Description;
+
+            return PartialView("_CheckItems", maintenanceCheckViewModel);
+
+        }
+
+        [HttpPost, Route("/maintenance/saveEditedCheck")]
+        public PartialViewResult saveEditedCheck([FromBody]MaintenanceChecks Model)
+        {
+            Model.MaintenanceCheckID = maintenanceCheckViewModel.MaintenanceCheckID;
+            maintenanceCheckViewModel.Checks[maintenanceCheckViewModel.currentIndex] = Model;
+            ClearSession();
+
+            return PartialView("_CheckItems", maintenanceCheckViewModel);
+
+        }
+
+        [HttpPost, Route("/maintenance/deleteCheck")]
+        public PartialViewResult deleteCheck()
+        {
+
+            for (int x = maintenanceCheckViewModel.currentIndex; x <= maintenanceCheckViewModel.Checks.Count - 2; x++)
+            {
+                int nextIndex = x + 1;
+                maintenanceCheckViewModel.Checks[x] = maintenanceCheckViewModel.Checks[nextIndex];
+            }
+
+            int finalIndex = maintenanceCheckViewModel.Checks.Count - 1;
+            maintenanceCheckViewModel.Checks.RemoveAt(finalIndex);
+
+            ClearSession();
+
+            return PartialView("_CheckItems", maintenanceCheckViewModel);
+
+        }
+
+        [HttpPost, Route("/maintenance/cancel")]
+        public PartialViewResult cancel()
+        {
+            ClearSession();
+
+            return PartialView("_CheckItems", maintenanceCheckViewModel);
+
+        }
+
         public void UpdateMaintenanceViewModel()
         {
             maintenanceViewModel.AircraftModelModelObj = SessionUtility.utilityAircraftModelModel;
             maintenanceViewModel.Workshops = SessionUtility.utilityWorkshopModel;
             maintenanceViewModel.CrewViewModelObj = SessionUtility.utilityCrewViewModel;
+            maintenanceViewModel.MaintenanceCheckViewModelObj = SessionUtility.utilityMaintenanceCheckViewModel;
+
         }
 
+        public void ClearSession()
+        {
+            maintenanceCheckViewModel.MaintenanceCheckID = 0;
+            maintenanceCheckViewModel.Description= null;
+        }
     }
 }

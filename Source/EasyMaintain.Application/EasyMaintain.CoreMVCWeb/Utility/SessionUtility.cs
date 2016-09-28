@@ -21,6 +21,7 @@ namespace EasyMaintain.CoreWebMVC.Utility
         public static CrewViewModel utilityCrewViewModel = new CrewViewModel();
         public static ComponentModel utilityComponentModel = new ComponentModel();
         public static WorkshopModel utilityWorkshopModel = new WorkshopModel();
+        public static MaintenanceCheckViewModel utilityMaintenanceCheckViewModel = new MaintenanceCheckViewModel();
 
 
         public static int CurrentMaintenanceID { get; set; }

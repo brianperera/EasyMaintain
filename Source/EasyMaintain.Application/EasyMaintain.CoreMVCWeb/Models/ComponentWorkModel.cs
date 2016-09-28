@@ -4,24 +4,25 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    [Table("ComponentWork")]
-    public class ComponentWork
-    {
-        [Key]
-        public int WorkID { get; set; }
-        public string Component { get; set; }
-        public string SerialNumber { get; set; }
-        public string FlightNumber { get; set; }
-        public string Description { get; set; }
-        public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
-        public DeliveryDetails Deliverydetails { get; set; }
+    //[Table("ComponentWork")]
+    //public class ComponentWork
+    //{
+    //    [Key]
+    //    public int WorkID { get; set; }
+    //    public string Component { get; set; }
+    //    public string SerialNumber { get; set; }
+    //    public string FlightNumber { get; set; }
+    //    public string Description { get; set; }
+    //  //  public DeliveryDetailsModel Deliverydetailsmodel { get; set; }
+    //    public DeliveryDetails Deliverydetails { get; set; }
 
-        public string CreatedDate { get; set; }
-        public string Location { get; set; }
-    }
+    //    public string CreatedDate { get; set; }
+    //    public string Location { get; set; }
+    //}
 
     public class ComponentWorkModel
     {
@@ -55,6 +56,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public WorkshopModel Workshops { get; set; }
 
+        public List<string> DeliveryMethods { get; set; }
         public DeliveryDetailsModel DeliveryDetailModel { get; set; }
         public DeliveryDetails DeliveryDetails { get; set; }
         public ComponentModel Components { get; set; }
@@ -77,6 +79,11 @@ namespace EasyMaintain.CoreWebMVC.Models
                     SerialNumber = "101020"
                 }
             };
+
+            DeliveryMethods = new List<string>();
+            DeliveryMethods.Add("Pick Up");
+            DeliveryMethods.Add("USPS");
+            DeliveryMethods.Add("DHL");
 
             DateTime dateTime = DateTime.UtcNow.Date;
             CreatedDate = dateTime.ToString("dd/MM/yyyy");

@@ -2,6 +2,7 @@
 using EasyMaintain.CoreWebMVC.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {

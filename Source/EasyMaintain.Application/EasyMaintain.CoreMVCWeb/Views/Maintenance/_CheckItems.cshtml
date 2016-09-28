@@ -1,0 +1,217 @@
+﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceCheckViewModel
+
+<h1 class="text-light">Crew</h1>
+<div id="CreateTitle">
+    <h3 class="text-light">Add Member</h3>
+</div>
+<div style="display: none" id="UpdateTitle">
+    <h3 class="text-light">Edit Member</h3>
+</div>
+
+
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class="example">
+        <div class="flex-grid">
+            <div class="row cells2">
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>Check Description</label>
+                    <div class="input-control textarea full-size">
+                        @Html.TextAreaFor(m => m.Description, new { @class = "Description", placeholder = "Description" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div id="CreateButton">
+        <button class="button primary" onclick="createNewCheck()"><span class="mif-plus"></span> Create</button>
+    </div>
+    <div style="display: none" id="EditButtons">
+        <button class="button warning" onclick="saveEditedCheck()"><span class="mif-loop2"></span> Update</button>
+        <button class="button alert" onclick="deleteCheck()"><span class="mif-cross"></span> Delete</button>
+        <button class="button primary" onclick="cancel()"><span class="mif-plus"></span> New CheckItem</button>
+    </div>
+
+    <hr class="thin bg-grayLighter">
+    <table class="dataTable border bordered" data-auto-width="false">
+        <thead>
+            <tr>
+                <td class="sortable-column sort-asc" style="width: 100px">ID</td>
+                <td class="sortable-column">Name</td>
+                <td class="sortable-column" style="width: 100px">Update</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var models in Model.Checks)
+            {
+                <tr>
+                    <td>@models.MaintenanceCheckID</td>
+                    <td>@models.Description</td>
+                    <td class="align-center"><button class="toolbar-button" onclick="LoadCheck(@models.MaintenanceCheckID)"><span class="mif-pencil"></span></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+
+        function tab_click(tab) {
+            console.log(tab);
+            return true;
+        }
+        function tab_change(tab) {
+            console.log(tab);
+        }
+
+
+        function createNewCheck() {
+            debugger;
+            var CurrentCoponent = {
+                Description: $(".Description").val()
+            }
+
+            $.ajax({
+                url: '/maintenance/createNewCheck',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(CurrentCoponent),
+                success: function (data) {
+
+                    $.Notify({
+                        caption: 'Check Items',
+                        content: 'Check Item successfully Created.',
+                        type: 'success'
+                    });
+
+                    debugger;
+                    $('.sidebar').children().removeClass('active');
+                    $('.sidebar li:nth-child(1)').addClass('active');
+
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function saveEditedCheck() {
+            debugger;
+            var CurrentCoponent = {
+                Description: $(".Description").val()
+            }
+
+            $.ajax({
+                url: '/maintenance/saveEditedCheck',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(CurrentCoponent),
+                success: function (data) {
+
+                    $.Notify({
+                        caption: 'Check Items',
+                        content: 'Check Item successfully Edited.',
+                        type: 'success'
+                    });
+
+                    debugger;
+                    $('.sidebar').children().removeClass('active');
+                    $('.sidebar li:nth-child(1)').addClass('active');
+
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function LoadCheck(viewName) {
+            var Model = { MaintenanceCheckID: viewName }
+
+            $.ajax({
+                url: '/maintenance/LoadCheck',
+                type: 'POST',
+                data: JSON.stringify(Model),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("edit");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Check Items',
+                        content: 'Check Item Editing Failed.',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function cancel() {
+
+            $.ajax({
+                url: '/maintenance/cancel',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("create");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Check Items',
+                        content: 'Check Item Editing Failed.',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function deleteCheck() {
+
+            $.ajax({
+                url: '/maintenance/deleteCheck',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("create");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Check Items',
+                        content: 'Check Item Deleting Failed .',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function chanageButtons(button) {
+            debugger;
+            if (button == "edit") {
+                debugger;
+                $("#CreateButton").hide();
+                $("#CreateTitle").hide();
+                $("#UpdateTitle").show();
+                $("#EditButtons").show();
+            }
+            if (button == "create") {
+                debugger;
+                $("#CreateButton").show();
+                $("#CreateTitle").show();
+                $("#UpdateTitle").hide();
+                $("#EditButtons").hide();
+            }
+
+        }
+
+    </script>
+

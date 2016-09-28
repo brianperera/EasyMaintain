@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    public class Workshop
-    {
-        public int WorkshopID { get; set; }
-        public string Name { get; set; }
-        public string Location { get; set; }
-        public string Address { get; set; }
-    }
+    //public class Workshop
+    //{
+    //    public int WorkshopID { get; set; }
+    //    public string Name { get; set; }
+    //    public string Location { get; set; }
+    //    public string Address { get; set; }
+    //}
     public class WorkshopModel
     {
         [Required]

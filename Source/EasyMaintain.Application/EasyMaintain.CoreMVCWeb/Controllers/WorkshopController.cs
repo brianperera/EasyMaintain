@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EasyMaintain.CoreWebMVC.Models;
 using EasyMaintain.CoreWebMVC.Utility;
+using EasyMaintain.DTO;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

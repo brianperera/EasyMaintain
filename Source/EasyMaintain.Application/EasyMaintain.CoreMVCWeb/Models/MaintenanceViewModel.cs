@@ -75,6 +75,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public int SelectedMemberIndex { get; set; } = -1 ;
 
         public AircraftModelModel AircraftModelModelObj { get; set; }
+        public MaintenanceCheckViewModel MaintenanceCheckViewModelObj { get; set; }
 
         public CrewViewModel CrewViewModelObj { get; set; }
 

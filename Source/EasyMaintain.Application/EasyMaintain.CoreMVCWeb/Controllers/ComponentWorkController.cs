@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using EasyMaintain.DTO;
 
 
 namespace EasyMaintain.CoreWebMVC.Controllers
@@ -41,7 +42,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             }
             componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
 
-            Model.Deliverydetailsmodel = new DeliveryDetailsModel();
+            //Model.Deliverydetailsmodel = new DeliveryDetailsModel();
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
             componentWorkViewModel.ComponentWorkOrders.Add(Model);
 
