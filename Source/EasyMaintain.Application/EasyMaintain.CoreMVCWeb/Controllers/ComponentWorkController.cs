@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using EasyMaintain.DTO;
+using EasyMaintain.CoreWebMVC.DataEntities;
 
 
 namespace EasyMaintain.CoreWebMVC.Controllers
@@ -31,16 +31,16 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult CreateWorkOrder([FromBody] ComponentWork Model)
         {
 
-            var uri = "api/Values/ComponentWorkCreate ";
+            //var uri = "api/Values/ComponentWorkCreate ";
 
-            List<ComponentWork> componentWorkItems;
+            //List<ComponentWork> componentWorkItems;
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
-            }
-            componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+            //}
+            //componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
 
             //Model.Deliverydetailsmodel = new DeliveryDetailsModel();
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
@@ -62,16 +62,16 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult Search()
         {
 
-            var uri = "api/Values/ComponentWorkData ";
+            //var uri = "api/Values/ComponentWorkData ";
 
-            List<ComponentWork> componentWorkItems;
+            //List<ComponentWork> componentWorkItems;
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
-            }
-            componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+            //}
+            //componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
             return PartialView("_Search", componentWorkViewModel);
         }
 
@@ -79,16 +79,16 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
          {
 
-            var uri = "api/Values/ComponentWorkInsert ";
+            //var uri = "api/Values/ComponentWorkInsert ";
 
-            List<ComponentWork> componentWorkItems;
+            //List<ComponentWork> componentWorkItems;
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
-            }
-            componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+            //}
+            //componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
 
 
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);

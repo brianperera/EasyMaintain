@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using EasyMaintain.DTO;
+using EasyMaintain.CoreWebMVC.DataEntities;
 
 
 
@@ -128,15 +128,15 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult Search()
         {
-            var uri = "api/Engine/EngineTypes";
-            List<Maintenance> maintenanceItems;
+            //var uri = "api/Engine/EngineTypes";
+            //List<Maintenance> maintenanceItems;
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
-            }
-            maintenanceViewModel.MaintenanceOrders = maintenanceItems;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+            //}
+            //maintenanceViewModel.MaintenanceOrders = maintenanceItems;
 
 
             //var maintenanceViewModel = new MaintenanceViewModel();
@@ -164,14 +164,14 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpDelete, Route("/maintenance/DeleteCheckItem")]
         public PartialViewResult DeleteCheckItem([FromBody] MaintenanceChecks CheckDiscription)
         {
-            var uri = "api/Engine/MaintenanceDelete/5";
-            List<MaintenanceChecks> maintenanceChecks;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceChecks = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
-            }
-            maintenanceViewModel.CheckItems = maintenanceChecks;
+            //var uri = "api/Engine/MaintenanceDelete/5";
+            //List<MaintenanceChecks> maintenanceChecks;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    maintenanceChecks = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
+            //}
+            //maintenanceViewModel.CheckItems = maintenanceChecks;
 
             var itemToRemove = maintenanceViewModel.CheckItems.Single(r => r.Description == CheckDiscription.Description);
             maintenanceViewModel.CheckItems.Remove(itemToRemove);
@@ -203,14 +203,14 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult DeleteCrewMember([FromBody]Crew CrewMember)
         {
 
-            var uri = "api/Crew/CrewDelete/5";
-            List<Crew> maintenanceCrew;
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceCrew = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
-            }
-            maintenanceViewModel.CrewMembers = maintenanceCrew;
+            //var uri = "api/Crew/CrewDelete/5";
+            //List<Crew> maintenanceCrew;
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    maintenanceCrew = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
+            //}
+            //maintenanceViewModel.CrewMembers = maintenanceCrew;
 
             var itemToRemove = maintenanceViewModel.CrewMembers.Single(r => r.Name == CrewMember.Name);
             maintenanceViewModel.CrewMembers.Remove(itemToRemove);
@@ -222,16 +222,17 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditMaintenanceOrder([FromBody]Maintenance ID)
         {
 
-            var uri = "api/Engine/EngineTypeUpdate";
-            List<Maintenance> maintenanceItems;
+            //var uri = "api/Engine/EngineTypeUpdate";
+            //List<Maintenance> maintenanceItems;
+
+            //using (HttpClient httpClient = new HttpClient())
+            //{
+            //    Task<String> response = httpClient.GetStringAsync(uri);
+            //    maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+            //}
+            //maintenanceViewModel.MaintenanceOrders = maintenanceItems;
 
             Maintenance item = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == ID.WorkID);
-            using (HttpClient httpClient = new HttpClient())
-            {
-                Task<String> response = httpClient.GetStringAsync(uri);
-                maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
-            }
-            maintenanceViewModel.MaintenanceOrders = maintenanceItems;
 
             maintenanceViewModel.WorkID = item.WorkID;
             maintenanceViewModel.CompletionDate = item.CompletionDate;

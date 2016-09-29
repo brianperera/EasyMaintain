@@ -201,6 +201,13 @@
     </div>
 </div>
 <script>
+
+    $(document).ready(function () {
+        debugger;
+        
+    });
+
+
     function tab_click(tab) {
         console.log(tab);
         return true;
@@ -251,6 +258,7 @@
 
     function DeleteMember(test) {
         saveTempData();
+
         var CurrentCoponent = { Name: $(test).data('assigned-id') }
 
         $.ajax({
@@ -268,7 +276,7 @@
 
     function addMember() {
         saveTempData();
-        
+
         var CurrentCoponent = { CrewID: $("#crewMember").val() }
         debugger;
         $.ajax({
