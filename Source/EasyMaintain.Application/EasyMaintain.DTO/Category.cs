@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.DTO
 {
-   public class Crew
+   public class Category
     {
-        public int CrewID { get; set; }
-        public string Name { get; set; }
-        public string Designation { get; set; }
 
+        public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string AdditionalData { get; set; }
 
     }
 }
