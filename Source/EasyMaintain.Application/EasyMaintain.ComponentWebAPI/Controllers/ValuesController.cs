@@ -1,5 +1,5 @@
 ﻿using EasyMaintain.Business;
-using EasyMaintain.Business.Entities;
+using EasyMaintain.DTO;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
@@ -9,7 +9,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
     public class ValuesController : ApiController
     {
         public IBusiness ComponentWorkRepo { get; set; }
-        public ComponentWork componentWork;
+        public ComponentWorkLogic componentWork;
 
         public ValuesController(IBusiness _repo)
         {

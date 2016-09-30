@@ -582,7 +582,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="manufacturerId"></param>
         /// <param name="imagepath"></param>
         /// <returns></returns>
-        public int AddAircraftModel(string aircraftModelname, string description, string additionalData, int categoryID, int engineTypeId, string flightNumber, string imagepath)
+        public int AddAircraftModel(string aircraftModelname, string description, string additionalData, string category, string engineType, string imagepath)
         {
             int recordId = -1;
 
@@ -592,7 +592,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var aircraftModel = db.Set<AircraftModel>();
-                    aircraftModel.Add(new AircraftModel { ModelName = aircraftModelname, CategoryID = categoryID, EngineTypeID = engineTypeId, FlightNumber = flightNumber, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
+                    aircraftModel.Add(new AircraftModel { ModelName = aircraftModelname, Category = category, EngineType = engineType, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
 
                     db.SaveChanges();
 
@@ -934,7 +934,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="manufacturerId"></param>
         /// <param name="imagepath"></param>
         /// <returns></returns>
-        public bool UpdateAircraftModel(int aircraftModleId, string aircraftModelname, string description, string additionalData, int categoryID, int engineTypeId, int manufacturerId, string imagepath)
+        public bool UpdateAircraftModel(int aircraftModleId, string aircraftModelname, string description, string additionalData, string category, string engineType, string manufacturer, string imagepath)
         {
             bool result = false;
 
@@ -948,9 +948,9 @@ namespace EasyMaintain.DataAccess
                     if (aircraftModel != null)
                     {
                         aircraftModel.ModelName = aircraftModelname;
-                        aircraftModel.CategoryID = categoryID;
-                        aircraftModel.EngineTypeID = engineTypeId;
-                        aircraftModel.AircraftModelID = manufacturerId;
+                        aircraftModel.Category = category;
+                        aircraftModel.EngineType = engineType;
+                        aircraftModel.Manufacturer = manufacturer;
                         aircraftModel.ImagePath = imagepath;
                         aircraftModel.Description = description;
                         aircraftModel.AdditionalData = additionalData;

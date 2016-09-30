@@ -8,6 +8,7 @@ namespace EasyMaintain.DTO
 {
     public class DeliveryDetails
     {
+        public int DeliveryDetailsId { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryMethod { get; set; }
         public string PersonInCharge { get; set; }

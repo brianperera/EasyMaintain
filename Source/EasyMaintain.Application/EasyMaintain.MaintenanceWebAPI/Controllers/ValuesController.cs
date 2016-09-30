@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class ValuesController : ApiController
     {
 
-        private Maintenance enginetype;
+        private MaintenanceLogic maintenanceLogic;
 
         public IBusiness EngineRepo { get; set; }
 
@@ -25,14 +26,14 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         [HttpGet]
         public IEnumerable<Maintenance> Maintenance()
         {
-            return (IEnumerable<Maintenance>)enginetype.GetData();
+            return (IEnumerable<Maintenance>)maintenanceLogic.GetData();
         }
 
         // GET api/values/5 
         [HttpGet]
         public IHttpActionResult MaintenanceID([FromBody] Maintenance workID)
         {
-            var item = enginetype.Find(workID);
+            var item = maintenanceLogic.Find(workID);
             if (item == null)
             {
                 return NotFound();
@@ -70,7 +71,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            enginetype.Insert(maintenance);
+            maintenanceLogic.Insert(maintenance);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
@@ -78,7 +79,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         [HttpDelete]
         public void Delete(Maintenance workID)
         {
-            enginetype.DeleteOne(workID);
+            maintenanceLogic.DeleteOne(workID);
         }
     }
 }

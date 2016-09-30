@@ -51,23 +51,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\ComponentWork.cs" />
-    <Compile Include="Entities\Crew.cs" />
-    <Compile Include="Entities\DeliveryDetails.cs" />
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\Maintenance.cs" />
-    <Compile Include="Entities\MaintenanceChecks.cs" />
-    <Compile Include="Entities\Manufacturer.cs" />
-    <Compile Include="Entities\Supplier.cs" />
-    <Compile Include="Entities\SparePart.cs" />
-    <Compile Include="Entities\AircraftModel.cs" />
+    <Compile Include="AircraftModelLogic.cs" />
+    <Compile Include="CategoryLogic.cs" />
+    <Compile Include="ComponentWorkLogic.cs" />
+    <Compile Include="CrewLogic.cs" />
+    <Compile Include="DeliveryDetailsLogic.cs" />
     <Compile Include="IBusiness.cs" />
+    <Compile Include="MaintenanceChecksLogic.cs" />
+    <Compile Include="MaintenanceLogic.cs" />
+    <Compile Include="ManufacturerLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SparePartLogic.cs" />
+    <Compile Include="SupplierLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyMaintain.DataAccess\EasyMaintain.DataAccess.csproj">
       <Project>{a83a5a72-0ba5-4c02-b6a9-6409c60c8f86}</Project>
       <Name>EasyMaintain.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EasyMaintain.DTO\EasyMaintain.DTO.csproj">
+      <Project>{a94085cb-5cc2-4d14-a16e-89ea38954217}</Project>
+      <Name>EasyMaintain.DTO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

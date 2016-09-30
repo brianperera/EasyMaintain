@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using EasyMaintain.DTO;
 using EasyMaintain.Business;
 
 namespace EasyMaintain.InventoryWebAPI.Controllers
@@ -16,7 +17,7 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
     public class SupplierController : ApiController
     {
         public IBusiness SupplierRepo { get; set; }
-        public Supplier supplier;
+        public SupplierLogic supplier;
         public SupplierController(IBusiness _repo)
         {
             SupplierRepo = _repo;

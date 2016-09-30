@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using EasyMaintain.Business;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.InventoryWebAPI.Controllers
 {
@@ -17,7 +18,7 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
     {
 
         public IBusiness CategoryRepo { get; set; }
-        public Category category;
+        public CategoryLogic category;
         public CategoryController(IBusiness _repo)
         {
             CategoryRepo = _repo;

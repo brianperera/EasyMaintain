@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using EasyMaintain.Business;
 using System.Threading.Tasks;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.ComponentWebAPI.Controllers
 {
@@ -13,7 +14,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
     {
 
         public IBusiness AircraftModelRepo { get; set; }
-        public AircraftModel aircraftmodel;
+        public AircraftModelLogic aircraftmodel;
         public AircraftModelController(IBusiness _repo)
         {
             AircraftModelRepo = _repo;

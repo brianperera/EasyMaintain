@@ -6,15 +6,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
+using EasyMaintain.DTO;
 using EasyMaintain.Business;
-using EasyMaintain.Business.Entities;
-
 
 namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class MaintenanceChecksController : ApiController
     {
-        private MaintenanceChecks checks;
+        private MaintenanceChecksLogic checks;
 
         public IBusiness MaintenanceChecksRepo { get; set; }
 
