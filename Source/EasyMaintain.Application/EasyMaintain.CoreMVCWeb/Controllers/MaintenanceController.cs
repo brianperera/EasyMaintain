@@ -246,19 +246,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
 
-
-
-            maintenanceViewModel.WorkID = item.WorkID;
-            maintenanceViewModel.CompletionDate = item.CompletionDate;
-            maintenanceViewModel.Description = item.Description;
-            maintenanceViewModel.FlightModel = item.FlightModel;
-            maintenanceViewModel.FlightNumber = item.FlightNumber;
-            maintenanceViewModel.StartDate = item.StartDate;
-            maintenanceViewModel.WorkshopLocation = item.Location;
-            maintenanceViewModel.CrewMembers = item.CrewMembers;
-            maintenanceViewModel.CheckItems = item.CheckItems;
-
-            return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
         }
 
         [HttpPost, Route("/maintenance/createNewCheck")]

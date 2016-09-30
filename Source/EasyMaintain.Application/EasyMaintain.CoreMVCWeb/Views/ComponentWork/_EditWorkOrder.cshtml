@@ -24,13 +24,13 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Component Name</label>
                                 <div class="input-control text full-size">
-                                    @Html.TextBoxFor(m => m.ComponentName, new { @class = "ComponentName", placeholder = "Component Name" })
+                                    @Html.TextBoxFor(m => m.ComponentName, new { @class = "ComponentName", @readonly = "readonly" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">
                                 <label class="display-block">Workshop</label>
                                 <div class="input-control select full-size">
-                                    @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "WorkshopLocation" })
+                                   @Html.TextBoxFor(m => m.WorkshopLocation, new { @class = "WorkshopLocation", @readonly = "readonly" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">
@@ -44,7 +44,7 @@
                             <div class="cell-form margin-right-10 cell size4">
                                 <label>Serial Number</label>
                                 <div class="input-control text full-size">
-                                    @Html.TextBoxFor(m => m.SerialNumber, new { @class = "SerialNumber", placeholder = "Serial Number" })
+                                    @Html.TextBoxFor(m => m.SerialNumber, new { @class = "SerialNumber", @readonly = "readonly" })
                                 </div>
                             </div>
                             <div class="cell-form margin-right-10 cell size4">

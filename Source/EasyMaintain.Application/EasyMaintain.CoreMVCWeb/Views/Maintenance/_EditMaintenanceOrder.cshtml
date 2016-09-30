@@ -22,7 +22,7 @@
                         <div class="cell-form margin-right-10 cell size4">
                             <label>Flight Model</label>
                             <div class="input-control text full-size">
-                                @Html.TextBoxFor(m => m.FlightModel, new { @class = "FlightModel", placeholder = "Flight Model" })
+                                @Html.TextBoxFor(m => m.FlightModel, new { @class = "FlightModel", @readonly = "readonly" })
 
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                         <div class="cell-form margin-right-10 cell size4">
                             <label class="display-block">Workshop</label>
                             <div class="input-control select full-size">
-                                @Html.DropDownListFor(m => m.WorkshopLocation, new SelectList(Model.Workshops), new { @class = "WorkshopLocation" })
+                                @Html.TextBoxFor(m => m.WorkshopLocation, new { @class = "WorkshopLocation", @readonly = "readonly" })
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                         <div class="cell-form margin-right-10 cell size4">
                             <label>Flight Number</label>
                             <div class="input-control text full-size">
-                                @Html.TextBoxFor(m => m.FlightNumber, new { @class = "FlightNumber", placeholder = "Flight Number" })
+                                @Html.TextBoxFor(m => m.FlightNumber, new { @class = "FlightNumber", @readonly = "readonly" })
                             </div>
                         </div>
                         <div class="cell-form margin-right-10 cell size4">

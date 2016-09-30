@@ -1,6 +1,42 @@
 ﻿@model EasyMaintain.CoreWebMVC.Models.MaintenanceViewModel
 
 <script src="~/Scripts/select2.min.js"></script>
+<script type="text/javascript">
+    function loadTempData() {
+        var aircraftModel = '';
+        var WorkshopLocation = '';
+
+        debugger;
+        @{
+        if(Model.FlightModel != null)
+        {
+            <Text>
+        aircraftModel = "@Model.FlightModel"
+        </Text>
+        }
+
+        if(Model.WorkshopLocation != null)
+        {
+            <Text>
+        WorkshopLocation = "@Model.WorkshopLocation"
+        </Text>
+        }
+
+    };
+        debugger;
+
+
+        if (aircraftModel != "") {
+            debugger;
+            $("#aircraftmodel").val(aircraftModel);
+        }
+
+        if (WorkshopLocation != "") {
+            debugger;
+            $("#workshop").val(WorkshopLocation);
+        }
+    }
+</script>
 
 <h1 class="text-light">Create Maintenance Order</h1>
 
@@ -39,6 +75,7 @@
                                         </span>
                                     </span>
                                 </div>
+                            <script type="text/javascript">loadTempData();</script>
                         </div>
 
                         <div class="cell-form margin-right-10 cell size4">
@@ -202,10 +239,6 @@
 </div>
 <script>
 
-    $(document).ready(function () {
-        debugger;
-        
-    });
 
 
     function tab_click(tab) {
