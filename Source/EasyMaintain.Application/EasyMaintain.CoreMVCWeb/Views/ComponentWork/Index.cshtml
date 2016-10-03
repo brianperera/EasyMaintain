@@ -26,9 +26,14 @@
                 </li>
             </ul>
         </div>
-        <div class="cell auto-size padding20 bg-white form-page-main-container" id="partial-view-container">
-            @*By default the Search partial view will be loaded*@
-            @Html.Partial("_Search")
+        <div class="cell auto-size bg-white form-page-main-container">
+            <div id="loadingDiv" class="dialog-overlay default loading-background ">
+                <div data-role="preloader" data-type="cycle" data-style="color"></div>
+            </div>
+            <div id="partial-view-container" class="padding20">
+                @*By default the Search partial view will be loaded*@
+                @Html.Partial("_Search")
+            </div>
         </div>
     </div>
 </div>

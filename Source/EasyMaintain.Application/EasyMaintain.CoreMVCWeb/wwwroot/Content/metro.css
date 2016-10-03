@@ -13548,15 +13548,15 @@ p [data-hint] {
   border-top-color: #f9c922;
 }
 .dialog-overlay {
-  background-color: transparent;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-height: 100%;
-  min-width: 100%;
-  z-index: 1049;
+    background-color: transparent;
+    position: fixed;
+    /* top: 0; */
+    /* left: 0; */
+    /* right: 0; */
+    /* bottom: 0; */
+    /* min-height: 100%; */
+    /* width: 86%; */
+    z-index: 1049;
 }
 .dialog {
   position: fixed;
