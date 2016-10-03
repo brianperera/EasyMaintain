@@ -27,7 +27,7 @@ namespace EasyMaintain.Business
             List<MaintenanceChecks> result = new List<MaintenanceChecks>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.MaintenanceChecks maintenanceCheck in dp.GetMaintenanceCheckData())
+            foreach (DTO.MaintenanceChecks maintenanceCheck in dp.GetMaintenanceCheckData())
             {
                 MaintenanceChecks _maintenanceCheck = new MaintenanceChecks();
                 _maintenanceCheck.Description = maintenanceCheck.Description;

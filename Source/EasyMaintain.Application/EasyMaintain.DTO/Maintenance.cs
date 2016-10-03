@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyMaintain.DTO
+
+    
 {
+
+    [Table("Maintenance")]
     public class Maintenance
     {
+        [Key]
         public int WorkID { get; set; }
         public string FlightModel { get; set; }
         public string FlightNumber { get; set; }

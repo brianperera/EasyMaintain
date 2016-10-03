@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using EasyMaintain.DataAccess.Models;
+using EasyMaintain.DTO;
+
 //using EasyMaintain.Business;
 
 namespace EasyMaintain.DataAccess
@@ -23,7 +24,7 @@ namespace EasyMaintain.DataAccess
             using (var db = new EasyMaintainDBContext())
             {
                 var query = from b in db.Suppliers
-                            orderby b.SupplierName
+                            orderby b.Name
                             select b;
 
                 foreach (var item in query)
@@ -167,7 +168,7 @@ namespace EasyMaintain.DataAccess
             using (var db = new EasyMaintainDBContext())
             {
                 var query = from b in db.Manufactureres
-                            orderby b.ManufacturerName
+                            orderby b.Name
                             select b;
 
                 foreach (var item in query)
@@ -317,7 +318,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var supplier = db.Set<Supplier>();
-                    supplier.Add(new Supplier { SupplierName = supplierName, EmailAddress = emailAddress, Address = address, ContactDetails = contact, Description = description, AdditionalData = additionalData });
+                    supplier.Add(new Supplier { Name = supplierName, EmailAddress = emailAddress, Address = address, ContactDetails = contact, Description = description, AdditionalData = additionalData });
 
                     db.SaveChanges();
 
@@ -349,7 +350,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var manufacturer = db.Set<Manufacturer>();
-                    manufacturer.Add(new Manufacturer { ManufacturerName = manufacturerName, Description = description, AdditionalData = additionalData });
+                    manufacturer.Add(new Manufacturer { Name = manufacturerName, Description = description, AdditionalData = additionalData });
 
                     db.SaveChanges();
 
@@ -616,7 +617,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="categoryID"></param>
         /// <param name="imagepath"></param>
         /// <returns></returns>
-        public int AddSparePart(string sparePartName, string description, string additionalData, int categoryID, string imagepath)
+        public int AddSparePart(string sparePartName, string description, string additionalData, Category category, string imagepath)
         {
 
             int recordId = -1;
@@ -627,7 +628,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var sparePart = db.Set<SparePart>();
-                    sparePart.Add(new SparePart { SparePartName = sparePartName, CategoryID = categoryID, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
+                    sparePart.Add(new SparePart { SparePartName = sparePartName, Category = category, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
 
                     db.SaveChanges();
 
@@ -668,7 +669,7 @@ namespace EasyMaintain.DataAccess
 
                     if (supplier != null)
                     {
-                        supplier.SupplierName = supplierName;
+                        supplier.Name = supplierName;
                         supplier.EmailAddress = emailAddress;
                         supplier.Address = address;
                         supplier.ContactDetails = contact;
@@ -708,7 +709,7 @@ namespace EasyMaintain.DataAccess
 
                     if (manufacturer != null)
                     {
-                        manufacturer.ManufacturerName = manufacturerName;
+                        manufacturer.Name = manufacturerName;
                         manufacturer.Description = description;
                         manufacturer.AdditionalData = additionalData;
                     }
@@ -1031,7 +1032,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="categoryID"></param>
         /// <param name="imagepath"></param>
         /// <returns></returns>
-        public bool UpdateSparePart(int sparePartId, string sparePartName, string description, string additionalData, int categoryID, string imagepath)
+        public bool UpdateSparePart(int sparePartId, string sparePartName, string description, string additionalData, Category category, string imagepath)
         {
             bool result = false;
 
@@ -1045,7 +1046,7 @@ namespace EasyMaintain.DataAccess
                     if (sparePart != null)
                     {
                         sparePart.SparePartName = sparePartName;
-                        sparePart.CategoryID = categoryID;
+                        sparePart.Category = category;
                         sparePart.ImagePath = imagepath;
                         sparePart.Description = description;
                         sparePart.AdditionalData = additionalData;

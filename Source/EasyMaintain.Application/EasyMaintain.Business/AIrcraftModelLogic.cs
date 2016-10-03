@@ -29,7 +29,7 @@ namespace EasyMaintain.Business
             List<AircraftModel> result = new List<AircraftModel>();
 
             DataProvidor dp = new DataProvidor();
-            foreach (DataAccess.Models.AircraftModel aircraftModel in dp.GetAircraftModelData())
+            foreach (DTO.AircraftModel aircraftModel in dp.GetAircraftModelData())
             {
                 AircraftModel _aircraftMod = new AircraftModel();
                 _aircraftMod.AircraftModelID = aircraftModel.AircraftModelID;

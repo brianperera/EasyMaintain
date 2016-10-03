@@ -27,7 +27,7 @@ namespace EasyMaintain.Business
             List<Maintenance> result = new List<Maintenance>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.Maintenance engineType in dp.GetMaintenanceData())
+            foreach (DTO.Maintenance engineType in dp.GetMaintenanceData())
             {
                 Maintenance _engineType = new Maintenance();
                 _engineType.WorkID = engineType.WorkID;

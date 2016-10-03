@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.Business
 {
@@ -28,11 +29,11 @@ namespace EasyMaintain.Business
             //List<Supplier> result = new List<Supplier>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.Supplier supplier in dp.GetSupplierData())
+            foreach (DTO.Supplier supplier in dp.GetSupplierData())
             {
                 Supplier _supplier = new Supplier();
                 _supplier.SupplierID = supplier.SupplierID;
-                _supplier.Name = supplier.SupplierName;
+                _supplier.Name = supplier.Name;
                 _supplier.Description = supplier.Description;
                 _supplier.Address = supplier.Address;
                 _supplier.ContactDetails = supplier.ContactDetails;

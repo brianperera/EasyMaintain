@@ -4,8 +4,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasyMaintain.DataAccess.Models;
+//using EasyMaintain.DataAccess.Models;
 //using EasyMaintain.Business;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.DataAccess
 {

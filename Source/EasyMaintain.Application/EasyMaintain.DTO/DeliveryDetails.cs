@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace EasyMaintain.DTO
 {
     public class DeliveryDetails
     {
+        [Key]
         public int DeliveryDetailsId { get; set; }
         public string DeliveryDate { get; set; }
         public string DeliveryMethod { get; set; }

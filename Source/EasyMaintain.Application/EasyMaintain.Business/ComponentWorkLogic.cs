@@ -26,7 +26,7 @@ namespace EasyMaintain.Business
             List<ComponentWork> result = new List<ComponentWork>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.ComponentWork componentWork in dp.GetComponentWorkData())
+            foreach (DTO.ComponentWork componentWork in dp.GetComponentWorkData())
             {
                 ComponentWork _componentWork = new ComponentWork();
                 _componentWork.WorkID = componentWork.WorkID;

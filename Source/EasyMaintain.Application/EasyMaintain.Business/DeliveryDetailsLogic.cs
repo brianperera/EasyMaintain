@@ -28,7 +28,7 @@ namespace EasyMaintain.Business
             List<DeliveryDetails> result = new List<DeliveryDetails>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.DeliveryDetails deliveryDetails in dp.GetdeliveryDetailsData())
+            foreach (DTO.DeliveryDetails deliveryDetails in dp.GetdeliveryDetailsData())
             {
                 DeliveryDetails _deliveryDetails = new DeliveryDetails();
                 _deliveryDetails.DeliveryDetailsId = deliveryDetails.DeliveryDetailsId;

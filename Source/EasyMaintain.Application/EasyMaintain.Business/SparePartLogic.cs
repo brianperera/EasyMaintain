@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EasyMaintain.DTO;
 
 namespace EasyMaintain.Business
 {
@@ -26,7 +27,7 @@ namespace EasyMaintain.Business
             List<SparePart> result = new List<SparePart>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.SparePart sparePart in dp.GetSparePartsData())
+            foreach (DTO.SparePart sparePart in dp.GetSparePartsData())
             {
                 SparePart _sparePart = new SparePart();
 
@@ -64,7 +65,7 @@ namespace EasyMaintain.Business
         {
             this.mSparePart = sparePart as SparePart;
             DataProvidor dp = new DataProvidor();
-            return dp.AddSparePart(mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category.CategoryID, mSparePart.ImagePath);
+            return dp.AddSparePart(mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category, mSparePart.ImagePath);
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace EasyMaintain.Business
         {
             this.mSparePart = sparePart as SparePart;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateSparePart(mSparePart.SparePartID, mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category.CategoryID, mSparePart.ImagePath);
+            return dp.UpdateSparePart(mSparePart.SparePartID, mSparePart.SparePartName, mSparePart.Description, mSparePart.AdditionalData, mSparePart.Category, mSparePart.ImagePath);
         }
 
 

@@ -27,11 +27,11 @@ namespace EasyMaintain.Business
             List<Manufacturer> result = new List<Manufacturer>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.Manufacturer manufacturer in dp.GetManufacturerData())
+            foreach (DTO.Manufacturer manufacturer in dp.GetManufacturerData())
             {
                 Manufacturer _manufacturer = new Manufacturer();
                 _manufacturer.ManufacturerID = manufacturer.ManufacturerID;
-                _manufacturer.Name = manufacturer.ManufacturerName;
+                _manufacturer.Name = manufacturer.Name;
                 _manufacturer.Description = manufacturer.Description;
                 _manufacturer.AdditionalData = manufacturer.AdditionalData;
 

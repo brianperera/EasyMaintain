@@ -33,7 +33,7 @@ namespace EasyMaintain.Business
             List<Crew> result = new List<Crew>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.Crew crew in dp.GetCrewData())
+            foreach (DTO.Crew crew in dp.GetCrewData())
             {
                 Crew _crew = new Crew();
                 _crew.Name = crew.Name;

@@ -26,7 +26,7 @@ namespace EasyMaintain.Business
             List<Category> result = new List<Category>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DataAccess.Models.Category category in dp.GetCategoryData())
+            foreach (DTO.Category category in dp.GetCategoryData())
             {
                 Category _category = new Category();
                 _category.CategoryID = category.CategoryID;
