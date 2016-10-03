@@ -23,7 +23,8 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         }
 
-        // GET api/values 
+        // GET api/Maintenance
+        [HttpGet]
         public IEnumerable<Maintenance> Get()
         {
             return (IEnumerable<Maintenance>)maintenanceLogic.GetData();
@@ -53,6 +54,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
         // PUT api/values/5 
+        [HttpPut]
         public IHttpActionResult Put(Maintenance workID, [FromBody]Maintenance maintenance)
         {
             if (workID == null || workID.Equals(0))
@@ -70,6 +72,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
         // DELETE api/values/5 
+        [HttpDelete]
         public void Delete(int id)
         {
             maintenanceLogic.DeleteOne(id);
