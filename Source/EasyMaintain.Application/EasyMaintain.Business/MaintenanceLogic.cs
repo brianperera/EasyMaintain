@@ -27,15 +27,15 @@ namespace EasyMaintain.Business
             List<Maintenance> result = new List<Maintenance>();
             DataProvidor dp = new DataProvidor();
 
-            foreach (DTO.Maintenance engineType in dp.GetMaintenanceData())
+            foreach (DTO.Maintenance maintenance in dp.GetMaintenanceData())
             {
-                Maintenance _engineType = new Maintenance();
-                _engineType.WorkID = engineType.WorkID;
-                _engineType.FlightModel = engineType.FlightModel;
-                _engineType.FlightNumber = engineType.FlightNumber;
-                _engineType.Description = engineType.Description;
+                Maintenance _maintenance = new Maintenance();
+                _maintenance.WorkID = maintenance.WorkID;
+                _maintenance.FlightModel = maintenance.FlightModel;
+                _maintenance.FlightNumber = maintenance.FlightNumber;
+                _maintenance.Description = maintenance.Description;
 
-                result.Add(_engineType);
+                result.Add(_maintenance);
             }
 
             return result;
@@ -93,11 +93,11 @@ namespace EasyMaintain.Business
             return dp.UpdateMaintenance(mMaintenance.WorkID.ToString(), mMaintenance.FlightModel, mMaintenance.Description);
         }
 
-        public Maintenance Find(object WorkID)
+        public Maintenance Find(int id)
         {
             List<Maintenance> result = new List<Maintenance>();
             return result
-                .Where(e => e.WorkID.Equals(WorkID))
+                .Where(e => e.WorkID.Equals(id))
                 .SingleOrDefault();
         }
 

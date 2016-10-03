@@ -3,7 +3,7 @@ namespace EasyMaintain.DataAccess.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class NewDB : DbMigration
     {
         public override void Up()
         {
@@ -12,21 +12,15 @@ namespace EasyMaintain.DataAccess.Migrations
                 c => new
                     {
                         AircraftModelID = c.Int(nullable: false, identity: true),
+                        Category = c.String(),
                         ModelName = c.String(),
+                        Manufacturer = c.String(),
+                        EngineType = c.String(),
                         Description = c.String(),
                         ImagePath = c.String(),
                         AdditionalData = c.String(),
-                        Category_CategoryID = c.Int(),
-                        EngineType_WorkID = c.Int(),
-                        Manufacturer_ManufacturerID = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.AircraftModelID)
-                .ForeignKey("dbo.Categories", t => t.Category_CategoryID)
-                .ForeignKey("dbo.EngineType", t => t.EngineType_WorkID)
-                .ForeignKey("dbo.Manufacturers", t => t.Manufacturer_ManufacturerID)
-                .Index(t => t.Category_CategoryID)
-                .Index(t => t.EngineType_WorkID)
-                .Index(t => t.Manufacturer_ManufacturerID);
+                .PrimaryKey(t => t.AircraftModelID);
             
             CreateTable(
                 "dbo.Categories",
@@ -39,7 +33,66 @@ namespace EasyMaintain.DataAccess.Migrations
                 .PrimaryKey(t => t.CategoryID);
             
             CreateTable(
-                "dbo.EngineType",
+                "dbo.ComponentWorks",
+                c => new
+                    {
+                        WorkID = c.Int(nullable: false, identity: true),
+                        Component = c.String(),
+                        SerialNumber = c.String(),
+                        FlightNumber = c.String(),
+                        Description = c.String(),
+                        CreatedDate = c.String(),
+                        Location = c.String(),
+                        Deliverydetails_DeliveryDetailsId = c.Int(),
+                    })
+                .PrimaryKey(t => t.WorkID)
+                .ForeignKey("dbo.DeliveryDetails", t => t.Deliverydetails_DeliveryDetailsId)
+                .Index(t => t.Deliverydetails_DeliveryDetailsId);
+            
+            CreateTable(
+                "dbo.DeliveryDetails",
+                c => new
+                    {
+                        DeliveryDetailsId = c.Int(nullable: false, identity: true),
+                        DeliveryDate = c.String(),
+                        DeliveryMethod = c.String(),
+                        PersonInCharge = c.String(),
+                        AddressLine1 = c.String(),
+                        AddressLine2 = c.String(),
+                        City = c.String(),
+                        State = c.String(),
+                        AddtionalNotes = c.String(),
+                    })
+                .PrimaryKey(t => t.DeliveryDetailsId);
+            
+            CreateTable(
+                "dbo.Crews",
+                c => new
+                    {
+                        CrewID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Designation = c.String(),
+                        Maintenance_WorkID = c.Int(),
+                    })
+                .PrimaryKey(t => t.CrewID)
+                .ForeignKey("dbo.Maintenance", t => t.Maintenance_WorkID)
+                .Index(t => t.Maintenance_WorkID);
+            
+            CreateTable(
+                "dbo.MaintenanceChecks",
+                c => new
+                    {
+                        MaintenanceCheckID = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
+                        status = c.Boolean(nullable: false),
+                        Maintenance_WorkID = c.Int(),
+                    })
+                .PrimaryKey(t => t.MaintenanceCheckID)
+                .ForeignKey("dbo.Maintenance", t => t.Maintenance_WorkID)
+                .Index(t => t.Maintenance_WorkID);
+            
+            CreateTable(
+                "dbo.Maintenance",
                 c => new
                     {
                         WorkID = c.Int(nullable: false, identity: true),
@@ -53,30 +106,6 @@ namespace EasyMaintain.DataAccess.Migrations
                 .PrimaryKey(t => t.WorkID);
             
             CreateTable(
-                "dbo.MaintenanceChecks",
-                c => new
-                    {
-                        Description = c.String(nullable: false, maxLength: 128),
-                        status = c.Boolean(nullable: false),
-                        EngineType_WorkID = c.Int(),
-                    })
-                .PrimaryKey(t => t.Description)
-                .ForeignKey("dbo.EngineType", t => t.EngineType_WorkID)
-                .Index(t => t.EngineType_WorkID);
-            
-            CreateTable(
-                "dbo.Crews",
-                c => new
-                    {
-                        Name = c.String(nullable: false, maxLength: 128),
-                        Designation = c.String(),
-                        EngineType_WorkID = c.Int(),
-                    })
-                .PrimaryKey(t => t.Name)
-                .ForeignKey("dbo.EngineType", t => t.EngineType_WorkID)
-                .Index(t => t.EngineType_WorkID);
-            
-            CreateTable(
                 "dbo.Manufacturers",
                 c => new
                     {
@@ -84,23 +113,8 @@ namespace EasyMaintain.DataAccess.Migrations
                         Name = c.String(),
                         Description = c.String(),
                         AdditionalData = c.String(),
-                        ManufacturerName = c.String(),
                     })
                 .PrimaryKey(t => t.ManufacturerID);
-            
-            CreateTable(
-                "dbo.ComponentWorks",
-                c => new
-                    {
-                        WorkID = c.Int(nullable: false, identity: true),
-                        Component = c.String(),
-                        SerialNumber = c.String(),
-                        FlightNumber = c.String(),
-                        Description = c.String(),
-                        CreatedDate = c.String(),
-                        Location = c.String(),
-                    })
-                .PrimaryKey(t => t.WorkID);
             
             CreateTable(
                 "dbo.SpareParts",
@@ -136,24 +150,21 @@ namespace EasyMaintain.DataAccess.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.SpareParts", "Category_CategoryID", "dbo.Categories");
-            DropForeignKey("dbo.AircraftModels", "Manufacturer_ManufacturerID", "dbo.Manufacturers");
-            DropForeignKey("dbo.AircraftModels", "EngineType_WorkID", "dbo.EngineType");
-            DropForeignKey("dbo.Crews", "EngineType_WorkID", "dbo.EngineType");
-            DropForeignKey("dbo.MaintenanceChecks", "EngineType_WorkID", "dbo.EngineType");
-            DropForeignKey("dbo.AircraftModels", "Category_CategoryID", "dbo.Categories");
+            DropForeignKey("dbo.Crews", "Maintenance_WorkID", "dbo.Maintenance");
+            DropForeignKey("dbo.MaintenanceChecks", "Maintenance_WorkID", "dbo.Maintenance");
+            DropForeignKey("dbo.ComponentWorks", "Deliverydetails_DeliveryDetailsId", "dbo.DeliveryDetails");
             DropIndex("dbo.SpareParts", new[] { "Category_CategoryID" });
-            DropIndex("dbo.Crews", new[] { "EngineType_WorkID" });
-            DropIndex("dbo.MaintenanceChecks", new[] { "EngineType_WorkID" });
-            DropIndex("dbo.AircraftModels", new[] { "Manufacturer_ManufacturerID" });
-            DropIndex("dbo.AircraftModels", new[] { "EngineType_WorkID" });
-            DropIndex("dbo.AircraftModels", new[] { "Category_CategoryID" });
+            DropIndex("dbo.MaintenanceChecks", new[] { "Maintenance_WorkID" });
+            DropIndex("dbo.Crews", new[] { "Maintenance_WorkID" });
+            DropIndex("dbo.ComponentWorks", new[] { "Deliverydetails_DeliveryDetailsId" });
             DropTable("dbo.Suppliers");
             DropTable("dbo.SpareParts");
-            DropTable("dbo.ComponentWorks");
             DropTable("dbo.Manufacturers");
-            DropTable("dbo.Crews");
+            DropTable("dbo.Maintenance");
             DropTable("dbo.MaintenanceChecks");
-            DropTable("dbo.EngineType");
+            DropTable("dbo.Crews");
+            DropTable("dbo.DeliveryDetails");
+            DropTable("dbo.ComponentWorks");
             DropTable("dbo.Categories");
             DropTable("dbo.AircraftModels");
         }

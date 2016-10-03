@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.5.2": {
-      "EntityFramework/6.1.3": {
+      "EntityFramework/6.1.2": {
         "type": "package",
         "frameworkAssemblies": [
           "System.ComponentModel.DataAnnotations"
@@ -1797,12 +1797,12 @@
     }
   },
   "libraries": {
-    "EntityFramework/6.1.3": {
-      "sha512": "2xzFHAF3VVdmTR3//MygtQpwfbDjeaq+nQwCcokLzen7MKHOojPaxNPQPa4diHY1QtcR7zlHAJHNRqPB7W2Syw==",
+    "EntityFramework/6.1.2": {
+      "sha512": "tMYDJsgf19mFkwu1Dp3e681IggYcnuLJrj+OoQtYJ7L8lOD0OprBRyLy9sTTY4leJ2216HU3yFQucEPPKd1BGw==",
       "type": "package",
-      "path": "EntityFramework/6.1.3",
+      "path": "EntityFramework/6.1.2",
       "files": [
-        "EntityFramework.6.1.3.nupkg.sha512",
+        "EntityFramework.6.1.2.nupkg.sha512",
         "EntityFramework.nuspec",
         "content/App.config.transform",
         "content/Web.config.transform",
@@ -4840,7 +4840,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "EntityFramework >= 6.1.3",
+      "EntityFramework >= 6.1.2",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.0",
       "Microsoft.AspNetCore.Razor.Tools >= 1.0.0-preview2-final",

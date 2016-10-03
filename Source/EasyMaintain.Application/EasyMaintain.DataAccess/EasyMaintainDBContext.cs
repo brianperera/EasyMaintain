@@ -17,7 +17,7 @@ namespace EasyMaintain.DataAccess
             Database.SetInitializer<EasyMaintainDBContext>(new CreateDatabaseIfNotExists<EasyMaintainDBContext>());
         }
 
-        public EasyMaintainDBContext() : base("Name=EasyMaintainDB")
+        public EasyMaintainDBContext() : base("EasyMaintainDBTest")
         {
 
         }

@@ -9,7 +9,10 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
     public class MaintenanceController : ApiController
     {
 
-        private MaintenanceLogic maintenanceLogic;
+        //  private MaintenanceLogic maintenanceLogic;
+
+        MaintenanceLogic maintenanceLogic = new MaintenanceLogic();
+
 
         public IBusiness EngineRepo { get; set; }
 
@@ -31,16 +34,16 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
         // GET api/values/5 
-        public IHttpActionResult Get(int id)
-        {
-            var item = maintenanceLogic.Find(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+        //public IHttpActionResult Get(int id)
+        //{
+        //    var item = maintenanceLogic.Find(id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(item);
-        }
+        //    return Ok(item);
+        //}
 
         // POST api/values 
         public IHttpActionResult Post([FromBody]Maintenance maintenance)

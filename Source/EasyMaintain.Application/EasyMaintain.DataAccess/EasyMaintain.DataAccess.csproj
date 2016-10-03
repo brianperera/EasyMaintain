@@ -61,13 +61,9 @@
   <ItemGroup>
     <Compile Include="DataProvidor.cs" />
     <Compile Include="EasyMaintainDBContext.cs" />
-    <Compile Include="Migrations\201609140902318_InitialCreate.cs" />
-    <Compile Include="Migrations\201609140902318_InitialCreate.Designer.cs">
-      <DependentUpon>201609140902318_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.cs" />
-    <Compile Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.Designer.cs">
-      <DependentUpon>201609150618114_addedPropertiesToDelivaryDetails.cs</DependentUpon>
+    <Compile Include="Migrations\201610031211489_NewDB.cs" />
+    <Compile Include="Migrations\201610031211489_NewDB.Designer.cs">
+      <DependentUpon>201610031211489_NewDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
@@ -83,7 +79,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -93,18 +91,15 @@
     <Folder Include="App_Start\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609140902318_InitialCreate.resx">
-      <DependentUpon>201609140902318_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609150618114_addedPropertiesToDelivaryDetails.resx">
-      <DependentUpon>201609150618114_addedPropertiesToDelivaryDetails.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EasyMaintain.DTO\EasyMaintain.DTO.csproj">
       <Project>{a94085cb-5cc2-4d14-a16e-89ea38954217}</Project>
       <Name>EasyMaintain.DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201610031211489_NewDB.resx">
+      <DependentUpon>201610031211489_NewDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

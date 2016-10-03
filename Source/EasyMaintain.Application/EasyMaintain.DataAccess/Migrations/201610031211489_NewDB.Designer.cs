@@ -7,13 +7,13 @@ namespace EasyMaintain.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CrewID : IMigrationMetadata
+    public sealed partial class NewDB : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CrewID));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewDB));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609210747504_CrewID"; }
+            get { return "201610031211489_NewDB"; }
         }
         
         string IMigrationMetadata.Source
