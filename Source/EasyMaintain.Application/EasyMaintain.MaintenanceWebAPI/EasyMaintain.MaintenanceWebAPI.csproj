@@ -102,10 +102,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\MaintenanceChecksController.cs" />
     <Compile Include="Controllers\CrewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\MaintenanceController.cs" />
     <Compile Include="OwinCommunicationListener.cs" />
     <Compile Include="MaintenanceWebAPI.cs" />
     <Compile Include="Program.cs" />

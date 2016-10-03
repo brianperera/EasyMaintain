@@ -27,25 +27,25 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         // [Route("api/[controller]")]
         public ActionResult Index()
         {
-            //try
-            //{
-            //    var uri = "api/values/Maintenance ";
+            try
+            {
+                var uri = "api/Maintenance/Get ";
 
-            //    List<Maintenance> maintenanceItems;
+                List<Maintenance> maintenanceItems;
 
-            //    using (HttpClient httpClient = new HttpClient())
-            //    {
-            //        httpClient.BaseAddress = new Uri("http://localhost:172.204.144");
-            //        Task<String> response = httpClient.GetStringAsync(uri);
-            //        maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
-            //    }
-            //    maintenanceViewModel.MaintenanceOrders =  maintenanceItems;
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);
+                }
+                maintenanceViewModel.MaintenanceOrders = maintenanceItems;
 
-            //}
-            //catch (AggregateException e)
-            //{
+            }
+            catch (AggregateException e)
+            {
 
-            //}
+            }
             maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
             UpdateMaintenanceViewModel();
             return View(maintenanceViewModel);
