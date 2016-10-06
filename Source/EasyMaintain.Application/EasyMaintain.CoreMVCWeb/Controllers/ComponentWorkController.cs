@@ -21,6 +21,28 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public ActionResult Index()
         {
+            try
+            {
+                var uri = "api/Component/Get ";
+
+                List<ComponentWork> componentWorkItems;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8425");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
+                }
+                componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
+            componentWorkViewModel.ComponentWorkOrders[0].Deliverydetails = new DeliveryDetails();
+
             componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
             ClearSession();
             UpdateComponentWorkViewModel();
@@ -31,18 +53,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult CreateWorkOrder([FromBody] ComponentWork Model)
         {
 
-            //var uri = "api/Values/ComponentWorkCreate ";
-
-            //List<ComponentWork> componentWorkItems;
-
-            //using (HttpClient httpClient = new HttpClient())
-            //{
-            //    Task<String> response = httpClient.GetStringAsync(uri);
-            //    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
-            //}
-            //componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
-
-            //Model.Deliverydetailsmodel = new DeliveryDetailsModel();
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
             componentWorkViewModel.ComponentWorkOrders.Add(Model);
 
@@ -62,16 +72,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult Search()
         {
 
-            //var uri = "api/Values/ComponentWorkData ";
-
-            //List<ComponentWork> componentWorkItems;
-
-            //using (HttpClient httpClient = new HttpClient())
-            //{
-            //    Task<String> response = httpClient.GetStringAsync(uri);
-            //    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
-            //}
-            //componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+            
             return PartialView("_Search", componentWorkViewModel);
         }
 
@@ -79,16 +80,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
          {
 
-            //var uri = "api/Values/ComponentWorkInsert ";
-
-            //List<ComponentWork> componentWorkItems;
-
-            //using (HttpClient httpClient = new HttpClient())
-            //{
-            //    Task<String> response = httpClient.GetStringAsync(uri);
-            //    componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
-            //}
-            //componentWorkViewModel.ComponentWorkOrders = componentWorkItems;
+           
 
 
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);

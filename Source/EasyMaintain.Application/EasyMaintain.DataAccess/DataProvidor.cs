@@ -75,7 +75,7 @@ namespace EasyMaintain.DataAccess
             {
                 var query = from b in db.ComponentWorks
                             orderby b.Component
-                            select b;
+                            select b; //check here
 
                 foreach (var item in query)
                 {
@@ -183,7 +183,6 @@ namespace EasyMaintain.DataAccess
         /// Get Crew Data
         /// </summary>
         /// <returns></returns>
-
         public List<Crew> GetCrewData()
         {
             List<Crew> crew = new List<Crew>();
@@ -814,11 +813,6 @@ namespace EasyMaintain.DataAccess
         }
 
 
-
-
-
-
-
         /// <summary>
         /// Update Manufacturer
         /// </summary>
@@ -1014,14 +1008,6 @@ namespace EasyMaintain.DataAccess
             return result;
         }
 
-
-
-
-
-
-
-
-
         /// <summary>
         /// Update Spare Part
         /// </summary>
@@ -1145,10 +1131,6 @@ namespace EasyMaintain.DataAccess
                 db.SaveChanges();
             }
         }
-
-
-
-
 
         /// <summary>
         /// Delete Category

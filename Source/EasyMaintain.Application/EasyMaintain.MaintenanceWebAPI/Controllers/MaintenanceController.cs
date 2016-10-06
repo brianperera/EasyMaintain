@@ -34,16 +34,16 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
        // GET api/values/5 
-        public IHttpActionResult Get(int id)
-        {
-            var item = maintenanceLogic.Find(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
+        //public IHttpActionResult GetID(int id)
+        //{
+        //    var item = maintenanceLogic.Find(id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(item);
-        }
+        //    return Ok(item);
+        //}
 
         // POST api/Maintenance
         [HttpPost]
