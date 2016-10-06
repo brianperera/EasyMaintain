@@ -33,30 +33,32 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             return (IEnumerable<Maintenance>)maintenanceLogic.GetData();
         }
 
-        // GET api/values/5 
-        //public IHttpActionResult Get(int id)
-        //{
-        //    var item = maintenanceLogic.Find(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
+       // GET api/values/5 
+        public IHttpActionResult Get(int id)
+        {
+            var item = maintenanceLogic.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
 
-        //    return Ok(item);
-        //}
+            return Ok(item);
+        }
 
-        // POST api/values 
-        public IHttpActionResult Post([FromBody]Maintenance maintenance)
+        // POST api/Maintenance
+        [HttpPost]
+        public IHttpActionResult Post(Maintenance maintenance)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            EngineRepo.UpdateOne(maintenance);
+            maintenanceLogic.Insert(maintenance);
+
             return CreatedAtRoute("DefaultApi", new { id = maintenance.WorkID }, maintenance);
         }
 
-        // PUT api/values/5 
+        // PUT api/Maintenance/5 
         [HttpPut]
         public IHttpActionResult Put(Maintenance workID, [FromBody]Maintenance maintenance)
         {
@@ -70,11 +72,11 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            maintenanceLogic.Insert(maintenance);
+            maintenanceLogic.UpdateOne(maintenance);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // DELETE api/values/5 
+        // DELETE api/Maintenance/5 
         [HttpDelete]
         public void Delete(int id)
         {

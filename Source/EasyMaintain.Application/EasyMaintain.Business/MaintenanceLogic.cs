@@ -16,7 +16,7 @@ namespace EasyMaintain.Business
 
         }
 
-        Maintenance mMaintenance;
+        Maintenance mMaintenance = new Maintenance();
 
         /// <summary>
         /// Get data
