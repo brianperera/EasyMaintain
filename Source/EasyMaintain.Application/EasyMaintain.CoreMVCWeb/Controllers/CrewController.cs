@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EasyMaintain.CoreWebMVC.Utility;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using Newtonsoft.Json;
+using System.Net;
+using System.IO;
+using System.Net.Http;
 
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,6 +23,26 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
+            try
+            {
+                var uri = "api/Crew/Get ";
+
+                List<Crew> crewItems;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    crewItems = JsonConvert.DeserializeObject<List<Crew>>(response.Result);
+                }
+                CrewViewModel.CrewList = crewItems;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
             ClearSession();
             return View(CrewViewModel);
         }
@@ -28,9 +52,37 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         {
             int finalIndex = (CrewViewModel.CrewList.Count) - 1;
             Model.CrewID = CrewViewModel.CrewList[finalIndex].CrewID + 1;
-            CrewViewModel.CrewList.Add(Model);
+           // CrewViewModel.CrewList.Add(Model);
+            try
+            {
+
+                string crewData = JsonConvert.SerializeObject(Model);
+
+                this.PostAsync("http://localhost:8961/api/Crew/", crewData);
+                CrewViewModel.CrewList.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return PartialView("_CrewModel", CrewViewModel);
+
+        }
+
+
+        public void PostAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "POST";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
         }
 

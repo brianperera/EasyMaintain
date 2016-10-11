@@ -34,5 +34,7 @@ namespace EasyMaintain.DataAccess
         public DbSet<ComponentWork> ComponentWorks { get; set; }
 
         public DbSet<DeliveryDetails> Deliveries { get; set; }
+
+        public DbSet<Inventory> Inventories { get; set; }
     }
 }

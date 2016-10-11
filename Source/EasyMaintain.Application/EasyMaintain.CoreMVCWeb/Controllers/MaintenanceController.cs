@@ -24,6 +24,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         MaintenanceViewModel maintenanceViewModel = SessionUtility.utilityMaintenanceViewModel;
         MaintenanceCheckViewModel maintenanceCheckViewModel = SessionUtility.utilityMaintenanceCheckViewModel;
+        CrewViewModel CrewViewModel = SessionUtility.utilityCrewViewModel;
         // GET: /<controller>/
         // [Route("api/[controller]")]
         public ActionResult Index()
@@ -189,10 +190,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/AddCrewMember")]
         public PartialViewResult AddCrewMember([FromBody] Crew Model)
         {
-           
 
             UpdateMaintenanceViewModel();
-            Crew Member = maintenanceViewModel.CrewViewModelObj.CrewList.Single(r => r.CrewID == Model.CrewID);
+            Crew Member = maintenanceViewModel.CrewViewModelObj.CrewList.FirstOrDefault(r => r.CrewID == Model.CrewID);
 
             maintenanceViewModel.CrewMembers.Add(new Crew() { Name = Member.Name, Designation = Member.Designation });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_3;
@@ -267,6 +267,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult createNewCheck([FromBody]MaintenanceChecks Model)
         {
             int finalIndex = (maintenanceCheckViewModel.Checks.Count) - 1;
+
             try
             {
                 Model.MaintenanceCheckID = maintenanceCheckViewModel.Checks[finalIndex].MaintenanceCheckID + 1;
@@ -275,9 +276,20 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
                 Model.MaintenanceCheckID = 1;
             }
-            maintenanceCheckViewModel.Checks.Add(Model);
+            //maintenanceCheckViewModel.Checks.Add(Model);
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
 
+            try
+            {
+
+                string maintenanceCheckData = JsonConvert.SerializeObject(Model);
+
+                this.PostAsync("http://localhost:8961/api/MaintenanceCheck/", maintenanceCheckData);
+                maintenanceCheckViewModel.Checks.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
         }
@@ -291,6 +303,26 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceCheckViewModel.MaintenanceCheckID = item.MaintenanceCheckID;
             maintenanceCheckViewModel.Description = item.Description;
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
+
+            try
+            {
+                var uri = "api/MaintenanceCheck/Get ";
+
+                List<MaintenanceChecks> maintenanceCheckItems;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    maintenanceCheckItems = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
+                }
+                maintenanceCheckViewModel.Checks = maintenanceCheckItems;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
 
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 

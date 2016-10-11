@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -19,7 +21,33 @@ namespace EasyMaintain.CoreWebMVC.Models
         public MaintenanceCheckViewModel()
         {
             Checks = new List<MaintenanceChecks>();
-            Checks.Add(new MaintenanceChecks() { MaintenanceCheckID = 1 , Description = "Check Landing Gear Hydraulics" });
+            
+            updateList();
+
+        }
+        public void updateList()
+        {
+
+            try
+            {
+                var uri = "api/MaintenanceCheck/Get ";
+
+                List<MaintenanceChecks> maintenanceList;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    maintenanceList = JsonConvert.DeserializeObject<List<MaintenanceChecks>>(response.Result);
+                }
+                Checks = maintenanceList;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
         }
     }
 }

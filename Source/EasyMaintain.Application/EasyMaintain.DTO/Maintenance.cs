@@ -22,8 +22,8 @@ namespace EasyMaintain.DTO
         public string StartDate { get; set; }
         public string CompletionDate { get; set; }
         public string Location { get; set; }
-        public List<MaintenanceChecks> CheckItems { get; set; }
-        public List<Crew> CrewMembers { get; set; }
+        public virtual List<MaintenanceChecks> CheckItems { get; set; }
+        public virtual List<Crew> CrewMembers { get; set; }
 
 
     }

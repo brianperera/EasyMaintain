@@ -38,7 +38,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            componentWorkLogic.UpdateOne(componentWork);
+            componentWorkLogic.Insert(componentWork);
             return CreatedAtRoute("DefaultApi", new { id = componentWork.WorkID }, componentWork);
 
         }

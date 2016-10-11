@@ -15,7 +15,7 @@ namespace EasyMaintain.DTO
         public string SerialNumber { get; set; }
         public string FlightNumber { get; set; }
         public string Description { get; set; }
-        public DeliveryDetails Deliverydetails { get; set; }
+        public  DeliveryDetails Deliverydetails { get; set; }
         public string CreatedDate { get; set; }
         public string Location { get; set; }
 

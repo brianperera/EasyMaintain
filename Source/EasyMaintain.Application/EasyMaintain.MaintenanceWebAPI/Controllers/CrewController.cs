@@ -13,85 +13,69 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class CrewController : ApiController
     {
-        private CrewLogic crew;
+        CrewLogic crewLogic = new CrewLogic();
 
-        public IBusiness CrewRepo { get; set; }
-
-        public CrewController(IBusiness _repo)
+        public CrewController()
         {
-            CrewRepo = _repo;
 
         }
 
-        // GET api/Engine
+        // GET api/Crew
         [HttpGet]
-        public IEnumerable<Crew> Crew()
+        public IEnumerable<Crew> Get()
         {
-            return (IEnumerable<Crew>)CrewRepo.GetData();
+            return (IEnumerable<Crew>)crewLogic.GetData();
         }
 
-        // GET api/Engine/5
-        [ResponseType(typeof(Crew))]
-        [HttpGet]
-        public async Task<IHttpActionResult> CrewID(Crew CrewName)
-        {
-            var item = crew.Find(CrewName);
+        // GET api/Crew/5 
+        //public IHttpActionResult GetID(int id)
+        //{
+        //    var item = crewLogic.Find(id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (item == null)
+        //    return Ok(item);
+        //}
+
+        // POST api/Crew
+        [HttpPost]
+        public IHttpActionResult Post(Crew crew)
+        {
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
-            return Ok(item);
+            crewLogic.Insert(crew);
+
+            return CreatedAtRoute("DefaultApi", new { id = crew.CrewID }, crew);
         }
 
-        // PUT api/CrewAdd/5
+        // PUT api/Crew/5 
         [HttpPut]
-        public async Task<IHttpActionResult> CrewAdd(Crew CrewName, Crew crew)
+        public IHttpActionResult Put(Crew crewID, [FromBody]Crew crew)
         {
-
-            if (CrewName == null || CrewName.Equals(0))
+            if (crewID == null || crewID.Equals(0))
             {
                 return BadRequest();
             }
 
-            else
-            if (!ModelState.IsValid)
+            else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            CrewRepo.Insert(crew);
+
+            crewLogic.UpdateOne(crew);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST api/Engine
-        [ResponseType(typeof(Crew))]
-        [HttpPost]
-        public async Task<IHttpActionResult> CrewUpdate(Crew crew)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            CrewRepo.UpdateOne(crew);
-
-            return CreatedAtRoute("DefaultApi", new { id = crew.Name }, crew);
-        }
-
-        // DELETE api/CrewDelete/5
-        [ResponseType(typeof(Maintenance))]
+        // DELETE api/Crew/5 
         [HttpDelete]
-        public async Task<IHttpActionResult> CrewDelete(Crew crew)
+        public void Delete(int id)
         {
-
-            if (crew == null)
-            {
-                return NotFound();
-            }
-
-            CrewRepo.DeleteOne(crew);
-
-            return Ok(crew);
+            crewLogic.DeleteOne(id);
         }
+
     }
 }

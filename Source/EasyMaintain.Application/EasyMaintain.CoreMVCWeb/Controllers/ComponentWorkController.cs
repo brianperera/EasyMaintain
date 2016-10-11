@@ -9,13 +9,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using EasyMaintain.CoreWebMVC.DataEntities;
-
+using System.Net;
+using System.IO;
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {
     public class ComponentWorkController : Controller
     {
-        
+
         ComponentWorkModel componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
         ComponentModel componentModel = SessionUtility.utilityComponentModel;
 
@@ -41,8 +42,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             }
 
-            componentWorkViewModel.ComponentWorkOrders[0].Deliverydetails = new DeliveryDetails();
-
+            //componentWorkViewModel.ComponentWorkOrders[0].Deliverydetails = new DeliveryDetails();
+            //componentWorkViewModel.ComponentWorkOrders[1].Deliverydetails = new DeliveryDetails();
             componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
             ClearSession();
             UpdateComponentWorkViewModel();
@@ -52,11 +53,35 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("ComponentWork/CreateWorkOrder")]
         public PartialViewResult CreateWorkOrder([FromBody] ComponentWork Model)
         {
-
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
-            componentWorkViewModel.ComponentWorkOrders.Add(Model);
-
+            Model.Deliverydetails.DeliveryDetailsId = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
+            //componentWorkViewModel.ComponentWorkOrders.Add(Model);
+            try
+            {
+                string componentData = JsonConvert.SerializeObject(Model);
+                this.PostAsync("http://localhost:8425/api/Component/", componentData);
+                componentWorkViewModel.ComponentWorkOrders.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
             return PartialView("_Search", componentWorkViewModel);
+        }
+
+        public void PostAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "POST";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
         }
 
         [HttpPost, Route("ComponentWork/SaveWorkOrder")]
@@ -71,18 +96,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult Search()
         {
-
-            
             return PartialView("_Search", componentWorkViewModel);
         }
 
         [HttpPost, Route("ComponentWork/ComponentWork/EditWorkOrder")]
         public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
-         {
-
-           
-
-
+        {
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);
 
             componentWorkViewModel.WorkID = item.WorkID;
@@ -96,7 +115,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             return PartialView("_EditWorkOrder", componentWorkViewModel);
 
-         }
+        }
 
         [HttpPost, Route("/ComponentWork/SaveNewComponent")]
         public PartialViewResult SaveNewComponent([FromBody]Component Model)
@@ -131,7 +150,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult SaveEditedComponent([FromBody]Component Model)
         {
             Model.ComponentID = componentModel.ComponentID;
-            int index = componentModel.Components.FindIndex(r => r.ComponentID == componentModel.ComponentID); 
+            int index = componentModel.Components.FindIndex(r => r.ComponentID == componentModel.ComponentID);
             componentModel.Components[index] = Model;
 
             componentModel.ComponentID = Model.ComponentID;
@@ -162,7 +181,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             ClearSession();
 
-            return PartialView("_NewComponent", componentModel );
+            return PartialView("_NewComponent", componentModel);
 
         }
 

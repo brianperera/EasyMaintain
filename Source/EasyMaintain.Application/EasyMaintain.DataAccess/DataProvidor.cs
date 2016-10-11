@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using EasyMaintain.DTO;
+using System.Data.Entity;
 
 //using EasyMaintain.Business;
 
@@ -71,20 +72,56 @@ namespace EasyMaintain.DataAccess
         {
             List<ComponentWork> ComponentWork = new List<ComponentWork>();
 
+            //using (var db = new EasyMaintainDBContext())
+            //{
+            //    var query = from b in db.ComponentWorks
+
+            //                orderby b.Component
+            //                select b;
+
+            //    foreach (var item in query)
+            //    {
+
+            //        ComponentWork.Add(item as ComponentWork);
+            //    }
+            //}
+
             using (var db = new EasyMaintainDBContext())
             {
-                var query = from b in db.ComponentWorks
-                            orderby b.Component
-                            select b; //check here
 
-                foreach (var item in query)
+                var componentworks = db.ComponentWorks
+                                       .Include(b => b.Deliverydetails);
+
+
+                foreach (var item in componentworks)
                 {
+
                     ComponentWork.Add(item as ComponentWork);
                 }
+
+
+
+                //var componentworks = db.ComponentWorks.Include(x => x.Deliverydetails);
+
+                //    foreach (ComponentWork c in componentworks)
+                //{
+                //    foreach (DeliveryDetails d in c.Deliverydetails)
+
+                //        foreach (var item in componentworks)
+                //        {
+
+                //            ComponentWork.Add(item as ComponentWork);
+                //        }
+
+                //}
+
+
             }
+
 
             return ComponentWork;
         }
+
 
         /// <summary>
         /// Get Maintenance check data
@@ -268,7 +305,7 @@ namespace EasyMaintain.DataAccess
                 }
             }
 
-            object var= engineType;
+            object var = engineType;
             return engineType;
         }
 
@@ -378,9 +415,9 @@ namespace EasyMaintain.DataAccess
         /// <param name="State"></param>
         /// <param name="AddtionalNotes"></param>
         /// <returns></returns>
-        public int  AddDeliveryDetails(string deliveryDetailsId, string deliveryDate, string deliveryMethod, string personInCharge, string addressLine1, string addressLine2, string city, string state, string addtionalNotes)
+        public int AddDeliveryDetails(string deliveryDetailsId, string deliveryDate, string deliveryMethod, string personInCharge, string addressLine1, string addressLine2, string city, string state, string addtionalNotes)
         {
-            
+
 
             // insert
             using (var db = new EasyMaintainDBContext())
@@ -388,12 +425,12 @@ namespace EasyMaintain.DataAccess
                 var delivery = db.Set<DeliveryDetails>();
                 try
                 {
-                    
-                    delivery.Add(new DeliveryDetails {DeliveryDetailsId= Int32.Parse(deliveryDetailsId),DeliveryDate= deliveryDate, DeliveryMethod=deliveryMethod, PersonInCharge=personInCharge, AddressLine1=addressLine1, AddressLine2=addressLine2, City=city,State=state, AddtionalNotes=addtionalNotes });
+
+                    delivery.Add(new DeliveryDetails { DeliveryDetailsId = Int32.Parse(deliveryDetailsId), DeliveryDate = deliveryDate, DeliveryMethod = deliveryMethod, PersonInCharge = personInCharge, AddressLine1 = addressLine1, AddressLine2 = addressLine2, City = city, State = state, AddtionalNotes = addtionalNotes });
 
                     db.SaveChanges();
 
-                  
+
                 }
                 catch (SqlException ex)
                 {
@@ -421,7 +458,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="CreatedDate"></param>
         /// <param name="Location"></param>
         /// <returns></returns>
-        public int AddComponentWork(int workID, string component, string serialNumber, string flightNumber, string description,/*DeliveryDetails deliveryDetails*/ string createdDate, string location)
+        public int AddComponentWork(int workID, string component, string serialNumber, string flightNumber, string description, DeliveryDetails deliveryDetails, string createdDate, string location)
         {
             int recordId = -1;
 
@@ -431,11 +468,11 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var componentwork = db.Set<ComponentWork>();
-                    componentwork.Add(new ComponentWork { WorkID = workID, Component = component, SerialNumber = serialNumber, FlightNumber = flightNumber, Description = description, CreatedDate = createdDate, Location = location });
+                    componentwork.Add(new ComponentWork { WorkID = workID, Component = component, SerialNumber = serialNumber, FlightNumber = flightNumber, Description = description, Deliverydetails = deliveryDetails, CreatedDate = createdDate, Location = location });
 
                     db.SaveChanges();
 
-                    recordId = (db.Set<ComponentWork>().LastOrDefault().WorkID);
+                    // recordId = (db.Set<ComponentWork>().LastOrDefault().WorkID);
                 }
                 catch (SqlException ex)
                 {
@@ -469,7 +506,7 @@ namespace EasyMaintain.DataAccess
 
                     db.SaveChanges();
 
-                    recordId = Int32.Parse(db.Set<MaintenanceChecks>().LastOrDefault().Description);
+                   // recordId = Int32.Parse(db.Set<MaintenanceChecks>().LastOrDefault().Description);
                 }
                 catch (SqlException ex)
                 {
@@ -495,7 +532,7 @@ namespace EasyMaintain.DataAccess
 
                     db.SaveChanges();
 
-                    recordId = Int32.Parse(db.Set<Crew>().LastOrDefault().Name);
+                   // recordId = Int32.Parse(db.Set<Crew>().LastOrDefault().Name);
                 }
                 catch (SqlException ex)
                 {
@@ -541,12 +578,12 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
-        /// Add Engine Type
+        /// Add Maintenance
         /// </summary>
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public int AddMaintenance(int workID,string flightModel,string flightNumber,string description,string startDate,string completionDate,string location)
+        public int AddMaintenance(int workID, string flightModel, string flightNumber, string description, string startDate, string completionDate, string location )
         {
             int recordId = -1;
 
@@ -556,7 +593,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var maintenance = db.Set<Maintenance>();
-                    int record = maintenance.Add(new Maintenance { WorkID = workID, FlightModel=flightModel,FlightNumber=flightNumber, Description = description,StartDate=startDate,CompletionDate=completionDate,Location=location }).WorkID;
+                    int record = maintenance.Add(new Maintenance { WorkID = workID, FlightModel = flightModel, FlightNumber = flightNumber, Description = description, StartDate = startDate, CompletionDate = completionDate, Location = location }).WorkID;
 
                     db.SaveChanges();
 
@@ -975,7 +1012,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="manufacturerId"></param>
         /// <param name="imagepath"></param>
         /// <returns></returns>
-        public bool UpdateComponentWork(int workID, string component, string serialNumber, string flightNumber, string description,string createdDate, string location)
+        public bool UpdateComponentWork(int workID, string component, string serialNumber, string flightNumber, string description, string createdDate, string location)
         {
             bool result = false;
 
@@ -994,7 +1031,7 @@ namespace EasyMaintain.DataAccess
                         componentWork.Description = description;
                         componentWork.CreatedDate = createdDate;
                         componentWork.Location = location;
-                        
+
                     }
                     db.SaveChanges();
                     result = true;

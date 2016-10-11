@@ -33,7 +33,7 @@ namespace EasyMaintain.Business
                 _componentWork.Component = componentWork.Component;
                 _componentWork.FlightNumber = componentWork.FlightNumber;
                 _componentWork.Description = componentWork.Description;
-                // _componentWork.Deliverydetails = (componentWork.Deliverydetails);//todo
+                 _componentWork.Deliverydetails = (componentWork.Deliverydetails);//todo
 
                 result.Add(_componentWork);
             }
@@ -56,7 +56,7 @@ namespace EasyMaintain.Business
         {
             this.mComponentWork = componentWork as ComponentWork;
             DataProvidor dp = new DataProvidor();
-            return dp.AddComponentWork(mComponentWork.WorkID, mComponentWork.Component, mComponentWork.SerialNumber, mComponentWork.FlightNumber, mComponentWork.Description, mComponentWork.CreatedDate, mComponentWork.Location);
+            return dp.AddComponentWork(mComponentWork.WorkID, mComponentWork.Component, mComponentWork.SerialNumber, mComponentWork.FlightNumber, mComponentWork.Description,mComponentWork.Deliverydetails ,mComponentWork.CreatedDate, mComponentWork.Location);
 
         }
         /// <summary>

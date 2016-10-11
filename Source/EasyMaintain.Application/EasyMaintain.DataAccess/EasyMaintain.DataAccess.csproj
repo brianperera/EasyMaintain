@@ -65,6 +65,18 @@
     <Compile Include="Migrations\201610031211489_NewDB.Designer.cs">
       <DependentUpon>201610031211489_NewDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610070857018_Chnages.cs" />
+    <Compile Include="Migrations\201610070857018_Chnages.Designer.cs">
+      <DependentUpon>201610070857018_Chnages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610100454513_InventoryTable.cs" />
+    <Compile Include="Migrations\201610100454513_InventoryTable.Designer.cs">
+      <DependentUpon>201610100454513_InventoryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610100457490_CrewTableUpdate.cs" />
+    <Compile Include="Migrations\201610100457490_CrewTableUpdate.Designer.cs">
+      <DependentUpon>201610100457490_CrewTableUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
@@ -99,6 +111,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610031211489_NewDB.resx">
       <DependentUpon>201610031211489_NewDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610070857018_Chnages.resx">
+      <DependentUpon>201610070857018_Chnages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610100454513_InventoryTable.resx">
+      <DependentUpon>201610100454513_InventoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610100457490_CrewTableUpdate.resx">
+      <DependentUpon>201610100457490_CrewTableUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
