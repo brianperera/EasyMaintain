@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
 using EasyMaintain.DTO;
+using System.Net.Http;
 
 namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
@@ -27,6 +28,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
         // GET api/Maintenance
+        [Authorize]
         [HttpGet]
         public IEnumerable<Maintenance> Get()
         {
@@ -49,13 +51,16 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         [HttpPost]
         public IHttpActionResult Post(Maintenance maintenance)
         {
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             maintenanceLogic.Insert(maintenance);
 
-            return CreatedAtRoute("DefaultApi", new { id = maintenance.WorkID }, maintenance);
+
+            return CreatedAtRoute("DefaultApi", new { id = 100 }, maintenance);
+            //return CreatedAtRoute("DefaultApi", new { id = maintenance.WorkID }, maintenance);
         }
 
         // PUT api/Maintenance/5 

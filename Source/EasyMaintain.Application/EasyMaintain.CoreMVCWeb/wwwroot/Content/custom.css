@@ -2,8 +2,6 @@ html, body {
     height: 100%;
 }
 
-body {
-}
 
 .page-content {
     padding-top: 3.125rem;
@@ -47,9 +45,6 @@ body {
     margin: 5px;
 }
 
-.schemeButtons {
-    /*width: 300px;*/
-}
 
 @media screen and (max-width: 640px) {
     .tile-area {

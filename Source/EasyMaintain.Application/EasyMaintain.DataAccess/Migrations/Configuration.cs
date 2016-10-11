@@ -26,6 +26,8 @@ namespace EasyMaintain.DataAccess.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            context.SaveChanges();
+            base.Seed(context);
         }
     }
 }

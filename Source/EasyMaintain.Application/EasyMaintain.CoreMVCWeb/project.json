@@ -1,7 +1,9 @@
 {
   "dependencies": {
-    "EntityFramework": "6.1.2",
+    "Microsoft.AspNet.WebApi.Client": "5.2.3",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
+    "Microsoft.AspNetCore.Identity": "1.0.0",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
