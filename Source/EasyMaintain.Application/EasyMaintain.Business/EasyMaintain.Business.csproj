@@ -66,6 +66,7 @@
     <Compile Include="CrewLogic.cs" />
     <Compile Include="DeliveryDetailsLogic.cs" />
     <Compile Include="IBusiness.cs" />
+    <Compile Include="InventoryLogic.cs" />
     <Compile Include="MaintenanceChecksLogic.cs" />
     <Compile Include="MaintenanceLogic.cs" />
     <Compile Include="ManufacturerLogic.cs" />
