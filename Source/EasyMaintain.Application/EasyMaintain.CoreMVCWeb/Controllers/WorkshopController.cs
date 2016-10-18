@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using EasyMaintain.CoreWebMVC.Models;
 using EasyMaintain.CoreWebMVC.Utility;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using Newtonsoft.Json;
+using System.Net;
+using System.IO;
+using System.Net.Http;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,18 +22,72 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
+
+            try
+            {
+                var uri = "api/Workshop/Get ";
+
+                List<Workshop> workshopItems;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    workshopItems = JsonConvert.DeserializeObject<List<Workshop>>(response.Result);
+                }
+                workshopModel.Workshops = workshopItems;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
+
+
+
+
             ClearSession();
             return View(workshopModel);
         }
 
         [HttpPost, Route("/Workshop/SaveNewWorkshop")]
-        public PartialViewResult SaveNewWorkshop([FromBody]Workshop Model)
+        public PartialViewResult SaveNewWorkshop([FromBody] Workshop Model)
         {
             int finalIndex = (workshopModel.Workshops.Count) - 1;
             Model.WorkshopID = workshopModel.Workshops[finalIndex].WorkshopID + 1;
-            workshopModel.Workshops.Add(Model);
+          //  workshopModel.Workshops.Add(Model);
+
+
+            try
+            {
+
+                string workshopData = JsonConvert.SerializeObject(Model);
+
+                this.PostAsync("http://localhost:8961/api/Workshop/", workshopData);
+                workshopModel.Workshops.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return PartialView("_Workshop", workshopModel);
+
+        }
+
+        public void PostAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "POST";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
         }
 

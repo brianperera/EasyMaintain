@@ -92,9 +92,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             Model.WorkID = ++SessionUtility.CurrentMaintenanceID;
             try
             {
-                
+
                 string maintenanceData = JsonConvert.SerializeObject(Model);
-               
+
                 this.PostAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
                 maintenanceViewModel.MaintenanceOrders.Add(Model);
             }
@@ -109,7 +109,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "POST";
-            //model.PostData = "Test";
+
             request.ContentType = "application/json";
 
             using (var sw = new StreamWriter(request.GetRequestStream()))
@@ -162,14 +162,14 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult Search()
         {
-          
+
             return PartialView("_Search", maintenanceViewModel);
         }
 
         [HttpPost, Route("/maintenance/AddCheckItem")]
         public PartialViewResult AddCheckItem([FromBody] MaintenanceChecks CheckDiscription)
         {
-            
+
 
             maintenanceViewModel.CheckItems.Add(new MaintenanceChecks() { Description = CheckDiscription.Description });
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
@@ -179,7 +179,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpDelete, Route("/maintenance/DeleteCheckItem")]
         public PartialViewResult DeleteCheckItem([FromBody] MaintenanceChecks CheckDiscription)
         {
-           
+
 
             var itemToRemove = maintenanceViewModel.CheckItems.Single(r => r.Description == CheckDiscription.Description);
             maintenanceViewModel.CheckItems.Remove(itemToRemove);
@@ -203,7 +203,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult DeleteCrewMember([FromBody]Crew CrewMember)
         {
 
-           
+
 
             var itemToRemove = maintenanceViewModel.CrewMembers.Single(r => r.Name == CrewMember.Name);
             maintenanceViewModel.CrewMembers.Remove(itemToRemove);
@@ -217,7 +217,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             Maintenance item;
             //search in the db withn "ID" and put to Object with that ID to "Item" obj
 
-            item  = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == ID.WorkID);
+            item = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == ID.WorkID);
 
             try
             {
@@ -225,12 +225,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 string maintenanceID = JsonConvert.SerializeObject(ID.WorkID);
 
                 this.PostAsync("http://localhost:8961/api/Maintenance/5", maintenanceID);
-              
+
             }
             catch (AggregateException e)
             {
             }
-           
+
 
             maintenanceViewModel.WorkID = item.WorkID;
             maintenanceViewModel.CompletionDate = item.CompletionDate;

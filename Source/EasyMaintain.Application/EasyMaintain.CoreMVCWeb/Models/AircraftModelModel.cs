@@ -2,7 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using EasyMaintain.CoreWebMVC.DataEntities;
-
+using System.Net.Http;
+using System;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -58,39 +61,33 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public AircraftModelModel()
         {
-            AircrafModels = new List<AircraftModel>
-            {
-                new AircraftModel
-                {
-                    AircraftModelID = 1,
-                    Manufacturer = "Airbus",
-                    ModelName = "A300"
-                },
-                new AircraftModel
-                {
-                    AircraftModelID = 2,
-                    Manufacturer = "Boeing",
-                    ModelName = "717"
-                },
-                new AircraftModel
-                {
-                    AircraftModelID = 3,
-                    Manufacturer = "Bombardier",
-                    ModelName = "CRJ-100"
-                },
-                new AircraftModel
-                {
-                    AircraftModelID = 4,
-                    Manufacturer = "Antonov",
-                    ModelName = "An-140"
-                },
-                new AircraftModel
-                {
-                    AircraftModelID = 5,
-                    Manufacturer = "Airspeed",
-                    ModelName = "Ambassador"
-                }
-            };
+            AircrafModels = new List<AircraftModel>();
+
+            updateList();
         }
-    }
+
+        public void updateList()
+        {
+
+            try
+            {
+                var uri = "api/Aircraftmodel/Get ";
+
+                List<AircraftModel> aircraftList;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task <String> response = httpClient.GetStringAsync(uri);
+                    aircraftList = JsonConvert.DeserializeObject<List<AircraftModel>>(response.Result);
+                }
+                AircrafModels = aircraftList;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+        }
+        }
 }

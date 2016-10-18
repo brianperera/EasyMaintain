@@ -116,7 +116,7 @@
     <Compile Include="Controllers\SparepartsController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
     <Compile Include="OwinCommunicationListener.cs" />
     <Compile Include="InventoryWebAPI.cs" />
     <Compile Include="Program.cs" />

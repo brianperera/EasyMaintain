@@ -97,6 +97,14 @@
     <Compile Include="Migrations\201610100457490_CrewTableUpdate.Designer.cs">
       <DependentUpon>201610100457490_CrewTableUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610121204072_WorkshopTable.cs" />
+    <Compile Include="Migrations\201610121204072_WorkshopTable.Designer.cs">
+      <DependentUpon>201610121204072_WorkshopTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610180509206_ComponentsTable.cs" />
+    <Compile Include="Migrations\201610180509206_ComponentsTable.Designer.cs">
+      <DependentUpon>201610180509206_ComponentsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AircraftModel.cs" />
     <Compile Include="Models\Category.cs" />
@@ -140,6 +148,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610100457490_CrewTableUpdate.resx">
       <DependentUpon>201610100457490_CrewTableUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610121204072_WorkshopTable.resx">
+      <DependentUpon>201610121204072_WorkshopTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610180509206_ComponentsTable.resx">
+      <DependentUpon>201610180509206_ComponentsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

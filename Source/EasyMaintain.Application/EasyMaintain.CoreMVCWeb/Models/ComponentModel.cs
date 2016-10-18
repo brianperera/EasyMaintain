@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -30,7 +32,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         [Required]
         [Display(Name = "Manufacturer Name")]
         public string Manufacturer { get; set; }
-        
+
         [Required]
         [Display(Name = "Description")]
         public string Description { get; set; }
@@ -49,20 +51,52 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public ComponentModel()
         {
-            Components = new List<Component>()
-            {
-                new Component {
-                    ComponentID = 1 ,
-                    ComponentName = "Engine",
-                    Manufacturer = "Rolls Royce"
-                },
-                new Component {
-                    ComponentID = 2 ,
-                    ComponentName = "Landing Gear",
-                    Manufacturer = "Boeing"
-                }
-            };
+            Components = new List<Component>();
+            updateList();
+
+
+            //{
+            //    new Component {
+            //        ComponentID = 1 ,
+            //        ComponentName = "Engine",
+            //        Manufacturer = "Rolls Royce"
+            //    },
+            //    new Component {
+            //        ComponentID = 2 ,
+            //        ComponentName = "Landing Gear",
+            //        Manufacturer = "Boeing"
+            //    }
+            //};
+
+
         }
 
+
+
+
+        public void updateList()
+        {
+
+            try
+            {
+                var uri = "api/ComponentParts/Get ";
+
+                List<Component> componentList;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8425");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    componentList = JsonConvert.DeserializeObject<List<Component>>(response.Result);
+                }
+                Components = componentList;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
+        }
     }
 }

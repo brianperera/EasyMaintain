@@ -4,8 +4,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using EasyMaintain.DataAccess.Models;
-//using EasyMaintain.Business;
 using EasyMaintain.DTO;
 
 namespace EasyMaintain.DataAccess
@@ -36,5 +34,8 @@ namespace EasyMaintain.DataAccess
         public DbSet<DeliveryDetails> Deliveries { get; set; }
 
         public DbSet<Inventory> Inventories { get; set; }
+
+        public DbSet<Workshop> Workshops { get; set; }
+        public DbSet<Component> Components { get; set; }
     }
 }

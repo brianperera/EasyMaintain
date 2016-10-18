@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -33,31 +35,40 @@ namespace EasyMaintain.CoreWebMVC.Models
         public int WorkshopID { get; set; }
 
         public WorkshopModel()
+
         {
-            Workshops = new List<Workshop>()
+            Workshops = new List<Workshop>();
+
+            updateList();
+
+
+        }
+
+
+
+        public void updateList()
+        {
+
+            try
             {
-                new Workshop {
-                    WorkshopID = 1 ,
-                    Name = "Engine Shop",
-                    Location = "Folrida"
-                },
-                new Workshop {
-                    WorkshopID = 2 ,
-                    Name = "Electronics Management",
-                    Location = "California"
-                },
-                new Workshop {
-                    WorkshopID = 3 ,
-                    Name = "Paint Shop",
-                    Location = "Detroit"
-                },
-                new Workshop {
-                    WorkshopID = 4 ,
-                    Name = "Custom Works",
-                    Location = "Michigan"
+                var uri = "api/Workshop/Get ";
+
+                List<Workshop> workshopList;
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri("http://localhost:8961");
+                    Task<String> response = httpClient.GetStringAsync(uri);
+                    workshopList = JsonConvert.DeserializeObject<List<Workshop>>(response.Result);
                 }
-                
-            };
+                Workshops = workshopList;
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
         }
     }
 }

@@ -1,14 +1,13 @@
-﻿using System;
+﻿using EasyMaintain.DataAccess;
+using EasyMaintain.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasyMaintain.DataAccess;
-using EasyMaintain.DTO;
-
 namespace EasyMaintain.Business
 {
-  public class InventoryLogic
+    public class InventoryLogic
     {
 
         public InventoryLogic()
@@ -16,7 +15,7 @@ namespace EasyMaintain.Business
 
         }
 
-        InventoryLogic mInventory = new InventoryLogic();
+        Inventory mInventory = new Inventory();
 
         /// <summary>
         /// Get data
@@ -43,14 +42,58 @@ namespace EasyMaintain.Business
                 _inventory.BillingName = inventory.BillingName;
                 _inventory.OrderType = inventory.OrderType;
                 _inventory.Deliverydetails = inventory.Deliverydetails;
-                //_maintenance.FlightModel = maintenance.FlightModel;
-                //_maintenance.FlightNumber = maintenance.FlightNumber;
-                //_maintenance.Description = maintenance.Description;
+
 
                 result.Add(_inventory);
             }
 
             return result;
+        }
+
+
+        /// <summary>
+        /// Add new record
+        /// </summary>
+        /// <param name="inventory"></param>
+        /// <returns></returns>
+        public int Insert(object inventory)
+        {
+            this.mInventory = inventory as Inventory;
+            DataProvidor dp = new DataProvidor();
+            return dp.AddInventory(mInventory.CustomerID, mInventory.CustomerName, mInventory.CompanyName, mInventory.AdditionalNotes, mInventory.PartsList, mInventory.InvoiceNumber, mInventory.PaymentMethod, mInventory.PaymentNotes, mInventory.BillingAddress, mInventory.BillingName, mInventory.OrderType, mInventory.Deliverydetails);
+        }
+
+        /// <summary>
+        /// Delete one record
+        /// </summary>
+        /// <param name="inventory"></param>
+        public void DeleteOne(object inventory)
+        {
+            this.mInventory = inventory as Inventory;
+
+            DataProvidor dp = new DataProvidor();
+            dp.DeleteInventory(mInventory.CustomerID);
+
+        }
+
+        /// <summary>
+        /// Update one record
+        /// </summary>
+        /// <param name="inventory"></param>
+        /// <returns></returns>
+        public bool UpdateOne(object inventory)
+        {
+            this.mInventory = inventory as Inventory;
+            DataProvidor dp = new DataProvidor();
+            return dp.UpdateInventory(mInventory.CustomerID, mInventory.CustomerName, mInventory.CompanyName, mInventory.AdditionalNotes, mInventory.PartsList, mInventory.InvoiceNumber, mInventory.PaymentMethod, mInventory.PaymentNotes, mInventory.BillingAddress, mInventory.BillingName, mInventory.OrderType, mInventory.Deliverydetails);
+        }
+
+        public Inventory Find(int id)
+        {
+            List<Inventory> result = new List<Inventory>();
+            return result
+                .Where(e => e.CustomerID.Equals(id))
+                .SingleOrDefault();
         }
     }
 }

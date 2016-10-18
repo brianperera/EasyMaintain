@@ -37,6 +37,55 @@ namespace EasyMaintain.DataAccess
             return supplierList;
         }
 
+        /// <summary>
+        /// Get Component Data
+        /// </summary>
+        /// <returns></returns>
+        ///           
+        public List<Component> GetComponentData()
+        {
+            List<Component> componentList = new List<Component>();
+
+            using (var db = new EasyMaintainDBContext())
+            {
+                var query = from b in db.Components
+                            orderby b.ComponentName
+                            select b;
+
+                foreach (var item in query)
+                {
+                    componentList.Add(item as Component);
+                }
+            }
+
+            return componentList;
+        }
+
+        /// <summary>
+        /// Get Supplier Data
+        /// </summary>
+        /// <returns></returns>
+        ///           
+        public List<Workshop> GetWorkshopData()
+        {
+            List<Workshop> workshopList = new List<Workshop>();
+
+            using (var db = new EasyMaintainDBContext())
+            {
+                var query = from b in db.Workshops
+                            orderby b.Name
+                            select b;
+
+                foreach (var item in query)
+                {
+                    workshopList.Add(item as Workshop);
+                }
+            }
+
+            return workshopList;
+        }
+
+
 
         /// <summary>
         /// Get Delivery Details
@@ -72,20 +121,6 @@ namespace EasyMaintain.DataAccess
         {
             List<ComponentWork> ComponentWork = new List<ComponentWork>();
 
-            //using (var db = new EasyMaintainDBContext())
-            //{
-            //    var query = from b in db.ComponentWorks
-
-            //                orderby b.Component
-            //                select b;
-
-            //    foreach (var item in query)
-            //    {
-
-            //        ComponentWork.Add(item as ComponentWork);
-            //    }
-            //}
-
             using (var db = new EasyMaintainDBContext())
             {
 
@@ -98,23 +133,6 @@ namespace EasyMaintain.DataAccess
 
                     ComponentWork.Add(item as ComponentWork);
                 }
-
-
-
-                //var componentworks = db.ComponentWorks.Include(x => x.Deliverydetails);
-
-                //    foreach (ComponentWork c in componentworks)
-                //{
-                //    foreach (DeliveryDetails d in c.Deliverydetails)
-
-                //        foreach (var item in componentworks)
-                //        {
-
-                //            ComponentWork.Add(item as ComponentWork);
-                //        }
-
-                //}
-
 
             }
 
@@ -286,7 +304,7 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
-        /// Get Engine Type Data
+        /// Get Maintenance Data
         /// </summary>
         /// <returns></returns>
         public List<Maintenance> GetMaintenanceData()
@@ -309,43 +327,70 @@ namespace EasyMaintain.DataAccess
             return engineType;
         }
 
+
+
         /// <summary>
         /// Get Inventory Data
         /// </summary>
         /// <returns></returns>
-        //public List<Inventory> GetInventoryData()
-        //{
-        //    List<Inventory> inventory = new List<Inventory>();
+        public List<Inventory> GetInventoryData()
+        {
+            List<Inventory> inventory = new List<Inventory>();
 
-        //    using (var db = new EasyMaintainDBContext())
-        //    {
-        //        //var query = from b in db.Inventories
-        //        //            orderby b.InventoryID
-        //        //            select b;
+            using (var db = new EasyMaintainDBContext())
+            {
 
-        //        //foreach (var item in query)
-        //        //{
-        //        //    inventory.Add(item as Inventory);
-        //        //}
-        //    }
-
-        //    return inventory;
-        //}
+                var inventoryDetails = db.Inventories
+                                       .Include(b => b.Deliverydetails);
 
 
-        //--- Insert Data
+                foreach (var item in inventoryDetails)
+                {
 
-        /// <summary>
-        /// Add Supplier
-        /// </summary>
-        /// <param name="supplierName"></param>
-        /// <param name="emailAddress"></param>
-        /// <param name="address"></param>
-        /// <param name="contact"></param>
-        /// <param name="description"></param>
-        /// <param name="additionalData"></param>
-        /// <returns></returns>
-        public int AddSupplier(string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
+                    inventory.Add(item as Inventory);
+                }
+
+            }
+            return inventory;
+        }
+
+/// <summary>
+/// Get Inventory Data
+/// </summary>
+/// <returns></returns>
+//public List<Inventory> GetInventoryData()
+//{
+//    List<Inventory> inventory = new List<Inventory>();
+
+//    using (var db = new EasyMaintainDBContext())
+//    {
+//        //var query = from b in db.Inventories
+//        //            orderby b.InventoryID
+//        //            select b;
+
+//        //foreach (var item in query)
+//        //{
+//        //    inventory.Add(item as Inventory);
+//        //}
+//    }
+
+//    return inventory;
+//}
+
+
+//--- Insert Data
+
+/// <summary>
+/// Add Supplier
+/// </summary>
+/// <param name="supplierName"></param>
+/// <param name="emailAddress"></param>
+/// <param name="address"></param>
+/// <param name="contact"></param>
+/// <param name="description"></param>
+/// <param name="additionalData"></param>
+/// <returns></returns>
+public int AddSupplier(string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
         {
             int recordId = -1;
             // insert
@@ -369,6 +414,44 @@ namespace EasyMaintain.DataAccess
             return recordId;
         }
 
+
+
+        /// <summary>
+        /// Add component
+        /// </summary>
+        /// <param name="componentID"></param>
+        /// <param name="Category"></param>
+        /// <param name="ComponentName"></param>
+        /// <param name="Manufacturer"></param>
+        /// <param name="Description"></param>
+        /// <param name="ImagePath"></param>
+        /// <param name="AdditionalData"></param>
+        /// <returns></returns>
+        public int AddComponent(int componentID, string category, string componentName, string manufacturer, string description, string imagePath, string additionalData)
+        {
+            int recordId = -1;
+            // insert
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var supplier = db.Set<Component>();
+                    supplier.Add(new Component{ ComponentID=componentID,Category=category,ComponentName=componentName,Manufacturer=manufacturer,Description=description,ImagePath=imagePath,AdditionalData=additionalData });
+
+                    db.SaveChanges();
+
+                    //recordId = db.Set<Supplier>().LastOrDefault().SupplierID;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return recordId;
+        }
+
+
         /// <summary>
         /// Add Manufacturer
         /// </summary>
@@ -391,6 +474,40 @@ namespace EasyMaintain.DataAccess
                     db.SaveChanges();
 
                     recordId = Int32.Parse(db.Set<Manufacturer>().LastOrDefault().ManufacturerID);
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return recordId;
+        }
+
+        /// <summary>
+        /// Add Workshop
+        /// </summary>
+        /// <param name="workshopID"></param>
+        /// <param name="name"></param>
+        /// <param name="location"></param>
+        /// <param name="address"></param>
+        /// <returns></returns>
+
+        public int AddWorkshop(int workshopID, string name, string location, string address)
+        {
+            int recordId = -1;
+
+            // insert
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var workshop = db.Set<Workshop>();
+                    workshop.Add(new Workshop  { WorkshopID=workshopID,Name=name,Location=location,Address=address });
+
+                    db.SaveChanges();
+
+                    //recordId = Int32.Parse(db.Set<Manufacturer>().LastOrDefault().ManufacturerID);
                 }
                 catch (SqlException ex)
                 {
@@ -442,10 +559,6 @@ namespace EasyMaintain.DataAccess
         }
 
 
-
-
-
-
         /// <summary>
         /// Add Component Work
         /// </summary>
@@ -483,15 +596,55 @@ namespace EasyMaintain.DataAccess
             return recordId;
         }
 
+
+        /// <summary>
+        /// Add Inventory
+        /// </summary>
+        /// <param name="CustomerID"></param>
+        /// <param name="CustomerName"></param>
+        /// <param name="CompanyName"></param>
+        /// <param name="AdditionalNotes"></param>
+        /// <param name="PartsList"></param>
+        /// <param name="InvoiceNumber"></param>
+        /// <param name="PaymentMethod"></param>
+        /// <param name="PaymentNotes"></param>
+        /// <param name="BillingAddress"></param>
+        /// <param name="BillingName"></param>
+        /// <param name="OrderType"></param>
+        /// <param name="Deliverydetails"></param>
+        /// <returns></returns>
+        public int AddInventory(int customerID, string customerName, string companyName, string additionalNotes, List <string> partsList, int invoiceNumber,string paymentMethod, string paymentNotes, string billingAddress,string billingName,bool orderType, DeliveryDetails deliveryDetails)
+        {
+            int recordId = -1;
+
+            // insert
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var inventory = db.Set<Inventory>();
+                    inventory.Add(new Inventory { CustomerID=customerID,CustomerName=customerName,CompanyName=companyName,AdditionalNotes=additionalNotes,PartsList=partsList,InvoiceNumber=invoiceNumber,PaymentMethod=paymentMethod,PaymentNotes=paymentNotes,BillingAddress=billingAddress,BillingName=billingName,OrderType=orderType,Deliverydetails=deliveryDetails });
+
+                    db.SaveChanges();
+
+                    // recordId = (db.Set<ComponentWork>().LastOrDefault().WorkID);
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return recordId;
+        }
+
+
         /// <summary>
         /// Add MaintenanceChecks
         /// </summary>
         /// <param name="description"></param>
         /// <param name="status"></param>
-
         /// <returns></returns>
-
-
         public int AddMaintenanceChecks(string description, bool status)
         {
             int recordId = -1;
@@ -542,9 +695,6 @@ namespace EasyMaintain.DataAccess
 
             return recordId;
         }
-
-
-
 
         /// <summary>
         /// Add Category
@@ -633,7 +783,7 @@ namespace EasyMaintain.DataAccess
 
                     db.SaveChanges();
 
-                    recordId = db.Set<AircraftModel>().LastOrDefault().AircraftModelID;
+                    //recordId = db.Set<AircraftModel>().LastOrDefault().AircraftModelID;
                 }
                 catch (SqlException ex)
                 {
@@ -668,7 +818,7 @@ namespace EasyMaintain.DataAccess
 
                     db.SaveChanges();
 
-                    recordId = db.Set<SparePart>().LastOrDefault().SparePartID;
+                    //recordId = db.Set<SparePart>().LastOrDefault().SparePartID;
                 }
                 catch (SqlException ex)
                 {
@@ -678,7 +828,6 @@ namespace EasyMaintain.DataAccess
 
             return recordId;
         }
-
 
         //---- Update Data
 
@@ -723,6 +872,53 @@ namespace EasyMaintain.DataAccess
 
             return result;
         }
+
+        /// <summary>
+        /// Update Component
+        /// </summary>
+        /// <param name="ComponentID"></param>
+        /// <param name="Category"></param>
+        /// <param name="ComponentName"></param>
+        /// <param name="Manufacturer"></param>
+        /// <param name="Description"></param>
+        /// <param name="ImagePath"></param>
+        /// <param name="AdditionalData"></param>
+        /// <returns></returns>
+        public bool UpdateComponent(int componentID, string category, string componentName, string manufacturer, string description, string imagePath, string additionalData)
+        {
+            bool result = false;
+            // update
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var component = db.Components.SingleOrDefault(s => s.ComponentID == componentID);
+
+                    if (component != null)
+                    {
+                        component.ComponentID = componentID;
+                        component.Category = category;
+                        component.ComponentName = componentName;
+                        component.Manufacturer = manufacturer;
+                        component.Description = description;
+                        component.ImagePath = imagePath;
+                        component.AdditionalData = additionalData;
+
+                       
+                    }
+                    db.SaveChanges();
+                    result = true;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return result;
+        }
+
+
 
         /// <summary>
         /// Update Manufacturer
@@ -955,6 +1151,101 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
+        /// Update Engine Type
+        /// </summary>
+        /// <param name="engineTypeId"></param>
+        /// <param name="engineTypeName"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+
+        public bool UpdateWorkshop(int workshopID, string name, string location, string address)
+        {
+            bool result = false;
+
+            // update
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var workshop = db.Workshops.SingleOrDefault(s => s.WorkshopID.Equals(workshopID));
+
+                    if (workshop != null)
+                    {
+                        workshop.WorkshopID = workshopID;
+                        workshop.Name = name;
+                        workshop.Location = location;
+                        workshop.Address = address;
+                    }
+                    db.SaveChanges();
+                    result = true;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// Update inventory
+        /// </summary>
+        /// <param name = "CustomerID" ></ param >
+        /// <param name="CustomerName"></param>
+        /// <param name="CompanyName"></param>
+        /// <param name="AdditionalNotes"></param>
+        /// <param name="PartsList"></param>
+        /// <param name="InvoiceNumber"></param>
+        /// <param name="PaymentMethod"></param>
+        /// <param name="PaymentNotes"></param>
+        /// <param name="BillingAddress"></param>
+        /// <param name="BillingName"></param>
+        /// <param name="OrderType"></param>
+        /// <param name="Deliverydetails"></param>
+        /// <returns></returns>
+        public bool UpdateInventory(int customerID, string customerName, string companyName, string additionalNotes, List<string> partsList, int invoiceNumber, string paymentMethod, string paymentNotes, string billingAddress, string billingName, bool orderType, DeliveryDetails deliveryDetails)
+        {
+            bool result = false;
+
+            // update
+            using (var db = new EasyMaintainDBContext())
+            {
+                try
+                {
+                    var inventory = db.Inventories.SingleOrDefault(s => s.CustomerID.Equals(customerID));
+
+                    if (inventory != null)
+                    {
+                        inventory.CustomerID = customerID;
+                        inventory.CustomerName = customerName;
+                        inventory.CompanyName = companyName;
+                        inventory.AdditionalNotes = additionalNotes;
+                        inventory.PartsList = partsList;
+                        inventory.InvoiceNumber = invoiceNumber;
+                        inventory.PaymentMethod = paymentMethod;
+                        inventory.PaymentNotes = paymentNotes;
+                        inventory.BillingAddress = billingAddress;
+                        inventory.BillingName = billingName;
+                        inventory.OrderType = orderType;
+                        inventory.Deliverydetails = deliveryDetails;
+                        
+                    }
+                    db.SaveChanges();
+                    result = true;
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+            return result;
+        }
+
+
+        /// <summary>
         /// Update Aircraft Model 
         /// </summary>
         /// <param name="aircraftModleId"></param>
@@ -1107,6 +1398,23 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
+        /// Delete Component
+        /// </summary>
+        /// <param name="componentId"></param>
+        public void DeleteComponent(int componentId)
+        {
+            // Delete
+            using (var db = new EasyMaintainDBContext())
+            {
+                var component = db.Components.SingleOrDefault(s => s.ComponentID == componentId);
+                db.Components.Attach(component);
+                db.Components.Remove(component);
+                db.SaveChanges();
+            }
+        }
+
+
+        /// <summary>
         /// Delete Manufacturer 
         /// </summary>
         /// <param name="manufacturerId"></param>
@@ -1186,9 +1494,9 @@ namespace EasyMaintain.DataAccess
         }
 
         /// <summary>
-        /// Delete Engine Type
+        /// Delete Maintenance
         /// </summary>
-        /// <param name="engineTypeId"></param>
+        /// <param name="workId"></param>
         public void DeleteMaintenance(string workID)
         {
             // Delete
@@ -1200,6 +1508,42 @@ namespace EasyMaintain.DataAccess
                 db.SaveChanges();
             }
         }
+
+
+        /// <summary>
+        /// Delete Maintenance
+        /// </summary>
+        /// <param name="workshopID"></param>
+
+        public void DeleteWorkshop(int workshopID)
+        {
+            // Delete
+            using (var db = new EasyMaintainDBContext())
+            {
+                var workshop = db.Workshops.SingleOrDefault(s => s.WorkshopID.Equals(workshopID));
+                db.Workshops.Attach(workshop);
+                db.Workshops.Remove(workshop);
+                db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Delete Inventory
+        /// </summary>
+        /// <param name="customerId"></param>
+        public void DeleteInventory(int customerId)
+        {
+            // Delete
+            using (var db = new EasyMaintainDBContext())
+            {
+                var inventory = db.Inventories.SingleOrDefault(s => s.CustomerID.Equals(customerId));
+                db.Inventories.Attach(inventory);
+                db.Inventories.Remove(inventory);
+                db.SaveChanges();
+            }
+        }
+
+
 
         /// <summary>
         /// Delete Aircraft Model 

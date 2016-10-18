@@ -16,83 +16,70 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
 {
     public class SparePartsController : ApiController
     {
-        public IBusiness SparePartsRepo { get; set; }
-        public SparePartLogic sparepart;
-        public SparePartsController(IBusiness _repo)
-        {
-            SparePartsRepo = _repo;
-        }
+        SparePartLogic sparePartLogic = new SparePartLogic();
 
+        public SparePartsController()
+        {
+
+        }
         // GET api/Spareparts
         [HttpGet]
-        public IQueryable<SparePart> SpareParts()
+        public IEnumerable<SparePart> Get()
         {
 
-            return (IQueryable<SparePart>)SparePartsRepo.GetData();
+            return (IEnumerable<SparePart>)sparePartLogic.GetData();
         }
 
         // GET api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
-        [HttpGet]
-        public async Task<IHttpActionResult> SparePart(SparePart SparePartID)
-        {
-            var item = sparepart.Find(SparePartID);
-            if (item == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //public IHttpActionResult GetID(int id)
+        //{
+        //    var item = sparePartLogic.Find(id);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(item);
-        }
+        //    return Ok(item);
+        //}
 
         // PUT api/Spareparts/5
         [HttpPut]
-        public async Task<IHttpActionResult> SparePart(SparePart SparePartID, SparePart sparepart)
+        public IHttpActionResult Put(SparePart sparePartID, [FromBody]SparePart sparePart)
         {
-            if (SparePartID == null || SparePartID.Equals(0))
+            if (sparePartID == null || sparePartID.Equals(0))
             {
-
                 return BadRequest();
-
             }
-            if (!ModelState.IsValid)
+
+            else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            SparePartsRepo.Insert(sparepart);
 
+            sparePartLogic.UpdateOne(sparePart);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
         // POST api/Spareparts
-        [ResponseType(typeof(SparePart))]
         [HttpPost]
-        public async Task<IHttpActionResult> SparePartUpdate(SparePart sparepart)
+        public IHttpActionResult Post(SparePart sparePart)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            sparePartLogic.Insert(sparePart);
 
-            SparePartsRepo.UpdateOne(sparepart);
-
-            return CreatedAtRoute("DefaultApi", new { id = sparepart.SparePartID }, sparepart);
+            return CreatedAtRoute("DefaultApi", new { id = sparePart.SparePartID }, sparePart);
         }
 
+
         // DELETE api/Spareparts/5
-        [ResponseType(typeof(SparePart))]
         [HttpDelete]
-        public async Task<IHttpActionResult> SparePartDelete(SparePart sparepart)
+        public void Delete(int id)
         {
-
-            if (sparepart == null)
-            {
-                return NotFound();
-            }
-
-            SparePartsRepo.DeleteOne(sparepart);
-
-            return Ok(sparepart);
+            sparePartLogic.DeleteOne(id);
         }
 
 

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="AircraftModelLogic.cs" />
     <Compile Include="CategoryLogic.cs" />
+    <Compile Include="ComponentsLogic.cs" />
     <Compile Include="ComponentWorkLogic.cs" />
     <Compile Include="CrewLogic.cs" />
     <Compile Include="DeliveryDetailsLogic.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SparePartLogic.cs" />
     <Compile Include="SupplierLogic.cs" />
+    <Compile Include="WorkshopLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyMaintain.DataAccess\EasyMaintain.DataAccess.csproj">

@@ -121,12 +121,31 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult SaveNewComponent([FromBody]Component Model)
         {
             int finalIndex = componentModel.Components.Count - 1;
+            if (finalIndex < 0)
+            {
+                finalIndex = 0;
+            } 
             Model.ComponentID = componentModel.Components[finalIndex].ComponentID + 1;
-            componentModel.Components.Add(Model);
+           
+            try
+            {
+
+                string componentData = JsonConvert.SerializeObject(Model);
+
+                this.PostAsync("http://localhost:8425/api/ComponentParts/", componentData);
+                componentModel.Components.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return PartialView("_NewComponent", componentModel);
 
         }
+
+
+
+       
 
         [HttpPost, Route("/componentwork/EditComponent")]
         public PartialViewResult EditComponent([FromBody]Component ID)

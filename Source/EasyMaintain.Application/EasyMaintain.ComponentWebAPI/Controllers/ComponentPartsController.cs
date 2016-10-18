@@ -4,44 +4,45 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
 
+
 namespace EasyMaintain.ComponentWebAPI.Controllers
 {
-    public class ComponentController : ApiController
+   public class ComponentPartsController : ApiController
     {
-       
-       ComponentWorkLogic componentWorkLogic = new ComponentWorkLogic();
-
-        public ComponentController()
+        ComponentsLogic componentLogic = new ComponentsLogic();
+        
+        public ComponentPartsController()
         {
 
         }
 
-
-        // GET api/Component
+        // GET api/ComponentParts
 
         [HttpGet]
-        public IEnumerable<ComponentWork> Get()
+        public IEnumerable<Component> Get()
         {
-            return (IEnumerable<ComponentWork>)componentWorkLogic.GetData();
+            return (IEnumerable<Component>)componentLogic.GetData();
         }
 
-        // POST api/Component
+        // POST api/ComponentParts
         [HttpPost]
-        public IHttpActionResult Post(ComponentWork componentWork)
+        public IHttpActionResult Post(Component component)
         {
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            componentWorkLogic.Insert(componentWork);
-            return CreatedAtRoute("DefaultApi", new { id = componentWork.WorkID }, componentWork);
+            componentLogic.Insert(component);
+            return CreatedAtRoute("DefaultApi", new { id = component.ComponentID }, component);
 
         }
 
-        // PUT api/Component/5 
+
+
+        // PUT api/ComponentParts/5 
         [HttpPut]
-        public IHttpActionResult Put(ComponentWork workID, [FromBody]ComponentWork component)
+        public IHttpActionResult Put(Component workID, [FromBody]Component component)
         {
             if (workID == null || workID.Equals(0))
             {
@@ -53,15 +54,18 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            componentWorkLogic.UpdateOne(component);
+            componentLogic.UpdateOne(component);
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // DELETE api/Component/5 
+
+        // DELETE api/ComponentParts/5 
         [HttpDelete]
         public void Delete(int id)
         {
-            componentWorkLogic.DeleteOne(id);
+            componentLogic.DeleteOne(id);
         }
+
+
     }
 }

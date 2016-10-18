@@ -1,7 +1,10 @@
 ﻿using EasyMaintain.CoreWebMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {
@@ -21,18 +24,45 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             return PartialView("_SpareParts", sparePartsViewModel);
         }
-
-        public ViewResult AddSparePart(SparePartsViewModel model)
+    
+        public ViewResult AddSparePart(SparePart model)
         {
-            var sparePartsViewModel = new SparePartsViewModel();
+            SparePartsViewModel sparePartsViewModel = new SparePartsViewModel();
 
             //Update logic
-            sparePartsViewModel.SpareParts.Add(new SparePart { SparePartID = 101, Name = model.Name, Description = model.Description });
+            //sparePartsViewModel.SpareParts.Add(new SparePart { SparePartID = 101, Name = model.Name, Description = model.Description });
+            try
+            {
+
+                string sparepartsData = JsonConvert.SerializeObject(model);
+
+                this.PostAsync("http://localhost:8103/api/Spareparts/", sparepartsData);
+                sparePartsViewModel.SpareParts.Add(model);
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return View("Index", sparePartsViewModel);
         }
 
-        
+        public void PostAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "POST";
+           
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+        }
+
+
         [HttpGet]
         public PartialViewResult check(string componentName)
         {

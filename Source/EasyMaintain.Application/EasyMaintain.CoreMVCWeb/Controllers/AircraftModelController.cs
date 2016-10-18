@@ -3,6 +3,10 @@ using EasyMaintain.CoreWebMVC.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using Newtonsoft.Json;
+using System;
+using System.Net;
+using System.IO;
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {
@@ -21,9 +25,41 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             int finalIndex = (AircraftModelModel.AircrafModels.Count) - 1;
             Model.AircraftModelID = AircraftModelModel.AircrafModels[finalIndex].AircraftModelID + 1;
-            AircraftModelModel.AircrafModels.Add(Model);
+            
+
+
+            try
+            {
+
+                string aircraftData = JsonConvert.SerializeObject(Model);
+
+                this.PostAsync("http://localhost:8961/api/Aircraftmodel/", aircraftData);
+                AircraftModelModel.AircrafModels.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
+
+
 
             return PartialView("_AircraftModel", AircraftModelModel);
+
+        }
+
+
+        public void PostAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "POST";
+
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
         }
 
