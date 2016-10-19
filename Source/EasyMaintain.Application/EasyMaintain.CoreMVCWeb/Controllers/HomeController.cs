@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using EasyMaintain.CoreWebMVC.Utility;
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {
@@ -10,7 +11,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(SessionUtility.utilityUserdataModel);
         }
     }
 }

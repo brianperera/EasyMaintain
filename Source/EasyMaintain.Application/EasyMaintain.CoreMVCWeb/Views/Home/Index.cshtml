@@ -1,4 +1,6 @@
-﻿@{
+﻿@model EasyMaintain.CoreWebMVC.Models.AccountViewModels.UserDataModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -13,7 +15,7 @@
 <div class="tile-area tile-area-scheme-light-grayed fg-white" style="height: 100%; max-height: 100% !important;">
     <h1 class="tile-area-title fg-black">Home</h1>
     <div class="tile-area-controls">
-        <button class="image-button icon-right bg-transparent fg-black bg-hover-dark no-border"><span class="sub-header no-margin text-light">Nishantha Hettiarachchi</span> <span class="icon mif-user"></span></button>
+        <button class="image-button icon-right bg-transparent fg-black bg-hover-dark no-border"><span class="sub-header no-margin text-light">@Html.Raw(Model.Name)</span> <span class="icon mif-user"></span> <span style="display:inline-block;"><img class="manImg" src="1-freepik.jpg"> </span></button>
         <button class="square-button bg-transparent fg-black bg-hover-dark no-border" onclick="showCharms('#charmSettings')"><span class="mif-cog"></span></button>
         <a href="../tiles.html" class="square-button bg-transparent fg-black bg-hover-dark no-border"><span class="mif-switch"></span></a>
     </div>

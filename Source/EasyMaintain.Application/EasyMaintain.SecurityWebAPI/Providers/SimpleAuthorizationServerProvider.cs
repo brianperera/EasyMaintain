@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using EasyMaintain.SecurityWebAPI.Utility;
 
 namespace EasyMaintain.SecurityWebAPI.Providers
 {
@@ -20,12 +22,12 @@ namespace EasyMaintain.SecurityWebAPI.Providers
         {
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
+            
             using (AuthRepository _repo = new AuthRepository())
             {
-                IdentityUser user = await _repo.FindUser(context.UserName, context.Password);
+                SessionUtility.user = await _repo.FindUser(context.UserName, context.Password);
 
-                if (user == null)
+                if (SessionUtility.user == null)
                 {
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
                     return;
@@ -33,8 +35,23 @@ namespace EasyMaintain.SecurityWebAPI.Providers
             }
 
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
+            //identity.AddClaim(new Claim("username", user.UserName));
+            //var props = new AuthenticationProperties(new Dictionary<string, string>
+            //    {
+            //        {
+            //            "surname", "Smith"
+            //        },
+            //        {
+            //            "age", "20"
+            //        },
+            //        {
+            //            "gender", "Male"
+            //        }
+            //   });
+            //var ticket = new AuthenticationTicket(identity, props);
 
             context.Validated(identity);
 

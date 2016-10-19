@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.SecurityWebAPI
 {
-    public class AuthContext : IdentityDbContext<IdentityUser>
+    public class ApplicationUser : IdentityUser {
+        public string Name { get; set; }
+    }
+
+    public class AuthContext : IdentityDbContext<ApplicationUser>
     {
         public AuthContext()
             : base("EasyMaintainDBTest")
@@ -15,4 +19,5 @@ namespace EasyMaintain.SecurityWebAPI
 
         }
     }
+
 }

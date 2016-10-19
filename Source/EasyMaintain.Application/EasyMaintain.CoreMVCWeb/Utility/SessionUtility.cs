@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using EasyMaintain.CoreWebMVC.Models;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Utility
 {
@@ -23,7 +24,8 @@ namespace EasyMaintain.CoreWebMVC.Utility
         public static ComponentModel utilityComponentModel = new ComponentModel();
         public static WorkshopModel utilityWorkshopModel = new WorkshopModel();
         public static MaintenanceCheckViewModel utilityMaintenanceCheckViewModel = new MaintenanceCheckViewModel();
-
+        public static LoginViewModel utilityLoginViewModel = new LoginViewModel();
+        public static UserDataModel utilityUserdataModel = new UserDataModel();
 
         public static int CurrentMaintenanceID { get; set; }
     }

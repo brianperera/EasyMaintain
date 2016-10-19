@@ -25,6 +25,17 @@ namespace EasyMaintain.SecurityWebAPI
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
 
+
+//            app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
+//            {
+//                AuthenticationMode = AuthenticationMode.Active,
+//                AllowedAudiences = new[] { "Any" },
+//                IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+//{
+//                new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
+//}
+//            });
+
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
             //    routeTemplate: "api/{controller}/{id}",

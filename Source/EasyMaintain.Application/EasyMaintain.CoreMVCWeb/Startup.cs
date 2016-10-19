@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-
-
+using Microsoft.Owin.Security.OAuth;
+using Owin;
 
 namespace EasyMaintain.CoreMVCWeb
 {
@@ -37,6 +37,8 @@ namespace EasyMaintain.CoreMVCWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            ConfigureOAuth(app);
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
@@ -57,6 +59,17 @@ namespace EasyMaintain.CoreMVCWeb
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+
+        }
+
+        private static void ConfigureOAuth(IApplicationBuilder app)
+        {
+            //Token Consumption
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+
             });
         }
     }

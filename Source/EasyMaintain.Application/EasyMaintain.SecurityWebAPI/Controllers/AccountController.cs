@@ -1,4 +1,5 @@
 ﻿using EasyMaintain.SecurityWebAPI.Models;
+using EasyMaintain.SecurityWebAPI.Utility;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,44 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
 
             return Ok();
         }
+
+
+        [Authorize]
+        [HttpGet]
+        [Route("Userdata")]
+        public IHttpActionResult Userdata()
+        {
+            if (SessionUtility.user != null)
+            {
+                var props = new Dictionary<string, string>
+                {
+                    {
+                        "Username", SessionUtility.user.UserName
+                    },
+                    {
+                        "ID", SessionUtility.user.Id
+                    },
+                    {
+                        "Name", SessionUtility.user.Name
+                    },
+                    {
+                        "Email", SessionUtility.user.Email
+                    },
+                    {
+                        "PhoneNumber", SessionUtility.user.PhoneNumber
+                    }
+
+               };
+
+                return Ok(props);
+            }
+            else
+            {
+                return Ok("NO USER LOGGEDIN");
+            }
+
+        }
+
 
         protected override void Dispose(bool disposing)
         {

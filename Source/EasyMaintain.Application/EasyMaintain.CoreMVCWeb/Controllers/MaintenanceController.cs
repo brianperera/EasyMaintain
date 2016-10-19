@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using EasyMaintain.CoreWebMVC.DataEntities;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -29,6 +30,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         // [Route("api/[controller]")]
         public ActionResult Index()
         {
+
+            //string test = User.Identity.Name;
+
             try
             {
                 var uri = "api/Maintenance/Get ";
@@ -53,6 +57,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return View(maintenanceViewModel);
         }
 
+        [Authorize]
         public PartialViewResult CheckItems()
         {
 
