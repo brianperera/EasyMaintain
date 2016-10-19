@@ -38,20 +38,6 @@ namespace EasyMaintain.SecurityWebAPI.Providers
 
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
-            //identity.AddClaim(new Claim("username", user.UserName));
-            //var props = new AuthenticationProperties(new Dictionary<string, string>
-            //    {
-            //        {
-            //            "surname", "Smith"
-            //        },
-            //        {
-            //            "age", "20"
-            //        },
-            //        {
-            //            "gender", "Male"
-            //        }
-            //   });
-            //var ticket = new AuthenticationTicket(identity, props);
 
             context.Validated(identity);
 
