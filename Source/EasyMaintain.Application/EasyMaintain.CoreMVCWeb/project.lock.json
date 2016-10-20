@@ -1384,10 +1384,10 @@
           "lib/net45/Microsoft.Owin.dll": {}
         }
       },
-      "Microsoft.Owin.Security/2.1.0": {
+      "Microsoft.Owin.Security/3.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Owin": "2.1.0",
+          "Microsoft.Owin": "3.0.0",
           "Owin": "1.0.0"
         },
         "compile": {
@@ -1395,6 +1395,22 @@
         },
         "runtime": {
           "lib/net45/Microsoft.Owin.Security.dll": {}
+        }
+      },
+      "Microsoft.Owin.Security.Jwt/3.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Owin": "3.0.0",
+          "Microsoft.Owin.Security": "3.0.0",
+          "Microsoft.Owin.Security.OAuth": "3.0.0",
+          "Owin": "1.0.0",
+          "System.IdentityModel.Tokens.Jwt": "4.0.0"
+        },
+        "compile": {
+          "lib/net45/Microsoft.Owin.Security.Jwt.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.Owin.Security.Jwt.dll": {}
         }
       },
       "Microsoft.Owin.Security.OAuth/2.1.0": {
@@ -3329,15 +3345,26 @@
         "lib/net45/Microsoft.Owin.dll"
       ]
     },
-    "Microsoft.Owin.Security/2.1.0": {
-      "sha512": "4n1V0p+O6W1L0xHUM8Cjp2Y+MmmUkiCZv6PvRNIDCJD9zlerBJa2HECo9lUiWC+KuasQJ3QxB1FmipNBxdXXIQ==",
+    "Microsoft.Owin.Security/3.0.0": {
+      "sha512": "YkMVSORBS15sbFbNWOZBOe1JR295rKIy/N9Kym61taTOeqSqY0Uz0bCEZChC9+w5kFtw6gNPxKtD+Ytit4IDqA==",
       "type": "package",
-      "path": "Microsoft.Owin.Security/2.1.0",
+      "path": "Microsoft.Owin.Security/3.0.0",
       "files": [
-        "Microsoft.Owin.Security.2.1.0.nupkg.sha512",
+        "Microsoft.Owin.Security.3.0.0.nupkg.sha512",
         "Microsoft.Owin.Security.nuspec",
         "lib/net45/Microsoft.Owin.Security.XML",
         "lib/net45/Microsoft.Owin.Security.dll"
+      ]
+    },
+    "Microsoft.Owin.Security.Jwt/3.0.0": {
+      "sha512": "BSORccHxO533PLz4QG0FdWuX3G3Pb9+zZzcLDHcbEoxaF8cE1TQAsO26NNlYmmM9zcK0imjWn3AzAXur3wiMNA==",
+      "type": "package",
+      "path": "Microsoft.Owin.Security.Jwt/3.0.0",
+      "files": [
+        "Microsoft.Owin.Security.Jwt.3.0.0.nupkg.sha512",
+        "Microsoft.Owin.Security.Jwt.nuspec",
+        "lib/net45/Microsoft.Owin.Security.Jwt.dll",
+        "lib/net45/Microsoft.Owin.Security.Jwt.xml"
       ]
     },
     "Microsoft.Owin.Security.OAuth/2.1.0": {
@@ -5447,6 +5474,7 @@
       "Microsoft.Extensions.Logging.Console >= 1.0.0",
       "Microsoft.Extensions.Logging.Debug >= 1.0.0",
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
+      "Microsoft.Owin.Security.Jwt >= 3.0.0",
       "Microsoft.Owin.Security.OAuth >= 2.1.0",
       "Microsoft.ServiceFabric >= 5.1.163",
       "Microsoft.ServiceFabric.Data >= 2.1.163",

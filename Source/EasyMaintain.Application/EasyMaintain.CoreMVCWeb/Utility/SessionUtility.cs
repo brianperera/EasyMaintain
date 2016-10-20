@@ -26,6 +26,7 @@ namespace EasyMaintain.CoreWebMVC.Utility
         public static MaintenanceCheckViewModel utilityMaintenanceCheckViewModel = new MaintenanceCheckViewModel();
         public static LoginViewModel utilityLoginViewModel = new LoginViewModel();
         public static UserDataModel utilityUserdataModel = new UserDataModel();
+        public static Token utilityToken = new Token();
 
         public static int CurrentMaintenanceID { get; set; }
     }

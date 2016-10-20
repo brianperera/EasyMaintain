@@ -41,6 +41,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
                 using (HttpClient httpClient = new HttpClient())
                 {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SessionUtility.utilityToken.AccessToken);
                     httpClient.BaseAddress = new Uri("http://localhost:8961");
                     Task<String> response = httpClient.GetStringAsync(uri);
                     maintenanceItems = JsonConvert.DeserializeObject<List<Maintenance>>(response.Result);

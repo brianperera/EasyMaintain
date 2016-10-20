@@ -61,28 +61,22 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 {
                     var form = new Dictionary<string, string>
                {
-                   {"grant_type", "password"},
                    {"username", model.Email},
                    {"password", model.Password},
+                   {"grant_type", "password"},
+                   {"client_id", "099153c2625149bc8ecb3e85e03f0022"},
                };
                     var tokenResponse = client.PostAsync(TokenUri, new FormUrlEncodedContent(form)).Result;
                     //var token = tokenResponse.Content.ReadAsStringAsync().Result;  
-                    var token = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;
+                    SessionUtility.utilityToken = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;
                     
-                    if (string.IsNullOrEmpty(token.Error))
+                    if (string.IsNullOrEmpty(SessionUtility.utilityToken.Error))
                     {
-                        //Console.WriteLine("Token issued is: {0}", token.AccessToken);
-
-                        //Cookie cookie = new Cookie("Easymaintain_AccessToken", token.AccessToken);
-                        //cookie.Expires = DateTime.Now.AddDays(1);
-                        //Response.Cookies.Append("Easymaintain_AccessToken", token.AccessToken);
-
-                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SessionUtility.utilityToken.AccessToken);
                         string UserdataUri = "http://localhost:8533/api/account/userdata";
                         Task<String> UserdataResponse =  client.GetStringAsync(UserdataUri);
                         SessionUtility.utilityUserdataModel = JsonConvert.DeserializeObject<UserDataModel>(UserdataResponse.Result);
 
-                        //SessionUtility.utilityLoginViewModel = model;
                         return View(returnUrl);
                     }
                     else
