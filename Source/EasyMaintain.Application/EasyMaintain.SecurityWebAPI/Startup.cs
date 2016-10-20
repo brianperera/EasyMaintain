@@ -1,5 +1,9 @@
-﻿using EasyMaintain.SecurityWebAPI.Providers;
+﻿using EasyMaintain.SecurityWebAPI.Formats;
+using EasyMaintain.SecurityWebAPI.Providers;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Microsoft.Owin.Security.Jwt;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
@@ -22,43 +26,43 @@ namespace EasyMaintain.SecurityWebAPI
             HttpConfiguration config = new HttpConfiguration();
 
             WebApiConfig.Register(config);
+
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-
-
-//            app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
-//            {
-//                AuthenticationMode = AuthenticationMode.Active,
-//                AllowedAudiences = new[] { "Any" },
-//                IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
-//{
-//                new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
-//}
-//            });
-
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
-
-            //appBuilder.UseWebApi(config);
         }
 
         public static void ConfigureOAuth(IAppBuilder app)
-        {
+            {
+
             OAuthAuthorizationServerOptions OAuthServerOptions = new OAuthAuthorizationServerOptions()
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new SimpleAuthorizationServerProvider()
+                //Provider = new SimpleAuthorizationServerProvider()
+                Provider = new CustomOAuthProvider(),
+                AccessTokenFormat = new CustomJwtFormat("http://localhost:8533")
             };
 
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
+            // app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
+            var issuer = "http://localhost:8533";
+            var audience = "099153c2625149bc8ecb3e85e03f0022";
+            var secret = TextEncodings.Base64Url.Decode("IxrAjDoa2FqElO7IhrSrUJELhUckePEPVpaePlS_Xaw");
+
+            // Api controllers with an [Authorize] attribute will be validated with JWT
+            app.UseJwtBearerAuthentication(
+                new JwtBearerAuthenticationOptions
+                {
+                    AuthenticationMode = AuthenticationMode.Active,
+                    AllowedAudiences = new[] { audience },
+                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+                    {
+                        new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
+                    }
+                });
         }
     }
 }
