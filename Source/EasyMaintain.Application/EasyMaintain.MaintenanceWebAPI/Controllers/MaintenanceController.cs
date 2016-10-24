@@ -19,7 +19,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
 
         // GET api/Maintenance
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         public IEnumerable<Maintenance> Get()
         {

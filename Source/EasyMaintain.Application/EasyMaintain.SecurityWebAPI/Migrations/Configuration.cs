@@ -1,5 +1,7 @@
 namespace EasyMaintain.SecurityWebAPI.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -16,6 +18,13 @@ namespace EasyMaintain.SecurityWebAPI.Migrations
         protected override void Seed(EasyMaintain.SecurityWebAPI.AuthContext context)
         {
             //  This method will be called after migrating to the latest version.
+
+
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new AuthContext()));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new AuthContext()));
+
+            //manager.Create()
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
