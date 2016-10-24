@@ -1,0 +1,36 @@
+﻿@model EasyMaintain.CoreWebMVC.Models.RoleViewModel
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<div class="flex-grid no-responsive-future" style="height: 100%;">
+    <div class="row" style="height: 100%">
+        <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
+            <ul class="sidebar">
+                <li class="active">
+                    <a href="#" onclick="LoadPartialView('Roles')">
+                        <span class="mif-widgets icon"></span>
+                        <span class="title">Aircrafts</span>
+                        <span class="counter">@Html.Raw(Model.Roles.Count)</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="cell auto-size bg-white form-page-main-container">
+            <div id="loadingDiv" class="dialog-overlay default loading-background ">
+                <div data-role="preloader" data-type="cycle" data-style="color"></div>
+            </div>
+            <div id="partial-view-container" class="padding20">
+                @*By default the Search partial view will be loaded*@
+                @Html.Partial("_RoleModel", Model)
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function LoadPartialView(viewName)
+    {
+        $('#partial-view-container').load(viewName);
+    }
+</script>

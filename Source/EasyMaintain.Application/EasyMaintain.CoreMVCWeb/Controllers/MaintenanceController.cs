@@ -58,7 +58,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return View(maintenanceViewModel);
         }
 
-        [Authorize]
         public PartialViewResult CheckItems()
         {
 
@@ -90,6 +89,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceViewModel.StartDate = Model.StartDate;
             maintenanceViewModel.WorkshopLocation = Model.Location;
         }
+
+        [Authorize]
         [HttpPost, Route("/maintenance/CreateMaintenanceOrder")]
         public PartialViewResult CreateMaintenanceOrder([FromBody] Maintenance Model)
         {
@@ -381,6 +382,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceViewModel.Workshops = SessionUtility.utilityWorkshopModel;
             maintenanceViewModel.CrewViewModelObj = SessionUtility.utilityCrewViewModel;
             maintenanceViewModel.MaintenanceCheckViewModelObj = SessionUtility.utilityMaintenanceCheckViewModel;
+            maintenanceViewModel.token = SessionUtility.utilityToken;
 
         }
 

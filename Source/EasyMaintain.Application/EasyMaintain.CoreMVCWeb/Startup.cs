@@ -10,7 +10,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Microsoft.Owin.Security.DataHandler.Encoder;
-using Microsoft.Owin.Security.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EasyMaintain.CoreMVCWeb
 {
@@ -72,18 +73,48 @@ namespace EasyMaintain.CoreMVCWeb
             var issuer = "http://localhost:8533";
             var audience = "099153c2625149bc8ecb3e85e03f0022";
             var secret = TextEncodings.Base64Url.Decode("IxrAjDoa2FqElO7IhrSrUJELhUckePEPVpaePlS_Xaw");
+            var signingKey = new SymmetricSecurityKey(secret);
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
-            //app.UseJwtBearerAuthentication(
-            //    new JwtBearerAuthenticationOptions 
-            //    {
-            //        AuthenticationMode = AuthenticationMode.Active,
-            //        AllowedAudiences = new[] { audience },
-            //        IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
-            //        {
-            //            new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
-            //        }
-            //    });
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                // The signing key must match!
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = signingKey,
+
+                // Validate the JWT Issuer (iss) claim
+                ValidateIssuer = true,
+                ValidIssuer = issuer,
+
+                // Validate the JWT Audience (aud) claim
+                ValidateAudience = true,
+                ValidAudience = audience,
+
+                // Validate the token expiry
+                ValidateLifetime = true,
+
+                // If you want to allow a certain amount of clock drift, set that here:
+                ClockSkew = TimeSpan.Zero
+            };
+
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = tokenValidationParameters
+            });
+
+            /*  app.UseJwtBearerAuthentication(
+                new JwtBearerOptions 
+                {
+                    AutomaticAuthenticate = true,
+                    Audience = audience,
+                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+                    {
+                        new SymmetricKeyIssuerSecurityTokenProvider(issuer, secret)
+                    }
+                });*/
         }
     }
 }

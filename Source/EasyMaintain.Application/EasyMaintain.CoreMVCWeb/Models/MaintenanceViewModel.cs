@@ -79,6 +79,8 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public CrewViewModel CrewViewModelObj { get; set; }
 
+        public Token token { get; set; }
+
         public MaintenanceViewModel()
         {
             Workshops = new WorkshopModel(); 
