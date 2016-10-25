@@ -1,6 +1,7 @@
 ﻿using EasyMaintain.SecurityWebAPI.Entities;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using System;
+using System.Configuration;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
