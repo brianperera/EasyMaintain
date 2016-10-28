@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Fabric;
 using System.IO;
 using System.Threading;
@@ -74,6 +76,65 @@ namespace EasyMaintain.CoreMVCWeb
                 return Task.FromResult(serverUrl);
             }
 
+      /*      private string nginxProcessName = "";
+        private string getConfigPath()
+        {
+            var codePackage = this.Context.CodePackageActivationContext.CodePackageName;
+            var configPackage = this.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var codePath = this.Context.CodePackageActivationContext.GetCodePackageObject(codePackage).Path;
+            return Path.Combine(configPackage.Path, "conf\\nginx.conf");
+        }
+        private bool isNginxRunning()
+        {
+            if (!string.IsNullOrEmpty(nginxProcessName))
+            {
+                var processes = Process.GetProcessesByName(nginxProcessName);
+                return processes.Length != 0;
+            }
+            else
+                return false;
+        }
+        private void launchNginxProcess(string arguments)
+        {
+            var codePackage = this.Context.CodePackageActivationContext.CodePackageName;
+            var configPackage = this.Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var codePath = this.Context.CodePackageActivationContext.GetCodePackageObject(codePackage).Path;
+            var res = File.Exists(Path.Combine(codePath, "nginx-1.11.5.exe"));
+            var nginxStartInfo = new ProcessStartInfo(Path.Combine(codePath, "nginx-1.11.5.exe"));
+            nginxStartInfo.WorkingDirectory = codePath;
+            nginxStartInfo.UseShellExecute = false;
+            nginxStartInfo.Arguments = arguments;
+            var nginxProcess = new Process();
+            nginxProcess.StartInfo = nginxStartInfo;
+            nginxProcess.Start();
+            nginxProcessName = nginxProcess.ProcessName;
+        }
+
+            protected override async Task RunAsync(CancellationToken cancellationToken)
+            {
+                this.Context.CodePackageActivationContext.ConfigurationPackageModifiedEvent += CodePackageActivationContext_ConfigurationPackageModifiedEvent;
+
+                launchNginxProcess("-c " + getConfigPath());
+
+                while (true)
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                        launchNginxProcess("-s quit");
+                    cancellationToken.ThrowIfCancellationRequested();
+                    await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                    if (!isNginxRunning())
+                        launchNginxProcess("-c " + getConfigPath());
+                }
+            }
+
+            private void CodePackageActivationContext_ConfigurationPackageModifiedEvent(object sender, PackageModifiedEventArgs<ConfigurationPackage> e)
+            {
+                launchNginxProcess("-s quit");
+                while (isNginxRunning())
+                    Task.Delay(TimeSpan.FromSeconds(1));
+                launchNginxProcess("-c " + Path.Combine(e.NewPackage.Path, "conf\\nginx.conf"));
+            }
+            */
             #endregion ICommunicationListener
         }
     }

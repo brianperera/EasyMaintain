@@ -1,0 +1,236 @@
+﻿@model EasyMaintain.CoreWebMVC.Models.UsersViewModel
+
+<script src="~/Scripts/select2.min.js"></script>
+<h1 class="text-light">User</h1>
+<div id="CreateTitle">
+    <h3 class="text-light">Edit User</h3>
+</div>
+<div style="display: none" id="UpdateTitle">
+    <h3 class="text-light">Edit Member</h3>
+</div>
+
+
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary(true)
+
+    <div class="example">
+        <div class="flex-grid">
+            <div class="row cells2">
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>First Name</label>
+                    <div class="input-control text full-size">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "FirstName", placeholder = "Name" })
+                    </div>
+                </div>
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>Last Name</label>
+                    <div class="input-control text full-size">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "LastName", placeholder = "Name" })
+                    </div>
+                </div>
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>Role</label>
+                    <div class="input-control text full-size">
+                        @Html.TextBoxFor(m => m.Role.Name, new { @class = "Role", placeholder = "Designation" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+
+    <div id="CreateButton">
+        <button class="button primary" onclick="createNewMember()"><span class="mif-plus"></span> Create</button>
+    </div>
+    <div style="display: none" id="EditButtons">
+        <button class="button warning" onclick="saveEditedMember()"><span class="mif-loop2"></span> Update</button>
+        <button class="button alert" onclick="deleteMember()"><span class="mif-cross"></span> Delete</button>
+        <button class="button primary" onclick="cancel()"><span class="mif-plus"></span> New Member</button>
+    </div>
+
+    <hr class="thin bg-grayLighter">
+    <table class="dataTable border bordered" data-auto-width="false">
+        <thead>
+            <tr>
+                <td class="sortable-column sort-asc" style="width: 100px">ID</td>
+                <td class="sortable-column">Name</td>
+                <td class="sortable-column">Designation</td>
+                <td class="sortable-column" style="width: 100px">Update</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var models in Model.Users)
+            {
+                <tr>
+                    <td>@models.UserID</td>
+                    <td>@models.FirstName</td>
+                    <td>@models.Role.Name</td>
+                    <td class="align-center"><button class="toolbar-button" onclick="LoadMember(@models.UserID)"><span class="mif-pencil"></span></button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <script>
+
+        function tab_click(tab) {
+            console.log(tab);
+            return true;
+        }
+        function tab_change(tab) {
+            console.log(tab);
+        }
+
+
+        function createNewMember() {
+            debugger;
+            var CurrentCoponent = {
+                FirstName: $(".FirstName").val(),
+                LastName: $(".LastName").val(),
+                Role : {Name: $(".Role").val()}
+            }
+
+            $.ajax({
+                url: '/Users/createNewMember',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(CurrentCoponent),
+                success: function (data) {
+
+                    $.Notify({
+                        caption: 'Users',
+                        content: 'Users  successfully added.',
+                        type: 'success'
+                    });
+
+                    debugger;
+                    $('.sidebar').children().removeClass('active');
+                    $('.sidebar li:nth-child(1)').addClass('active');
+
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function saveEditedMember() {
+            debugger;
+            var CurrentCoponent = {
+                FirstName: $(".FirstName").val(),
+                LastName: $(".LastName").val(),
+                Role: { Name: $(".Role").val() }
+            }
+
+            $.ajax({
+                url: '/Users/saveEditedMember',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(CurrentCoponent),
+                success: function (data) {
+
+                    $.Notify({
+                        caption: 'Users',
+                        content: 'Users successfully added.',
+                        type: 'success'
+                    });
+
+                    debugger;
+                    $('.sidebar').children().removeClass('active');
+                    $('.sidebar li:nth-child(1)').addClass('active');
+
+                    $('#partial-view-container').html(data);
+                },
+            });
+
+        }
+
+        function LoadMember(viewName) {
+            var Model = { UserID: viewName }
+
+            $.ajax({
+                url: '/Users/EditMember',
+                type: 'POST',
+                data: JSON.stringify(Model),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("edit");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Users',
+                        content: 'Users Editing Failed.',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function cancel() {
+
+            $.ajax({
+                url: '/Users/cancel',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("create");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Users',
+                        content: 'Users Editing Failed .',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function deleteMember() {
+
+            $.ajax({
+                url: '/Users/deleteMember',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    debugger;
+                    $('#partial-view-container').html(data);
+                    chanageButtons("create");
+                },
+                error: function () {
+                    $.Notify({
+                        caption: 'Users',
+                        content: 'Users Deleting Failed .',
+                        type: 'alert'
+                    });
+                }
+            });
+
+        }
+
+        function chanageButtons(button) {
+            debugger;
+            if (button == "edit") {
+                debugger;
+                $("#CreateButton").hide();
+                $("#CreateTitle").hide();
+                $("#UpdateTitle").show();
+                $("#EditButtons").show();
+            }
+            if (button == "create") {
+                debugger;
+                $("#CreateButton").show();
+                $("#CreateTitle").show();
+                $("#UpdateTitle").hide();
+                $("#EditButtons").hide();
+            }
+
+        }
+
+    </script>
+

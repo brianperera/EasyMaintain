@@ -1,4 +1,4 @@
-﻿@model EasyMaintain.CoreWebMVC.Models.RoleViewModel
+﻿@model EasyMaintain.CoreWebMVC.Models.UsersViewModel
 
 @{
     ViewBag.Title = "Roles";
@@ -9,10 +9,10 @@
         <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
             <ul class="sidebar">
                 <li class="active">
-                    <a href="#" onclick="LoadPartialView('Roles')">
+                    <a href="#" onclick="LoadPartialView('EditUser')">
                         <span class="mif-widgets icon"></span>
-                        <span class="title">Create Role</span>
-                        <span class="counter">@Html.Raw(Model.Roles.Count)</span>
+                        <span class="title">Edit Users</span>
+                        <span class="counter">@Html.Raw(Model.Users.Count)</span>
                     </a>
                 </li>
             </ul>
@@ -23,7 +23,7 @@
             </div>
             <div id="partial-view-container" class="padding20">
                 @*By default the Search partial view will be loaded*@
-                @Html.Partial("_RoleModel", Model)
+                @Html.Partial("_EditUserModel", Model)
             </div>
         </div>
     </div>
