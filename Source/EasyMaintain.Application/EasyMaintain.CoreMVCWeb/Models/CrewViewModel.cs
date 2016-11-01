@@ -30,8 +30,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public List<Crew> CrewList { get; set; }
         public CrewViewModel()
         {
-            CrewList = new List<Crew>();
-            //CrewList.Add(new Crew() {CrewID = 1, Name = "Jann", Designation = "Head Mechanic" });
+            CrewList = new List<Crew>();   
             updateList();
 
 

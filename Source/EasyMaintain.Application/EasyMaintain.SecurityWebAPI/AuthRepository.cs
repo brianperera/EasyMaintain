@@ -28,7 +28,7 @@ namespace EasyMaintain.SecurityWebAPI
             ApplicationUser user = new ApplicationUser
             {
                 UserName = userModel.UserName,
-                Name = userModel.Name,
+                FirstName = userModel.Name,
                 Email = userModel.Email,
                 PhoneNumber = userModel.PhoneNumber
 

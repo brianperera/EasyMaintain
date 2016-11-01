@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.SecurityWebAPI
 {
-   public class ApplicationRoleManager: RoleManager<IdentityRole>
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
 
         public ApplicationRoleManager(IRoleStore<IdentityRole, string> roleStore)
@@ -22,8 +22,8 @@ namespace EasyMaintain.SecurityWebAPI
         //create instances for each request
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-           
-           var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<AuthContext>()));
+
+            var appRoleManager = new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<AuthContext>()));
 
             return appRoleManager;
         }

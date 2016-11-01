@@ -11,6 +11,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     {
         public IActionResult Index()
         {
+           
             return View(SessionUtility.utilityUserdataModel);
         }
     }

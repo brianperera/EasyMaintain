@@ -19,14 +19,14 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
         private ApplicationUserManager _AppUserManager = null;
        
 
-        protected ApplicationUserManager AppUserManager
+        public ApplicationUserManager AppUserManager
         {
             get
             {
                 return _AppUserManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
         }
-        protected ApplicationRoleManager AppRoleManager
+        public ApplicationRoleManager AppRoleManager
         {
             get
             {
@@ -38,7 +38,7 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
         {
         }
 
-        protected RoleModel  TheModelFactory
+        public RoleModel  TheModelFactory
         {
             get
             {
@@ -50,7 +50,7 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
             }
         }
 
-        protected IHttpActionResult GetErrorResult(IdentityResult result)
+        public IHttpActionResult GetErrorResult(IdentityResult result)
         {
             if (result == null)
             {

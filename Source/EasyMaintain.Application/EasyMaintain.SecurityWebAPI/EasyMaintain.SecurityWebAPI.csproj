@@ -294,6 +294,7 @@
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Entities\Audience.cs" />
     <Compile Include="Formats\CustomJwtFormat.cs" />
     <Compile Include="Migrations\201610060947312_InitialCreate.cs" />
@@ -311,6 +312,14 @@
     <Compile Include="Migrations\201610141106401_addNamev2.cs" />
     <Compile Include="Migrations\201610141106401_addNamev2.Designer.cs">
       <DependentUpon>201610141106401_addNamev2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610240956313_SuperAdminAdded.cs" />
+    <Compile Include="Migrations\201610240956313_SuperAdminAdded.Designer.cs">
+      <DependentUpon>201610240956313_SuperAdminAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610250704553_NewSuperAdmin1.cs" />
+    <Compile Include="Migrations\201610250704553_NewSuperAdmin1.Designer.cs">
+      <DependentUpon>201610250704553_NewSuperAdmin1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -360,6 +369,18 @@
     <EmbeddedResource Include="Migrations\201610141106401_addNamev2.resx">
       <DependentUpon>201610141106401_addNamev2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610240956313_SuperAdminAdded.resx">
+      <DependentUpon>201610240956313_SuperAdminAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610250704553_NewSuperAdmin1.resx">
+      <DependentUpon>201610250704553_NewSuperAdmin1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyMaintain.CoreMVCWeb\EasyMaintain.CoreWebMVC.xproj">
+      <Project>{604ffb28-9863-455a-a2af-a7f0151f286c}</Project>
+      <Name>EasyMaintain.CoreWebMVC</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

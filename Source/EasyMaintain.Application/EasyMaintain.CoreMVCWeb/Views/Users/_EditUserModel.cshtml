@@ -54,8 +54,8 @@
         <thead>
             <tr>
                 <td class="sortable-column sort-asc" style="width: 100px">ID</td>
-                <td class="sortable-column">Name</td>
-                <td class="sortable-column">Designation</td>
+                <td class="sortable-column">FirstName</td>
+                <td class="sortable-column">LastName</td>
                 <td class="sortable-column" style="width: 100px">Update</td>
             </tr>
         </thead>
@@ -65,7 +65,8 @@
                 <tr>
                     <td>@models.UserID</td>
                     <td>@models.FirstName</td>
-                    <td>@models.Role.Name</td>
+                    <td>@models.LastName</td>
+                    @*<td>@models.Role.Name</td>*@
                     <td class="align-center"><button class="toolbar-button" onclick="LoadMember(@models.UserID)"><span class="mif-pencil"></span></button></td>
                 </tr>
             }

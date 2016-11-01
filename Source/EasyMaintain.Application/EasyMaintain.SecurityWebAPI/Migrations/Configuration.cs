@@ -19,23 +19,41 @@ namespace EasyMaintain.SecurityWebAPI.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new AuthContext()));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new AuthContext()));
 
-            //manager.Create()
+            var user = new ApplicationUser()
+            {
+                UserName = "superadmin",
+                Email = "john.atm@outlook.com",
+                EmailConfirmed = true,
+                FirstName = "Donald",
+                LastName = "Trump",
+            };
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            manager.Create(user, "donaldtrump1");
+
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByName("superadmin");
+
+            // manager.AddToRole(adminUser.Id, new string[] { "SuperAdmin", "Admin" }.ToString());
+            manager.AddToRole(adminUser.Id, "SuperAdmin");
+            //manager.AddToRole(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+            context.SaveChanges();
+            base.Seed(context);
         }
+
+
     }
-}
+
+    }
+
+
+

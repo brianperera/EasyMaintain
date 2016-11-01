@@ -60,7 +60,7 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
                         "ID", SessionUtility.user.Id
                     },
                     {
-                        "Name", SessionUtility.user.Name
+                        "Name", SessionUtility.user.FirstName
                     },
                     {
                         "Email", SessionUtility.user.Email
