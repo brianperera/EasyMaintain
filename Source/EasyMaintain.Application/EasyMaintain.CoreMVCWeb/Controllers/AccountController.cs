@@ -29,7 +29,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (SessionUtility.utilityToken.AccessToken == null){
+                return View();
+            }
+            else {
+                return RedirectToAction("Index", "Home", new { area = "" });
+            }
         }
 
         //
@@ -76,8 +81,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                         string UserdataUri = "http://localhost:8533/api/account/userdata";
                         Task<String> UserdataResponse =  client.GetStringAsync(UserdataUri);
                         SessionUtility.utilityUserdataModel = JsonConvert.DeserializeObject<UserDataModel>(UserdataResponse.Result);
-
-                        return View(returnUrl);
+                        return RedirectToAction("Index", "Home", new { area = "" });
+                        //return View("Index", SessionUtility.utilityUserdataModel);
                     }
                     else
                     {

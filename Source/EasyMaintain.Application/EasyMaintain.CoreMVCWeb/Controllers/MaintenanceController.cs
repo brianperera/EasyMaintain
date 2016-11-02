@@ -73,8 +73,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public PartialViewResult NewMaintenanceOrder()
         {
-            maintenanceViewModel.CrewMembers.Clear();
-            maintenanceViewModel.CheckItems.Clear();
+            if (maintenanceViewModel.CrewMembers != null) { maintenanceViewModel.CrewMembers.Clear(); }
+            if (maintenanceViewModel.CheckItems !=null) { maintenanceViewModel.CheckItems.Clear(); }
             maintenanceViewModel.FlightModel = null;
             maintenanceViewModel.FlightNumber = null;
             maintenanceViewModel.Description = null;
@@ -233,17 +233,17 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             item = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == ID.WorkID);
 
-            try
-            {
+            //try
+            //{
 
-                string maintenanceID = JsonConvert.SerializeObject(ID.WorkID);
+            //    string maintenanceID = JsonConvert.SerializeObject(ID.WorkID);
 
-                this.PostAsync("http://localhost:8961/api/Maintenance/5", maintenanceID);
+            //    this.PostAsync("http://localhost:8961/api/Maintenance/5", maintenanceID);
 
-            }
-            catch (AggregateException e)
-            {
-            }
+            //}
+            //catch (AggregateException e)
+            //{
+            //}
 
 
             maintenanceViewModel.WorkID = item.WorkID;

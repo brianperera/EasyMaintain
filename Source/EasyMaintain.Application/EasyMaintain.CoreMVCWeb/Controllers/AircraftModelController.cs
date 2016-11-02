@@ -24,8 +24,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult SaveNewAircraft([FromBody]AircraftModel Model)
         {
             int finalIndex = (AircraftModelModel.AircrafModels.Count) - 1;
-            Model.AircraftModelID = AircraftModelModel.AircrafModels[finalIndex].AircraftModelID + 1;
-            
+            if (finalIndex < 0)
+            { Model.AircraftModelID = 1; }
+            else {
+                Model.AircraftModelID = AircraftModelModel.AircrafModels[finalIndex].AircraftModelID + 1;
+            }
+
 
 
             try

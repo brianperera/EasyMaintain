@@ -9,10 +9,16 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
-           
-            return View(SessionUtility.utilityUserdataModel);
+            if (SessionUtility.utilityToken.AccessToken == null)
+            {
+                return RedirectToAction("Login", "Account", new { area = "" });
+            }
+            else {
+                return View(SessionUtility.utilityUserdataModel);
+            }
         }
     }
 }
