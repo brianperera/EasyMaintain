@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
 using System.Net.Http;
 using Newtonsoft.Json;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -16,7 +17,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public string Location { get; set; }
     //    public string Address { get; set; }
     //}
-    public class WorkshopModel
+    public class WorkshopModel: UserDataModel
     {
         [Required]
         [Display(Name = "Workshop Name")]

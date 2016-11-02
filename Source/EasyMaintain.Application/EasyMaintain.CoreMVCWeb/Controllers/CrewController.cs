@@ -42,7 +42,7 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             {
 
             }
-
+            CrewViewModel.token = SessionUtility.utilityToken;
             ClearSession();
             return View(CrewViewModel);
         }

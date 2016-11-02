@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EasyMaintain.CoreWebMVC.Models
@@ -14,7 +15,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string AdditionalData { get; set; }
     }
 
-    public class CategoryViewModel
+    public class CategoryViewModel: UserDataModel
     {
 
         [Key]

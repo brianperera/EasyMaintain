@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
 using System.Net.Http;
 using Newtonsoft.Json;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    public class MaintenanceCheckViewModel
+    public class MaintenanceCheckViewModel: UserDataModel
     {
 
         public int MaintenanceCheckID { get; set; }

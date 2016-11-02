@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     }
 
 
-    public class SupplierViewModel
+    public class SupplierViewModel: UserDataModel
     {
         [Required]
         [Display(Name = "Supplier Name")]

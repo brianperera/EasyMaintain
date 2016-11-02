@@ -7,6 +7,7 @@ using EasyMaintain.CoreWebMVC.DataEntities;
 using System.Net.Http;
 using Newtonsoft.Json;
 using EasyMaintain.CoreWebMVC.Utility;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -18,7 +19,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public string Designation { get; set; }
     //}
 
-    public class CrewViewModel
+    public class CrewViewModel: UserDataModel
     {
        // CrewViewModel crewViewModel;
 
@@ -28,6 +29,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public int currentIndex { get; set; }
         public List<Crew> CrewList { get; set; }
+        public Token token { get; set; }
         public CrewViewModel()
         {
             CrewList = new List<Crew>();   

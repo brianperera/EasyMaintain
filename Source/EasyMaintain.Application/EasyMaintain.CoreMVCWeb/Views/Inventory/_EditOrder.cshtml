@@ -123,6 +123,7 @@
         <div class="frame" id="frame_3">
             Invoice
         </div>
+        @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" });
     </div>
 </div>
 
@@ -165,6 +166,9 @@
             url: '/inventory/SaveEditedOrder',
             type: 'POST',
             data: JSON.stringify(CurrentCoponent),
+            headers: {
+                'Authorization': 'Bearer ' + $('#token').val(),
+            },
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
 

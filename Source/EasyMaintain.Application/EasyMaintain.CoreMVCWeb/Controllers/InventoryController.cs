@@ -24,6 +24,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
+            inventoryViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+            inventoryViewModel.ID = SessionUtility.utilityUserdataModel.ID;
+            inventoryViewModel.Name = SessionUtility.utilityUserdataModel.Name;
+            inventoryViewModel.Email = SessionUtility.utilityUserdataModel.Email;
+            inventoryViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
 
             try
             {
@@ -47,7 +52,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             }
 
             //var maintenanceViewModel = new MaintenanceViewModel();
-            inventoryViewModel = SessionUtility.utilityInventoryViewModel;
+            //inventoryViewModel = SessionUtility.utilityInventoryViewModel;
+            inventoryViewModel.token = SessionUtility.utilityToken;
             return View(inventoryViewModel);
         }
 

@@ -1,4 +1,5 @@
 ﻿using EasyMaintain.CoreWebMVC.DataEntities;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    public class RoleViewModel
+    public class RoleViewModel: UserDataModel
     {
         [Required]
         [Display(Name = "Role Name")] 
@@ -18,6 +19,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public int currentIndex { get; set; }
 
         public List<Role> Roles { get; set; }
+        public Token token { get; set; }
 
         public RoleViewModel()
         {

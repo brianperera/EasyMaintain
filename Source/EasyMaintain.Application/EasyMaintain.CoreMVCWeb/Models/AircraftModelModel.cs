@@ -6,6 +6,7 @@ using System.Net.Http;
 using System;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -26,7 +27,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //}
 
 
-    public class AircraftModelModel
+    public class AircraftModelModel: UserDataModel
     {
         [Required]
         [Display(Name = "Model Name")]

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -20,7 +21,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public string AddtionalNotes { get; set; }
     //}
 
-    public class DeliveryDetailsModel
+    public class DeliveryDetailsModel: UserDataModel
     {
         [Required]
         [Display(Name = "Delivery Date")]

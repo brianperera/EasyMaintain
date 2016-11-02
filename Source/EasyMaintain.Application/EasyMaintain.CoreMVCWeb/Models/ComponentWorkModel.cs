@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -24,7 +25,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public string Location { get; set; }
     //}
 
-    public class ComponentWorkModel
+    public class ComponentWorkModel: UserDataModel
     {
         [Required]
         [Display(Name = "Component Name")]

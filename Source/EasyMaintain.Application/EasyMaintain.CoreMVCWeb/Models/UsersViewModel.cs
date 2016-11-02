@@ -1,4 +1,5 @@
 ﻿using EasyMaintain.CoreWebMVC.DataEntities;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 using EasyMaintain.CoreWebMVC.Utility;
 using Newtonsoft.Json;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
-    public class UsersViewModel
+    public class UsersViewModel: UserDataModel
     {
         [Required]
         [Display(Name = "First Name")] 

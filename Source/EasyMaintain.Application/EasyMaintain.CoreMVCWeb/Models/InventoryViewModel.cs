@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -22,7 +23,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public DeliveryDetails Deliverydetails { get; set; }
     //}
 
-    public class InventoryViewModel
+    public class InventoryViewModel : UserDataModel
     {
         [Required]
         [Display(Name = "Customer Name")]
@@ -60,7 +61,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string ActiveTab { get; set; }
         public SparePartsViewModel SparePartsViewModel { get; set; }
 
-
+        public Token token { get; set; }
         public InventoryViewModel()
         {
             SparePartsViewModel = new SparePartsViewModel();

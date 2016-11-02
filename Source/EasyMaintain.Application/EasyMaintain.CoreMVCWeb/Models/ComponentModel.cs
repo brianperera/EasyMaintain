@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
 using System.Net.Http;
 using Newtonsoft.Json;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -19,7 +20,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public string ImagePath { get; set; }
     //    public string AdditionalData { get; set; }
     //}
-    public class ComponentModel
+    public class ComponentModel: UserDataModel
     {
         [Required]
         [Display(Name = "Component Name")]

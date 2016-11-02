@@ -22,6 +22,14 @@ namespace EasyMaintain.CoreWebMVC.Models
         // GET: /<controller>/
         public IActionResult Index()
         {
+            RolesViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+            RolesViewModel.ID = SessionUtility.utilityUserdataModel.ID;
+            RolesViewModel.Name = SessionUtility.utilityUserdataModel.Name;
+            RolesViewModel.Email = SessionUtility.utilityUserdataModel.Email;
+            RolesViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
+
+
+
             try
             {
                 var uri = "api/Roles/GetAllRoles ";
@@ -43,7 +51,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
             }
 
-
+            RolesViewModel.token = SessionUtility.utilityToken;
             return View(RolesViewModel);
         }
 

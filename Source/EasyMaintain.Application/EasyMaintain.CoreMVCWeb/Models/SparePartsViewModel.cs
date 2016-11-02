@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using EasyMaintain.CoreWebMVC.DataEntities;
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -14,7 +15,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public string Description { get; set; }
     }
 
-    public class SparePartsViewModel
+    public class SparePartsViewModel: UserDataModel
     {
         [Required]
         [Display(Name = "Spare Part Name")]

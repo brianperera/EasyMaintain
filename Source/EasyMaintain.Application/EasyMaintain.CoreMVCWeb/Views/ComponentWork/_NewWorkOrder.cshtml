@@ -158,6 +158,7 @@
             
         </div>
     </div>
+    @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" });
 </div>
 
 
@@ -206,7 +207,10 @@
             url: '/componentwork/CreateWorkOrder',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify ( CurrentCoponent ),
+            data: JSON.stringify(CurrentCoponent),
+            headers: {
+                'Authorization': 'Bearer ' + $('#token').val(),
+            },
             success: function (data) {
 
                 $.Notify({
