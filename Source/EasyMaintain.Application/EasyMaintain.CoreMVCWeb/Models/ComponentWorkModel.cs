@@ -63,7 +63,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
 
         public List<ComponentWork> ComponentWorkOrders { get; set; }
-
+        public Token token { get; set; }
         public ComponentWorkModel() {
             
             DeliveryDetailModel = new DeliveryDetailsModel();

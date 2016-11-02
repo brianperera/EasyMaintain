@@ -17,6 +17,7 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
         }
 
         // GET api/Inventory
+        [Authorize]
         [HttpGet]
         public IEnumerable<Inventory> Get()
         {

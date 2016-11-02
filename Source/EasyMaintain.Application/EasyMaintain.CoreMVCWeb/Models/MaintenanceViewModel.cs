@@ -6,7 +6,7 @@ using EasyMaintain.CoreWebMVC.Utility;
 using System.Linq;
 using System.Threading.Tasks;
 using EasyMaintain.CoreWebMVC.DataEntities;
-
+using EasyMaintain.CoreWebMVC.Models.AccountViewModels;
 
 namespace EasyMaintain.CoreWebMVC.Models
 {
@@ -33,7 +33,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public List<Check> CheckItems { get; set; }
     //    public List<Crew> CrewMembers { get; set; }
     //}
-    public class MaintenanceViewModel
+    public class MaintenanceViewModel : UserDataModel
     {
         [Required]
         [Display(Name = "Flight Model")]

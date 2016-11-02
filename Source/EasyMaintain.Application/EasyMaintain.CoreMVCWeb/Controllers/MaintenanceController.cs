@@ -33,6 +33,13 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             //string test = User.Identity.Name;
 
+            maintenanceViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+            maintenanceViewModel.ID = SessionUtility.utilityUserdataModel.ID;
+            maintenanceViewModel.Name = SessionUtility.utilityUserdataModel.Name;
+            maintenanceViewModel.Email = SessionUtility.utilityUserdataModel.Email;
+            maintenanceViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
+
+
             try
             {
                 var uri = "api/Maintenance/Get ";

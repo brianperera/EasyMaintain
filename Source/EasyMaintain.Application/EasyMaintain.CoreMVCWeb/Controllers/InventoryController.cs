@@ -10,6 +10,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
+using System.Net.Http.Headers;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,6 +33,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
                 using (HttpClient httpClient = new HttpClient())
                 {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SessionUtility.utilityToken.AccessToken);
                     httpClient.BaseAddress = new Uri("http://localhost:8103");
                     Task<String> response = httpClient.GetStringAsync(uri);
                     inventoryItems = JsonConvert.DeserializeObject<List<Inventory>>(response.Result);

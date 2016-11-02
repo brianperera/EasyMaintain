@@ -48,7 +48,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public List<Component> Components { get; set; }
 
         public int ComponentID { get; set; }
-
+        public Token token { get; set; }
         public ComponentModel()
         {
             Components = new List<Component>();

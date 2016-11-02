@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EasyMaintain.CoreWebMVC.Utility;
+
 
 namespace EasyMaintain.CoreWebMVC.Models.AccountViewModels
 {
     public class UserDataModel
     {
+        //public UserDataModel() {
+        //    Username = SessionUtility.utilityUserdataModel.Username;
+        //    ID = SessionUtility.utilityUserdataModel.ID;
+        //    Name = SessionUtility.utilityUserdataModel.Name;
+        //    Email = SessionUtility.utilityUserdataModel.Email;
+        //    PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
+        //}
         public string Username { get; set; }
         public string ID { get; set; }
 

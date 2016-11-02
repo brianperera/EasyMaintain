@@ -58,6 +58,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public List<AircraftModel> AircrafModels { get; set; }
 
         public int AircraftModelID { get; set; }
+        public Token token { get; set; }
 
         public AircraftModelModel()
         {

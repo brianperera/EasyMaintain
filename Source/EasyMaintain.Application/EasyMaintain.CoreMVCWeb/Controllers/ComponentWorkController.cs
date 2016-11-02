@@ -11,6 +11,7 @@ using System.Web;
 using EasyMaintain.CoreWebMVC.DataEntities;
 using System.Net;
 using System.IO;
+using System.Net.Http.Headers;
 
 namespace EasyMaintain.CoreWebMVC.Controllers
 {
@@ -30,6 +31,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
                 using (HttpClient httpClient = new HttpClient())
                 {
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SessionUtility.utilityToken.AccessToken);
                     httpClient.BaseAddress = new Uri("http://localhost:8425");
                     Task<String> response = httpClient.GetStringAsync(uri);
                     componentWorkItems = JsonConvert.DeserializeObject<List<ComponentWork>>(response.Result);
@@ -237,6 +239,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             componentWorkViewModel.Components = SessionUtility.utilityComponentModel;
             componentWorkViewModel.Workshops = SessionUtility.utilityWorkshopModel;
+            componentWorkViewModel.token = SessionUtility.utilityToken;
         }
     }
 }

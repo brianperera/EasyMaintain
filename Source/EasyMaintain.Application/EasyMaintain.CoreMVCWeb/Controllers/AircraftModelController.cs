@@ -145,7 +145,18 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             //Update logic
             return PartialView("AircraftModel", model);
         }
+        public void UpdateAircraftViewModel()
+        {
+            //todo
 
+            //AircraftModelModel.AircraftModelID = SessionUtility.;
+            //maintenanceViewModel.Workshops = SessionUtility.utilityWorkshopModel;
+            //maintenanceViewModel.CrewViewModelObj = SessionUtility.utilityCrewViewModel;
+            //maintenanceViewModel.MaintenanceCheckViewModelObj = SessionUtility.utilityMaintenanceCheckViewModel;
+
+            //maintenanceViewModel.token = SessionUtility.utilityToken;
+
+        }
         public void ClearSession()
         {
             AircraftModelModel.AircraftModelID = 0;

@@ -18,7 +18,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
 
         // GET api/Component
-
+        [Authorize]
         [HttpGet]
         public IEnumerable<ComponentWork> Get()
         {
