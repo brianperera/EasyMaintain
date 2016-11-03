@@ -24,42 +24,6 @@
     <None Include="Scripts\Deploy-FabricApplication.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\ApplicationManifest.overrides.xml" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\contrib\geo2nginx.pl" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\contrib\unicode2nginx\unicode-to-nginx.pl" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\contrib\vim\ftdetect\nginx.vim" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\contrib\vim\indent\nginx.vim" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\contrib\vim\syntax\nginx.vim" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\docs\CHANGES.ru" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\docs\OpenSSL.LICENSE" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\docs\PCRE.LICENCE" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\docs\zlib.LICENSE" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\en-us\Microsoft.ServiceFabric.Internal.Strings.resources.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\html\50x.html" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\html\index.html" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\logs\placeholder.txt" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Data.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Data.Interfaces.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Data.Interfaces.xml" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Data.xml" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Internal.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Internal.Strings.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Services.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Microsoft.ServiceFabric.Services.xml" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\nginx-1.11.3.exe" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Nginx.exe" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Nginx.exe.config" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\Nginx.pdb" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\ServiceFabricServiceModel.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\setupAcl.cmd" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\System.Fabric.dll" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\System.Fabric.xml" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Code\temp\placeholder.txt" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Config\conf\fastcgi.conf" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Config\conf\mime.types" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Config\conf\nginx.conf" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\Config\Settings.xml" />
-    <Content Include="ApplicationPackageRoot\NginxPoCPkg\ServiceManifest.xml" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
