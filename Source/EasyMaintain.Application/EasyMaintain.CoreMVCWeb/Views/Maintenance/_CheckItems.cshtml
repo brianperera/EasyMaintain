@@ -91,6 +91,7 @@
                     $('.sidebar').children().removeClass('active');
                     $('.sidebar li:nth-child(1)').addClass('active');
 
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                 },
             });
@@ -120,6 +121,7 @@
                     $('.sidebar').children().removeClass('active');
                     $('.sidebar li:nth-child(1)').addClass('active');
 
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                 },
             });
@@ -136,6 +138,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                     chanageButtons("edit");
                 },
@@ -158,6 +161,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                     chanageButtons("create");
                 },
@@ -180,6 +184,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                     chanageButtons("create");
                 },
@@ -211,6 +216,23 @@
                 $("#EditButtons").hide();
             }
 
+        }
+
+        function SelectSideNavigationItem(navItemIndex) {
+
+            debugger;
+            //Unselect all the items
+            $('.sidebar').children().removeClass('active');
+
+            if (navItemIndex == 1) {
+                $('.sidebar li:nth-child(1)').addClass('active');
+            }
+            else if (navItemIndex == 2) {
+                $('.sidebar li:nth-child(2)').addClass('active');
+            }
+            else if (navItemIndex == 3) {
+                $('.sidebar li:nth-child(3)').addClass('active');
+            }
         }
 
     </script>

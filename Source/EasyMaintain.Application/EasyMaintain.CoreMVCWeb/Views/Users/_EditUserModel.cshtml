@@ -1,6 +1,10 @@
 ﻿@model EasyMaintain.CoreWebMVC.Models.UsersViewModel
 
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
+<script src="~/Scripts/metro.js"></script>
+<script src="~/Scripts/customTiles.js"></script>
 <script src="~/Scripts/select2.min.js"></script>
+
 <h1 class="text-light">User</h1>
 <div id="CreateTitle">
     <h3 class="text-light">Edit User</h3>
@@ -29,19 +33,35 @@
                         @Html.TextBoxFor(m => m.LastName, new { @class = "LastName", placeholder = "Name" })
                     </div>
                 </div>
+
                 <div class="cell-form margin-right-10 cell size4">
                     <label>Role</label>
                     <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Role.Name, new { @class = "Role", placeholder = "Designation" })
+                        <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select Role">
+                            <select id="Role" class="full-size" tabindex="-1" style="display: none;">
+                                <option></option>
+                                @foreach (var workOrder in Model.Roles)
+                                {
+                                    <option value="@(workOrder.RoleID)">@Html.Raw(workOrder.Name)</option>
+                                }
+
+                            </select>
+                            <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr">
+                                <span class="selection">
+                                </span>
+                                <span class="dropdown-wrapper" aria-hidden="true">
+                                </span>
+                            </span>
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
     </div>
     <hr />
 
     <div id="CreateButton">
-        <button class="button primary" onclick="createNewMember()"><span class="mif-plus"></span> Create</button>
     </div>
     <div style="display: none" id="EditButtons">
         <button class="button warning" onclick="saveEditedMember()"><span class="mif-loop2"></span> Update</button>
@@ -90,7 +110,7 @@
             var CurrentCoponent = {
                 FirstName: $(".FirstName").val(),
                 LastName: $(".LastName").val(),
-                Role : {Name: $(".Role").val()}
+                Role : {Name: $("#Role").val()}
             }
 
             $.ajax({
@@ -124,7 +144,7 @@
             var CurrentCoponent = {
                 FirstName: $(".FirstName").val(),
                 LastName: $(".LastName").val(),
-                Role: { Name: $(".Role").val() }
+                Role: { Name: $("#Role").val() }
             }
 
             $.ajax({

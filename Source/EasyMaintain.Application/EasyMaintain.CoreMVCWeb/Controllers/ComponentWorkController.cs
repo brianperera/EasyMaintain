@@ -164,10 +164,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             int finalIndex = componentModel.Components.Count - 1;
             if (finalIndex < 0)
             {
-                finalIndex = 0;
-            } 
-            Model.ComponentID = componentModel.Components[finalIndex].ComponentID + 1;
-           
+                Model.ComponentID = 1;
+            }
+            else {
+                Model.ComponentID = componentModel.Components[finalIndex].ComponentID + 1;
+            }
+
             try
             {
 

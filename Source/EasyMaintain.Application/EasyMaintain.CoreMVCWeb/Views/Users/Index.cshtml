@@ -23,14 +23,17 @@
             </div>
             <div id="partial-view-container" class="padding20">
                 @*By default the Search partial view will be loaded*@
-                @Html.Partial("_EditUserModel", Model)
+                @Html.Partial("_EditUserModel")
             </div>
         </div>
     </div>
 </div>
+@section scripts
+{
 <script>
     function LoadPartialView(viewName)
     {
         $('#partial-view-container').load(viewName);
     }
 </script>
+}

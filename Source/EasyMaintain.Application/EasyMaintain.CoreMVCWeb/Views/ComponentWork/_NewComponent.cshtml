@@ -23,18 +23,40 @@
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
-                    <label>Category</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Category, new { @class = "Category", placeholder = "Category" })
-                    </div>
-                </div>
-            </div>
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
                     <label>Manufacturer Name</label>
                     <div class="input-control text full-size">
                         @Html.TextBoxFor(m => m.Manufacturer, new { @class = "ManufacturerName", placeholder = "Manufacturer Name" })
                     </div>
+                </div>
+
+            </div>
+            <div class="row cells2">
+
+                <div class="cell-form margin-right-10 cell size4">
+                    <label>Category</label>
+                    <div class="input-control text full-size">
+                        <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select Category">
+                            <select id="Category" class="full-size" tabindex="-1" style="display: none;">
+                                <option></option>
+                                <option value="Left Wing">Left Wing</option>
+                                <option value="Right Wing">Right Wing</option>
+                                <option value="Elevator">Elevator</option>
+                                <option value="Rudder">Rudder</option>
+                                <option value="Landing Gear">Landing Gear</option>
+                                <option value="Cockpit">Cockpit</option>
+                                <option value="Fuselage">Fuselage</option>
+                                <option value="Engine">Engine</option>
+                            </select>
+                            <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr">
+                                <span class="selection">
+                                </span>
+                                <span class="dropdown-wrapper" aria-hidden="true">
+                                </span>
+                            </span>
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
                     <label>Image</label>
@@ -43,6 +65,7 @@
                     </div>
                 </div>
             </div>
+            <br />
             <div class="row cells2">
                 <div class="cell-form margin-right-10 cell size4">
                     <label class="display-block">Description</label>
@@ -92,7 +115,7 @@
             }
         </tbody>
     </table>
-@Html.HiddenFor(model => model.token.AccessToken, new { id = "token" });
+@Html.HiddenFor(model => model.token.AccessToken, new { id = "token" })
 
     <script>
 
@@ -109,7 +132,7 @@
             debugger;
             var CurrentCoponent = {
                 ComponentName: $(".Name").val(),
-                Category: $(".Category").val(),
+                Category: $("#Category").val(),
                 Manufacturer: $(".ManufacturerName").val(),
                 ImagePath: $(".ImagePath").val(),
                 Description: $(".Description").val(),
@@ -135,9 +158,17 @@
                     debugger;
                     $('.sidebar').children().removeClass('active');
                     $('.sidebar li:nth-child(1)').addClass('active');
-
+                    
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                 },
+                error: function () {
+                    $.Notify({
+                        caption: 'Component',
+                        content: 'Component Adding Failed .',
+                        type: 'alert'
+                    });
+                }
             });
 
         }
@@ -146,7 +177,7 @@
             debugger;
             var CurrentCoponent = {
                 ComponentName: $(".Name").val(),
-                Category: $(".Category").val(),
+                Category: $("#Category").val(),
                 Manufacturer: $(".ManufacturerName").val(),
                 ImagePath: $(".ImagePath").val(),
                 Description: $(".Description").val(),
@@ -165,10 +196,18 @@
                         content: 'Component Successfully updated.',
                         type: 'success'
                     });
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                     chanageButtons("edit");
 
                 },
+                error: function () {
+                    $.Notify({
+                        caption: 'Component',
+                        content: 'Component Update Failed .',
+                        type: 'alert'
+                    });
+                }
             });
 
         }
@@ -183,6 +222,7 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                     chanageButtons("edit");
                 },
@@ -205,13 +245,14 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
                     debugger;
+                    SelectSideNavigationItem(3);
                     $('#partial-view-container').html(data);
                     chanageButtons("create");
                 },
                 error: function () {
                     $.Notify({
                         caption: 'Component',
-                        content: 'New Componenet Creation Failed.',
+                        content: 'Cancelation Failed.',
                         type: 'alert'
                     });
                 }
@@ -258,6 +299,23 @@
                 $("#EditButtons").hide();
             }
 
+        }
+
+        function SelectSideNavigationItem(navItemIndex) {
+
+            debugger;
+            //Unselect all the items
+            $('.sidebar').children().removeClass('active');
+
+            if (navItemIndex == 1) {
+                $('.sidebar li:nth-child(1)').addClass('active');
+            }
+            else if (navItemIndex == 2) {
+                $('.sidebar li:nth-child(2)').addClass('active');
+            }
+            else if (navItemIndex == 3) {
+                $('.sidebar li:nth-child(3)').addClass('active');
+            }
         }
 
     </script>

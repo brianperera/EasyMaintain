@@ -40,7 +40,8 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public List<Users> Users { get; set; }
         public Token token { get; set; }
-        // public List<Role> Roles { get; set; }
+
+        public List<Role> Roles { get; set; }
 
 
         //public UsersViewModel()
@@ -60,7 +61,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public void updateRoles()
         {
-
+            Roles = SessionUtility.utilityRoleModel.Roles;
         }
 
 

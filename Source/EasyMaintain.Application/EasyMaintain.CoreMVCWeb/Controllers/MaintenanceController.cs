@@ -158,6 +158,30 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             }
             return PartialView("_Search", maintenanceViewModel);
         }
+
+        [HttpPost, Route("/maintenance/DeleteWorkOrder")]
+        public PartialViewResult DeleteWorkOrder([FromBody] Maintenance Model)
+        {
+            Model.CheckItems = new List<MaintenanceChecks>();
+            //Model.CheckItems.AddRange(maintenanceViewModel.CheckItems);
+            Model.CrewMembers = new List<Crew>();
+            //Model.CrewMembers.AddRange(maintenanceViewModel.CrewMembers);
+            Model.WorkID = maintenanceViewModel.WorkID;
+            int index = maintenanceViewModel.WorkID - 1;
+            maintenanceViewModel.MaintenanceOrders[index] = Model;
+            try
+            {
+                string maintenanceData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
+                maintenanceViewModel.MaintenanceOrders.Add(Model);
+                // maintenanceViewModel.MaintenanceOrders[index] = Model;
+            }
+            catch (AggregateException e)
+            {
+            }
+            return PartialView("_Search", maintenanceViewModel);
+        }
+
         public void PutAsync(string uri, string data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);

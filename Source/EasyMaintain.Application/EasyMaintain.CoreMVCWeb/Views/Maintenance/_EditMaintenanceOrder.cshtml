@@ -67,6 +67,7 @@
                 </div>
             </div>
             <button class="button primary" onclick="saveWorkOrder()"><span class="mif-plus"></span> Edit</button>
+            <button class="button alert" onclick="deleteWorkOrder()"><span class="mif-cross"></span> Delete</button>
         </div>
         <div class="frame" id="frame_2" name="CheckList">
             <div class="example">
@@ -220,6 +221,35 @@
 
                     $.ajax({
                         url: '/maintenance/SaveMaintenanceOrder',
+                        type: 'POST',
+                        data: JSON.stringify(Model),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            $.Notify({
+                                caption: 'Maintenance',
+                                content: 'Order successfully Edited.',
+                                type: 'success'
+                            });
+
+                            debugger;
+                            $('#partial-view-container').html(data);
+                        },
+                    });
+                }
+
+                function deleteWorkOrder() {
+
+                    var Model = {
+                        CompletionDate: $("#endDate").val(),
+                        StartDate: $("#startDate").val(),
+                        Description: $(".Description").val(),
+                        Location: $(".WorkshopLocation").val(),
+                        FlightModel: $(".FlightModel").val(),
+                        FlightNumber: $(".FlightNumber").val()
+                    }
+
+                    $.ajax({
+                        url: '/maintenance/DeleteWorkOrder',
                         type: 'POST',
                         data: JSON.stringify(Model),
                         contentType: 'application/json; charset=utf-8',

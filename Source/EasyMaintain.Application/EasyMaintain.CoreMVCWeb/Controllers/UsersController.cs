@@ -60,6 +60,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return View(UsersViewModel);
         }
 
+ 
+
         [HttpPost, Route("/Users/createNewMember")]
         public PartialViewResult createNewMember([FromBody]Users Model)
         {
@@ -186,7 +188,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         }
         public void Update()
         {
-          //  UsersViewModel.Roles = SessionUtility.utilityRoleModel.Roles;
+             UsersViewModel.Roles = SessionUtility.utilityRoleModel.Roles;
         }
 
     }
