@@ -77,7 +77,7 @@ namespace EasyMaintain.Business
             this.mMaintenance = engineType as Maintenance;
 
             DataProvidor dp = new DataProvidor();
-            dp.DeleteMaintenance(mMaintenance.WorkID.ToString());
+            dp.DeleteMaintenance(mMaintenance.WorkID);
 
         }
 

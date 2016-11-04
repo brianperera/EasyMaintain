@@ -82,10 +82,35 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             AircraftModelModel.AdditionalData = Model.AdditionalData;
             AircraftModelModel.ImagePath = Model.ImagePath;
             AircraftModelModel.Category = Model.Category;
+            try
+            {
+                string aircraftData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8961/api/Aircraftmodel/", aircraftData);
+               // AircraftModelModel.MaintenanceOrders.Add(Model);
+                // maintenanceViewModel.MaintenanceOrders[index] = Model;
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return PartialView("_AircraftModel", AircraftModelModel);
 
         }
+        public void PutAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "PUT";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        }
+
 
         [HttpPost, Route("/AircraftModel/EditAircraft")]
         public PartialViewResult EditAircraft([FromBody]AircraftModel ID)

@@ -54,9 +54,9 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // PUT api/Aircraftmodel/5 
         [HttpPut]
-        public IHttpActionResult Put(AircraftModel aircraftModelID, [FromBody]AircraftModel aircraft)
+        public IHttpActionResult Put( [FromBody]AircraftModel aircraft)
         {
-            if (aircraftModelID == null || aircraftModelID.Equals(0))
+            if (aircraft.Equals(0))
             {
                 return BadRequest();
             }

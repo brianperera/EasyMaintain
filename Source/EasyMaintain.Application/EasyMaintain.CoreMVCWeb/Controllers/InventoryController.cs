@@ -102,13 +102,44 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/inventory/SaveEditedOrder")]
         public PartialViewResult SaveEditedOrder([FromBody]Inventory Model)
         {
-            int index = inventoryViewModel.InvoiceNumber - 1;
+            //int index = inventoryViewModel.InvoiceNumber - 1;
+            Inventory item = inventoryViewModel.InventoryOrders.Single(r => r.CustomerID == inventoryViewModel.CustomerID);
+            int index = inventoryViewModel.InventoryOrders.IndexOf(item);
             inventoryViewModel.InventoryOrders[index].AdditionalNotes = Model.AdditionalNotes;
             inventoryViewModel.InventoryOrders[index].Deliverydetails = Model.Deliverydetails;
+            Model = inventoryViewModel.InventoryOrders[index];
+
+            try
+            {
+
+                string inventoryData = JsonConvert.SerializeObject(Model);
+
+                this.PutAsync("http://localhost:8103/api/Inventory/", inventoryData);
+               // inventoryViewModel.InventoryOrders.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return PartialView("_ManageRequests", inventoryViewModel);
 
         }
+
+        public void PutAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "PUT";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        }
+
 
         [HttpPost, Route("/inventory/SaveTempData")]
         public void SaveTempData([FromBody] Inventory Model)
@@ -183,8 +214,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditOrder([FromBody]Inventory ID)
         {
 
-            Inventory item = inventoryViewModel.InventoryOrders.Single(r => r.InvoiceNumber == ID.InvoiceNumber);
+            Inventory item = inventoryViewModel.InventoryOrders.Single(r => r.CustomerID == ID.CustomerID);
 
+            inventoryViewModel.CustomerID = item.CustomerID;
             inventoryViewModel.InvoiceNumber = item.InvoiceNumber;
             inventoryViewModel.CustomerName = item.CustomerName;
             inventoryViewModel.CompanyName = item.CompanyName;

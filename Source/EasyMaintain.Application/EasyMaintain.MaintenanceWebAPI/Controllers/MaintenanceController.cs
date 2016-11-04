@@ -74,7 +74,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // DELETE api/Maintenance/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody]Maintenance id)
         {
             maintenanceLogic.DeleteOne(id);
         }

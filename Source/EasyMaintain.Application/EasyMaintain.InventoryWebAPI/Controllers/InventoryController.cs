@@ -52,9 +52,9 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
 
         // PUT api/Inventory/5 
         [HttpPut]
-        public IHttpActionResult Put(Inventory customerID, [FromBody]Inventory inventory)
+        public IHttpActionResult Put([FromBody]Inventory inventory)
         {
-            if (customerID == null || customerID.Equals(0))
+            if (inventory.Equals(0))
             {
                 return BadRequest();
             }

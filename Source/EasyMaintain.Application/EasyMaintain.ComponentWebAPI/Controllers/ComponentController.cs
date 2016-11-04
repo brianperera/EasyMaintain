@@ -62,7 +62,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
         // DELETE api/Component/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody]Component id)
         {
             componentWorkLogic.DeleteOne(id);
         }

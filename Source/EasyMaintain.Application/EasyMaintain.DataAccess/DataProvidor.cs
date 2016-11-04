@@ -1501,7 +1501,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
         /// Delete Maintenance
         /// </summary>
         /// <param name="workId"></param>
-        public void DeleteMaintenance(string workID)
+        public void DeleteMaintenance(int workID)
         {
             // Delete
             using (var db = new EasyMaintainDBContext())

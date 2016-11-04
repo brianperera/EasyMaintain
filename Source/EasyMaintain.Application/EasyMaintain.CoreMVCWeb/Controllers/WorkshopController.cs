@@ -62,8 +62,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             int finalIndex = (workshopModel.Workshops.Count) - 1;
             Model.WorkshopID = workshopModel.Workshops[finalIndex].WorkshopID + 1;
           //  workshopModel.Workshops.Add(Model);
-
-
             try
             {
 
@@ -124,9 +122,38 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             workshopModel.Location = Model.Location;
             workshopModel.Address = Model.Address;
 
+            try
+            {
+                string workshopData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8961/api/Workshop/", workshopData);
+                // maintenanceViewModel.MaintenanceOrders.Add(Model);
+                // maintenanceViewModel.MaintenanceOrders[index] = Model;
+            }
+            catch (AggregateException e)
+            {
+            }
+
+
+
             return PartialView("_Workshop", workshopModel);
 
         }
+
+        public void PutAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "PUT";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        }
+
 
 
         [HttpPost, Route("/workshop/deleteWorkshop")]

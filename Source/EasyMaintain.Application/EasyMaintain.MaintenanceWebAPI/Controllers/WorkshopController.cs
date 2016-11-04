@@ -58,9 +58,9 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // PUT api/Workshop/5 
         [HttpPut]
-        public IHttpActionResult Put(Workshop workshopID, [FromBody]Workshop workshop)
+        public IHttpActionResult Put( [FromBody]Workshop workshop)
         {
-            if (workshopID == null || workshopID.Equals(0))
+            if ( workshop.WorkshopID.Equals(0))
             {
                 return BadRequest();
             }

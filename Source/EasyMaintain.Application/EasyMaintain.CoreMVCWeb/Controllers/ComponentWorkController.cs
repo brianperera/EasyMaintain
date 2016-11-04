@@ -108,12 +108,13 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult DeleteWorkOrder()
         {
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == componentWorkViewModel.WorkID);
+            componentWorkViewModel.ComponentWorkOrders.Remove(item);
 
             try
             {
                 string componentData = JsonConvert.SerializeObject(item);
-                this.PutAsync("http://localhost:8425/api/Component/", componentData);
-                componentWorkViewModel.ComponentWorkOrders.Add(item);
+                this.DeleteAsync("http://localhost:8425/api/Component/", componentData);
+                //componentWorkViewModel.ComponentWorkOrders.Add(item);
             }
             catch (AggregateException e)
             {
@@ -263,9 +264,36 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             ClearSession();
 
+
+            try
+            {
+                string maintenanceData = JsonConvert.SerializeObject(deletingIndex);
+                this.DeleteAsync("http://localhost:8961/api/Component/", maintenanceData);
+
+            }
+            catch (AggregateException e)
+            {
+            }
+
             return PartialView("_NewComponent", componentModel);
 
         }
+
+        public void DeleteAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "Delete";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        }
+
 
         [HttpPost, Route("/componentwork/cancel")]
         public PartialViewResult cancel()

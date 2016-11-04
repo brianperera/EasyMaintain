@@ -18,7 +18,7 @@
                 <td>@workOrder.InvoiceNumber</td>
                 <td>@workOrder.CustomerName</td>
                 <td>@workOrder.Deliverydetails.DeliveryDate</td>
-                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.InvoiceNumber)"><span class="mif-pencil"></span></button></td>
+                <td class="align-center"><button class="toolbar-button" onclick="LoadWorkOrder(@workOrder.CustomerID)"><span class="mif-pencil"></span></button></td>
             </tr>
         }
     </tbody>
@@ -27,7 +27,7 @@
 <script>
     function LoadWorkOrder(viewName)
     {
-        var Model = { InvoiceNumber : viewName  }
+        var Model = { CustomerID : viewName  }
 
         $.ajax({
             url: 'EditOrder',

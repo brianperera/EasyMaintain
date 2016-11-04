@@ -49,6 +49,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public List<string> PartsList  { get; set; }
 
         public List<string> PaymentMethods { get; set; }
+        public int CustomerID { get; set; }
 
         public string PaymentMethod { get; set; }
         public string PaymentNotes { get; set; }

@@ -150,7 +150,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
                 this.PutAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
-                maintenanceViewModel.MaintenanceOrders.Add(Model);
+               // maintenanceViewModel.MaintenanceOrders.Add(Model);
                 // maintenanceViewModel.MaintenanceOrders[index] = Model;
             }
             catch (AggregateException e)
@@ -162,18 +162,17 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/maintenance/DeleteWorkOrder")]
         public PartialViewResult DeleteWorkOrder([FromBody] Maintenance Model)
         {
-            Model.CheckItems = new List<MaintenanceChecks>();
-            //Model.CheckItems.AddRange(maintenanceViewModel.CheckItems);
-            Model.CrewMembers = new List<Crew>();
-            //Model.CrewMembers.AddRange(maintenanceViewModel.CrewMembers);
+  
             Model.WorkID = maintenanceViewModel.WorkID;
+
             int index = maintenanceViewModel.WorkID - 1;
-            maintenanceViewModel.MaintenanceOrders[index] = Model;
+            Maintenance test = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == Model.WorkID);
+            maintenanceViewModel.MaintenanceOrders.Remove(test);
             try
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
-                this.PutAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
-                maintenanceViewModel.MaintenanceOrders.Add(Model);
+                this.DeleteAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
+                //maintenanceViewModel.MaintenanceOrders.Add(Model);
                 // maintenanceViewModel.MaintenanceOrders[index] = Model;
             }
             catch (AggregateException e)
@@ -181,11 +180,26 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             }
             return PartialView("_Search", maintenanceViewModel);
         }
+        public void DeleteAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "Delete";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        }
+
 
         public void PutAsync(string uri, string data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "PUT";
+            request.Method = "Put";
             //model.PostData = "Test";
             request.ContentType = "application/json";
 

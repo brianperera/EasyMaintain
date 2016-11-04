@@ -7,6 +7,7 @@ namespace EasyMaintain.CoreWebMVC.DataEntities
 {
     public class Inventory
     {
+        public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string CompanyName { get; set; }
         public string AdditionalNotes { get; set; }
