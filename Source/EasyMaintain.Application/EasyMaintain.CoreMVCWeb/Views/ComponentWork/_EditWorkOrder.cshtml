@@ -7,10 +7,7 @@
     <div class="tabcontrol2" data-role="tabcontrol" data-on-tab-click="tab_click" data-on-tab-change="tab_change">
         <ul class="tabs">
             <li><a href="#frame_1">View/Edit Order</a></li>
-            <li><a href="#frame_2">Componant History</a></li>
-            <li><a href="#frame_3">Flight Details</a></li>
-            <li><a href="#frame_4">Delivery Details</a></li>
-            <li><a href="#frame_5">Close Work Order</a></li>
+            <li><a href="#frame_2">Delivery Details</a></li>
         </ul>
         <div class="frames">
             <div class="frame"  name="viewedit" id="frame_1">
@@ -67,78 +64,7 @@
 
                 <button class="button primary" onclick="saveWorkOrder()"><span class="mif-plus"></span> Save</button>
             </div>
-            <div class="frame"  name="componantHistory" id="frame_2">
-    @Html.AntiForgeryToken()
-    <hr />
-    @Html.ValidationSummary(true)
-
-    <div class="example">
-        <div class="flex-grid">
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Component S/N</label>
-                    <div class="input-control select full-size">
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
-                    <label>Component Name</label>
-                    <div class="input-control text full-size">
-                       
-                    </div>
-                </div>
-            </div>
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Description</label>
-                    <div class="input-control textarea full-size">
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Save</button>
-</div>
-            <div class="frame"  name="flightDetails" id="frame_3">@Html.AntiForgeryToken()
-            <hr />
-            @Html.ValidationSummary(true)
-
-            <div class="example">
-                <div class="flex-grid">
-                    <div class="row cells2">
-                        <div class="cell-form margin-right-10 cell size4">
-                            <label class="display-block">Flight Number</label>
-                            <div class="input-control select full-size">
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row cells2">
-                        <div class="cell-form margin-right-10 cell size4">
-                            <label>Flight Model</label>
-                            <div class="input-control text full-size">
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row cells2">
-                        <div class="cell-form margin-right-10 cell size4">
-                            <label class="display-block">Description</label>
-                            <div class="input-control textarea full-size">
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="button primary" onclick="pushMessage('info')"><span class="mif-plus"></span> Save</button>
-            </div>
-            <div class="frame"  name="deliveryDetails" id="frame_4">
+            <div class="frame"  name="deliveryDetails" id="frame_2">
                 @Html.AntiForgeryToken()
                 <hr />
                 @Html.ValidationSummary(true)
@@ -198,7 +124,6 @@
                     </div>
                 </div>
             </div>
-            <div class="frame"  name="closeWorkOrder" id="frame_5">5</div>
         </div>
         @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" });
     </div>
