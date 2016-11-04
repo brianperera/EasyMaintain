@@ -8,7 +8,6 @@
     <ul class="tabs">
         <li><a href="#frame_1">View Order</a></li>
         <li><a href="#frame_2">Delivery Details</a></li>
-        <li><a href="#frame_3">View Invoice</a></li>
     </ul>
     <div class="frames">
         <div class="frame" id="frame_1">
@@ -59,6 +58,9 @@
             </div>
 
             <button class="button primary" onclick="SaveEditedOrder()"><span class="mif-plus"></span> Save</button>
+            <button class="button alert" onclick="deleteOrder()"><span class="mif-cross"></span> Delete</button>
+
+
         </div>
         <div class="frame" id="frame_2">
             @Html.AntiForgeryToken()
@@ -120,9 +122,7 @@
                 </div>
             </div>
         </div>
-        <div class="frame" id="frame_3">
-            Invoice
-        </div>
+
         @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" })
     </div>
 </div>
@@ -166,6 +166,34 @@
             url: '/inventory/SaveEditedOrder',
             type: 'POST',
             data: JSON.stringify(CurrentCoponent),
+            headers: {
+                'Authorization': 'Bearer ' + $('#token').val(),
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+
+                $.Notify({
+                    caption: 'Inventory',
+                    content: 'Order successfully Created.',
+                    type: 'success'
+                });
+
+                debugger;
+                $('.sidebar').children().removeClass('active');
+                $('.sidebar li:nth-child(2)').addClass('active');
+
+                $('#partial-view-container').html(data);
+            },
+        });
+    }
+
+
+    function deleteOrder() {
+        debugger;
+        
+        $.ajax({
+            url: '/inventory/DeleteOrder',
+            type: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + $('#token').val(),
             },

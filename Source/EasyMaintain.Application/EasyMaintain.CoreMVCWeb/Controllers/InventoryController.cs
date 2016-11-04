@@ -141,6 +141,21 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         }
 
 
+
+       [HttpPost, Route("/inventory/DeleteOrder")]
+        public PartialViewResult DeleteOrder()
+        {
+            //int index = inventoryViewModel.InvoiceNumber - 1;
+            Inventory item = inventoryViewModel.InventoryOrders.Single(r => r.CustomerID == inventoryViewModel.CustomerID);
+
+
+
+
+            inventoryViewModel.InventoryOrders.Remove(item);
+            return PartialView("_ManageRequests", inventoryViewModel);
+
+        }
+
         [HttpPost, Route("/inventory/SaveTempData")]
         public void SaveTempData([FromBody] Inventory Model)
         {
