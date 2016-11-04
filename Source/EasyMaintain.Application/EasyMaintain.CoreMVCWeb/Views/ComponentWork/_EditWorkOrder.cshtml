@@ -63,6 +63,8 @@
                 </div>      
 
                 <button class="button primary" onclick="saveWorkOrder()"><span class="mif-plus"></span> Save</button>
+                <button class="button alert" onclick="deleteWorkOrder()"><span class="mif-cross"></span> Delete</button>
+
             </div>
             <div class="frame"  name="deliveryDetails" id="frame_2">
                 @Html.AntiForgeryToken()
@@ -166,6 +168,34 @@
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(CurrentCoponent),
+            headers: {
+                'Authorization': 'Bearer ' + $('#token').val(),
+            },
+            success: function (data) {
+
+                $.Notify({
+                    caption: 'Component Work',
+                    content: 'WorkOrder successfully added.',
+                    type: 'success'
+                });
+
+                debugger;
+                $('.sidebar').children().removeClass('active');
+                $('.sidebar li:nth-child(1)').addClass('active');
+
+                $('#partial-view-container').html(data);
+            },
+        });
+
+    }
+
+    function deleteWorkOrder() {
+        debugger;
+
+        $.ajax({
+            url: '/componentwork/DeleteWorkOrder',
+            type: 'POST',
+            contentType: 'application/json',
             headers: {
                 'Authorization': 'Bearer ' + $('#token').val(),
             },

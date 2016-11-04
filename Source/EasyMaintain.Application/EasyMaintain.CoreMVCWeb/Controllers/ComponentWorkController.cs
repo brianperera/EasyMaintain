@@ -104,6 +104,26 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             return PartialView("_Search", componentWorkViewModel);
         }
 
+        [HttpPost, Route("ComponentWork/DeleteWorkOrder")]
+        public PartialViewResult DeleteWorkOrder()
+        {
+            ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == componentWorkViewModel.WorkID);
+
+            try
+            {
+                string componentData = JsonConvert.SerializeObject(item);
+                this.PutAsync("http://localhost:8425/api/Component/", componentData);
+                componentWorkViewModel.ComponentWorkOrders.Add(item);
+            }
+            catch (AggregateException e)
+            {
+            }
+
+            componentWorkViewModel.ComponentWorkOrders.Remove(item);
+            return PartialView("_Search", componentWorkViewModel);
+        }
+
+
         public PartialViewResult Search()
         {
             return PartialView("_Search", componentWorkViewModel);
