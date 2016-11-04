@@ -19,7 +19,7 @@
                 <div class="cell-form margin-right-10 cell size4">
                     <label>Workshop Name</label>
                     <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Name" })
+                        @Html.TextBoxFor(m => m.WorkshopName, new { @class = "Name", placeholder = "Name" })
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
@@ -71,6 +71,7 @@
                 </tr>
             }
         </tbody>
+        @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" });
     </table>
 
     <script>
@@ -97,6 +98,9 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(CurrentCoponent),
+                headers: {
+                    'Authorization': 'Bearer ' + $('#token').val(),
+                },
                 success: function (data) {
 
                     $.Notify({

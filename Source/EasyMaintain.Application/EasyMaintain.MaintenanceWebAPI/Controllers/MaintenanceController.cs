@@ -56,9 +56,9 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // PUT api/Maintenance/5 
         [HttpPut]
-        public IHttpActionResult Put(Maintenance workID, [FromBody]Maintenance maintenance)
+        public IHttpActionResult Put( [FromBody]Maintenance maintenance)
         {
-            if (workID == null || workID.Equals(0))
+            if (maintenance.WorkID.Equals(0))
             {
                 return BadRequest();
             }

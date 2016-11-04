@@ -71,6 +71,7 @@
                 </tr>
             }
         </tbody>
+        @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" });
     </table>
 
     <script>
@@ -97,6 +98,9 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(CurrentCoponent),
+                headers: {
+                    'Authorization': 'Bearer ' + $('#token').val(),
+                },
                 success: function (data) {
 
                     $.Notify({
@@ -128,6 +132,9 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(CurrentCoponent),
+                headers: {
+                    'Authorization': 'Bearer ' + $('#token').val(),
+                },
                 success: function (data) {
 
                     $.Notify({

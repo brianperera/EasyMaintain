@@ -26,6 +26,13 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            UsersViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+            UsersViewModel.ID = SessionUtility.utilityUserdataModel.ID;
+            UsersViewModel.Name = SessionUtility.utilityUserdataModel.Name;
+            UsersViewModel.Email = SessionUtility.utilityUserdataModel.Email;
+            UsersViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
+
+
             try
             {
                 var uri = "api/User/Userdata ";
@@ -49,6 +56,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             Update();
             UsersViewModel = SessionUtility.utilityUsersModel;
+            UsersViewModel.token = SessionUtility.utilityToken;
             return View(UsersViewModel);
         }
 

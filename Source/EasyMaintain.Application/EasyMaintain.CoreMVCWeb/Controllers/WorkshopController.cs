@@ -22,6 +22,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
+            workshopModel.Username = SessionUtility.utilityUserdataModel.Username;
+            workshopModel.ID = SessionUtility.utilityUserdataModel.ID;
+            workshopModel.Name = SessionUtility.utilityUserdataModel.Name;
+            workshopModel.Email = SessionUtility.utilityUserdataModel.Email;
+            workshopModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
 
             try
             {
@@ -46,7 +51,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
 
 
-
+            workshopModel.token = SessionUtility.utilityToken;
             ClearSession();
             return View(workshopModel);
         }
@@ -98,7 +103,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             Workshop item = workshopModel.Workshops.Single(r => r.WorkshopID == ID.WorkshopID);
 
             workshopModel.WorkshopID = item.WorkshopID;
-            workshopModel.Name = item.Name;
+            workshopModel.WorkshopName = item.Name;
             workshopModel.Location = item.Location;
             workshopModel.Address = item.Address;
 
@@ -115,7 +120,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             workshopModel.Workshops[index] = Model;
 
             workshopModel.WorkshopID = Model.WorkshopID;
-            workshopModel.Name = Model.Name;
+            workshopModel.WorkshopName = Model.Name;
             workshopModel.Location = Model.Location;
             workshopModel.Address = Model.Address;
 
@@ -157,7 +162,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public void ClearSession()
         {
             workshopModel.WorkshopID = 0;
-            workshopModel.Name = null;
+            workshopModel.WorkshopName = null;
             workshopModel.Location = null;
             workshopModel.Address = null;
         }

@@ -140,16 +140,18 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult SaveMaintenanceOrder([FromBody] Maintenance Model)
         {
             Model.CheckItems = new List<MaintenanceChecks>();
-            Model.CheckItems.AddRange(maintenanceViewModel.CheckItems);
+            //Model.CheckItems.AddRange(maintenanceViewModel.CheckItems);
             Model.CrewMembers = new List<Crew>();
-            Model.CrewMembers.AddRange(maintenanceViewModel.CrewMembers);
+            //Model.CrewMembers.AddRange(maintenanceViewModel.CrewMembers);
             Model.WorkID = maintenanceViewModel.WorkID;
             int index = maintenanceViewModel.WorkID - 1;
+            maintenanceViewModel.MaintenanceOrders[index] = Model;
             try
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
-                this.PostAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
-                maintenanceViewModel.MaintenanceOrders[index] = Model;
+                this.PutAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
+                maintenanceViewModel.MaintenanceOrders.Add(Model);
+                // maintenanceViewModel.MaintenanceOrders[index] = Model;
             }
             catch (AggregateException e)
             {
@@ -253,8 +255,25 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             maintenanceViewModel.FlightNumber = item.FlightNumber;
             maintenanceViewModel.StartDate = item.StartDate;
             maintenanceViewModel.WorkshopLocation = item.Location;
-            maintenanceViewModel.CrewMembers = item.CrewMembers;
-            maintenanceViewModel.CheckItems = item.CheckItems;
+            if (maintenanceViewModel.CrewMembers != null)
+            {
+                maintenanceViewModel.CrewMembers = item.CrewMembers;
+            }
+            else
+            {
+                maintenanceViewModel.CrewMembers = new List<Crew>();
+            }
+
+            if (maintenanceViewModel.CheckItems != null)
+            {
+                maintenanceViewModel.CheckItems = item.CheckItems;
+            }
+            else
+            {
+                maintenanceViewModel.CheckItems = new List<MaintenanceChecks>();
+            }
+
+
             return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
 
         }

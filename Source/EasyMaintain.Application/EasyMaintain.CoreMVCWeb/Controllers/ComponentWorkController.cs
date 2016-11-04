@@ -23,6 +23,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         public ActionResult Index()
         {
+            componentWorkViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+            componentWorkViewModel.ID = SessionUtility.utilityUserdataModel.ID;
+            componentWorkViewModel.Name = SessionUtility.utilityUserdataModel.Name;
+            componentWorkViewModel.Email = SessionUtility.utilityUserdataModel.Email;
+            componentWorkViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
             try
             {
                 var uri = "api/Component/Get ";
@@ -58,15 +63,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
             Model.Deliverydetails.DeliveryDetailsId = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
             //componentWorkViewModel.ComponentWorkOrders.Add(Model);
-            try
-            {
-                string componentData = JsonConvert.SerializeObject(Model);
-                this.PostAsync("http://localhost:8425/api/Component/", componentData);
-                componentWorkViewModel.ComponentWorkOrders.Add(Model);
-            }
-            catch (AggregateException e)
-            {
-            }
+           
             return PartialView("_Search", componentWorkViewModel);
         }
 
@@ -91,8 +88,19 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult SaveWorkOrder([FromBody] ComponentWork Model)
         {
             Model.WorkID = componentWorkViewModel.WorkID;
-            int index = componentWorkViewModel.WorkID - 1;
+            ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == Model.WorkID);
+            int index = componentWorkViewModel.ComponentWorkOrders.IndexOf(item);
             componentWorkViewModel.ComponentWorkOrders[index] = Model;
+
+            try
+            {
+                string componentData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8425/api/Component/", componentData);
+                componentWorkViewModel.ComponentWorkOrders.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
             return PartialView("_Search", componentWorkViewModel);
         }
 
@@ -105,7 +113,15 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
         {
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);
-
+            //try
+            //{
+            //    string componentData = JsonConvert.SerializeObject(ID);
+            //    this.PutAsync("http://localhost:8425/api/Component ", componentData);
+            //   // componentWorkViewModel.ComponentWorkOrders.Add(ID);
+            //}
+            //catch (AggregateException e)
+            //{
+            //}
             componentWorkViewModel.WorkID = item.WorkID;
             componentWorkViewModel.Description = item.Description;
             componentWorkViewModel.FlightNumber = item.FlightNumber;
@@ -115,7 +131,30 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             componentWorkViewModel.ComponentName = item.Component;
             componentWorkViewModel.DeliveryDetails = item.Deliverydetails;
 
+
+          
+
+
+
             return PartialView("_EditWorkOrder", componentWorkViewModel);
+
+        }
+
+
+
+        public void PutAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "PUT";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
         }
 

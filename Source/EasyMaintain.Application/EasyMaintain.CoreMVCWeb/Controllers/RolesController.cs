@@ -132,7 +132,7 @@ namespace EasyMaintain.CoreWebMVC.Models
             Role item = RolesViewModel.Roles.Single(r => r.RoleID == ID.RoleID);
             RolesViewModel.currentIndex = RolesViewModel.Roles.FindIndex(r => r.RoleID == ID.RoleID);
             RolesViewModel.RoleID = item.RoleID;
-            RolesViewModel.Name = item.Name;
+            RolesViewModel.RoleName = item.Name;
 
             return PartialView("_RoleModel", RolesViewModel);
 
@@ -150,7 +150,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public void ClearSession()
         {
             RolesViewModel.RoleID = 0;
-            RolesViewModel.Name = null;
+            RolesViewModel.RoleName = null;
         }
     }
 }

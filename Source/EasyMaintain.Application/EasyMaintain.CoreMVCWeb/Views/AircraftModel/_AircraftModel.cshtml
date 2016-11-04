@@ -17,9 +17,9 @@
         <div class="flex-grid">
             <div class="row cells2">
                 <div class="cell-form margin-right-10 cell size4">
-                    <label>Model Name</label>
+                    <label>Aircraft Model</label>
                     <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Name" })
+                        @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Aircraft Model" })
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
@@ -59,9 +59,9 @@
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Additional Data</label>
+                    <label class="display-block">Additional Details</label>
                     <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.AdditionalData, new { @class = "AdditionalData", placeholder = "Additional Data" })
+                        @Html.TextAreaFor(m => m.AdditionalData, new { @class = "AdditionalData", placeholder = "Additional Details" })
                     </div>
                 </div>
             </div>

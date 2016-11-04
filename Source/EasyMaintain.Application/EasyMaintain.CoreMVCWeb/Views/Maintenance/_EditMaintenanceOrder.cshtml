@@ -84,23 +84,7 @@
             </div>
 
             <div>
-                <table class="dataTable border bordered" data-auto-width="false">
-                    <thead>
-                        <tr>
-                            <td class="sortable-column">Description</td>
-                            <td class="sortable-column" style="width: 100px">Remove</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var workOrder in Model.CheckItems)
-                        {
-                            <tr>
-                                <td>@workOrder.Description</td>
-                                <td class="align-center"><button class="toolbar-button" onclick="DeleteCheck( this )" data-assigned-id="@workOrder.Description"><span class="mif-cross"></span></button></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+
             </div>
         </div>
         <div id="frame_3" class="frame" name="Crew">
@@ -125,25 +109,7 @@
             </div>
 
             <div>
-                <table class="dataTable border bordered" data-auto-width="false">
-                    <thead>
-                        <tr>
-                            <td class="sortable-column">Member Name</td>
-                            <td class="sortable-column">Designation</td>
-                            <td class="sortable-column" style="width: 100px">Remove</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var workOrder in Model.CrewMembers)
-                        {
-                            <tr>
-                                <td>@workOrder.Name</td>
-                                <td>@workOrder.Designation</td>
-                                <td class="align-center"><button class="toolbar-button" onclick="DeleteMember(this)" data-assigned-id="@workOrder.Name"><span class="mif-cross"></span></button></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+
             </div>
         </div>
     </div>

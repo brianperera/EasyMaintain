@@ -23,6 +23,12 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
+
+            CrewViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+           // CrewViewModel.CrewID = SessionUtility.utilityUserdataModel.ID;
+            CrewViewModel.CrewName = SessionUtility.utilityUserdataModel.Name;
+            CrewViewModel.Email = SessionUtility.utilityUserdataModel.Email;
+            CrewViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
             try
             {
                 var uri = "api/Crew/Get ";
@@ -89,7 +95,7 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         [HttpPost, Route("/Crew/saveEditedMember")]
         public PartialViewResult saveEditedMember([FromBody]Crew Model)
         {
-            Model.CrewID = CrewViewModel.ID;
+            Model.CrewID = CrewViewModel.CrewID;
             CrewViewModel.CrewList[CrewViewModel.currentIndex] = Model;
             ClearSession();
             return PartialView("_CrewModel", CrewViewModel);
@@ -121,8 +127,8 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
 
             Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
             CrewViewModel.currentIndex = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
-            CrewViewModel.ID = item.CrewID;
-            CrewViewModel.Name = item.Name;
+            CrewViewModel.CrewID = item.CrewID;
+            CrewViewModel.CrewName = item.Name;
             CrewViewModel.Designation = item.Designation;
 
             return PartialView("_CrewModel", CrewViewModel);
@@ -139,8 +145,8 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         }
         public void ClearSession()
         {
-            CrewViewModel.ID = 0;
-            CrewViewModel.Name = null;
+            CrewViewModel.CrewID = 0;
+            CrewViewModel.CrewName = null;
             CrewViewModel.Designation = null;
         }
     }

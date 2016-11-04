@@ -189,7 +189,15 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             inventoryViewModel.CustomerName = item.CustomerName;
             inventoryViewModel.CompanyName = item.CompanyName;
             inventoryViewModel.AdditionalNotes = item.AdditionalNotes;
-            inventoryViewModel.PartsList = item.PartsList;
+            if (item.PartsList != null)
+            {
+                inventoryViewModel.PartsList = item.PartsList;
+            }
+            else
+            {
+                inventoryViewModel.PartsList = new List<string>();
+            }
+
             inventoryViewModel.Deliverydetails = item.Deliverydetails;
 
             return PartialView("_EditOrder", inventoryViewModel);
@@ -250,7 +258,10 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             inventoryViewModel.PaymentNotes = null;
             inventoryViewModel.ActiveTab = SessionUtility.Frame_1;
             inventoryViewModel.CustomerName = null;
-            inventoryViewModel.PartsList.Clear();
+
+            if (inventoryViewModel.PartsList != null) {
+                inventoryViewModel.PartsList.Clear();
+            }
         }
 
     }

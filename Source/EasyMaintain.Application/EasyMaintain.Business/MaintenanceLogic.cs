@@ -90,7 +90,7 @@ namespace EasyMaintain.Business
         {
             this.mMaintenance = engineType as Maintenance;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateMaintenance(mMaintenance.WorkID.ToString(), mMaintenance.FlightModel, mMaintenance.Description);
+            return dp.UpdateMaintenance(mMaintenance.WorkID, mMaintenance.FlightModel,mMaintenance.FlightNumber, mMaintenance.Description, mMaintenance.StartDate,mMaintenance.CompletionDate,mMaintenance.Location);
         }
 
         public Maintenance Find(int id)

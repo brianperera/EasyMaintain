@@ -27,19 +27,20 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public int UserID { get; set; }
 
-        public string Username { get; set; }
-        public string ID { get; set; }
+        public string LoginUsername { get; set; }
+        public string LoginID { get; set; }
 
-        public string Name { get; set; }
+        public string LoginName { get; set; }
 
-        public string Email { get; set; }
+        public string LoginEmail { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public string LoginPhoneNumber { get; set; }
 
         public int currentIndex { get; set; }
 
         public List<Users> Users { get; set; }
-      // public List<Role> Roles { get; set; }
+        public Token token { get; set; }
+        // public List<Role> Roles { get; set; }
 
 
         //public UsersViewModel()

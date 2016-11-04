@@ -41,9 +41,11 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
         // PUT api/Component/5 
         [HttpPut]
-        public IHttpActionResult Put(ComponentWork workID, [FromBody]ComponentWork component)
+        public IHttpActionResult Put(/*ComponentWork workID,*/ [FromBody]ComponentWork component)
         {
-            if (workID == null || workID.Equals(0))
+
+
+            if (component.WorkID.Equals(0))
             {
                 return BadRequest();
             }
@@ -54,7 +56,8 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
             }
 
             componentWorkLogic.UpdateOne(component);
-            return StatusCode(HttpStatusCode.NoContent);
+                return StatusCode(HttpStatusCode.NoContent);
+        
         }
 
         // DELETE api/Component/5 

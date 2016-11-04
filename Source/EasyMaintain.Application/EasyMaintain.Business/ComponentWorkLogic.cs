@@ -31,8 +31,11 @@ namespace EasyMaintain.Business
                 ComponentWork _componentWork = new ComponentWork();
                 _componentWork.WorkID = componentWork.WorkID;
                 _componentWork.Component = componentWork.Component;
+                _componentWork.SerialNumber = componentWork.SerialNumber;
                 _componentWork.FlightNumber = componentWork.FlightNumber;
                 _componentWork.Description = componentWork.Description;
+                _componentWork.CreatedDate = componentWork.CreatedDate;
+                _componentWork.Location = componentWork.Location;
                  _componentWork.Deliverydetails = (componentWork.Deliverydetails);//todo
 
                 result.Add(_componentWork);

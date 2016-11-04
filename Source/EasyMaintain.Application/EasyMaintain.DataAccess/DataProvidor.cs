@@ -1122,7 +1122,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public bool UpdateMaintenance(string workID, string FlightModel, string additionalData)
+        public bool UpdateMaintenance(int workID, string FlightModel,string FlightNumber, string additionalData,string StartDate,string CompletionDate,string Location)
         {
             bool result = false;
 
@@ -1136,7 +1136,11 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                     if (engineType != null)
                     {
                         engineType.FlightModel = FlightModel;
+                        engineType.FlightNumber = FlightNumber;
                         engineType.Description = additionalData;
+                        engineType.StartDate = StartDate;
+                        engineType.CompletionDate = CompletionDate;
+                        engineType.Location = Location;
                     }
                     db.SaveChanges();
                     result = true;

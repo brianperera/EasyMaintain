@@ -17,11 +17,11 @@ namespace EasyMaintain.CoreWebMVC.Models
     //    public string Location { get; set; }
     //    public string Address { get; set; }
     //}
-    public class WorkshopModel: UserDataModel
+    public class WorkshopModel :UserDataModel
     {
         [Required]
         [Display(Name = "Workshop Name")]
-        public string Name { get; set; }
+        public string WorkshopName { get; set; }
 
         [Required]
         [Display(Name = "Location")]
@@ -33,6 +33,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public List<Workshop> Workshops { get; set; }
 
+        public Token token { get; set; }
         public int WorkshopID { get; set; }
 
         public WorkshopModel()

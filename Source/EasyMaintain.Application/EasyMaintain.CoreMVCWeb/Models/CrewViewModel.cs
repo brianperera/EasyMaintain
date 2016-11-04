@@ -23,8 +23,8 @@ namespace EasyMaintain.CoreWebMVC.Models
     {
        // CrewViewModel crewViewModel;
 
-        public int ID { get; set; }
-        public string Name { get; set; }
+        public int CrewID { get; set; }
+        public string CrewName { get; set; }
         public string Designation { get; set; }
 
         public int currentIndex { get; set; }

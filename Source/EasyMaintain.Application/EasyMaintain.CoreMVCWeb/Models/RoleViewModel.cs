@@ -12,7 +12,7 @@ namespace EasyMaintain.CoreWebMVC.Models
     {
         [Required]
         [Display(Name = "Role Name")] 
-        public string Name { get; set; }
+        public string RoleName { get; set; }
 
         public int RoleID { get; set; }
 
