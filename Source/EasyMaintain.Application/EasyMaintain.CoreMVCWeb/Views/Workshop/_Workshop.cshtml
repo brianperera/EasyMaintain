@@ -200,6 +200,13 @@
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+
+                    $.Notify({
+                        caption: 'Workshop',
+                        content: 'Workshop successfully deleted.',
+                        type: 'success'
+                    });
+
                     debugger;
                     $('#partial-view-container').html(data);
                     chanageButtons("create");

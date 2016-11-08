@@ -107,6 +107,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("ComponentWork/DeleteWorkOrder")]
         public PartialViewResult DeleteWorkOrder()
         {
+            int index = componentWorkViewModel.WorkID - 1;
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == componentWorkViewModel.WorkID);
             componentWorkViewModel.ComponentWorkOrders.Remove(item);
 
@@ -244,6 +245,17 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             componentModel.ImagePath = Model.ImagePath;
             componentModel.Category = Model.Category;
 
+
+            try
+            {
+                string componentData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8425/api/ComponentParts/", componentData);
+
+            }
+            catch (AggregateException e)
+            {
+            }
+
             return PartialView("_NewComponent", componentModel);
 
         }
@@ -251,6 +263,13 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/componentwork/deleteComponent")]
         public PartialViewResult deleteComponent()
         {
+
+
+            //Model.ComponentID = componentModel.ComponentID;
+            //int index = componentModel.ComponentID - 1;
+            //Component test = componentModel.Components.Single(r => r.ComponentID == Model.ComponentID);
+            //componentModel.Components.Remove(test);
+
             int deletingIndex = componentModel.Components.FindIndex(r => r.ComponentID == componentModel.ComponentID);
 
             for (int x = deletingIndex; x <= componentModel.Components.Count - 2; x++)
@@ -267,8 +286,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             try
             {
-                string maintenanceData = JsonConvert.SerializeObject(deletingIndex);
-                this.DeleteAsync("http://localhost:8961/api/Component/", maintenanceData);
+                string componenetData = JsonConvert.SerializeObject(finalIndex);
+                this.DeleteAsync("http://localhost:8425/api/ComponentParts/", componenetData);
 
             }
             catch (AggregateException e)

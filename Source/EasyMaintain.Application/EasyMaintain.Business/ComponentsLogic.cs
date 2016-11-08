@@ -11,13 +11,13 @@ namespace EasyMaintain.Business
    public class ComponentsLogic
     {
 
-        Component mComponent;
+      
 
         public ComponentsLogic()
         {
 
         }
-
+        Component mComponent = new Component();
         /// <summary>
         /// Get data
         /// </summary>

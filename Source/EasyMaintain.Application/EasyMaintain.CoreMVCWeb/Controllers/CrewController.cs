@@ -25,8 +25,8 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         {
 
             CrewViewModel.Username = SessionUtility.utilityUserdataModel.Username;
-           // CrewViewModel.CrewID = SessionUtility.utilityUserdataModel.ID;
-            CrewViewModel.CrewName = SessionUtility.utilityUserdataModel.Name;
+           CrewViewModel.ID = SessionUtility.utilityUserdataModel.ID;
+           // CrewViewModel.Name = SessionUtility.utilityUserdataModel.Name;
             CrewViewModel.Email = SessionUtility.utilityUserdataModel.Email;
             CrewViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
             try
@@ -58,7 +58,7 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         {
             int finalIndex = (CrewViewModel.CrewList.Count) - 1;
             Model.CrewID = CrewViewModel.CrewList[finalIndex].CrewID + 1;
-           // CrewViewModel.CrewList.Add(Model);
+          
             try
             {
 
@@ -98,35 +98,105 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             Model.CrewID = CrewViewModel.CrewID;
             CrewViewModel.CrewList[CrewViewModel.currentIndex] = Model;
             ClearSession();
+
+            try
+            {
+                string maintenanceData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8961/api/Crew/", maintenanceData);
+
+            }
+            catch (AggregateException e)
+            {
+            }
+
+
+
             return PartialView("_CrewModel", CrewViewModel);
 
         }
+
+
+        public void PutAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "Put";
+
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        }
+
 
         [HttpPost, Route("/Crew/deleteMember")]
         public PartialViewResult deleteMember()
         {
 
-            for (int x = CrewViewModel.currentIndex; x <= CrewViewModel.CrewList.Count - 2; x++)
-            {
-                int nextIndex = x + 1;
-                CrewViewModel.CrewList[x] = CrewViewModel.CrewList[nextIndex];
-            }
 
-            int finalIndex = CrewViewModel.CrewList.Count - 1;
-            CrewViewModel.CrewList.RemoveAt(finalIndex);
+            int index = CrewViewModel.CrewID - 1;
+            Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == CrewViewModel.CrewID);
+            CrewViewModel.CrewList.Remove(item);
+           
+            //for (int x = CrewViewModel.currentIndex; x <= CrewViewModel.CrewList.Count - 2; x++)
+            //{
+            //    int nextIndex = x + 1;
+            //    CrewViewModel.CrewList[x] = CrewViewModel.CrewList[nextIndex];
+            //}
+
+            //int finalIndex = CrewViewModel.CrewList.Count - 1;
+            //CrewViewModel.CrewList.RemoveAt(finalIndex);
 
             ClearSession();
 
-            return PartialView("_CrewModel", CrewViewModel);
+            try
+            {
+                string crewData = JsonConvert.SerializeObject(item);
+                this.DeleteAsync("http://localhost:8961/api/Crew/", crewData);
 
+            }
+            catch (AggregateException e)
+            {
+            }
+
+            return PartialView("_CrewModel", CrewViewModel);
+        }
+        public void DeleteAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "Delete";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         }
 
         [HttpPost, Route("/Crew/EditMember")]
         public PartialViewResult EditMember([FromBody]Crew ID)
         {
 
-            Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
-            CrewViewModel.currentIndex = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
+            Crew item= CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
+
+
+
+            //ID.CrewID = CrewViewModel.CrewID;
+            // Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
+
+            //CrewViewModel.currentIndex = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
+            //int index = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
+            //CrewViewModel.CrewList[index] = ID;
+            //CrewViewModel.CrewID = ID.CrewID;
+            //CrewViewModel.CrewName = ID.Name;
+            //CrewViewModel.Designation = ID.Designation;
+
             CrewViewModel.CrewID = item.CrewID;
             CrewViewModel.CrewName = item.Name;
             CrewViewModel.Designation = item.Designation;

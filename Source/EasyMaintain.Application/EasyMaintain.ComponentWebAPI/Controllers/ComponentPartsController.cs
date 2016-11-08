@@ -42,9 +42,9 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
         // PUT api/ComponentParts/5 
         [HttpPut]
-        public IHttpActionResult Put(Component workID, [FromBody]Component component)
+        public IHttpActionResult Put([FromBody]Component component)
         {
-            if (workID == null || workID.Equals(0))
+            if (component.Equals(0))
             {
                 return BadRequest();
             }
@@ -61,7 +61,7 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 
         // DELETE api/ComponentParts/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody]Component id)
         {
             componentLogic.DeleteOne(id);
         }

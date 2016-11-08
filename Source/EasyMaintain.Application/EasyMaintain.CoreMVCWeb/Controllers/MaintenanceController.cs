@@ -150,8 +150,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
                 this.PutAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
-               // maintenanceViewModel.MaintenanceOrders.Add(Model);
-                // maintenanceViewModel.MaintenanceOrders[index] = Model;
+              
             }
             catch (AggregateException e)
             {
@@ -172,8 +171,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
                 this.DeleteAsync("http://localhost:8961/api/Maintenance/", maintenanceData);
-                //maintenanceViewModel.MaintenanceOrders.Add(Model);
-                // maintenanceViewModel.MaintenanceOrders[index] = Model;
+               
             }
             catch (AggregateException e)
             {
@@ -184,7 +182,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "Delete";
-            //model.PostData = "Test";
+            
             request.ContentType = "application/json";
 
             using (var sw = new StreamWriter(request.GetRequestStream()))
@@ -200,7 +198,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "Put";
-            //model.PostData = "Test";
+            
             request.ContentType = "application/json";
 
             using (var sw = new StreamWriter(request.GetRequestStream()))
@@ -269,21 +267,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditMaintenanceOrder([FromBody]Maintenance ID)
         {
             Maintenance item;
-            //search in the db withn "ID" and put to Object with that ID to "Item" obj
+            
 
             item = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == ID.WorkID);
 
-            //try
-            //{
-
-            //    string maintenanceID = JsonConvert.SerializeObject(ID.WorkID);
-
-            //    this.PostAsync("http://localhost:8961/api/Maintenance/5", maintenanceID);
-
-            //}
-            //catch (AggregateException e)
-            //{
-            //}
+           
 
 
             maintenanceViewModel.WorkID = item.WorkID;

@@ -74,12 +74,6 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
         }
 
 
-
-
-
-
-
-
         // POST api/roles
         //[Route("create")]
         //[HttpPost]
@@ -106,26 +100,26 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
         //}
 
         //[Route("{id:guid}")]
-        //public async Task<IHttpActionResult> DeleteRole(string Id)
-        //{
+        public async Task<IHttpActionResult> DeleteRole([FromBody] RoleBindingModels  Id)
+        {
 
-        //    var role = await this.AppRoleManager.FindByIdAsync(Id);
+            var role = await this.RoleManager.FindByIdAsync(Id.ToString());
 
-        //    if (role != null)
-        //    {
-        //        IdentityResult result = await this.AppRoleManager.DeleteAsync(role);
+            if (role != null)
+            {
+                IdentityResult result = await this.RoleManager.DeleteAsync(role);
 
-        //        if (!result.Succeeded)
-        //        {
-        //            return GetErrorResult(result);
-        //        }
+                //if (!result.Succeeded)
+                //{
+                //    return GetErrorResult(result);
+                //}
 
-        //        return Ok();
-        //    }
+                return Ok();
+            }
 
-        //    return NotFound();
+            return NotFound();
 
-        //}
+        }
 
         //[Route("ManageUsersInRole")]
         //[HttpGet]

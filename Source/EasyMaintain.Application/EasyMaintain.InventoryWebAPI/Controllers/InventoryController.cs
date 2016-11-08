@@ -70,7 +70,7 @@ namespace EasyMaintain.InventoryWebAPI.Controllers
 
         // DELETE api/Inventory/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody]Inventory id)
         {
             inventoryLogic.DeleteOne(id);
         }

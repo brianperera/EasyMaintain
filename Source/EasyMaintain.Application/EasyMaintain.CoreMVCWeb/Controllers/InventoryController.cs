@@ -148,12 +148,34 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             //int index = inventoryViewModel.InvoiceNumber - 1;
             Inventory item = inventoryViewModel.InventoryOrders.Single(r => r.CustomerID == inventoryViewModel.CustomerID);
 
-
-
+            try
+            {
+                string inventoryData = JsonConvert.SerializeObject(item);
+                this.DeleteAsync("http://localhost:8103/api/Inventory/", inventoryData);
+              
+            }
+            catch (AggregateException e)
+            {
+            }
 
             inventoryViewModel.InventoryOrders.Remove(item);
             return PartialView("_ManageRequests", inventoryViewModel);
 
+        }
+
+        public void DeleteAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "Delete";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         }
 
         [HttpPost, Route("/inventory/SaveTempData")]

@@ -163,6 +163,7 @@
                 data: JSON.stringify(Model),
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+
                     debugger;
                     $('#partial-view-container').html(data);
                     chanageButtons("edit");
@@ -207,6 +208,15 @@
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function (data) {
+
+                    
+                    $.Notify({
+                        caption: 'Crew',
+                        content: 'Crew successfully deleted.',
+                        type: 'success'
+                    });
+
+
                     debugger;
                     $('#partial-view-container').html(data);
                     chanageButtons("create");

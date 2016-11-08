@@ -27,18 +27,6 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             return (IEnumerable<Crew>)crewLogic.GetData();
         }
 
-        // GET api/Crew/5 
-        //public IHttpActionResult GetID(int id)
-        //{
-        //    var item = crewLogic.Find(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(item);
-        //}
-
         // POST api/Crew
         [HttpPost]
         public IHttpActionResult Post(Crew crew)
@@ -54,9 +42,9 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // PUT api/Crew/5 
         [HttpPut]
-        public IHttpActionResult Put(Crew crewID, [FromBody]Crew crew)
+        public IHttpActionResult Put( [FromBody]Crew crew)
         {
-            if (crewID == null || crewID.Equals(0))
+            if ( crew.Equals(0))
             {
                 return BadRequest();
             }
@@ -72,7 +60,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // DELETE api/Crew/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody] Crew id)
         {
             crewLogic.DeleteOne(id);
         }

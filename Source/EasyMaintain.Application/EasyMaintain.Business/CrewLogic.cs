@@ -36,6 +36,7 @@ namespace EasyMaintain.Business
             foreach (DTO.Crew crew in dp.GetCrewData())
             {
                 Crew _crew = new Crew();
+                _crew.CrewID = crew.CrewID;
                 _crew.Name = crew.Name;
                 _crew.Designation = crew.Designation;
 

@@ -76,7 +76,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
         // DELETE api/Workshop/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody] Workshop id)
         {
             workshopLogic.DeleteOne(id);
         }

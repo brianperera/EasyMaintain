@@ -165,22 +165,46 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/workshop/deleteWorkshop")]
         public PartialViewResult deleteWorkshop()
         {
-            int deletingIndex = workshopModel.Workshops.FindIndex(r => r.WorkshopID == workshopModel.WorkshopID);
 
-            for (int x = deletingIndex; x <= workshopModel.Workshops.Count - 2; x++)
-            {
-                int nextIndex = x + 1;
-                workshopModel.Workshops[x] = workshopModel.Workshops[nextIndex];
-            }
 
-            int finalIndex = workshopModel.Workshops.Count - 1;
-            workshopModel.Workshops.RemoveAt(finalIndex);
+            int index = workshopModel.WorkshopID - 1;
+            Workshop item = workshopModel.Workshops.Single(r => r.WorkshopID == workshopModel.WorkshopID);
+            workshopModel.Workshops.Remove(item);
+
+
+
+           
 
             ClearSession();
+
+            try
+            {
+                string maintenanceData = JsonConvert.SerializeObject(item);
+                this.DeleteAsync("http://localhost:8961/api/Workshop/", maintenanceData);
+               
+            }
+            catch (AggregateException e)
+            {
+            }
 
             return PartialView("_Workshop", workshopModel);
 
 
+        }
+
+        public void DeleteAsync(string uri, string data)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "Delete";
+            //model.PostData = "Test";
+            request.ContentType = "application/json";
+
+            using (var sw = new StreamWriter(request.GetRequestStream()))
+            {
+                sw.Write(data);
+                sw.Flush();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         }
 
         [HttpPost, Route("/workshop/cancel")]

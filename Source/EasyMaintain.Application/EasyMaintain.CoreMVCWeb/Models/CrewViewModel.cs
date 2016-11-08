@@ -34,8 +34,6 @@ namespace EasyMaintain.CoreWebMVC.Models
         {
             CrewList = new List<Crew>();   
             updateList();
-
-
         }
 
         public void updateList()

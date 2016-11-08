@@ -10,12 +10,14 @@ namespace EasyMaintain.Business
 {
    public class ComponentWorkLogic
     {
-        ComponentWork mComponentWork;
+
 
         public ComponentWorkLogic()
         {
 
         }
+
+        ComponentWork mComponentWork = new ComponentWork();
 
         /// <summary>
         /// Get data
