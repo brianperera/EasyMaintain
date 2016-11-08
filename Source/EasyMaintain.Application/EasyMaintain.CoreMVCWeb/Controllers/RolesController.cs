@@ -52,6 +52,7 @@ namespace EasyMaintain.CoreWebMVC.Models
             }
 
             RolesViewModel.token = SessionUtility.utilityToken;
+            RolesViewModel.Name = null;
             return View(RolesViewModel);
         }
 
