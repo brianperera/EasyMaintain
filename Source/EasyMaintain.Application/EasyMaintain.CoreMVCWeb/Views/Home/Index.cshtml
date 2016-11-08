@@ -126,6 +126,9 @@
                 </div>
                 <span class="tile-label">Cost Analysis</span>
             </div>
+            
+            @if (Model.Role == "SuperAdmin")
+            {
             <div class="tile bg-darkBlue fg-white" data-role="tile" onclick="document.location.href = '/Roles/Index'">
                 <div class="tile-content iconic">
                     <span class="icon mif-user"></span>
@@ -138,6 +141,8 @@
                 </div>
                 <span class="tile-label">Users</span>
             </div>
+            }
+
             <div class="tile bg-darkBlue fg-white" data-role="tile">
                 <div class="tile-content iconic">
                     <span class="icon mif-equalizer"></span>

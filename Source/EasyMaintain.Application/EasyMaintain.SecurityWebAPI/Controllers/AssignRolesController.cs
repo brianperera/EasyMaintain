@@ -18,6 +18,7 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
 
         public UserManager<ApplicationUser> UserManager { get; private set; }
         public RoleManager<IdentityRole> RoleManager { get; private set; }
+        //public RoleBindingModels<RoleBindingModels> RoleBinding { get; private set; }
         public AuthContext context { get; private set; }
 
 
@@ -33,6 +34,17 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
         {
             UserManager = userManager;
             RoleManager = roleManager;
+        }
+
+        //GET:api/AssignRoles
+        [Authorize]
+        [Route("user/{id}/GetAssignedRoles")]
+        [HttpGet]
+        public IHttpActionResult GetAssignedRoles([FromUri] string id)
+        {
+            var roles = this.UserManager.GetRolesAsync(id);
+
+            return Ok(roles);
         }
 
         //[HttpPut]
@@ -124,7 +136,7 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
 
 
         //[Authorize(Roles = "SuperAdmin")]
-        // [Route("user/{id:guid}/roles")]
+        [Route("user/{id}/rolesToAssign")]
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)
         {
@@ -149,16 +161,18 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-
-            IdentityResult removeResult = await this.UserManager.RemoveFromRoleAsync(appUser.Id, currentRoles.ToArray().ToString());
-            if (!removeResult.Succeeded)
+            if (currentRoles.Count>0)
             {
-                ModelState.AddModelError("", "Failed to remove user roles");
-                return BadRequest(ModelState);
+                IdentityResult removeResult = await this.UserManager.RemoveFromRoleAsync(appUser.Id, currentRoles[0]);
+                if (!removeResult.Succeeded)
+                {
+                    ModelState.AddModelError("", "Failed to remove user roles");
+                    return BadRequest(ModelState);
+                }
             }
 
-
-            IdentityResult addResult = await this.UserManager.AddToRoleAsync(appUser.Id, rolesToAssign.ToString());
+            string role = rolesToAssign[0];
+            IdentityResult addResult = await this.UserManager.AddToRoleAsync(appUser.Id, role);
             if (!addResult.Succeeded)
             {
                 ModelState.AddModelError("", "Failed to add user roles");

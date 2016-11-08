@@ -47,7 +47,7 @@ namespace EasyMaintain.SecurityWebAPI
             // Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
             // app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-        // app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
+            // app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             var issuer = "http://localhost:8533";
             var audience = "099153c2625149bc8ecb3e85e03f0022";

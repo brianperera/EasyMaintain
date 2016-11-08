@@ -26,6 +26,7 @@ namespace EasyMaintain.CoreWebMVC.Models
         public Role Role { get; set; }
 
         public int UserID { get; set; }
+        public string Id { get; set; }
 
         public string LoginUsername { get; set; }
         public string LoginID { get; set; }

@@ -11,5 +11,6 @@ namespace EasyMaintain.CoreWebMVC.DataEntities
         public string LastName { get; set; }
         public Role Role { get; set; }
         public int UserID { get; set; }
+        public string Id { get; set; }
     }
 }

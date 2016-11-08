@@ -21,7 +21,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
     public class UsersController : Controller
     {
         public UserManager<ApplicationUser> Usermanager { get; private set; }
-       
+
         UsersViewModel UsersViewModel = SessionUtility.utilityUsersModel;
         // GET: /<controller>/
         public IActionResult Index()
@@ -47,6 +47,27 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                     userList = JsonConvert.DeserializeObject<List<Users>>(response.Result);
                 }
                 UsersViewModel.Users = userList;
+
+                foreach (var model in UsersViewModel.Users ) {
+
+                    AssignedRoles RoleName;
+                    //getting the role
+                    uri = "/user/" + model.Id + "/GetAssignedRoles";
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SessionUtility.utilityToken.AccessToken);
+                        httpClient.BaseAddress = new Uri("http://localhost:8533");
+                        Task<String> response = httpClient.GetStringAsync(uri);
+                        RoleName = JsonConvert.DeserializeObject<AssignedRoles>(response.Result);
+                    }
+
+                    model.Role = new Role();
+                    if (RoleName.result.Count > 0) {
+                        model.Role.Name = RoleName.result[0];
+                    }
+
+                }
+
 
             }
             catch (AggregateException e)
@@ -125,9 +146,25 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult saveEditedMember([FromBody]Users Model)
         {
             Update();
-            //Role buffer = UsersViewModel.Roles.Single(r => r.Name == Model.Role.Name);
-            //Model.Role = buffer;
-            //Model.UserID = UsersViewModel.UserID;
+            Role buffer = UsersViewModel.Roles.Single(r => r.Name == Model.Role.Name);
+            Model.Role = buffer;
+            Model.Id = UsersViewModel.Id;
+            string[] role = new string[] {
+                Model.Role.Name
+            };
+
+            try
+            {
+                    string uri = "http://localhost:8533/user/"+Model.Id+"/rolesToAssign";
+                    string Roles = JsonConvert.SerializeObject(role);
+                    this.PutAsync(uri, Roles);
+
+            }
+            catch (AggregateException e)
+            {
+
+            }
+
             UsersViewModel.Users[UsersViewModel.currentIndex] = Model;
             ClearSession();
             return PartialView("_EditUserModel", UsersViewModel);
@@ -153,20 +190,21 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
         }
 
-        //[HttpPost, Route("/Users/EditMember")]
-        //public PartialViewResult EditMember([FromBody]Users ID)
-        //{
+        [HttpPost, Route("/Users/EditMember")]
+        public PartialViewResult EditMember([FromBody]Users ID)
+        {
 
-        //    Users item = UsersViewModel.Users.Single(r => r.UserID == ID.UserID);
-        //    UsersViewModel.currentIndex = UsersViewModel.Users.FindIndex(r => r.UserID == ID.UserID);
-        //    UsersViewModel.UserID = item.UserID;
-        //    UsersViewModel.FirstName = item.FirstName;
-        //    UsersViewModel.LastName = item.LastName;
-        //    UsersViewModel.Role = item.Role;
+            Users item = UsersViewModel.Users.Single(r => r.Id == ID.Id);
+            UsersViewModel.currentIndex = UsersViewModel.Users.FindIndex(r => r.Id == ID.Id);
+            UsersViewModel.UserID = item.UserID;
+            UsersViewModel.Id = item.Id;
+            UsersViewModel.FirstName = item.FirstName;
+            UsersViewModel.LastName = item.LastName;
+            UsersViewModel.Role = item.Role;
 
-        //    return PartialView("_EditUserModel", UsersViewModel);
+            return PartialView("_EditUserModel", UsersViewModel);
 
-        //}
+        }
 
         [HttpPost, Route("/Users/cancel")]
         public PartialViewResult cancel()
@@ -181,6 +219,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public void ClearSession()
         {
             UsersViewModel.UserID = 0;
+            UsersViewModel.Id = null;
             UsersViewModel.FirstName = null;
             UsersViewModel.LastName = null;
             UsersViewModel.Role = null;

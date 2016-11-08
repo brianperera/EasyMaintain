@@ -60,8 +60,14 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult SaveNewWorkshop([FromBody] Workshop Model)
         {
             int finalIndex = (workshopModel.Workshops.Count) - 1;
-            Model.WorkshopID = workshopModel.Workshops[finalIndex].WorkshopID + 1;
-          //  workshopModel.Workshops.Add(Model);
+            if (finalIndex < 0)
+            {
+                Model.WorkshopID = 1;
+            }
+            else {
+                Model.WorkshopID = workshopModel.Workshops[finalIndex].WorkshopID + 1;
+            }
+            //  workshopModel.Workshops.Add(Model);
             try
             {
 

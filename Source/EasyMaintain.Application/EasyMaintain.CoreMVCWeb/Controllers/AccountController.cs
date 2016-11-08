@@ -81,6 +81,11 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                         string UserdataUri = "http://localhost:8533/api/account/userdata";
                         Task<String> UserdataResponse =  client.GetStringAsync(UserdataUri);
                         SessionUtility.utilityUserdataModel = JsonConvert.DeserializeObject<UserDataModel>(UserdataResponse.Result);
+
+                        SessionUtility.utilityUserdataModel.Role = getRole(SessionUtility.utilityUserdataModel.ID);
+
+                        
+
                         return RedirectToAction("Index", "Home", new { area = "" });
                         //return View("Index", SessionUtility.utilityUserdataModel);
                     }
@@ -98,6 +103,27 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        //GetRoleName
+        string getRole(string id)
+        {
+            AssignedRoles RoleName;
+            //getting the role
+            string uri = "/user/"+id+"/GetAssignedRoles";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", SessionUtility.utilityToken.AccessToken);
+                httpClient.BaseAddress = new Uri("http://localhost:8533");
+                Task<String> response = httpClient.GetStringAsync(uri);
+                RoleName = JsonConvert.DeserializeObject<AssignedRoles>(response.Result);
+            }
+            if (RoleName.result.Count > 0)
+            {
+                return RoleName.result[0];
+            }
+            else { return null; }
+        }
+
 
         //
         // GET: /Account/Register

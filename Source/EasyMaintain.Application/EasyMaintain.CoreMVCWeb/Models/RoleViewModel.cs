@@ -22,7 +22,7 @@ namespace EasyMaintain.CoreWebMVC.Models
 
         public List<Role> Roles { get; set; }
         public Token token { get; set; }
-
+        
         public RoleViewModel()
         {
             Roles = new List<Role>();
