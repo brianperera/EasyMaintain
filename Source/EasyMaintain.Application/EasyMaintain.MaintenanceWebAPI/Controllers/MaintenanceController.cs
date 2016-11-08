@@ -9,15 +9,10 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
     public class MaintenanceController : ApiController
     {
-
         MaintenanceLogic maintenanceLogic = new MaintenanceLogic();
-
-      
         public MaintenanceController()
         {
-
         }
-
         // GET api/Maintenance
         [Authorize]
         [HttpGet]
@@ -25,35 +20,17 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         {
             return (IEnumerable<Maintenance>)maintenanceLogic.GetData();
         }
-
-        //GET api/Maintenance/5 
-        //public IHttpActionResult GetID(int id)
-        //{
-        //    var item = maintenanceLogic.Find(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(item);
-        //}
-
         // POST api/Maintenance
         [HttpPost]
         public IHttpActionResult Post(Maintenance maintenance)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            maintenanceLogic.Insert(maintenance);
-
-
-            return CreatedAtRoute("DefaultApi", new { id = 100 }, maintenance);
-            //return CreatedAtRoute("DefaultApi", new { id = maintenance.WorkID }, maintenance);
+            maintenanceLogic.Insert(maintenance);   
+            return CreatedAtRoute("DefaultApi", new { id = 100 }, maintenance);         
         }
-
         // PUT api/Maintenance/5 
         [HttpPut]
         public IHttpActionResult Put( [FromBody]Maintenance maintenance)
@@ -62,7 +39,6 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             {
                 return BadRequest();
             }
-
             else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -71,7 +47,6 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             maintenanceLogic.UpdateOne(maintenance);
             return StatusCode(HttpStatusCode.NoContent);
         }
-
         // DELETE api/Maintenance/5 
         [HttpDelete]
         public void Delete([FromBody]Maintenance id)

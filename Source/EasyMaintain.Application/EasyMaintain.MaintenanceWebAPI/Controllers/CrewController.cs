@@ -14,10 +14,8 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
     public class CrewController : ApiController
     {
         CrewLogic crewLogic = new CrewLogic();
-
         public CrewController()
         {
-
         }
 
         // GET api/Crew
@@ -26,7 +24,6 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         {
             return (IEnumerable<Crew>)crewLogic.GetData();
         }
-
         // POST api/Crew
         [HttpPost]
         public IHttpActionResult Post(Crew crew)
@@ -36,10 +33,8 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
                 return BadRequest(ModelState);
             }
             crewLogic.Insert(crew);
-
             return CreatedAtRoute("DefaultApi", new { id = crew.CrewID }, crew);
         }
-
         // PUT api/Crew/5 
         [HttpPut]
         public IHttpActionResult Put( [FromBody]Crew crew)
@@ -48,22 +43,18 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             {
                 return BadRequest();
             }
-
             else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             crewLogic.UpdateOne(crew);
             return StatusCode(HttpStatusCode.NoContent);
         }
-
         // DELETE api/Crew/5 
         [HttpDelete]
         public void Delete([FromBody] Crew id)
         {
             crewLogic.DeleteOne(id);
         }
-
     }
 }

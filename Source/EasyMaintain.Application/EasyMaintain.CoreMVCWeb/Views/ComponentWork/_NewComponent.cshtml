@@ -9,314 +9,319 @@
 </div>
 
 
-    @Html.AntiForgeryToken()
-    <hr />
-    @Html.ValidationSummary(true)
+@Html.AntiForgeryToken()
+<hr />
+@Html.ValidationSummary(true)
 
-    <div class="example">
-        <div class="flex-grid">
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
-                    <label>Model Name</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Name" })
-                    </div>
+<div class="example">
+    <div class="flex-grid">
+        <div class="row cells2">
+            <div class="cell-form margin-right-10 cell size4">
+                <label>Model Name</label>
+                <div class="input-control text full-size">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Name" })
                 </div>
-                <div class="cell-form margin-right-10 cell size4">
-                    <label>Manufacturer Name</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Manufacturer, new { @class = "ManufacturerName", placeholder = "Manufacturer Name" })
-                    </div>
-                </div>
-
             </div>
-            <div class="row cells2">
+            <div class="cell-form margin-right-10 cell size4">
+                <label>Manufacturer Name</label>
+                <div class="input-control text full-size">
+                    @Html.TextBoxFor(m => m.Manufacturer, new { @class = "ManufacturerName", placeholder = "Manufacturer Name" })
+                </div>
+            </div>
 
-                <div class="cell-form margin-right-10 cell size4">
-                    <label>Category</label>
-                    <div class="input-control text full-size">
-                        <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select Category">
-                            <select id="Category" class="full-size" tabindex="-1" style="display: none;">
-                                <option></option>
-                                <option value="Left Wing">Left Wing</option>
-                                <option value="Right Wing">Right Wing</option>
-                                <option value="Elevator">Elevator</option>
-                                <option value="Rudder">Rudder</option>
-                                <option value="Landing Gear">Landing Gear</option>
-                                <option value="Cockpit">Cockpit</option>
-                                <option value="Fuselage">Fuselage</option>
-                                <option value="Engine">Engine</option>
-                            </select>
-                            <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr">
-                                <span class="selection">
-                                </span>
-                                <span class="dropdown-wrapper" aria-hidden="true">
-                                </span>
+        </div>
+        <div class="row cells2">
+
+            <div class="cell-form margin-right-10 cell size4">
+                <label>Category</label>
+                <div class="input-control text full-size">
+                    <div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="Select Category">
+                        <select id="Category" class="full-size" tabindex="-1" style="display: none;">
+                            <option></option>
+                            <option value="Left Wing">Left Wing</option>
+                            <option value="Right Wing">Right Wing</option>
+                            <option value="Elevator">Elevator</option>
+                            <option value="Rudder">Rudder</option>
+                            <option value="Landing Gear">Landing Gear</option>
+                            <option value="Cockpit">Cockpit</option>
+                            <option value="Fuselage">Fuselage</option>
+                            <option value="Engine">Engine</option>
+                        </select>
+                        <span class="select2 select2-container select2-container--default select2-container--below" dir="ltr">
+                            <span class="selection">
                             </span>
-                        </div>
-
+                            <span class="dropdown-wrapper" aria-hidden="true">
+                            </span>
+                        </span>
                     </div>
 
                 </div>
-                <div class="cell-form margin-right-10 cell size4">
-                    <label>Image</label>
-                    <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.ImagePath, new { @class = "ImagePath", placeholder = "Image Path" })
-                    </div>
+
+            </div>
+            <div class="cell-form margin-right-10 cell size4">
+                <label>Image</label>
+                <div class="input-control text full-size">
+                    @Html.TextBoxFor(m => m.ImagePath, new { @class = "ImagePath", placeholder = "Image Path" })
                 </div>
             </div>
-            <br />
-            <div class="row cells2">
-                <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Description</label>
-                    <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.Description, new { @class = "Description", placeholder = "Description" })
-                    </div>
+        </div>
+        <br />
+        <div class="row cells2">
+            <div class="cell-form margin-right-10 cell size4">
+                <label class="display-block">Description</label>
+                <div class="input-control textarea full-size">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "Description", placeholder = "Description" })
                 </div>
-                <div class="cell-form margin-right-10 cell size4">
-                    <label class="display-block">Additional Details</label>
-                    <div class="input-control textarea full-size">
-                        @Html.TextAreaFor(m => m.AdditionalData, new { @class = "AdditionalData", placeholder = "Additional Details" })
-                    </div>
+            </div>
+            <div class="cell-form margin-right-10 cell size4">
+                <label class="display-block">Additional Details</label>
+                <div class="input-control textarea full-size">
+                    @Html.TextAreaFor(m => m.AdditionalData, new { @class = "AdditionalData", placeholder = "Additional Details" })
                 </div>
             </div>
         </div>
     </div>
-    <hr />
+</div>
+<hr />
 
-    <div id="CreateButton">
-        <button class="button primary" onclick="createNewComponent()"><span class="mif-plus"></span> Create</button>
-    </div>
-    <div style="display: none" id="EditButtons">
-        <button class="button warning" onclick="saveEditedComponent()"><span class="mif-loop2"></span> Update</button>
-        <button class="button alert" onclick="deleteComponent()"><span class="mif-cross"></span> Delete</button>
-        <button class="button primary" onclick="cancel()"><span class="mif-plus"></span> New Aircraft</button>
-    </div>
+<div id="CreateButton">
+    <button class="button primary" onclick="createNewComponent()"><span class="mif-plus"></span> Create</button>
+</div>
+<div style="display: none" id="EditButtons">
+    <button class="button warning" onclick="saveEditedComponent()"><span class="mif-loop2"></span> Update</button>
+    <button class="button alert" onclick="deleteComponent()"><span class="mif-cross"></span> Delete</button>
+    <button class="button primary" onclick="cancel()"><span class="mif-plus"></span> New Aircraft</button>
+</div>
 
-    <hr class="thin bg-grayLighter">
-    <table class="dataTable border bordered" data-auto-width="false">
-        <thead>
-            <tr>
-                <td class="sortable-column sort-asc" style="width: 100px">Model ID</td>
-                <td class="sortable-column">Manufacturer</td>
-                <td class="sortable-column">Model</td>
-                <td class="sortable-column" style="width: 100px">Update</td>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var models in Model.Components)
+<hr class="thin bg-grayLighter">
+<table class="dataTable border bordered" data-auto-width="false">
+    <thead>
+        <tr>
+            <td class="sortable-column sort-asc" style="width: 100px">Model ID</td>
+            <td class="sortable-column">Manufacturer</td>
+            <td class="sortable-column">Model</td>
+            <td class="sortable-column" style="width: 100px">Update</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var models in Model.Components)
             {
-                <tr>
-                    <td>@models.ComponentID</td>
-                    <td>@models.Manufacturer</td>
-                    <td>@models.ComponentName</td>
-                    <td class="align-center"><button class="toolbar-button" onclick="LoadComponent(@models.ComponentID)"><span class="mif-pencil"></span></button></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+            <tr>
+                <td>@models.ComponentID</td>
+                <td>@models.Manufacturer</td>
+                <td>@models.ComponentName</td>
+                <td class="align-center"><button class="toolbar-button" onclick="LoadComponent(@models.ComponentID)"><span class="mif-pencil"></span></button></td>
+            </tr>
+        }
+    </tbody>
+</table>
 @Html.HiddenFor(model => model.token.AccessToken, new { id = "token" })
 
-    <script>
+<script>
 
-        function tab_click(tab) {
-            console.log(tab);
-            return true;
-        }
-        function tab_change(tab) {
-            console.log(tab);
-        }
+    function tab_click(tab) {
+        console.log(tab);
+        return true;
+    }
+    function tab_change(tab) {
+        console.log(tab);
+    }
 
 
-        function createNewComponent() {
-            debugger;
-            var CurrentCoponent = {
-                ComponentName: $(".Name").val(),
-                Category: $("#Category").val(),
-                Manufacturer: $(".ManufacturerName").val(),
-                ImagePath: $(".ImagePath").val(),
-                Description: $(".Description").val(),
-                AdditionalData: $(".AdditionalData").val(),
-            }
-
-            $.ajax({
-                url: '/componentwork/SaveNewComponent',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(CurrentCoponent),
-                headers: {
-                    'Authorization': 'Bearer ' + $('#token').val(),
-                },
-                success: function (data) {
-
-                    $.Notify({
-                        caption: 'Components',
-                        content: 'Component successfully added.',
-                        type: 'success'
-                    });
-
-                    debugger;
-                    $('.sidebar').children().removeClass('active');
-                    $('.sidebar li:nth-child(1)').addClass('active');
-                    
-                    SelectSideNavigationItem(3);
-                    $('#partial-view-container').html(data);
-                },
-                error: function () {
-                    $.Notify({
-                        caption: 'Component',
-                        content: 'Component Adding Failed .',
-                        type: 'alert'
-                    });
-                }
-            });
-
+    function createNewComponent() {
+        debugger;
+        var CurrentCoponent = {
+            ComponentName: $(".Name").val(),
+            Category: $("#Category").val(),
+            Manufacturer: $(".ManufacturerName").val(),
+            ImagePath: $(".ImagePath").val(),
+            Description: $(".Description").val(),
+            AdditionalData: $(".AdditionalData").val(),
         }
 
-        function saveEditedComponent() {
-            debugger;
-            var CurrentCoponent = {
-                ComponentName: $(".Name").val(),
-                Category: $("#Category").val(),
-                Manufacturer: $(".ManufacturerName").val(),
-                ImagePath: $(".ImagePath").val(),
-                Description: $(".Description").val(),
-                AdditionalData: $(".AdditionalData").val(),
-            }
+        $.ajax({
+            url: '/componentwork/SaveNewComponent',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(CurrentCoponent),
+            headers: {
+                'Authorization': 'Bearer ' + $('#token').val(),
+            },
+            success: function (data) {
 
-            $.ajax({
-                url: '/componentwork/SaveEditedComponent',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(CurrentCoponent),
-                success: function (data) {
+                $.Notify({
+                    caption: 'Components',
+                    content: 'Component successfully added.',
+                    type: 'success'
+                });
 
-                    $.Notify({
-                        caption: 'Component',
-                        content: 'Component Successfully updated.',
-                        type: 'success'
-                    });
-                    SelectSideNavigationItem(3);
-                    $('#partial-view-container').html(data);
-                    chanageButtons("edit");
-
-                },
-                error: function () {
-                    $.Notify({
-                        caption: 'Component',
-                        content: 'Component Update Failed .',
-                        type: 'alert'
-                    });
-                }
-            });
-
-        }
-
-        function LoadComponent(viewName) {
-            var Model = { ComponentID: viewName }
-
-            $.ajax({
-                url: '/componentwork/EditComponent',
-                type: 'POST',
-                data: JSON.stringify(Model),
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    SelectSideNavigationItem(3);
-                    $('#partial-view-container').html(data);
-                    chanageButtons("edit");
-                },
-                error: function () {
-                    $.Notify({
-                        caption: 'Component',
-                        content: 'Component Editing Failed .',
-                        type: 'alert'
-                    });
-                }
-            });
-
-        }
-
-        function cancel() {
-
-            $.ajax({
-                url: '/componentwork/cancel',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    SelectSideNavigationItem(3);
-                    $('#partial-view-container').html(data);
-                    chanageButtons("create");
-                },
-                error: function () {
-                    $.Notify({
-                        caption: 'Component',
-                        content: 'Cancelation Failed.',
-                        type: 'alert'
-                    });
-                }
-            });
-
-        }
-
-        function deleteComponent() {
-
-            $.ajax({
-                url: '/componentwork/deleteComponent',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    debugger;
-                    $('#partial-view-container').html(data);
-                    chanageButtons("create");
-                },
-                error: function () {
-                    $.Notify({
-                        caption: 'Aircrafts',
-                        content: 'Aircraft Editing Failed .',
-                        type: 'alert'
-                    });
-                }
-            });
-
-        }
-
-        function chanageButtons(button) {
-            debugger;
-            if (button == "edit") {
                 debugger;
-                $("#CreateButton").hide();
-                $("#CreateTitle").hide();
-                $("#UpdateTitle").show();
-                $("#EditButtons").show();
-            }
-            if (button == "create") {
-                debugger;
-                $("#CreateButton").show();
-                $("#CreateTitle").show();
-                $("#UpdateTitle").hide();
-                $("#EditButtons").hide();
-            }
-
-        }
-
-        function SelectSideNavigationItem(navItemIndex) {
-
-            debugger;
-            //Unselect all the items
-            $('.sidebar').children().removeClass('active');
-
-            if (navItemIndex == 1) {
+                $('.sidebar').children().removeClass('active');
                 $('.sidebar li:nth-child(1)').addClass('active');
+
+                SelectSideNavigationItem(3);
+                $('#partial-view-container').html(data);
+            },
+            error: function () {
+                $.Notify({
+                    caption: 'Component',
+                    content: 'Component Adding Failed .',
+                    type: 'alert'
+                });
             }
-            else if (navItemIndex == 2) {
-                $('.sidebar li:nth-child(2)').addClass('active');
-            }
-            else if (navItemIndex == 3) {
-                $('.sidebar li:nth-child(3)').addClass('active');
-            }
+        });
+
+    }
+
+    function saveEditedComponent() {
+        debugger;
+        var CurrentCoponent = {
+            ComponentName: $(".Name").val(),
+            Category: $("#Category").val(),
+            Manufacturer: $(".ManufacturerName").val(),
+            ImagePath: $(".ImagePath").val(),
+            Description: $(".Description").val(),
+            AdditionalData: $(".AdditionalData").val(),
         }
 
-    </script>
+        $.ajax({
+            url: '/componentwork/SaveEditedComponent',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(CurrentCoponent),
+            success: function (data) {
+
+                $.Notify({
+                    caption: 'Component',
+                    content: 'Component Successfully updated.',
+                    type: 'success'
+                });
+                SelectSideNavigationItem(3);
+                $('#partial-view-container').html(data);
+                chanageButtons("edit");
+
+            },
+            error: function () {
+                $.Notify({
+                    caption: 'Component',
+                    content: 'Component Update Failed .',
+                    type: 'alert'
+                });
+            }
+        });
+
+    }
+
+    function LoadComponent(viewName) {
+        var Model = { ComponentID: viewName }
+
+        $.ajax({
+            url: '/componentwork/EditComponent',
+            type: 'POST',
+            data: JSON.stringify(Model),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                SelectSideNavigationItem(3);
+                $('#partial-view-container').html(data);
+                chanageButtons("edit");
+            },
+            error: function () {
+                $.Notify({
+                    caption: 'Component',
+                    content: 'Component Editing Failed .',
+                    type: 'alert'
+                });
+            }
+        });
+
+    }
+
+    function cancel() {
+
+        $.ajax({
+            url: '/componentwork/cancel',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                debugger;
+                SelectSideNavigationItem(3);
+                $('#partial-view-container').html(data);
+                chanageButtons("create");
+            },
+            error: function () {
+                $.Notify({
+                    caption: 'Component',
+                    content: 'Cancelation Failed.',
+                    type: 'alert'
+                });
+            }
+        });
+
+    }
+
+    function deleteComponent() {
+
+        $.ajax({
+            url: '/componentwork/deleteComponent',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $.Notify({
+                    caption: 'Component',
+                    content: 'Component Successfully deleted.',
+                    type: 'success'
+                });
+                debugger;
+                $('#partial-view-container').html(data);
+                chanageButtons("create");
+            },
+            error: function () {
+                $.Notify({
+                    caption: 'Aircrafts',
+                    content: 'Aircraft Editing Failed .',
+                    type: 'alert'
+                });
+            }
+        });
+
+    }
+
+    function chanageButtons(button) {
+        debugger;
+        if (button == "edit") {
+            debugger;
+            $("#CreateButton").hide();
+            $("#CreateTitle").hide();
+            $("#UpdateTitle").show();
+            $("#EditButtons").show();
+        }
+        if (button == "create") {
+            debugger;
+            $("#CreateButton").show();
+            $("#CreateTitle").show();
+            $("#UpdateTitle").hide();
+            $("#EditButtons").hide();
+        }
+
+    }
+
+    function SelectSideNavigationItem(navItemIndex) {
+
+        debugger;
+        //Unselect all the items
+        $('.sidebar').children().removeClass('active');
+
+        if (navItemIndex == 1) {
+            $('.sidebar li:nth-child(1)').addClass('active');
+        }
+        else if (navItemIndex == 2) {
+            $('.sidebar li:nth-child(2)').addClass('active');
+        }
+        else if (navItemIndex == 3) {
+            $('.sidebar li:nth-child(3)').addClass('active');
+        }
+    }
+
+</script>
 

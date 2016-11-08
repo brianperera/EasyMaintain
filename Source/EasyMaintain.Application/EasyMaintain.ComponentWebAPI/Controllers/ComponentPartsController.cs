@@ -10,36 +10,26 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
    public class ComponentPartsController : ApiController
     {
         ComponentsLogic componentLogic = new ComponentsLogic();
-        
         public ComponentPartsController()
         {
-
         }
-
         // GET api/ComponentParts
-
         [HttpGet]
         public IEnumerable<Component> Get()
         {
             return (IEnumerable<Component>)componentLogic.GetData();
         }
-
         // POST api/ComponentParts
         [HttpPost]
         public IHttpActionResult Post(Component component)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             componentLogic.Insert(component);
             return CreatedAtRoute("DefaultApi", new { id = component.ComponentID }, component);
-
         }
-
-
-
         // PUT api/ComponentParts/5 
         [HttpPut]
         public IHttpActionResult Put([FromBody]Component component)
@@ -53,19 +43,14 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             componentLogic.UpdateOne(component);
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-
         // DELETE api/ComponentParts/5 
         [HttpDelete]
         public void Delete([FromBody]Component id)
         {
             componentLogic.DeleteOne(id);
         }
-
-
     }
 }

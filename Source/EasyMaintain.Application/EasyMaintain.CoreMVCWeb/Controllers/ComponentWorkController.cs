@@ -47,10 +47,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             catch (AggregateException e)
             {
 
-            }
-
-            //componentWorkViewModel.ComponentWorkOrders[0].Deliverydetails = new DeliveryDetails();
-            //componentWorkViewModel.ComponentWorkOrders[1].Deliverydetails = new DeliveryDetails();
+            } 
             componentWorkViewModel = SessionUtility.utilityComponentWorkModel;
             ClearSession();
             UpdateComponentWorkViewModel();
@@ -62,16 +59,12 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
             Model.Deliverydetails.DeliveryDetailsId = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
-            //componentWorkViewModel.ComponentWorkOrders.Add(Model);
-           
             return PartialView("_Search", componentWorkViewModel);
         }
-
         public void PostAsync(string uri, string data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "POST";
-            //model.PostData = "Test";
+            request.Method = "POST";            
             request.ContentType = "application/json";
 
             using (var sw = new StreamWriter(request.GetRequestStream()))
@@ -80,11 +73,10 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 sw.Flush();
             }
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
         }
 
         [HttpPost, Route("ComponentWork/SaveWorkOrder")]
-        //todo
+       
         public PartialViewResult SaveWorkOrder([FromBody] ComponentWork Model)
         {
             Model.WorkID = componentWorkViewModel.WorkID;
@@ -115,7 +107,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
                 string componentData = JsonConvert.SerializeObject(item);
                 this.DeleteAsync("http://localhost:8425/api/Component/", componentData);
-                //componentWorkViewModel.ComponentWorkOrders.Add(item);
+                
             }
             catch (AggregateException e)
             {
@@ -135,15 +127,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult EditWorkOrder([FromBody]ComponentWork ID)
         {
             ComponentWork item = componentWorkViewModel.ComponentWorkOrders.Single(r => r.WorkID == ID.WorkID);
-            //try
-            //{
-            //    string componentData = JsonConvert.SerializeObject(ID);
-            //    this.PutAsync("http://localhost:8425/api/Component ", componentData);
-            //   // componentWorkViewModel.ComponentWorkOrders.Add(ID);
-            //}
-            //catch (AggregateException e)
-            //{
-            //}
             componentWorkViewModel.WorkID = item.WorkID;
             componentWorkViewModel.Description = item.Description;
             componentWorkViewModel.FlightNumber = item.FlightNumber;
@@ -153,16 +136,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             componentWorkViewModel.ComponentName = item.Component;
             componentWorkViewModel.DeliveryDetails = item.Deliverydetails;
 
-
-          
-
-
-
             return PartialView("_EditWorkOrder", componentWorkViewModel);
 
         }
-
-
 
         public void PutAsync(string uri, string data)
         {
@@ -188,7 +164,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
                 Model.ComponentID = 1;
             }
-            else {
+            else
+            {
                 Model.ComponentID = componentModel.Components[finalIndex].ComponentID + 1;
             }
 
@@ -210,7 +187,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
 
 
-       
+
 
         [HttpPost, Route("/componentwork/EditComponent")]
         public PartialViewResult EditComponent([FromBody]Component ID)
@@ -265,28 +242,15 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
 
 
-            //Model.ComponentID = componentModel.ComponentID;
-            //int index = componentModel.ComponentID - 1;
-            //Component test = componentModel.Components.Single(r => r.ComponentID == Model.ComponentID);
-            //componentModel.Components.Remove(test);
-
-            int deletingIndex = componentModel.Components.FindIndex(r => r.ComponentID == componentModel.ComponentID);
-
-            for (int x = deletingIndex; x <= componentModel.Components.Count - 2; x++)
-            {
-                int nextIndex = x + 1;
-                componentModel.Components[x] = componentModel.Components[nextIndex];
-            }
-
-            int finalIndex = componentModel.Components.Count - 1;
-            componentModel.Components.RemoveAt(finalIndex);
-
+            int index = componentModel.ComponentID - 1;
+            Component item = componentModel.Components.Single(r => r.ComponentID == componentModel.ComponentID);
+            componentModel.Components.Remove(item);
             ClearSession();
 
 
             try
             {
-                string componenetData = JsonConvert.SerializeObject(finalIndex);
+                string componenetData = JsonConvert.SerializeObject(item);
                 this.DeleteAsync("http://localhost:8425/api/ComponentParts/", componenetData);
 
             }
@@ -302,7 +266,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "Delete";
-            //model.PostData = "Test";
             request.ContentType = "application/json";
 
             using (var sw = new StreamWriter(request.GetRequestStream()))

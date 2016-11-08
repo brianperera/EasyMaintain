@@ -12,34 +12,16 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 {
    public class MaintenanceCheckController: ApiController
     {
-
         MaintenanceChecksLogic maintenanceChecksLogic = new MaintenanceChecksLogic();
-
         public MaintenanceCheckController()
         {
-
         }
-
         // GET api/MaintenanceCheck
         [HttpGet]
         public IEnumerable<MaintenanceChecks> Get()
         {
             return (IEnumerable<MaintenanceChecks>)maintenanceChecksLogic.GetData();
         }
-
-
-        // GET api/MaintenanceChecks/5 
-        //public IHttpActionResult GetID(int id)
-        //{
-        //    var item = maintenanceChecksLogic.Find(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(item);
-        //}
-
         // POST api/MaintenanceCheck
         [HttpPost]
         public IHttpActionResult Post(MaintenanceChecks maintenanceChecks)
@@ -52,7 +34,6 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = maintenanceChecks.MaintenanceCheckID }, maintenanceChecks);
         }
-
         // PUT api/MaintenanceCheck/5 
         [HttpPut]
         public IHttpActionResult Put(MaintenanceChecks mainteneceCheckID, [FromBody]MaintenanceChecks maintenanceCheck)
@@ -61,12 +42,10 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             {
                 return BadRequest();
             }
-
             else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             maintenanceChecksLogic.UpdateOne(maintenanceCheck);
             return StatusCode(HttpStatusCode.NoContent);
         }
@@ -76,9 +55,5 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         {
             maintenanceChecksLogic.DeleteOne(id);
         }
-
-
-
-
     }
 }

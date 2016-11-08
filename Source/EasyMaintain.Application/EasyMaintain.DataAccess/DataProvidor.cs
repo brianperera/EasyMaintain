@@ -354,43 +354,43 @@ namespace EasyMaintain.DataAccess
             return inventory;
         }
 
-/// <summary>
-/// Get Inventory Data
-/// </summary>
-/// <returns></returns>
-//public List<Inventory> GetInventoryData()
-//{
-//    List<Inventory> inventory = new List<Inventory>();
+        /// <summary>
+        /// Get Inventory Data
+        /// </summary>
+        /// <returns></returns>
+        //public List<Inventory> GetInventoryData()
+        //{
+        //    List<Inventory> inventory = new List<Inventory>();
 
-//    using (var db = new EasyMaintainDBContext())
-//    {
-//        //var query = from b in db.Inventories
-//        //            orderby b.InventoryID
-//        //            select b;
+        //    using (var db = new EasyMaintainDBContext())
+        //    {
+        //        //var query = from b in db.Inventories
+        //        //            orderby b.InventoryID
+        //        //            select b;
 
-//        //foreach (var item in query)
-//        //{
-//        //    inventory.Add(item as Inventory);
-//        //}
-//    }
+        //        //foreach (var item in query)
+        //        //{
+        //        //    inventory.Add(item as Inventory);
+        //        //}
+        //    }
 
-//    return inventory;
-//}
+        //    return inventory;
+        //}
 
 
-//--- Insert Data
+        //--- Insert Data
 
-/// <summary>
-/// Add Supplier
-/// </summary>
-/// <param name="supplierName"></param>
-/// <param name="emailAddress"></param>
-/// <param name="address"></param>
-/// <param name="contact"></param>
-/// <param name="description"></param>
-/// <param name="additionalData"></param>
-/// <returns></returns>
-public int AddSupplier(string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
+        /// <summary>
+        /// Add Supplier
+        /// </summary>
+        /// <param name="supplierName"></param>
+        /// <param name="emailAddress"></param>
+        /// <param name="address"></param>
+        /// <param name="contact"></param>
+        /// <param name="description"></param>
+        /// <param name="additionalData"></param>
+        /// <returns></returns>
+        public int AddSupplier(string supplierName, string emailAddress, string address, string contact, string description, string additionalData)
         {
             int recordId = -1;
             // insert
@@ -436,7 +436,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                 try
                 {
                     var supplier = db.Set<Component>();
-                    supplier.Add(new Component{ ComponentID=componentID,Category=category,ComponentName=componentName,Manufacturer=manufacturer,Description=description,ImagePath=imagePath,AdditionalData=additionalData });
+                    supplier.Add(new Component { ComponentID = componentID, Category = category, ComponentName = componentName, Manufacturer = manufacturer, Description = description, ImagePath = imagePath, AdditionalData = additionalData });
 
                     db.SaveChanges();
 
@@ -503,7 +503,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                 try
                 {
                     var workshop = db.Set<Workshop>();
-                    workshop.Add(new Workshop  { WorkshopID=workshopID,Name=name,Location=location,Address=address });
+                    workshop.Add(new Workshop { WorkshopID = workshopID, Name = name, Location = location, Address = address });
 
                     db.SaveChanges();
 
@@ -613,7 +613,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
         /// <param name="OrderType"></param>
         /// <param name="Deliverydetails"></param>
         /// <returns></returns>
-        public int AddInventory(int customerID, string customerName, string companyName, string additionalNotes, List <string> partsList, int invoiceNumber,string paymentMethod, string paymentNotes, string billingAddress,string billingName,bool orderType, DeliveryDetails deliveryDetails)
+        public int AddInventory(int customerID, string customerName, string companyName, string additionalNotes, List<string> partsList, int invoiceNumber, string paymentMethod, string paymentNotes, string billingAddress, string billingName, bool orderType, DeliveryDetails deliveryDetails)
         {
             int recordId = -1;
 
@@ -623,7 +623,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                 try
                 {
                     var inventory = db.Set<Inventory>();
-                    inventory.Add(new Inventory { CustomerID=customerID,CustomerName=customerName,CompanyName=companyName,AdditionalNotes=additionalNotes,PartsList=partsList,InvoiceNumber=invoiceNumber,PaymentMethod=paymentMethod,PaymentNotes=paymentNotes,BillingAddress=billingAddress,BillingName=billingName,OrderType=orderType,Deliverydetails=deliveryDetails });
+                    inventory.Add(new Inventory { CustomerID = customerID, CustomerName = customerName, CompanyName = companyName, AdditionalNotes = additionalNotes, PartsList = partsList, InvoiceNumber = invoiceNumber, PaymentMethod = paymentMethod, PaymentNotes = paymentNotes, BillingAddress = billingAddress, BillingName = billingName, OrderType = orderType, Deliverydetails = deliveryDetails });
 
                     db.SaveChanges();
 
@@ -659,7 +659,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
 
                     db.SaveChanges();
 
-                   // recordId = Int32.Parse(db.Set<MaintenanceChecks>().LastOrDefault().Description);
+                    // recordId = Int32.Parse(db.Set<MaintenanceChecks>().LastOrDefault().Description);
                 }
                 catch (SqlException ex)
                 {
@@ -685,7 +685,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
 
                     db.SaveChanges();
 
-                   // recordId = Int32.Parse(db.Set<Crew>().LastOrDefault().Name);
+                    // recordId = Int32.Parse(db.Set<Crew>().LastOrDefault().Name);
                 }
                 catch (SqlException ex)
                 {
@@ -733,7 +733,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public int AddMaintenance(int workID, string flightModel, string flightNumber, string description, string startDate, string completionDate, string location )
+        public int AddMaintenance(int workID, string flightModel, string flightNumber, string description, string startDate, string completionDate, string location)
         {
             int recordId = -1;
 
@@ -904,7 +904,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                         component.ImagePath = imagePath;
                         component.AdditionalData = additionalData;
 
-                       
+
                     }
                     db.SaveChanges();
                     result = true;
@@ -1122,7 +1122,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
         /// <param name="engineTypeName"></param>
         /// <param name="additionalData"></param>
         /// <returns></returns>
-        public bool UpdateMaintenance(int workID, string FlightModel,string FlightNumber, string additionalData,string StartDate,string CompletionDate,string Location)
+        public bool UpdateMaintenance(int workID, string FlightModel, string FlightNumber, string additionalData, string StartDate, string CompletionDate, string Location)
         {
             bool result = false;
 
@@ -1234,7 +1234,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                         inventory.BillingName = billingName;
                         inventory.OrderType = orderType;
                         inventory.Deliverydetails = deliveryDetails;
-                        
+
                     }
                     db.SaveChanges();
                     result = true;
@@ -1382,7 +1382,6 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
             return result;
         }
 
-
         //--- Delete Data
 
         /// <summary>
@@ -1410,7 +1409,7 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
             // Delete
             using (var db = new EasyMaintainDBContext())
             {
-                var component = db.Components.SingleOrDefault(s => s.ComponentID == componentId);
+                var component = db.Components.SingleOrDefault(s => s.ComponentID.Equals(componentId));
                 db.Components.Attach(component);
                 db.Components.Remove(component);
                 db.SaveChanges();
@@ -1546,8 +1545,6 @@ public int AddSupplier(string supplierName, string emailAddress, string address,
                 db.SaveChanges();
             }
         }
-
-
 
         /// <summary>
         /// Delete Aircraft Model 

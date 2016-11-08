@@ -21,7 +21,6 @@ namespace EasyMaintain.Business
             DataProvidor dp = new DataProvidor();
             dp.DeleteCrew(mMaintenanceChecks.Description);
         }
-
         public object GetData()
         {
             List<MaintenanceChecks> result = new List<MaintenanceChecks>();
@@ -30,6 +29,7 @@ namespace EasyMaintain.Business
             foreach (DTO.MaintenanceChecks maintenanceCheck in dp.GetMaintenanceCheckData())
             {
                 MaintenanceChecks _maintenanceCheck = new MaintenanceChecks();
+                _maintenanceCheck.MaintenanceCheckID = maintenanceCheck.MaintenanceCheckID;
                 _maintenanceCheck.Description = maintenanceCheck.Description;
                 _maintenanceCheck.status = maintenanceCheck.status;
 

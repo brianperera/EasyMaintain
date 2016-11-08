@@ -11,15 +11,9 @@ namespace EasyMaintain.Business
    public class AircraftModelLogic
     {
         AircraftModel mAircraftModel;
-
-
-
-        // Constructor
         public AircraftModelLogic()
         {
-
         }
-
         /// <summary>
         /// Get Data
         /// </summary>
@@ -95,7 +89,6 @@ namespace EasyMaintain.Business
             DataProvidor dp = new DataProvidor();
             return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.Manufacturer, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category, mAircraftModel.EngineType, mAircraftModel.Manufacturer, mAircraftModel.ImagePath);
         }
-
         public AircraftModel Find(object AircraftModelID)
         {
             List<AircraftModel> result = new List<AircraftModel>();
@@ -103,8 +96,5 @@ namespace EasyMaintain.Business
                 .Where(e => e.AircraftModelID.Equals(AircraftModelID))
                 .SingleOrDefault();
         }
-
-
-
     }
 }

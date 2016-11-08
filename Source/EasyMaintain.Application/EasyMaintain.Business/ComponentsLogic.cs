@@ -10,9 +10,6 @@ namespace EasyMaintain.Business
 {
    public class ComponentsLogic
     {
-
-      
-
         public ComponentsLogic()
         {
 
@@ -82,7 +79,6 @@ namespace EasyMaintain.Business
             DataProvidor dp = new DataProvidor();
             return dp.UpdateComponent(mComponent.ComponentID, mComponent.Category, mComponent.ComponentName, mComponent.Manufacturer, mComponent.Description, mComponent.ImagePath, mComponent.AdditionalData);
         }
-
         public Component Find(object componentID)
         {
             List<Component> result = new List<Component>();

@@ -11,7 +11,6 @@ using System.Net;
 using System.IO;
 using System.Net.Http;
 
-
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EasyMaintain.CoreMVCWeb.Controllers
@@ -23,10 +22,9 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         // GET: /<controller>/
         public ActionResult Index()
         {
-
-            CrewViewModel.Username = SessionUtility.utilityUserdataModel.Username;
+           CrewViewModel.Username = SessionUtility.utilityUserdataModel.Username;
            CrewViewModel.ID = SessionUtility.utilityUserdataModel.ID;
-           // CrewViewModel.Name = SessionUtility.utilityUserdataModel.Name;
+           CrewViewModel.Name = SessionUtility.utilityUserdataModel.Name;
             CrewViewModel.Email = SessionUtility.utilityUserdataModel.Email;
             CrewViewModel.PhoneNumber = SessionUtility.utilityUserdataModel.PhoneNumber;
             try
@@ -58,10 +56,8 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         {
             int finalIndex = (CrewViewModel.CrewList.Count) - 1;
             Model.CrewID = CrewViewModel.CrewList[finalIndex].CrewID + 1;
-          
             try
             {
-
                 string crewData = JsonConvert.SerializeObject(Model);
 
                 this.PostAsync("http://localhost:8961/api/Crew/", crewData);
@@ -70,17 +66,12 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             catch (AggregateException e)
             {
             }
-
             return PartialView("_CrewModel", CrewViewModel);
-
         }
-
-
         public void PostAsync(string uri, string data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "POST";
-            //model.PostData = "Test";
+            request.Method = "POST"; 
             request.ContentType = "application/json";
 
             using (var sw = new StreamWriter(request.GetRequestStream()))
@@ -89,7 +80,6 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
                 sw.Flush();
             }
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
         }
 
         [HttpPost, Route("/Crew/saveEditedMember")]
@@ -98,31 +88,21 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             Model.CrewID = CrewViewModel.CrewID;
             CrewViewModel.CrewList[CrewViewModel.currentIndex] = Model;
             ClearSession();
-
             try
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
                 this.PutAsync("http://localhost:8961/api/Crew/", maintenanceData);
-
             }
             catch (AggregateException e)
             {
             }
-
-
-
             return PartialView("_CrewModel", CrewViewModel);
-
         }
-
-
         public void PutAsync(string uri, string data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "Put";
-
             request.ContentType = "application/json";
-
             using (var sw = new StreamWriter(request.GetRequestStream()))
             {
                 sw.Write(data);
@@ -130,47 +110,28 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             }
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         }
-
-
         [HttpPost, Route("/Crew/deleteMember")]
         public PartialViewResult deleteMember()
         {
-
-
             int index = CrewViewModel.CrewID - 1;
             Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == CrewViewModel.CrewID);
-            CrewViewModel.CrewList.Remove(item);
-           
-            //for (int x = CrewViewModel.currentIndex; x <= CrewViewModel.CrewList.Count - 2; x++)
-            //{
-            //    int nextIndex = x + 1;
-            //    CrewViewModel.CrewList[x] = CrewViewModel.CrewList[nextIndex];
-            //}
-
-            //int finalIndex = CrewViewModel.CrewList.Count - 1;
-            //CrewViewModel.CrewList.RemoveAt(finalIndex);
-
+            CrewViewModel.CrewList.Remove(item);           
             ClearSession();
-
             try
             {
                 string crewData = JsonConvert.SerializeObject(item);
                 this.DeleteAsync("http://localhost:8961/api/Crew/", crewData);
-
             }
             catch (AggregateException e)
             {
             }
-
             return PartialView("_CrewModel", CrewViewModel);
         }
         public void DeleteAsync(string uri, string data)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "Delete";
-            //model.PostData = "Test";
+            request.Method = "Delete";  
             request.ContentType = "application/json";
-
             using (var sw = new StreamWriter(request.GetRequestStream()))
             {
                 sw.Write(data);
@@ -178,40 +139,21 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             }
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         }
-
         [HttpPost, Route("/Crew/EditMember")]
         public PartialViewResult EditMember([FromBody]Crew ID)
         {
-
             Crew item= CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
-
-
-
-            //ID.CrewID = CrewViewModel.CrewID;
-            // Crew item = CrewViewModel.CrewList.Single(r => r.CrewID == ID.CrewID);
-
-            //CrewViewModel.currentIndex = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
-            //int index = CrewViewModel.CrewList.FindIndex(r => r.CrewID == ID.CrewID);
-            //CrewViewModel.CrewList[index] = ID;
-            //CrewViewModel.CrewID = ID.CrewID;
-            //CrewViewModel.CrewName = ID.Name;
-            //CrewViewModel.Designation = ID.Designation;
-
             CrewViewModel.CrewID = item.CrewID;
             CrewViewModel.CrewName = item.Name;
             CrewViewModel.Designation = item.Designation;
 
             return PartialView("_CrewModel", CrewViewModel);
-
         }
-
         [HttpPost, Route("/Crew/cancel")]
         public PartialViewResult cancel()
         {
             ClearSession();
-
             return PartialView("_CrewModel", CrewViewModel);
-
         }
         public void ClearSession()
         {

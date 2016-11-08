@@ -8,15 +8,10 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
 {
     public class ComponentController : ApiController
     {
-       
        ComponentWorkLogic componentWorkLogic = new ComponentWorkLogic();
-
         public ComponentController()
         {
-
         }
-
-
         // GET api/Component
         [Authorize]
         [HttpGet]
@@ -24,27 +19,21 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
         {
             return (IEnumerable<ComponentWork>)componentWorkLogic.GetData();
         }
-
         // POST api/Component
         [HttpPost]
         public IHttpActionResult Post(ComponentWork componentWork)
         {
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             componentWorkLogic.Insert(componentWork);
             return CreatedAtRoute("DefaultApi", new { id = componentWork.WorkID }, componentWork);
-
         }
-
         // PUT api/Component/5 
         [HttpPut]
         public IHttpActionResult Put(/*ComponentWork workID,*/ [FromBody]ComponentWork component)
         {
-
-
             if (component.WorkID.Equals(0))
             {
                 return BadRequest();
@@ -54,12 +43,9 @@ namespace EasyMaintain.ComponentWebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             componentWorkLogic.UpdateOne(component);
-                return StatusCode(HttpStatusCode.NoContent);
-        
+            return StatusCode(HttpStatusCode.NoContent);
         }
-
         // DELETE api/Component/5 
         [HttpDelete]
         public void Delete([FromBody]ComponentWork id)

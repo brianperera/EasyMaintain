@@ -47,10 +47,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             {
 
             }
-
-
-
-
             workshopModel.token = SessionUtility.utilityToken;
             ClearSession();
             return View(workshopModel);
@@ -67,7 +63,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             else {
                 Model.WorkshopID = workshopModel.Workshops[finalIndex].WorkshopID + 1;
             }
-            //  workshopModel.Workshops.Add(Model);
+          
             try
             {
 
@@ -165,18 +161,10 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         [HttpPost, Route("/workshop/deleteWorkshop")]
         public PartialViewResult deleteWorkshop()
         {
-
-
             int index = workshopModel.WorkshopID - 1;
             Workshop item = workshopModel.Workshops.Single(r => r.WorkshopID == workshopModel.WorkshopID);
             workshopModel.Workshops.Remove(item);
-
-
-
-           
-
             ClearSession();
-
             try
             {
                 string maintenanceData = JsonConvert.SerializeObject(item);
@@ -188,8 +176,6 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             }
 
             return PartialView("_Workshop", workshopModel);
-
-
         }
 
         public void DeleteAsync(string uri, string data)

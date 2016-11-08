@@ -15,29 +15,13 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         AircraftModelLogic aircraftModelLogic = new AircraftModelLogic();
         public AircraftmodelController()
         {
-
         }
-
         // GET api/Aircraftmodel
         [HttpGet]
         public IEnumerable<AircraftModel> Get()
         {
             return (IEnumerable<AircraftModel>)aircraftModelLogic.GetData();
         }
-
-        //GET api/Aircraftmodel/5 
-        //public IHttpActionResult GetID(int id)
-        //{
-        //    var item = aircraftModelLogic.Find(id);
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(item);
-        //}
-
-
         // POST api/Aircraftmodel
         [HttpPost]
         public IHttpActionResult Post(AircraftModel aircraftmodel)
@@ -47,11 +31,8 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
                 return BadRequest(ModelState);
             }
             aircraftModelLogic.Insert(aircraftmodel);
-
             return CreatedAtRoute("DefaultApi", new { id = aircraftmodel.AircraftModelID }, aircraftmodel);
         }
-
-
         // PUT api/Aircraftmodel/5 
         [HttpPut]
         public IHttpActionResult Put( [FromBody]AircraftModel aircraft)
@@ -60,17 +41,13 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
             {
                 return BadRequest();
             }
-
             else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
             aircraftModelLogic.UpdateOne(aircraft);
             return StatusCode(HttpStatusCode.NoContent);
         }
-
-
         // DELETE api/Aircraftmodel/5 
         [HttpDelete]
         public void Delete(int id)
