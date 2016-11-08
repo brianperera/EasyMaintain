@@ -25,20 +25,16 @@ $(function () {
     })
 })
 
-var $loading = $('#loadingDiv').hide();
-
 $(document)
   .ajaxStart(function () {
-      $loading.delay(100).fadeIn();
+      $('#loadingDiv').delay(100).fadeIn();
   })
   .ajaxStop(function () {
-
       setTimeout(function () {          
-          $loading.delay(100).fadeOut();
+          $('#loadingDiv').delay(100).fadeOut();
       }, 500);
   });
 
 $(document).ready(function () {
-
-
+   $('#loadingDiv').hide();
 });

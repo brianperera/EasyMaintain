@@ -19,7 +19,7 @@
                 <div class="cell-form margin-right-10 cell size4">
                     <label>Crew Name</label>
                     <div class="input-control text full-size">
-                        @Html.TextBoxFor(m => m.Name, new { @class = "Name", placeholder = "Crew Name" })
+                        @Html.TextBoxFor(m => m.CrewName, new { @class = "Name", placeholder = "Crew Name" })
                     </div>
                 </div>
                 <div class="cell-form margin-right-10 cell size4">
@@ -155,7 +155,7 @@
         }
 
         function LoadMember(viewName) {
-            var Model = { ID: viewName }
+            var Model = { CrewID: viewName }
 
             $.ajax({
                 url: '/Crew/EditMember',

@@ -1053,7 +1053,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="Designation"></param>
         /// <returns></returns>
 
-        public bool UpdateCrew(string name, string designation)
+        public bool UpdateCrew(int ID,string name, string designation)
         {
             bool result = false;
 
@@ -1062,7 +1062,7 @@ namespace EasyMaintain.DataAccess
             {
                 try
                 {
-                    var crew = db.Crews.SingleOrDefault(s => s.Name.Equals(name));
+                    var crew = db.Crews.SingleOrDefault(s => s.CrewID.Equals(ID));
 
                     if (crew != null)
                     {

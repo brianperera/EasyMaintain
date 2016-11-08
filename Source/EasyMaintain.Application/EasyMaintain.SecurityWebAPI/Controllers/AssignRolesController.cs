@@ -135,7 +135,7 @@ namespace EasyMaintain.SecurityWebAPI.Controllers
 
 
 
-        //[Authorize(Roles = "SuperAdmin")]
+        [Authorize]
         [Route("user/{id}/rolesToAssign")]
         [HttpPut]
         public async Task<IHttpActionResult> AssignRolesToUser([FromUri] string id, [FromBody] string[] rolesToAssign)

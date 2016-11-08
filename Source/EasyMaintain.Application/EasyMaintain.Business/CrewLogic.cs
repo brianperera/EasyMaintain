@@ -63,7 +63,7 @@ namespace EasyMaintain.Business
         {
             this.mCrew = crew as Crew;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateCrew(mCrew.Name, mCrew.Designation);
+            return dp.UpdateCrew(mCrew.CrewID, mCrew.Name, mCrew.Designation);
         }
 
 

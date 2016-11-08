@@ -46,6 +46,7 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
             {
 
             }
+            CrewViewModel.CrewList = CrewViewModel.CrewList.OrderBy(o => o.CrewID).ToList();
             CrewViewModel.token = SessionUtility.utilityToken;
             ClearSession();
             return View(CrewViewModel);

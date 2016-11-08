@@ -111,6 +111,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "PUT";
+            request.Headers.Add("Authorization", "Bearer " + SessionUtility.utilityToken.AccessToken);
             //model.PostData = "Test";
             request.ContentType = "application/json";
 
