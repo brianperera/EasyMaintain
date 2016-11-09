@@ -144,8 +144,13 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             Model.CrewMembers = new List<Crew>();
             //Model.CrewMembers.AddRange(maintenanceViewModel.CrewMembers);
             Model.WorkID = maintenanceViewModel.WorkID;
-            int index = maintenanceViewModel.WorkID - 1;
+            //int index = maintenanceViewModel.WorkID - 1;
+
+            var test = maintenanceViewModel.MaintenanceOrders.Single(r => r.WorkID == maintenanceViewModel.WorkID);
+            int index = maintenanceViewModel.MaintenanceOrders.IndexOf(test);
             maintenanceViewModel.MaintenanceOrders[index] = Model;
+
+
             try
             {
                 string maintenanceData = JsonConvert.SerializeObject(Model);
@@ -396,6 +401,16 @@ namespace EasyMaintain.CoreWebMVC.Controllers
 
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
 
+
+            try
+            {
+                string maintenanceData = JsonConvert.SerializeObject(Model);
+                this.PutAsync("http://localhost:8961/api/MaintenanceCheck/", maintenanceData);
+            }
+            catch (AggregateException e)
+            {
+            }
+
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 
         }
@@ -404,16 +419,34 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult deleteCheck()
         {
 
-            for (int x = maintenanceCheckViewModel.currentIndex; x <= maintenanceCheckViewModel.Checks.Count - 2; x++)
-            {
-                int nextIndex = x + 1;
-                maintenanceCheckViewModel.Checks[x] = maintenanceCheckViewModel.Checks[nextIndex];
-            }
+            //for (int x = maintenanceCheckViewModel.currentIndex; x <= maintenanceCheckViewModel.Checks.Count - 2; x++)
+            //{
+            //    int nextIndex = x + 1;
+            //    maintenanceCheckViewModel.Checks[x] = maintenanceCheckViewModel.Checks[nextIndex];
+            //}
 
-            int finalIndex = maintenanceCheckViewModel.Checks.Count - 1;
-            maintenanceCheckViewModel.Checks.RemoveAt(finalIndex);
+            //int finalIndex = maintenanceCheckViewModel.Checks.Count - 1;
+            //maintenanceCheckViewModel.Checks.RemoveAt(finalIndex);
+
+
+            int index = maintenanceCheckViewModel.MaintenanceCheckID - 1;
+            MaintenanceChecks item = maintenanceCheckViewModel.Checks.Single(r => r.MaintenanceCheckID == maintenanceCheckViewModel.MaintenanceCheckID);
+            maintenanceCheckViewModel.Checks.Remove(item);
+
+
 
             ClearSession();
+
+            try
+            {
+                string crewData = JsonConvert.SerializeObject(item);
+                this.DeleteAsync("http://localhost:8961/api/MaintenanceCheck/", crewData);
+            }
+            catch (AggregateException e)
+            {
+            }
+
+
             maintenanceViewModel.ActiveTab = SessionUtility.Frame_2;
             return PartialView("_CheckItems", maintenanceCheckViewModel);
 

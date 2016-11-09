@@ -108,6 +108,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
             inventoryViewModel.InventoryOrders[index].AdditionalNotes = Model.AdditionalNotes;
             inventoryViewModel.InventoryOrders[index].Deliverydetails = Model.Deliverydetails;
             Model = inventoryViewModel.InventoryOrders[index];
+            Model.CustomerID = inventoryViewModel.CustomerID;
 
             try
             {

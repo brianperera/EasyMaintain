@@ -59,6 +59,18 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         {
             Model.WorkID = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
             Model.Deliverydetails.DeliveryDetailsId = (componentWorkViewModel.ComponentWorkOrders.Count) + 1;
+
+            try
+            {
+
+                string componentWorkData = JsonConvert.SerializeObject(Model);
+
+                this.PostAsync("http://localhost:8425/api/Component/", componentWorkData);
+                componentWorkViewModel.ComponentWorkOrders.Add(Model);
+            }
+            catch (AggregateException e)
+            {
+            }
             return PartialView("_Search", componentWorkViewModel);
         }
         public void PostAsync(string uri, string data)

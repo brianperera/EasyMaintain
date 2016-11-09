@@ -36,9 +36,9 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
         // PUT api/MaintenanceCheck/5 
         [HttpPut]
-        public IHttpActionResult Put(MaintenanceChecks mainteneceCheckID, [FromBody]MaintenanceChecks maintenanceCheck)
+        public IHttpActionResult Put( [FromBody]MaintenanceChecks maintenanceCheck)
         {
-            if (mainteneceCheckID == null || mainteneceCheckID.Equals(0))
+            if (maintenanceCheck.Equals(0))
             {
                 return BadRequest();
             }
@@ -51,7 +51,7 @@ namespace EasyMaintain.MaintenanceWebAPI.Controllers
         }
         // DELETE api/MaintenanceCheck/5 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete([FromBody]MaintenanceChecks id)
         {
             maintenanceChecksLogic.DeleteOne(id);
         }

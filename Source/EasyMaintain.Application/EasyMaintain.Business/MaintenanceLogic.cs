@@ -34,6 +34,9 @@ namespace EasyMaintain.Business
                 _maintenance.FlightModel = maintenance.FlightModel;
                 _maintenance.FlightNumber = maintenance.FlightNumber;
                 _maintenance.Description = maintenance.Description;
+                _maintenance.Location = maintenance.Location;
+                _maintenance.StartDate = maintenance.StartDate;
+                _maintenance.CompletionDate = maintenance.CompletionDate;
 
                 result.Add(_maintenance);
             }

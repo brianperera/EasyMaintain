@@ -19,7 +19,7 @@ namespace EasyMaintain.Business
         {
             this.mMaintenanceChecks = maintenanceCheck as MaintenanceChecks;
             DataProvidor dp = new DataProvidor();
-            dp.DeleteCrew(mMaintenanceChecks.Description);
+            dp.DeleteMaintenanceChecks(mMaintenanceChecks.MaintenanceCheckID);
         }
         public object GetData()
         {
@@ -55,7 +55,7 @@ namespace EasyMaintain.Business
         {
             this.mMaintenanceChecks = maintenanceCheck as MaintenanceChecks;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateMaintenanceChecks(mMaintenanceChecks.Description, mMaintenanceChecks.status);
+            return dp.UpdateMaintenanceChecks(mMaintenanceChecks.MaintenanceCheckID, mMaintenanceChecks.Description, mMaintenanceChecks.status);
         }
 
         public MaintenanceChecks Find(object maintenanceCheckID)

@@ -85,32 +85,6 @@ namespace EasyMaintain.DataAccess
             return workshopList;
         }
 
-
-
-        /// <summary>
-        /// Get Delivery Details
-        /// </summary>
-        /// <returns></returns>
-        ///           
-        //public List<Supplier> GetSupplierData()
-        //{
-        //    List<Supplier> supplierList = new List<Supplier>();
-
-        //    using (var db = new EasyMaintainDBContext())
-        //    {
-        //        var query = from b in db.Suppliers
-        //                    orderby b.SupplierName
-        //                    select b;
-
-        //        foreach (var item in query)
-        //        {
-        //            supplierList.Add(item as Supplier);
-        //        }
-        //    }
-
-        //    return supplierList;
-        //}
-
         /// <summary>
         /// Get Component Work data
         /// </summary>
@@ -769,7 +743,7 @@ namespace EasyMaintain.DataAccess
         /// <param name="manufacturerId"></param>
         /// <param name="imagepath"></param>
         /// <returns></returns>
-        public int AddAircraftModel(string aircraftModelname, string description, string additionalData, string category, string engineType, string imagepath)
+        public int AddAircraftModel(string aircraftModelname,string manufacturer, string description, string additionalData, string category, string engineType, string imagepath)
         {
             int recordId = -1;
 
@@ -779,7 +753,7 @@ namespace EasyMaintain.DataAccess
                 try
                 {
                     var aircraftModel = db.Set<AircraftModel>();
-                    aircraftModel.Add(new AircraftModel { ModelName = aircraftModelname, Category = category, EngineType = engineType, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
+                    aircraftModel.Add(new AircraftModel { ModelName = aircraftModelname, Manufacturer= manufacturer, Category = category, EngineType = engineType, ImagePath = imagepath, Description = description, AdditionalData = additionalData });
 
                     db.SaveChanges();
 
@@ -1016,7 +990,7 @@ namespace EasyMaintain.DataAccess
 
         /// <returns></returns>
 
-        public bool UpdateMaintenanceChecks(string description, bool status)
+        public bool UpdateMaintenanceChecks(int maintenanceCheckID, string description, bool status)
         {
             bool result = false;
 
@@ -1025,7 +999,7 @@ namespace EasyMaintain.DataAccess
             {
                 try
                 {
-                    var maintenanceCheck = db.MaintenanceChecks.SingleOrDefault(s => s.Description.Equals(description));
+                    var maintenanceCheck = db.MaintenanceChecks.SingleOrDefault(s => s.MaintenanceCheckID.Equals(maintenanceCheckID));
 
                     if (maintenanceCheck != null)
                     {
@@ -1399,6 +1373,27 @@ namespace EasyMaintain.DataAccess
                 db.SaveChanges();
             }
         }
+
+
+        /// <summary>
+        /// Delete Maintenance checks
+        /// </summary>
+        /// <param name="componentId"></param>
+        public void DeleteMaintenanceChecks(int maintenanceCheckID)
+        {
+            // Delete
+            using (var db = new EasyMaintainDBContext())
+            {
+                var maintenanceChecks = db.MaintenanceChecks.SingleOrDefault(s => s.MaintenanceCheckID.Equals(maintenanceCheckID));
+                db.MaintenanceChecks.Attach(maintenanceChecks);
+                db.MaintenanceChecks.Remove(maintenanceChecks);
+                db.SaveChanges();
+            }
+        }
+
+
+
+
 
         /// <summary>
         /// Delete Component

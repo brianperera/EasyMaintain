@@ -71,7 +71,8 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult saveEditedAircraft([FromBody]AircraftModel Model)
         {
             Model.AircraftModelID = AircraftModelModel.AircraftModelID;
-            int index = AircraftModelModel.AircraftModelID - 1;
+            var test = AircraftModelModel.AircrafModels.Single(r => r.AircraftModelID== AircraftModelModel.AircraftModelID);
+            int index = AircraftModelModel.AircrafModels.IndexOf(test);
             AircraftModelModel.AircrafModels[index] = Model;
 
             AircraftModelModel.AircraftModelID = Model.AircraftModelID;

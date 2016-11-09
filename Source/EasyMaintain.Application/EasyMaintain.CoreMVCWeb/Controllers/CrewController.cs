@@ -87,7 +87,12 @@ namespace EasyMaintain.CoreMVCWeb.Controllers
         public PartialViewResult saveEditedMember([FromBody]Crew Model)
         {
             Model.CrewID = CrewViewModel.CrewID;
-            CrewViewModel.CrewList[CrewViewModel.currentIndex] = Model;
+
+
+            var test = CrewViewModel.CrewList.Single(r => r.CrewID == CrewViewModel.CrewID);
+            int index = CrewViewModel.CrewList.IndexOf(test);
+            CrewViewModel.CrewList[index] = Model;
+
             ClearSession();
             try
             {

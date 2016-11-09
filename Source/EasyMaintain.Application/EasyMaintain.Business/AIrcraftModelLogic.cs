@@ -62,7 +62,7 @@ namespace EasyMaintain.Business
         {
             this.mAircraftModel = aircraftModel as AircraftModel;
             DataProvidor dp = new DataProvidor();
-            return dp.AddAircraftModel(mAircraftModel.ModelName, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category, mAircraftModel.Manufacturer, mAircraftModel.ImagePath);
+            return dp.AddAircraftModel(mAircraftModel.ModelName, mAircraftModel.Manufacturer, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category, mAircraftModel.EngineType, mAircraftModel.ImagePath);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace EasyMaintain.Business
         {
             this.mAircraftModel = aircraftModel as AircraftModel;
             DataProvidor dp = new DataProvidor();
-            return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.Manufacturer, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category, mAircraftModel.EngineType, mAircraftModel.Manufacturer, mAircraftModel.ImagePath);
+            return dp.UpdateAircraftModel(mAircraftModel.AircraftModelID, mAircraftModel.ModelName, mAircraftModel.Description, mAircraftModel.AdditionalData, mAircraftModel.Category, mAircraftModel.EngineType, mAircraftModel.Manufacturer, mAircraftModel.ImagePath);
         }
         public AircraftModel Find(object AircraftModelID)
         {
