@@ -74,7 +74,9 @@ namespace EasyMaintain.CoreWebMVC.Controllers
         public PartialViewResult NewMaintenanceOrder()
         {
             if (maintenanceViewModel.CrewMembers != null) { maintenanceViewModel.CrewMembers.Clear(); }
+            else { maintenanceViewModel.CrewMembers = new List<Crew>(); }
             if (maintenanceViewModel.CheckItems !=null) { maintenanceViewModel.CheckItems.Clear(); }
+            else { maintenanceViewModel.CheckItems = new List<MaintenanceChecks>(); }
             maintenanceViewModel.FlightModel = null;
             maintenanceViewModel.FlightNumber = null;
             maintenanceViewModel.Description = null;
@@ -304,7 +306,7 @@ namespace EasyMaintain.CoreWebMVC.Controllers
                 maintenanceViewModel.CheckItems = new List<MaintenanceChecks>();
             }
 
-
+            maintenanceViewModel.ActiveTab = SessionUtility.Frame_1;
             return PartialView("_EditMaintenanceOrder", maintenanceViewModel);
 
         }
